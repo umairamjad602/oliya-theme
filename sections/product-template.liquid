@@ -126,6 +126,8 @@
                   case block.type
                     when '@app'
                       render 'product-template-app', product: product, block: block
+                    when 'product_full_panel'
+                      render 'product-template-full-panel', product: product, block: block, section: section
                     when 'custom_html'
                       render 'product-template-custom-html', product: product, block: block
                     when 'custom_text'
@@ -571,6 +573,79 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "product_full_panel",
+      "name": "Full Product Panel",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Shipping Info"
+        },
+        {
+          "type": "text",
+          "id": "free_shipping_text",
+          "label": "Free shipping text",
+          "default": "Free Standard Shipping Over $99.00"
+        },
+        {
+          "type": "text",
+          "id": "shipping_time_text",
+          "label": "Shipping time text",
+          "default": "Shipping Time: 10 - 20 days"
+        },
+        {
+          "type": "textarea",
+          "id": "return_policy_text",
+          "label": "Return policy text",
+          "default": "Returns accepted within 30 days of delivery date."
+        },
+        {
+          "type": "header",
+          "content": "Care Instructions"
+        },
+        {
+          "type": "textarea",
+          "id": "care_instructions",
+          "label": "Care instructions",
+          "default": "Machine wash cold with like colors. Do not bleach. Tumble dry low."
+        },
+        {
+          "type": "header",
+          "content": "Size Guide"
+        },
+        {
+          "type": "checkbox",
+          "id": "size_guide_enable",
+          "label": "Show size guide bar",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "size_guide_text",
+          "label": "Size guide label",
+          "default": "SIZE GUIDE"
+        },
+        {
+          "type": "url",
+          "id": "size_guide_url",
+          "label": "Size guide page URL"
+        },
+        {
+          "type": "text",
+          "id": "more_sizing_text",
+          "label": "More sizing options label",
+          "default": "More Sizing Options"
+        },
+        {
+          "type": "text",
+          "id": "size_chart_options",
+          "label": "Size chart dropdown options",
+          "info": "Comma-separated (e.g. Standard Size, US Size, UK Size)",
+          "default": "Standard Size, US Size, UK Size, EU Size"
+        }
+      ]
     },
     {
       "type": "custom_html",

@@ -1,0 +1,308 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'product-form-' | append: section.id
+  assign color_label = 'Color,color,colour,couleur,cor,colore,farbe,색,色,カラー,färg,farve,szín,barva' | split: ','
+  assign compare_at_price = current_variant.compare_at_price
+  assign price = current_variant.price
+  assign has_hot_tag = false
+  for tag in product.tags
+    assign tag_down = tag | downcase
+    if tag_down == 'hot'
+      assign has_hot_tag = true
+    endif
+  endfor
+-%}
+
+<div class="pdp-panel product-info" {{ block.shopify_attributes }}>
+
+  <!-- Title + Wishlist -->
+  <div class="pdp-title-row">
+    <h1 class="pdp-title mr-0">{{ product.title | escape | default: 'Example Product Title' }}</h1>
+    <button class="pdp-wishlist-btn" type="button" aria-label="Add to wishlist">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </button>
+  </div>
+
+  <!-- Price + Review Stars -->
+  <div class="pdp-price-stars-row">
+    <div class="pdp-price-box" id="pdp-price-{{ section.id }}">
+      <span class="pdp-price-current">{{ price | money }}</span>
+      {%- if compare_at_price > price -%}
+        <span class="pdp-price-was">{{ compare_at_price | money }}</span>
+      {%- endif -%}
+    </div>
+    {%- assign reviews_rating = product.metafields.reviews.rating.value -%}
+    {%- assign reviews_count = product.metafields.reviews.rating_count.value -%}
+    {%- if reviews_rating != blank -%}
+      <div class="pdp-reviews-box">
+        <div class="pdp-stars-wrap" title="{{ reviews_rating | round: 1 }} out of 5 stars">
+          {%- assign rating_floor = reviews_rating | floor -%}
+          {%- assign rating_decimal = reviews_rating | minus: rating_floor -%}
+          {%- for i in (1..5) -%}
+            {%- if i <= rating_floor -%}
+              <span class="pdp-star pdp-star--full">&#9733;</span>
+            {%- elsif rating_decimal >= 0.5 and i == rating_floor | plus: 1 -%}
+              <span class="pdp-star pdp-star--half">&#9733;</span>
+            {%- else -%}
+              <span class="pdp-star pdp-star--empty">&#9733;</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <a href="#reviews" class="pdp-reviews-link">{{ reviews_count }} &#8250;</a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <!-- Badges -->
+  {%- if has_hot_tag -%}
+    <span class="pdp-badge pdp-badge--hot">HOT</span>
+  {%- endif -%}
+  {%- if compare_at_price > price -%}
+    {%- assign discount_pct = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | floor -%}
+    <span class="pdp-badge pdp-badge--sale">-{{ discount_pct }}%</span>
+  {%- endif -%}
+
+  <!-- Variant Picker -->
+  {%- unless product.has_only_default_variant -%}
+    <pr-option
+      id="variant-radios-{{ section.id }}"
+      class="pdp-variant-picker pr-option"
+      data-section="{{ section.id }}"
+      data-url="{{ product.url }}"
+    >
+      {%- for option in product.options_with_values -%}
+        {%- liquid
+          assign option_downcase = option.name | downcase
+          assign is_color = false
+          if color_label contains option_downcase
+            assign is_color = true
+          endif
+        -%}
+
+        {%- if is_color -%}
+          <div class="pdp-option pdp-option--color js variant-option-block">
+            <div class="pdp-option-label">
+              <span class="pdp-option-name">{{ option.name | upcase }}</span>
+              <span class="pdp-option-sep"> / SIZE</span>
+            </div>
+            <div class="pdp-swatches option-block">
+              {% render 'product-variant-options',
+                product: product,
+                option: option,
+                block: block,
+                picker_type: 'swatch'
+              %}
+            </div>
+          </div>
+
+        {%- else -%}
+          <div class="pdp-option pdp-option--size js variant-option-block">
+            <div class="pdp-size-header-row">
+              <div class="pdp-size-chart-wrap">
+                <select class="pdp-size-chart-select" aria-label="Size chart type">
+                  {%- if block.settings.size_chart_options != blank -%}
+                    {%- assign chart_options = block.settings.size_chart_options | split: ',' -%}
+                    {%- for chart_opt in chart_options -%}
+                      <option>{{ chart_opt | strip }}</option>
+                    {%- endfor -%}
+                  {%- else -%}
+                    <option>Standard Size</option>
+                    <option>US Size</option>
+                    <option>UK Size</option>
+                    <option>EU Size</option>
+                  {%- endif -%}
+                </select>
+                <svg class="pdp-select-caret" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </div>
+              {%- if block.settings.size_guide_url != blank -%}
+                <a href="{{ block.settings.size_guide_url }}" class="pdp-more-sizes-link">{{ block.settings.more_sizing_text | default: 'More Sizing Options' }}</a>
+              {%- else -%}
+                <span class="pdp-more-sizes-link">{{ block.settings.more_sizing_text | default: 'More Sizing Options' }}</span>
+              {%- endif -%}
+            </div>
+            <div class="pdp-size-pills option-block">
+              {% render 'product-variant-options',
+                product: product,
+                option: option,
+                block: block,
+                picker_type: 'button'
+              %}
+            </div>
+          </div>
+        {%- endif -%}
+
+      {%- endfor -%}
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </pr-option>
+  {%- endunless -%}
+
+  <!-- Size Guide Bar -->
+  {%- if block.settings.size_guide_enable -%}
+    <div class="pdp-size-guide-bar">
+      {%- if block.settings.size_guide_url != blank -%}
+        <a href="{{ block.settings.size_guide_url }}" class="pdp-size-guide-trigger">
+      {%- else -%}
+        <button type="button" class="pdp-size-guide-trigger">
+      {%- endif -%}
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+          {{ block.settings.size_guide_text | default: 'SIZE GUIDE' }}
+          <svg class="pdp-size-guide-arrow" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      {%- if block.settings.size_guide_url != blank -%}
+        </a>
+      {%- else -%}
+        </button>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <!-- Add to Bag -->
+  <cart-action class="pdp-atb-section" data-hide-errors="false">
+    <div class="pr-form-error" role="alert" hidden>
+      <span class="pr-form-error-text"></span>
+    </div>
+    {%- form 'product', product,
+      id: product_form_id,
+      class: 'form pdp-product-form',
+      novalidate: 'novalidate',
+      data-type: 'add-to-cart-form'
+    -%}
+      <input type="hidden" name="id" value="{{ current_variant.id }}" disabled class="product-variant-id">
+      <div class="pr-form-button">
+        <div class="ajax-cart-btn">
+          <button
+            id="ProductSubmitButton-{{ section.id }}"
+            type="submit"
+            name="add"
+            class="pdp-atb-btn"
+            {% if current_variant.available == false %}disabled{% endif %}
+            aria-label="{{ 'products.product.add_to_cart' | t }}"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            <span class="cart-title">
+              {%- if current_variant.available -%}
+                ADD TO BAG
+              {%- else -%}
+                SOLD OUT
+              {%- endif -%}
+            </span>
+            <div class="ajax-loader hidden"><span class="spinner-border"></span></div>
+          </button>
+        </div>
+      </div>
+    {%- endform -%}
+  </cart-action>
+
+  <div class="pdp-divider"></div>
+
+  <!-- Accordions -->
+  <div class="pdp-accordions">
+
+    <!-- Shipping Accordion -->
+    <div class="pdp-accordion">
+      <button
+        class="pdp-accordion-header"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#pdp-shipping-{{ section.id }}"
+        aria-expanded="false"
+      >
+        <span>SHIPPING TO <u>{{ localization.country.name | upcase | default: shop.address.country | upcase }}</u></span>
+        <svg class="pdp-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="collapse" id="pdp-shipping-{{ section.id }}">
+        <div class="pdp-accordion-body">
+
+          <div class="pdp-shipping-row">
+            <button
+              class="pdp-shipping-row-btn"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#pdp-delivery-{{ section.id }}"
+              aria-expanded="false"
+            >
+              <span class="pdp-ship-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+              </span>
+              <span>Delivery</span>
+              <svg class="pdp-chevron-sm" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            <div class="collapse" id="pdp-delivery-{{ section.id }}">
+              <div class="pdp-delivery-info">
+                <p>{{ block.settings.free_shipping_text | default: 'Free Standard Shipping Over $99.00' }}</p>
+                <p>{{ block.settings.shipping_time_text | default: 'Shipping Time: 10 - 20 days' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pdp-shipping-row">
+            <button
+              class="pdp-shipping-row-btn"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#pdp-return-{{ section.id }}"
+              aria-expanded="false"
+            >
+              <span class="pdp-ship-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 .49-3.52"></path></svg>
+              </span>
+              <span>Return Policy</span>
+              <svg class="pdp-chevron-sm" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+            <div class="collapse" id="pdp-return-{{ section.id }}">
+              <div class="pdp-delivery-info">
+                <p>{{ block.settings.return_policy_text | default: 'Returns accepted within 30 days of delivery date.' }}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Description Accordion -->
+    <div class="pdp-accordion">
+      <button
+        class="pdp-accordion-header"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#pdp-desc-{{ section.id }}"
+        aria-expanded="false"
+      >
+        <span>PRODUCT DESCRIPTION</span>
+        <svg class="pdp-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="collapse" id="pdp-desc-{{ section.id }}">
+        <div class="pdp-accordion-body pdp-desc-body">
+          {{ product.description }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Care Instruction Accordion -->
+    <div class="pdp-accordion">
+      <button
+        class="pdp-accordion-header"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#pdp-care-{{ section.id }}"
+        aria-expanded="false"
+      >
+        <span>CARE INSTRUCTION</span>
+        <svg class="pdp-chevron-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div class="collapse" id="pdp-care-{{ section.id }}">
+        <div class="pdp-accordion-body">
+          {%- if product.metafields.custom.care_instructions != blank -%}
+            {{ product.metafields.custom.care_instructions }}
+          {%- else -%}
+            <p>{{ block.settings.care_instructions | default: 'Machine wash cold with like colors. Do not bleach. Tumble dry low. Iron on low heat if needed.' }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
