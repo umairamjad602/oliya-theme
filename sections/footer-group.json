@@ -36,6 +36,22 @@
             "footer_menu_handle": "our-policies"
           }
         },
+        "custom_menu_f7pEN4": {
+          "type": "custom_menu",
+          "settings": {
+            "nav_title": "Contact Us",
+            "link_title1": "We’re here to help! Contact OLYIA for any questions about orders, products, or support.",
+            "link_url1": "",
+            "link_title2": "",
+            "link_url2": "",
+            "link_title3": "",
+            "link_url3": "",
+            "link_title4": "",
+            "link_url4": "",
+            "link_title5": "",
+            "link_url5": ""
+          }
+        },
         "footer_menu_MNccdm": {
           "type": "footer_menu",
           "settings": {
@@ -93,33 +109,17 @@
             "link_title5": "",
             "link_url5": ""
           }
-        },
-        "custom_menu_f7pEN4": {
-          "type": "custom_menu",
-          "settings": {
-            "nav_title": "Contact Us",
-            "link_title1": "We’re here to help! Contact OLYIA for any questions about orders, products, or support.",
-            "link_url1": "",
-            "link_title2": "",
-            "link_url2": "",
-            "link_title3": "",
-            "link_url3": "",
-            "link_title4": "",
-            "link_url4": "",
-            "link_title5": "",
-            "link_url5": ""
-          }
         }
       },
       "block_order": [
         "logo_info_kz6DRX",
         "d1540fe8-8772-4501-9ee7-01a83247a165",
         "footer_menu_tdbaiQ",
+        "custom_menu_f7pEN4",
         "footer_menu_MNccdm",
         "custom_menu_QEQ6if",
         "custom_menu_Ly8DBc",
-        "606f6a34-0f2c-4cbd-981b-3bad26764419",
-        "custom_menu_f7pEN4"
+        "606f6a34-0f2c-4cbd-981b-3bad26764419"
       ],
       "settings": {
         "container": "normal",
