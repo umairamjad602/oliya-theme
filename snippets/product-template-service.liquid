@@ -1,0 +1,43 @@
+<div class="product-info" {{ block.shopify_attributes }}>
+  <div class="ser-block">
+    <ul class="list-unstyled grid-wrap">
+      <li class="grid-wrapper">
+        <a href="{{ block.settings.service_url }}">
+          {{ block.settings.icon_img }}
+          <div class="service-text">
+            {% if block.settings.service_title != '' %}
+              <h6 class="mr-0">{{ block.settings.service_title }}</h6>
+            {% endif %}
+          </div>
+        </a>
+      </li>
+      <li class="grid-wrapper">
+        <a href="{{ block.settings.service_url2 }}">
+          {{ block.settings.icon_img2 }}
+          <div class="service-text">
+            {% if block.settings.service_title2 != '' %}
+              <h6 class="mr-0">{{ block.settings.service_title2 }}</h6>
+            {% endif %}
+          </div>
+        </a>
+      </li>
+      <li class="grid-wrapper">
+        <a href="{{ block.settings.service_url3 }}">
+          {{ block.settings.icon_img3 }}
+          <div class="service-text">
+            {% if block.settings.service_title3 != '' %}
+              <h6 class="mr-0">{{ block.settings.service_title3 }}</h6>
+            {% endif %}
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<style type="text/css">
+.product-info .ser-block {
+  padding: 30px;
+  border: var(--sti-border);
+  border-radius: var(--sti-border-radius);
+}
+</style>

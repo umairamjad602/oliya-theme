@@ -1,0 +1,414 @@
+{{ 'slideshow.css' | asset_url | stylesheet_tag }}
+<section class="slider-content">
+  <div class="home-slider swiper" id="home-slider-{{ section.id }}">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide slide-{{ block.id }}" {{ block.shopify_attributes }}>
+          <div class="slide-image">
+            <a href="{{ block.settings.slider_button_url }}" title="{{ block.settings.slider_button }}">
+
+                {%- if block.settings.slider_img != blank -%}
+                  {% assign image_height = block.settings.slider_img.width
+                    | divided_by: block.settings.slider_img.aspect_ratio
+                  %}
+                  {{
+                    block.settings.slider_img
+                    | image_url: width: 3840
+                    | image_tag:
+                      width: block.settings.slider_img.width,
+                      height: image_height,
+                      class: 'lazyload desk-img',
+                      loading: 'lazy'
+                  }}
+                {%- else -%}
+                  {%- capture placeholder -%}hero-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
+                  {{ placeholder | placeholder_svg_tag: 'placeholder-svg desk-img' }}
+                {%- endif -%}
+                {%- if block.settings.slider_mobile_img != blank -%}
+                  {% assign image_height = block.settings.slider_mobile_img.width
+                    | divided_by: block.settings.slider_mobile_img.aspect_ratio
+                  %}
+                  {{
+                    block.settings.slider_mobile_img
+                    | image_url: width: 600
+                    | image_tag:
+                      width: block.settings.slider_mobile_img.width,
+                      height: image_height,
+                      class: 'lazyload mobile-img',
+                      loading: 'lazy'
+                  }}
+                {%- else -%}
+                  {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
+                  {{ placeholder | placeholder_svg_tag: 'placeholder-svg mobile-img' }}
+                {%- endif -%}
+            </a>
+
+            <div class="container slider-info-content {% if block.settings.mobile_text_enable %} sm-dnone{% endif %}">
+
+            {% if section.settings.show_collection_image %}
+              <div class="collection-img">
+                  {% assign category_product = collections[block.settings.slider_category_handle] %}
+                  <div class="grid-wrapper leftside" {{ block.shopify_attributes }}>
+                    <div class="cat-block">
+                      <a href="{{ category_product.url }}">
+                        <div class="cat-img">
+                          {%- if block.settings.cat_img != blank -%}
+                            {{
+                              block.settings.cat_img
+                              | image_url: width: 512
+                              | image_tag:
+                                loading: 'lazy',
+                                width: block.settings.cat_img.width,
+                                height: block.settings.cat_img.height,
+                                class: 'lazyload desk-iwddmg',
+                                alt: block.settings.cat_img.alt
+                              | escape
+                            }}
+                          {%- else -%}
+                            {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                            {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                          {%- endif -%}
+                        </div>
+                        <div class="text-block">
+                          <h6 class="cat-title mr-0" data-fade-in>{{ category_product.title | default: 'Collection' }}</h6>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  {% assign category_product = collections[block.settings.slider_category_handle2] %}
+                    <div class="grid-wrapper rightside" {{ block.shopify_attributes }}>
+                      <div class="cat-block">
+                        <a href="{{ category_product.url }}">
+                          <div class="cat-img">
+                            {%- if block.settings.cat_img2 != blank -%}
+                              {{
+                                block.settings.cat_img2
+                                | image_url: width: 512
+                                | image_tag:
+                                  loading: 'lazy',
+                                  width: block.settings.cat_img2.width,
+                                  height: block.settings.cat_img2.height,
+                                  class: 'lazyload desk-imddwg',
+                                  alt: block.settings.cat_img2.alt
+                                | escape
+                              }}
+                            {%- else -%}
+                              {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                              {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                            {%- endif -%}
+                          </div>
+                          <div class="text-block">
+                            <h6 class="cat-title mr-0" data-fade-in>{{ category_product.title | default: 'Collection' }}</h6>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+              </div>
+            {% endif %}
+
+            <div class="slider-text-info{% if block.settings.slider_content_position == "right" %} slider-content-right{% elsif block.settings.slider_content_position == "left" %} slider-content-left{% else %} slider-content-center{% endif %}{% if block.settings.slider_text_position == "right" %} slider-text-right{% elsif block.settings.slider_text_position == "left" %} slider-text-left{% else %} slider-text-center{% endif %}">
+
+              <div class="slider-textarea">
+                  {% if block.settings.slider_desc != '' %}
+                    <span class="sub-title">
+                      {{- block.settings.slider_desc -}}
+                    </span>
+                  {% endif %}
+                  {% if block.settings.slider_title != '' %}
+                    <h2 class="m-0">
+                      {{ block.settings.slider_title }}
+                    </h2>
+                  {% endif %}
+                  {% if block.settings.slider_button != '' %}
+                    <div class="text-btn">
+                      <a
+                        href="{{ block.settings.slider_button_url }}"
+                        class="btn-style"
+                        title="{{- block.settings.slider_button }}"
+                        style="--btn-txt-color: {{ block.settings.btn_txt_color }}; --btn-txt-hvr-color: {{ block.settings.btn_txt_hvr_color }}; --btn-bg-color: {{ block.settings.btn_bg_color }}; --btn-bg-hvr-color: {{ block.settings.btn_bg_hvr_color }};"
+                      >
+                        {{- block.settings.slider_button }}
+                      </a>
+                    </div>
+                  {% endif %}
+              </div>
+
+            </div>
+          </div>
+
+            
+          </div>
+
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.settings.dots_enable %}
+      <div class="slider-dot"></div>
+    {% endif %}
+    {% if section.settings.arrow_enable %}
+      <div class="slider-arrow">
+        <button class="arrow-prev" aria-label="arrow"><i class="feather-arrow-left"></i></button>
+        <button class="arrow-next" aria-label="arrow"><i class="feather-arrow-right"></i></button>
+      </div>
+    {% endif %}
+  </div>
+</section>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function () {
+  var swiper = new Swiper('#home-slider-{{ section.id }}', {
+    slidesPerView: 1,
+    loop: false,
+    spaceBetween: 0,
+    autoHeight: true,
+
+    {% if section.settings.slider_autoplay_enable %}
+    autoplay: {
+      delay: {{ section.settings.slider_autoplay_timeout }},
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true
+    },
+    speed: {{ section.settings.slider_autoplay_speed }},
+    {% endif %}
+
+    {% if section.settings.dots_enable %}
+    pagination: {
+      el: ".slider-dot",
+      clickable: true,
+      renderBullet: function (index, className) {
+        return '<span class="' + className + '"></span>';
+      }
+    },
+    {% endif %}
+
+    {% if section.settings.arrow_enable %}
+    navigation: {
+      nextEl: ".arrow-next",
+      prevEl: ".arrow-prev",
+    },
+    {% endif %}
+  });
+});
+</script>
+{% schema %}
+{
+  "name": "Slideshow",
+  "settings": [
+    {
+      "type": "text",
+      "id": "item_title",
+      "label": "Product heading",
+      "default": "Product"
+    },
+    {
+      "type": "header",
+      "content": "Autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_autoplay_enable",
+      "label": "Show autoplay",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "slider_autoplay_timeout",
+      "label": "Autoplay timeout",
+      "default": 5000,
+      "info": "Put timeout by multiply 'X1000' this field"
+    },
+    {
+      "type": "number",
+      "id": "slider_autoplay_speed",
+      "label": "Autoplay speed",
+      "default": 1000,
+      "info": "Put speed by multiply 'X100' this field"
+    },
+    {
+      "type": "checkbox",
+      "id": "arrow_enable",
+      "label": "Arrow",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "dots_enable",
+      "label": "Enable slider dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "label": "Collection image enable/disable",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider_textarea_styles",
+      "label": "Enable slider textarea styles",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "slider_category_handle",
+          "label": "Select left collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "cat_img",
+          "label": "Left Image",
+          "info": "Recommended size: 680x875px"
+        },
+        {
+          "type": "collection",
+          "id": "slider_category_handle2",
+          "label": "Select right collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "cat_img2",
+          "label": "Right Image",
+          "info": "Recommended size: 680x875px"
+        },
+        {
+          "type": "header",
+          "content": "Desktop image"
+        },
+        {
+          "type": "image_picker",
+          "id": "slider_img",
+          "label": "Image",
+          "info": "Recommended size: 1920x800px"
+        },
+        {
+          "type": "image_picker",
+          "id": "slider_mobile_img",
+          "label": "Mobile image",
+          "info": "Recommended size: 600x750px"
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "checkbox",
+          "id": "mobile_text_enable",
+          "label": "Text disable on mobile",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "slider_desc",
+          "label": "Subheading",
+          "default": "Discover collection"
+        },
+        {
+          "type": "color",
+          "id": "slider_desc_color",
+          "label": "Subheading color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "text",
+          "id": "slider_title",
+          "label": "Heading",
+          "default": "New woman fashion arrivals"
+        },
+        {
+          "type": "color",
+          "id": "slider_title_color",
+          "label": "Heading color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "text",
+          "id": "slider_button",
+          "label": "Button label",
+          "default": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "slider_button_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Text content position"
+        },
+        {
+          "type": "select",
+          "id": "slider_content_position",
+          "label": "Content position",
+          "options": [
+            {
+              "label": "Left",
+              "value": "left"
+            },
+            {
+              "label": "Right",
+              "value": "right"
+            },
+            {
+              "label": "Center",
+              "value": "center"
+            }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "header",
+          "content": "Text position"
+        },
+        {
+          "type": "select",
+          "id": "slider_text_position",
+          "label": "Text position",
+          "options": [
+            {
+              "label": "Left",
+              "value": "left"
+            },
+            {
+              "label": "Right",
+              "value": "right"
+            },
+            {
+              "label": "Center",
+              "value": "center"
+            }
+          ],
+          "default": "left"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+
+@media(max-width: 600px) {
+  {% if section.settings.show_collection_image %}
+    .slider-content .home-slider .slide-image .slider-info-content .slider-text-info.slider-text-center {
+      top: 33.33% !important;
+    }
+  {% endif %}
+}
+</style>

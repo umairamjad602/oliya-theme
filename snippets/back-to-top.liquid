@@ -1,0 +1,73 @@
+<button id="back-to-top" class="back-to-top" aria-label="back-to-top">
+  <span id="progress-bar"></span>
+  <i class="feather-arrow-up"></i>
+</button>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', () => {
+      const backToTopButton = document.getElementById('back-to-top');
+      const progressBar = document.getElementById('progress-bar');
+
+      // Show or hide the button when scrolling
+      window.addEventListener('scroll', () => {
+          const scrollTop = window.scrollY;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrollPercent = (scrollTop / docHeight) * 100;
+          progressBar.style.height = scrollPercent + '%';
+
+          if (scrollTop > 300) {
+              backToTopButton.classList.add('show');
+              backToTopButton.classList.remove('hide');
+          } else {
+              backToTopButton.classList.add('hide');
+              backToTopButton.classList.remove('show');
+          }
+      });
+
+      // Scroll back to the top smoothly when the button is clicked
+      backToTopButton.addEventListener('click', () => {
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      });
+  });
+</script>
+<style>
+  button.back-to-top {
+      position: fixed;
+      bottom: 60px;
+      inset-inline-end: 30px;
+      z-index: 2;
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+      font-size: 16px;
+      line-height: 1;
+      height: 40px;
+      width: 40px;
+      background-color: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+      border-radius: var(--sti-border-radius);
+      -webkit-transition: all 0s ease-in-out 0s;
+      -o-transition: all 0s ease-in-out 0s;
+      transition: all 0s ease-in-out 0s;
+  }
+  button.back-to-top #progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background-color: var(--font-color-primary);
+  }
+  button.back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-30px);
+      -webkit-transition: all 0.3s ease-in-out 0s;
+      -o-transition: all 0.3s ease-in-out 0s;
+      transition: all 0.3s ease-in-out 0s;
+  }
+  button.back-to-top i {
+      position: relative;
+  }
+</style>

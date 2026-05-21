@@ -1,0 +1,147 @@
+{% if product != blank %}
+{%- liquid
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  else
+    assign target = product
+  endif
+
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign price_min = product.price_min
+  assign price_max = product.price_max
+  assign money_price = price | money
+  assign money_price_min = price_min | money
+  assign money_price_max = price_max | money
+  if settings.currency_code_enabled
+    assign money_price = price | money_with_currency
+    assign money_price_min = price_min | money_with_currency
+    assign money_price_max = price_max | money_with_currency
+  endif
+
+  if target == product and product.price_varies
+    assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+  endif
+-%}
+<div class="product-info" {{ block.shopify_attributes }}>
+  {%- unless target == null -%}
+    <div class="pro-prlb">
+      {%- if product.quantity_price_breaks_configured? -%}
+        {%- if show_compare_at_price == true and compare_at_price -%}
+          {%- unless product.price_varies == false and product.compare_at_price_varies %}
+            <span>
+              <s class="price-item price-item--regular variant-item__old-price">
+                {% if settings.currency_code_enabled %}
+                  {{ compare_at_price | money_with_currency }}
+                {% else %}
+                  {{ compare_at_price | money }}
+                {% endif %}
+              </s>
+            </span>
+          {%- endunless -%}
+        {%- endif -%}
+        <span class="price-item price-item--regular">
+          {{- 'products.product.volume_pricing.price_range' | t: minimum: money_price_min, maximum: money_price_max -}}
+        </span>
+      {%- endif -%}
+      <div class="price-box {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} price--on-sale{% endif -%}" id="price-{{ section.id }}">
+        <span class="new-price" id="ProductPrice">
+          {{ money_price }}
+        </span>
+        {%- unless product.price_varies == false and product.compare_at_price_varies %}
+          <span class="old-price" id="ComparePrice">
+            {% if settings.currency_code_enabled %}
+              {{ compare_at_price | money_with_currency }}
+            {% else %}
+              {{ compare_at_price | money }}
+            {% endif %}
+          </span>
+        {%- endunless -%}
+      </div>
+      <div
+        class="product-label"
+
+        {% if settings.sale_percent_enable
+          and product.selected_or_first_available_variant.compare_at_price
+            > product.selected_or_first_available_variant.price
+          and product.available == true
+        %}
+          style="display: block;"
+        {% else %}
+          style="display: none;"
+        {% endif %}
+      >
+        {{ 'products.product.sale' | t }}
+        <span class="percent-count" id="ProductDiscount">
+          {{-
+            product.selected_or_first_available_variant.compare_at_price
+            | minus: product.selected_or_first_available_variant.price
+            | times: 100.0
+            | divided_by: product.selected_or_first_available_variant.compare_at_price
+            | money_without_currency
+            | replace: ',', '.'
+            | times: 100
+            | remove: '.0'
+          -}}
+        </span>
+      </div>
+    </div>
+    <small class="unit-price caption{% if product.selected_or_first_available_variant.unit_price_measurement == nil %} hidden{% endif %}" id="unit-price-{{ section.id }}">
+      <span class="price-item price-item--last">
+        <span>{{- product.selected_or_first_available_variant.unit_price | money -}}</span>
+        <span aria-hidden="true">/</span>
+        <span>
+          {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+            {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+          {%- endif -%}
+          {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+        </span>
+      </span>
+    </small>
+  {%- endunless -%}
+  {%- if product.quantity_price_breaks_configured? -%}
+    <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
+      <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+    </div>
+  {%- endif -%}
+  {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
+    <div class="product__tax caption rte">
+      {%- if cart.duties_included and cart.taxes_included -%}
+        {{ 'products.product.duties_and_taxes_included' | t }}
+      {%- elsif cart.taxes_included -%}
+        {{ 'products.product.taxes_included' | t }}
+      {%- elsif cart.duties_included -%}
+        {{ 'products.product.duties_included' | t }}
+      {%- endif -%}
+      {%- if shop.shipping_policy.body != blank -%}
+        {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+  {% if product != blank %}
+  {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+  {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
+    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    {{ form | payment_terms }}
+  {%- endform -%}
+  {% endif %}
+  {% if block.settings.shipping_tax != blank %}
+  <p class="mr-0 shipping-tax">{{ block.settings.shipping_tax }}</p>
+  {% endif %}
+</div>
+{% else %}
+<div class="product-info">
+  <div class="pro-prlb">
+    <div class="price-box" id="price-{{ section.id }}">
+      <span class="new-price" id="ProductPrice">
+        {{ '1900' | money }}
+      </span>
+    </div>
+  </div>
+</div>
+{% endif %}
+<style type="text/css">
+  .product-info .shipping-tax {
+    font-size: 12px;
+  }
+</style>

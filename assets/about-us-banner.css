@@ -1,0 +1,20 @@
+.about-section1 {
+  background-color: var(--background-color);
+}
+.about-section1 .about-content .about-banner .about-banner-area {
+  margin-top: var(--padding-top) px;
+}
+.about-section1 .about-content .about-banner .about-banner-area a {
+  display: block;
+}
+.about-section1 .about-content .about-banner .about-banner-area:first-child {
+  margin-top: 0;
+}
+.about-section1 .about-content .about-banner .about-banner-area img {
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .about-section1 .about-content .about-banner .about-banner-area {
+    margin-top: var(--padding-top-xs) px;
+  }
+}

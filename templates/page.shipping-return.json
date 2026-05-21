@@ -1,0 +1,210 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "refund-policy": {
+      "type": "refund-policy",
+      "blocks": {
+        "09d6e47d-d4d9-415a-a3d3-5c764642b922": {
+          "type": "sub_title",
+          "settings": {
+            "sub_title": "Returns"
+          }
+        },
+        "338b6e09-7ac9-4523-8c74-fb4298520d83": {
+          "type": "description",
+          "settings": {
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production. To this end, we have developed Inditex's The List program."
+          }
+        },
+        "9c156987-9d11-44f3-abd9-32b531f25c21": {
+          "type": "text_point",
+          "settings": {
+            "list_point": "The Green to Wear 2.0 standard aims to minimize",
+            "list_desc": ""
+          }
+        },
+        "858ae78e-ba2b-4dcf-81ba-0a91a94502e0": {
+          "type": "text_point",
+          "settings": {
+            "list_point": "The Green to Wear 2.0 standard aims to minimize",
+            "list_desc": ""
+          }
+        },
+        "09878ba9-be0f-4371-98d4-86a4f9fa2672": {
+          "type": "text_point",
+          "settings": {
+            "list_point": "The Green to Wear 2.0 standard aims to minimize",
+            "list_desc": ""
+          }
+        },
+        "0f32fb35-a3a2-4ffd-bde2-6bcaea1c501d": {
+          "type": "text_point",
+          "settings": {
+            "list_point": "To this end, we have developed Inditex's The List program.",
+            "list_desc": ""
+          }
+        },
+        "b73654ac-f355-4f12-863a-f4bb7ccfa601": {
+          "type": "sub_title",
+          "settings": {
+            "sub_title": "Exchanges"
+          }
+        },
+        "01ee6c70-7518-41f0-9816-d7cbcb8dd2f1": {
+          "type": "description",
+          "settings": {
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production."
+          }
+        },
+        "10f71ab2-de6b-467e-aa30-00f18d634c60": {
+          "type": "description",
+          "settings": {
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production. To this end, we have developed Inditex's The List program."
+          }
+        },
+        "3ff1f031-cb1e-4b75-92d6-709a8919df8f": {
+          "type": "text_point",
+          "settings": {
+            "list_point": "We only replace items if they are defective or damaged:",
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production."
+          }
+        },
+        "18c2836d-70a4-4e9d-951f-934556af97f6": {
+          "type": "text_point",
+          "settings": {
+            "list_point": "If the item wasn’t marked as a gift when purchased:",
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production."
+          }
+        },
+        "a4d3e3bf-419c-4844-be73-1544a3f2a504": {
+          "type": "sub_title2",
+          "settings": {
+            "sub_title": "Refunds"
+          }
+        },
+        "be2280ee-9248-4750-b2cd-89cd6b306504": {
+          "type": "description2",
+          "settings": {
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production. To this end, we have developed Inditex's The List program."
+          }
+        },
+        "2d3c757b-e931-4e70-abe5-0d10b9948126": {
+          "type": "text_point2",
+          "settings": {
+            "list_point": "The Green to Wear 2.0 standard aims to minimize",
+            "list_desc": ""
+          }
+        },
+        "92d0dbaf-cd9a-4999-8f65-5303dab887f2": {
+          "type": "text_point2",
+          "settings": {
+            "list_point": "To this end, we have developed Inditex's The List program.",
+            "list_desc": ""
+          }
+        },
+        "7cea668d-0ab5-4e88-acce-3e9811b03e8d": {
+          "type": "text_point2",
+          "settings": {
+            "list_point": "The Green to Wear 2.0 standard aims to minimize",
+            "list_desc": ""
+          }
+        },
+        "e1f14a10-16ed-4706-b113-55e8f742eff0": {
+          "type": "text_point2",
+          "settings": {
+            "list_point": "To this end, we have developed Inditex's The List program.",
+            "list_desc": ""
+          }
+        },
+        "baccf16d-13af-48d6-9a82-61ab6d68528b": {
+          "type": "sub_title2",
+          "settings": {
+            "sub_title": "Shipping"
+          }
+        },
+        "aa793e1d-0526-42ac-a702-eff59dd13911": {
+          "type": "description2",
+          "settings": {
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production."
+          }
+        },
+        "bb73e24a-30b5-4343-93a3-6b722a778d97": {
+          "type": "description2",
+          "settings": {
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production. To this end, we have developed Inditex's The List program."
+          }
+        },
+        "139fa52a-d17d-42bb-a05e-3d235c5b3b76": {
+          "type": "text_point2",
+          "settings": {
+            "list_point": "To return your product:",
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production."
+          }
+        },
+        "c58d0d98-91a4-44b8-b1a3-7197a1fc48ab": {
+          "type": "text_point2",
+          "settings": {
+            "list_point": "Depending on where you live:",
+            "list_desc": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production."
+          }
+        }
+      },
+      "block_order": [
+        "09d6e47d-d4d9-415a-a3d3-5c764642b922",
+        "338b6e09-7ac9-4523-8c74-fb4298520d83",
+        "9c156987-9d11-44f3-abd9-32b531f25c21",
+        "858ae78e-ba2b-4dcf-81ba-0a91a94502e0",
+        "09878ba9-be0f-4371-98d4-86a4f9fa2672",
+        "0f32fb35-a3a2-4ffd-bde2-6bcaea1c501d",
+        "b73654ac-f355-4f12-863a-f4bb7ccfa601",
+        "01ee6c70-7518-41f0-9816-d7cbcb8dd2f1",
+        "10f71ab2-de6b-467e-aa30-00f18d634c60",
+        "3ff1f031-cb1e-4b75-92d6-709a8919df8f",
+        "18c2836d-70a4-4e9d-951f-934556af97f6",
+        "a4d3e3bf-419c-4844-be73-1544a3f2a504",
+        "be2280ee-9248-4750-b2cd-89cd6b306504",
+        "2d3c757b-e931-4e70-abe5-0d10b9948126",
+        "92d0dbaf-cd9a-4999-8f65-5303dab887f2",
+        "7cea668d-0ab5-4e88-acce-3e9811b03e8d",
+        "e1f14a10-16ed-4706-b113-55e8f742eff0",
+        "baccf16d-13af-48d6-9a82-61ab6d68528b",
+        "aa793e1d-0526-42ac-a702-eff59dd13911",
+        "bb73e24a-30b5-4343-93a3-6b722a778d97",
+        "139fa52a-d17d-42bb-a05e-3d235c5b3b76",
+        "c58d0d98-91a4-44b8-b1a3-7197a1fc48ab"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_ipad": 80,
+        "section_padding_bottom_ipad": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60
+      }
+    },
+    "section_border_78Xzxn": {
+      "type": "section-border",
+      "name": "Border",
+      "settings": {
+        "border_width": "full",
+        "border_bg_color": "rgba(0,0,0,0)",
+        "border": 1,
+        "border_color": "#222222",
+        "border_color_opacity": 0.1
+      }
+    }
+  },
+  "order": [
+    "refund-policy",
+    "section_border_78Xzxn"
+  ]
+}

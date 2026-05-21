@@ -1,0 +1,186 @@
+{{ 'email-signup.css' | asset_url | stylesheet_tag }}
+<section
+  class="newsletter"
+  style="--padding-top: {{ section.settings.section_padding_top }}px;--padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;--padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="news-block">
+      {%- for block in section.blocks -%}
+        {% case block.type %}  
+          {%- when 'heading' -%}
+            <div class="section-title">
+              <h2 class="mr-0" data-fade-in>{{ block.settings.heading }}</h2>
+            </div>
+          {%- when 'subheading' -%}
+          {{ block.settings.subheading }}
+          {%- when 'form' -%}
+            {% form 'customer' %}
+            {{ form.errors | default_errors }}
+            {% if form.posted_successfully? %}
+              <p class="mr-0 text-success">
+                <span>{{ 'general.newsletter_form.confirmation' | t }}</span>
+              </p>
+            {% endif %}
+            <div class="news-content" data-fade-in>
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <label for="E-mail" class="hidden">{{ 'general.newsletter_form.newsletter_email' | t }}</label>
+              <input
+                type="email"
+                name="contact[email]"
+                class="email mail"
+                id="E-mail"
+                value="{% if customer %}{{ customer.email }}{% endif %}"
+                placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+                autocapitalize="off"
+                required
+              >
+              <button
+                class="news-btn"
+                type="submit"
+                name="commit"
+                id="Subscribe"
+                aria-label="{{ 'general.newsletter_form.submit' | t }}"
+              >
+                {{ 'general.newsletter_form.submit' | t }}
+                <i class="feather-mail"></i>
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+                {{- form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email -}}
+              </small>
+            {%- endif -%}
+          {% endform %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Email signup",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "heading"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "Subheading",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "subheading",
+          "label": "Description",
+          "default": "<p>Be the first to know about new collections and exclusive offers.</p>"
+        }
+      ]
+    },
+    {
+      "type": "form",
+      "name": "Email form",
+      "settings": [
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Email signup",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "form"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

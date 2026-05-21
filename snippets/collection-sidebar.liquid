@@ -1,0 +1,261 @@
+{{ 'collection-sidebar.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  assign total_active_values = 0
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+-%}
+<div class="shop-sidebar-inner{% if section.settings.sidebar_handle == 'without_sidebar' %} shop-sidebar-without{% endif %}">
+  <div class="shop-sidebar-wrap filter-sidebar{% if section.settings.sidebar_handle == 'without_sidebar' %} filter-sidebar-without{% endif %}">
+    <button
+      class="close-filter-sidebar{% if section.settings.sidebar_handle == 'without_sidebar' %} close-filter-without{% endif %}"
+      type="button"
+      aria-label="close"
+    >
+      <i class="feather-x"></i>
+    </button>
+    {%- if section.settings.collection_categories_enable -%}
+      <div class="shop-sidebar shop-collection">
+        {%- if section.settings.collection_categories_title != '' -%}
+          <h6 class="mr-0 title">{{ section.settings.collection_categories_title }}</h6>
+        {%- endif -%}
+        <div class="flt-ele">
+          <ul class="scrollbar list-unstyled">
+            {% for c in collections %}
+              {%- if c.products_count >= 1 -%}
+                <li
+                  {% if collection and collection.handle == c.handle %}
+                    class="active"
+                  {% endif %}
+                >
+                  <a href="{{ c.url }}" class="cust-checkbox-label" title="{{ c.title }}">
+                    {%- if collection and collection.handle == c.handle -%}
+                      <input type="checkbox" checked="checked" name="{{ c.title }}" class="cust-checkbox">
+                    {%- else -%}
+                      <input type="checkbox" class="cust-checkbox" name="{{ c.title }}">
+                    {%- endif -%}
+                    <span class="filter-name">{{ c.title }}</span>
+                    <span class="count-check">({{ c.products_count }})</span>
+                    <span class="cust-check"></span>
+                  </a>
+                </li>
+              {%- endif -%}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {%- endif -%}
+    <stfilter-ele class="facets">
+      <form id="stFacetFiltersForm">
+        {%- if results.terms -%}
+          <input type="hidden" name="q" value="{{ results.terms | escape }}">
+          <input name="options[prefix]" type="hidden" value="last">
+        {%- endif -%}
+        <div id="st-wrapper">
+          {%- unless results.filters == empty -%}
+            <div class="shop-sidebar sidebar-filter">
+              <h6 class="mr-0 title">{{ 'collections.facets.filter_by_label' | t }}</h6>
+              {% if results.current_vendor or results.current_type %}
+                <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+              {% endif %}
+              <div class="active-flt">
+                <ul class="list-unstyled">
+                  <li>
+                    {%- for filter in results.filters -%}
+                      {%- for value in filter.active_values -%}
+                        <flt-clear>
+                          <a href="{{ value.url_to_remove }}">
+                            <span>
+                              {{ value.label | escape }}
+                              <i class="feather-x"></i>
+                            </span>
+                          </a>
+                        </flt-clear>
+                      {%- endfor -%}
+                      {% if filter.type == 'price_range' %}
+                        {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+                          <flt-clear>
+                            <a href="{{ filter.url_to_remove }}">
+                              <span>
+                                {%- if filter.min_value.value -%}
+                                  {{ filter.min_value.value | money }}
+                                {%- else -%}
+                                  {{ 0 | money }}
+                                {%- endif -%}
+                                -
+                                {%- if filter.max_value.value -%}
+                                  {{ filter.max_value.value | money }}
+                                {%- else -%}
+                                  {{ filter.range_max | money }}
+                                {%- endif -%}
+                                <i class="feather-x"></i>
+                              </span>
+                            </a>
+                          </flt-clear>
+                        {%- endif -%}
+                      {% endif %}
+                    {%- endfor -%}
+                    <flt-clear>
+                      <a href="{{ results_url }}" class="clear-all">{{ 'collections.facets.clear_all' | t }}</a>
+                    </flt-clear>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          {%- endunless -%}
+          {%- liquid
+            assign i = 0
+          -%}
+          {%- for filter in results.filters -%}
+            {% assign i = i | plus: 1 %}
+            {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+            {% case filter.type %}
+              {% when 'list' %}
+                <div
+                  class="shop-sidebar st-filter {{ filter.label | escape | downcase }}"
+                  data-index="{{ forloop.index }}"
+                >
+                  <h6 class="mr-0 title">{{ filter.label | escape }}</h6>
+                  <div class="sidebar-header">
+                    <span class="flt-selected">
+                      {{- 'collections.facets.filters_selected' | t: count: filter.active_values.size -}}
+                    </span>
+                    <flt-clear>
+                      <a href="{{ filter.url_to_remove }}">{{ 'collections.facets.filter_reset' | t }}</a>
+                    </flt-clear>
+                  </div>
+                  <div class="flt-ele">
+                    <ul class="scrollbar list-unstyled">
+                      {%- for value in filter.values -%}
+                      {%- liquid 
+                        assign swatch_focal_point = null
+                        if value.swatch.image
+                          assign image_url = value.swatch.image | image_url: width: 50
+                          assign swatch_value = 'url(' | append: image_url | append: ')'
+                          assign swatch_focal_point = value.swatch.image.presentation.focal_point
+                        elsif value.swatch.color
+                          assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                        else
+                          assign swatch_value = null
+                        endif
+                      -%}
+
+                      <li class="{{ filter.label | escape | downcase }}">
+                        <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="cust-checkbox-label {{ filter.label | escape | downcase }} {{ value.label | downcase | replace: " ", "-" }}">
+                          {%- liquid
+                            assign swatch_value = null
+                            if value.swatch.image
+                              assign image_url = swatch.image | image_url: width: 50
+                              assign swatch_value = 'url(' | append: image_url | append: ')'
+                              assign swatch_focal_point = swatch.image.presentation.focal_point
+                            elsif value.swatch.color
+                              assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                            endif
+                          -%}
+                          <input type="checkbox" id="Filter-{{ filter.label | escape }}-{{ forloop.index }}" name="{{ value.param_name }}" value="{{ value.value }}" class="cust-checkbox" {% if value.active %}checked{% endif %}{% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                          <span class="cust-check" style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"></span>
+                          <span class="filter-name">{{ value.label | escape }}</span>
+                          <span class="count-check">({{ value.count }})</span>
+                        </label>
+                      </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                </div>
+              {% when 'price_range' %}
+                <div class="shop-sidebar st-filter" data-index="{{ forloop.index }}">
+                  <h6 class="mr-0 title">{{ filter.label | escape }}</h6>
+                  <div class="sidebar-header">
+                    {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
+                    <span class="flt-selected">{{ 'collections.facets.max_price' | t: price: max_price_amount }}</span>
+                    <flt-clear>
+                      <a href="{{ filter.url_to_remove }}">{{ 'collections.facets.filter_reset' | t }}</a>
+                    </flt-clear>
+                  </div>
+                  <div class="flt-ele">
+                    <range-slider class="range-slider">
+                      {%- liquid
+                        assign min_value = filter.min_value.value | default: 0.0 | divided_by: 100.0
+                        assign max_value = filter.max_value.value | default: filter.range_max | divided_by: 100.0
+                        assign range_max = filter.range_max | divided_by: 100.0 | ceil
+                        assign lower_bound_progress = min_value | divided_by: range_max | times: 100.0
+                        assign higher_bound_progress = max_value | divided_by: range_max | times: 100.0
+                      -%}
+                      <div
+                        class="range-slider-group group-range"
+                        style="--range-min: {{ lower_bound_progress }}%; --range-max: {{ higher_bound_progress }}%"
+                      >
+                        <input
+                          type="range"
+                          aria-label="{{ 'collections.facets.price_filter_from' | t }}"
+                          class="range"
+                          min="0"
+                          max="{{ range_max | ceil }}"
+                          value="{{ min_value | ceil }}"
+                        >
+                        <input
+                          type="range"
+                          aria-label="{{ 'collections.facets.price_filter_to' | t }}"
+                          class="range"
+                          min="0"
+                          max="{{ range_max | ceil }}"
+                          value="{{ max_value | ceil }}"
+                        >
+                      </div>
+                      <div class="price-input-group group-input">
+                        <div class="range-slider-input input-prefix">
+                          <label for="input-prefix-label" class="input-prefix-label">
+                            {{- 'collections.facets.price_filter_from' | t -}}
+                          </label>
+                          <span class="input-prefix-value">{{ cart.currency.symbol }}</span>
+                          <input
+                            aria-label="{{ 'collections.facets.price_filter_from' | t }}"
+                            class="input-prefix-field"
+                            id="input-prefix-label"
+                            type="number"
+                            inputmode="numeric"
+                            {% if filter.min_value.value %}
+                              value="{{ min_value | ceil }}"
+                            {% endif %}
+                            name="{{ filter.min_value.param_name }}"
+                            min="0"
+                            max="{{ max_value | ceil }}"
+                            placeholder="0"
+                          >
+                        </div>
+                        <span class="range-slider-delimeter">-</span>
+                        <div class="range-slider-input input-prefix">
+                          <label for="input-prefix-label2" class="input-prefix-label">
+                            {{- 'collections.facets.price_filter_to' | t -}}
+                          </label>
+                          <span class="input-prefix-value">{{ cart.currency.symbol }}</span>
+                          <input
+                            aria-label="{{ 'collections.facets.price_filter_to' | t }}"
+                            class="input-prefix-field"
+                            type="number"
+                            id="input-prefix-label2"
+                            inputmode="numeric"
+                            {% if filter.max_value.value %}
+                              value="{{ max_value | ceil }}"
+                            {% endif %}
+                            name="{{ filter.max_value.param_name }}"
+                            min="{{ min_value | ceil }}"
+                            max="{{ range_max | ceil }}"
+                            placeholder="{{ range_max | ceil }}"
+                          >
+                        </div>
+                      </div>
+                    </range-slider>
+                  </div>
+                </div>
+            {% endcase %}
+          {%- endfor -%}
+        </div>
+      </form>
+    </stfilter-ele>
+  </div>
+</div>

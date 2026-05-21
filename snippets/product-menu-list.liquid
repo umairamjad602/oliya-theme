@@ -1,0 +1,28 @@
+<div class="product-menu-list">
+  <div class="product-image">
+    <a class="pro-img" href="{{ product.url | within: collection }}">
+      {% assign image_height = product.featured_image.src.width | divided_by: product.featured_image.src.aspect_ratio %}
+      {{
+        product.featured_image.src
+        | image_url: width: 300
+        | image_tag: width: product.featured_image.src.width, height: image_height, class: 'lazyload', loading: 'lazy'
+      }}
+    </a>
+    {% if product.selected_or_first_available_variant.compare_at_price %}
+      {%- render 'product-label', product: product -%}
+    {% endif %}
+  </div>
+  <div class="product-content">
+    <h6 class="mr-0">
+      <a href="{{ product.url | within: collection }}" title="{{ product.title }}">{{ product.title }}</a>
+    </h6>
+    {% render 'price', product: product %}
+    {%- if settings.show_rating -%}
+      <div class="product-grid-rating">
+        <div class="jdgm-widget jdgm-preview-badge">
+          {{ product.metafields.judgeme.badge }}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

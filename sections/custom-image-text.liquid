@@ -1,0 +1,196 @@
+{{ 'custom-image-text.css' | asset_url | stylesheet_tag }}
+<section
+  class="home-about-area"
+  style="--padding-top: {{ section.settings.section_padding_top }}px;--padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;--padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="about-area {% if section.settings.show_row_reverse %} row-reverse {% endif %}">
+      <div class="about-image">
+        {%- if section.settings.home_about_image != blank -%}
+          {% assign image_height = section.settings.home_about_image.width
+            | divided_by: section.settings.home_about_image.aspect_ratio
+          %}
+          {{
+            section.settings.home_about_image
+            | image_url: width: 1080
+            | image_tag: width: section.settings.home_about_image.width, height: image_height, class: 'lazyload'
+          }}
+        {%- else -%}
+          {%- capture placeholder -%}hero-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
+          {{ placeholder | placeholder_svg_tag: 'placeholder-svg desk-img' }}
+        {%- endif -%}
+      </div>
+      <div class="about-content">
+        {% if section.settings.about_subheading != '' %}
+          <span class="subtitle" style="color: {{ section.settings.about_subheading_color }}">
+            {{- section.settings.about_subheading -}}
+          </span>
+        {% endif %}
+        <h2 class="title" style="color: {{ section.settings.about_heading_color }}">
+          <span>{{ section.settings.about_heading_1 }}</span>
+          <span>{{ section.settings.about_heading_2 }}</span>
+        </h2>
+        {% if section.settings.about_desc != '' %}
+          <p class="mr-0 desc">{{ section.settings.about_desc }}</p>
+        {% endif %}
+        {% if section.settings.about_btn_text != '' %}
+          <a href="{{ section.settings.about_url }}" class="btn-style">{{ section.settings.about_btn_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Custom image and text",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Row reverse option"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_row_reverse",
+      "label": "Row reverse",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "home_about_image",
+      "label": "Image",
+      "info": "Recommended size: 730x600px"
+    },
+    {
+      "type": "text",
+      "id": "about_subheading",
+      "label": "Subheading",
+      "default": "Healthcare is wealth"
+    },
+    {
+      "type": "color",
+      "id": "about_subheading_color",
+      "label": "Subheading color",
+      "default": "#232323"
+    },
+    {
+      "type": "text",
+      "id": "about_heading_1",
+      "label": "Heading",
+      "default": "Healthcare is a"
+    },
+    {
+      "type": "text",
+      "id": "about_heading_2",
+      "label": "Heading",
+      "default": "Right, not a privilege"
+    },
+    {
+      "type": "color",
+      "id": "about_heading_color",
+      "label": "Heading color",
+      "default": "#232323"
+    },
+    {
+      "type": "textarea",
+      "id": "about_desc",
+      "label": "Description",
+      "default": "The Green to Wear 2.0 standard aims to minimize the environmental impact of textile production. To this end, we have developed Inditex's The List program. The Green to Wear 2.0 standard aims to minimize"
+    },
+    {
+      "type": "text",
+      "id": "about_btn_text",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "about_url",
+      "label": "url"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom image and text"
+    }
+  ]
+}
+{% endschema %}
+<style>
+  {% if section.settings.show_row_reverse %}
+  .home-about-area .about-area.row-reverse .about-content {
+  	order: -1;
+  }
+  {% endif %}
+</style>

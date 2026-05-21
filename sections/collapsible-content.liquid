@@ -1,0 +1,637 @@
+{{ 'collapsible-content.css' | asset_url | stylesheet_tag }}
+<section
+  class="faq-page"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;
+--background-color: {{ section.settings.section_background_color }};"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="content-qa-banner {% if section.settings.sidebar_enable %} sidebar-enable {% endif %}">
+      {% if section.settings.sidebar_enable %}
+        <div class="faq-sidebar">
+          <div class="main-title">
+            {% if section.settings.section_subheading != '' %}
+              <span data-fade-in class="sub-title">{{ section.settings.section_subheading }}</span>
+            {% endif %}
+            {% if section.settings.section_heading != '' %}
+              <h2 class="mr-0" data-fade-in>{{ section.settings.section_heading }}</h2>
+            {% endif %}
+          </div>
+          <div class="faq-link">
+            <ul class="list-unstyled link-page" role="tablist">
+              {% if section.settings.page_title != '' %}
+                <li class="presentation">
+                  <a data-fade-in href="{{ section.settings.page_title_url }}" class="link-other">
+                    {{- section.settings.page_title -}}
+                  </a>
+                </li>
+              {% endif %}
+              {% if section.settings.page_title1 != '' %}
+                <li class="presentation">
+                  <a data-fade-in href="{{ section.settings.page_title_url1 }}" class="link-other">
+                    {{- section.settings.page_title1 -}}
+                  </a>
+                </li>
+              {% endif %}
+              {% if section.settings.page_title2 != '' %}
+                <li class="presentation">
+                  <a data-fade-in href="{{ section.settings.page_title_url2 }}" class="link-other">
+                    {{- section.settings.page_title2 -}}
+                  </a>
+                </li>
+              {% endif %}
+              {% if section.settings.page_title3 != '' %}
+                <li class="presentation">
+                  <a data-fade-in href="{{ section.settings.page_title_url3 }}" class="link-other">
+                    {{- section.settings.page_title3 -}}
+                  </a>
+                </li>
+              {% endif %}
+              {% if section.settings.page_title4 != '' %}
+                <li class="presentation">
+                  <a data-fade-in href="{{ section.settings.page_title_url4 }}" class="link-other">
+                    {{- section.settings.page_title4 -}}
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+      <div class="que-ans" id="collapse-tab">
+        <div class="accordian-block">
+          <div class="main-title">
+            {% if section.settings.accordian_title1 != '' %}
+              <h2 class="mr-0" data-fade-in>{{ section.settings.accordian_title1 }}</h2>
+            {% endif %}
+          </div>
+          <ul class="list-unstyled">
+            {% liquid
+              assign i = 0
+            %}
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when 'accordian1' -%}
+                  {% assign i = i | plus: 1 %}
+                  {% if block.settings.accordion_title != '' %}
+                    <li data-fade-in {{ block.shopify_attributes }}>
+                      <button
+                      type="button"
+                        data-bs-toggle="collapse"
+                        aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                        data-bs-target="#collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        class="question accordian-btn"
+                        aria-label="{{ block.settings.accordion_title }}"
+                      >
+                        <h6 class="que mr-0">{{ block.settings.accordion_title }}</h6>
+                        <span class="que-accordian"><i class="feather-plus"></i></span>
+                      </button>
+                      <div
+                        class="ans-accordian accordian-content collapse {% if forloop.first %} show{% endif %}"
+                        id="collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        data-bs-parent="#collapse-tab"
+                      >
+                        {% if block.settings.accordion_ans1 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans1 }}</p>
+                        {% endif %}
+                        {% if block.settings.accordion_ans2 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans2 }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="accordian-block">
+          <div class="main-title">
+            {% if section.settings.accordian_title2 != '' %}
+              <h2 class="mr-0" data-fade-in>{{ section.settings.accordian_title2 }}</h2>
+            {% endif %}
+          </div>
+          <ul class="list-unstyled">
+            {% liquid
+              assign i = 0
+            %}
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when 'accordian2' -%}
+                  {% assign i = i | plus: 1 %}
+                  {% if block.settings.accordion_title != '' %}
+                    <li {{ block.shopify_attributes }}>
+                      <button
+                        type="button"
+                        data-bs-toggle="collapse"
+                        aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                        data-bs-target="#collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        class="question accordian-btn"
+                        aria-label="{{ block.settings.accordion_title }}"
+                      >
+                        <h6 class="que mr-0">{{ block.settings.accordion_title }}</h6>
+                        <span class="que-accordian"><i class="feather-plus"></i></span>
+                      </button>
+                      <div
+                        class="ans-accordian accordian-content collapse {% if forloop.first %} show{% endif %}"
+                        id="collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        data-bs-parent="#collapse-tab"
+                      >
+                        {% if block.settings.accordion_ans1 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans1 }}</p>
+                        {% endif %}
+                        {% if block.settings.accordion_ans2 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans2 }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="accordian-block">
+          <div class="main-title">
+            {% if section.settings.accordian_title3 != '' %}
+              <h2 class="mr-0" data-fade-in>{{ section.settings.accordian_title3 }}</h2>
+            {% endif %}
+          </div>
+          <ul class="list-unstyled">
+            {% liquid
+              assign i = 0
+            %}
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when 'accordian3' -%}
+                  {% assign i = i | plus: 1 %}
+                  {% if block.settings.accordion_title != '' %}
+                    <li {{ block.shopify_attributes }}>
+                      <button
+                        type="button"
+                        data-bs-toggle="collapse"
+                        aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                        data-bs-target="#collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        class="question accordian-btn"
+                        aria-label="{{ block.settings.accordion_title }}"
+                      >
+                        <h6 class="que mr-0">{{ block.settings.accordion_title }}</h6>
+                        <span class="que-accordian"><i class="feather-plus"></i></span>
+                      </button>
+                      <div
+                        class="ans-accordian accordian-content collapse {% if forloop.first %} show{% endif %}"
+                        id="collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        data-bs-parent="#collapse-tab"
+                      >
+                        {% if block.settings.accordion_ans1 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans1 }}</p>
+                        {% endif %}
+                        {% if block.settings.accordion_ans2 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans2 }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="accordian-block">
+          {% if section.settings.accordian_title4 != '' %}
+            <div class="main-title">
+              <h2 class="mr-0" data-fade-in>{{ section.settings.accordian_title4 }}</h2>
+            </div>
+          {% endif %}
+          <ul class="list-unstyled">
+            {% liquid
+              assign i = 0
+            %}
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when 'accordian4' -%}
+                  {% assign i = i | plus: 1 %}
+                  {% if block.settings.accordion_title != '' %}
+                    <li {{ block.shopify_attributes }}>
+                      <button
+                        type="button"
+                        data-bs-toggle="collapse"
+                        aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                        data-bs-target="#collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        class="question accordian-btn"
+                        aria-label="{{ block.settings.accordion_title }}"
+                      >
+                        <h6 class="que mr-0">{{ block.settings.accordion_title }}</h6>
+                        <span class="que-accordian"><i class="feather-plus"></i></span>
+                      </button>
+                      <div
+                        class="ans-accordian accordian-content collapse {% if forloop.first %} show{% endif %}"
+                        id="collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        data-bs-parent="#collapse-tab"
+                      >
+                        {% if block.settings.accordion_ans1 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans1 }}</p>
+                        {% endif %}
+                        {% if block.settings.accordion_ans2 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans2 }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="accordian-block">
+          {% if section.settings.accordian_title5 != '' %}
+            <div class="main-title">
+              <h2 class="mr-0" data-fade-in>{{ section.settings.accordian_title5 }}</h2>
+            </div>
+          {% endif %}
+          <ul class="list-unstyled">
+            {% assign i = 0 %}
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when 'accordian5' -%}
+                  {% liquid
+                    assign i = i | plus: 1
+                  %}
+                  {% if block.settings.accordion_title != '' %}
+                    <li {{ block.shopify_attributes }}>
+                      <button
+                        type="button"
+                        data-bs-toggle="collapse"
+                        aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                        data-bs-target="#collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        class="question accordian-btn"
+                        aria-label="{{ block.settings.accordion_title }}"
+                      >
+                        <h6 class="que mr-0">{{ block.settings.accordion_title }}</h6>
+                        <span class="que-accordian"><i class="feather-plus"></i></span>
+                      </button>
+                      <div
+                        class="ans-accordian accordian-content collapse {% if forloop.first %} show{% endif %}"
+                        id="collapse-{{ section.id }}-{{ block.id }}-{{ i }}"
+                        data-bs-parent="#collapse-tab"
+                      >
+                        {% if block.settings.accordion_ans1 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans1 }}</p>
+                        {% endif %}
+                        {% if block.settings.accordion_ans2 != '' %}
+                          <p class="mr-0">{{ block.settings.accordion_ans2 }}</p>
+                        {% endif %}
+                      </div>
+                    </li>
+                  {% endif %}
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Collapsible content",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "checkbox",
+      "id": "sidebar_enable",
+      "label": "Sidebar enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading",
+      "default": "subheading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "heading"
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Page heading",
+      "default": "MY ACCOUNT"
+    },
+    {
+      "type": "url",
+      "id": "page_title_url",
+      "label": "url"
+    },
+    {
+      "type": "text",
+      "id": "page_title1",
+      "label": "Page heading",
+      "default": "COMPANY POLICIES"
+    },
+    {
+      "type": "url",
+      "id": "page_title_url1",
+      "label": "url"
+    },
+    {
+      "type": "text",
+      "id": "page_title2",
+      "label": "Page heading",
+      "default": "PAYMENT OPTIONS"
+    },
+    {
+      "type": "url",
+      "id": "page_title_url2",
+      "label": "url"
+    },
+    {
+      "type": "text",
+      "id": "page_title3",
+      "label": "Page heading",
+      "default": "TERM AND CONDITIONS"
+    },
+    {
+      "type": "url",
+      "id": "page_title_url3",
+      "label": "url"
+    },
+    {
+      "type": "text",
+      "id": "page_title4",
+      "label": "Page heading"
+    },
+    {
+      "type": "url",
+      "id": "page_title_url4",
+      "label": "url"
+    },
+    {
+      "type": "text",
+      "id": "accordian_title1",
+      "label": "Accordian heading",
+      "default": "Shopping Information"
+    },
+    {
+      "type": "text",
+      "id": "accordian_title2",
+      "label": "Accordian heading",
+      "default": "Returns and exchanges"
+    },
+    {
+      "type": "text",
+      "id": "accordian_title3",
+      "label": "Accordian heading",
+      "default": "Payment information"
+    },
+    {
+      "type": "text",
+      "id": "accordian_title4",
+      "label": "Accordian heading"
+    },
+    {
+      "type": "text",
+      "id": "accordian_title5",
+      "label": "Accordian heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordian1",
+      "name": "Accordion first",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Heading",
+          "default": "How can I contact you?"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans1",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans2",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "accordian2",
+      "name": "Accordion second",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Heading",
+          "default": "How can I contact you?"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans1",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans2",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "accordian3",
+      "name": "Accordion third",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Heading",
+          "default": "How can I contact you?"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans1",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans2",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "accordian4",
+      "name": "Accordion fourth",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Heading",
+          "default": "How can I contact you?"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans1",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans2",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "accordian5",
+      "name": "fifth",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "Heading",
+          "default": "How can I contact you?"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans1",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "accordion_ans2",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collapsible content",
+      "blocks": [
+        {
+          "type": "accordian1"
+        },
+        {
+          "type": "accordian1"
+        },
+        {
+          "type": "accordian1"
+        },
+        {
+          "type": "accordian1"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

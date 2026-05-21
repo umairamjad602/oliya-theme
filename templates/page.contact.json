@@ -1,0 +1,204 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "about_us_icon_row_iGGTbG": {
+      "type": "about-us-icon-row",
+      "blocks": {
+        "our_services_YeRKNn": {
+          "type": "our_services",
+          "settings": {
+            "text_icon1": "<i class=\"feather-map-pin\"></i>",
+            "icon_url": "",
+            "service_title": "Store location",
+            "service_desc": "14 Ringe lane, las vegas,\nnv, 89156 united states",
+            "service_bg_color": "#f4f2f0"
+          }
+        },
+        "our_services_BiYqTK": {
+          "type": "our_services",
+          "settings": {
+            "text_icon1": "<i class=\"feather-phone-call\"></i>",
+            "icon_url": "tel:+00-1234567890",
+            "service_title": "Contact call",
+            "service_desc": "+00-1234567890",
+            "service_bg_color": "#f4f2f0"
+          }
+        },
+        "our_services_Lt79eQ": {
+          "type": "our_services",
+          "settings": {
+            "text_icon1": "<i class=\"feather-mail\"></i>",
+            "icon_url": "mailto:demo@support.com",
+            "service_title": "Contact mail",
+            "service_desc": "demo@support.com",
+            "service_bg_color": "#f4f2f0"
+          }
+        }
+      },
+      "block_order": [
+        "our_services_YeRKNn",
+        "our_services_BiYqTK",
+        "our_services_Lt79eQ"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_ipad": 80,
+        "section_padding_bottom_ipad": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_background_color": "rgba(0,0,0,0)",
+        "section_subheading": "",
+        "section_heading": "Quick support"
+      }
+    },
+    "2bd1ad5f-628b-45b6-8664-5d16d6403d70": {
+      "type": "contact-location-list",
+      "blocks": {
+        "6a1d2377-147f-4e83-ac03-83139b33f526": {
+          "type": "address",
+          "settings": {
+            "flag_img": "shopify://shop_images/London.jpg",
+            "address_text": "425 Broadway, 20th floor pharchard view, London",
+            "add_mobile": "+91 123 456 7890",
+            "add_email": "support@store.com",
+            "country_name": "London"
+          }
+        },
+        "c050b6b3-bb85-43d8-a4e9-9ef0960e2717": {
+          "type": "address",
+          "settings": {
+            "flag_img": "shopify://shop_images/France.jpg",
+            "address_text": "27 Eden walk eden centre orchard view, paris, France",
+            "add_mobile": "+91 123 456 7890",
+            "add_email": "support@store.com",
+            "country_name": "France"
+          }
+        },
+        "3e756547-784b-42ca-913e-637a30946743": {
+          "type": "address",
+          "settings": {
+            "flag_img": "shopify://shop_images/Canada.jpg",
+            "address_text": "523 North stockport road bridge, toronto, Canada",
+            "add_mobile": "+91 123 456 7890",
+            "add_email": "support@store.com",
+            "country_name": "Canada"
+          }
+        },
+        "9384f672-312a-4eb6-b7ab-0422efd80cbb": {
+          "type": "address",
+          "settings": {
+            "flag_img": "shopify://shop_images/England.jpg",
+            "address_text": "048 Holburn street 20th floor camberley, England",
+            "add_mobile": "+91 123 456 7890",
+            "add_email": "support@store.com",
+            "country_name": "England"
+          }
+        },
+        "dd0af453-a978-4e5a-b39e-8ea4378716aa": {
+          "type": "address",
+          "settings": {
+            "flag_img": "shopify://shop_images/London.jpg",
+            "address_text": "425 Broadway, 20th floor pharchard view, London",
+            "add_mobile": "+91 123 456 7890",
+            "add_email": "support@store.com",
+            "country_name": "London"
+          }
+        }
+      },
+      "block_order": [
+        "6a1d2377-147f-4e83-ac03-83139b33f526",
+        "c050b6b3-bb85-43d8-a4e9-9ef0960e2717",
+        "3e756547-784b-42ca-913e-637a30946743",
+        "9384f672-312a-4eb6-b7ab-0422efd80cbb",
+        "dd0af453-a978-4e5a-b39e-8ea4378716aa"
+      ],
+      "settings": {
+        "container": "fluid",
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "section_padding_top_ipad": 0,
+        "section_padding_bottom_ipad": 0,
+        "section_padding_top_xs": 0,
+        "section_padding_bottom_xs": 0,
+        "section_background_color": "#f4f2f0",
+        "banner_img": "shopify://shop_images/jewelry-contact-us.jpg",
+        "section_subheading": "",
+        "section_heading": "Get in touch"
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_ipad": 80,
+        "section_padding_bottom_ipad": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_background_color": "#f4f2f0",
+        "section_subheading": "",
+        "section_heading": "Keep in touch with us",
+        "name_placeholder": "Your full name",
+        "email_placeholder": "Your email address",
+        "phone_placeholder": "Your mobile number",
+        "message_placeholder": "Your message here...",
+        "form_button_name": "Send Message",
+        "read_agree_text": "I accept the terms & conditions and I understand that my data will be hold securely in accordance with the privacy policy."
+      }
+    },
+    "contact_banner_details_4wcmVw": {
+      "type": "contact-banner-details",
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_ipad": 80,
+        "section_padding_bottom_ipad": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "contact_img": "shopify://shop_images/jewelry-contact-us-3.jpg",
+        "contact_img_url": "",
+        "section_subheading": "We'd love to hear from you",
+        "section_heading": "Contact us",
+        "info_icon1": "<i class=\"feather-map-pin\"></i>",
+        "info_title1": "Address",
+        "info_link1": "70 Washington square south new york, NY 10012, united states",
+        "info_icon2": "<i class=\"feather-phone-call\"></i>",
+        "info_title2": "Phone",
+        "info_link2": "+1 234 567 8910",
+        "info_icon3": "<i class=\"feather-mail\"></i>",
+        "info_title3": "Email",
+        "info_link3": "info@yourdomain.com"
+      }
+    },
+    "section_border_pAiFbb": {
+      "type": "section-border",
+      "name": "Border",
+      "settings": {
+        "border_width": "full",
+        "border_bg_color": "rgba(0,0,0,0)",
+        "border": 1,
+        "border_color": "#222222",
+        "border_color_opacity": 0.1
+      }
+    }
+  },
+  "order": [
+    "about_us_icon_row_iGGTbG",
+    "2bd1ad5f-628b-45b6-8664-5d16d6403d70",
+    "contact-form",
+    "contact_banner_details_4wcmVw",
+    "section_border_pAiFbb"
+  ]
+}

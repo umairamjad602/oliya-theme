@@ -1,0 +1,320 @@
+/* return account css */
+  .my-account-page .return-acc-detail a {
+    color: var(--font-color-body);
+    text-decoration: underline;
+  }
+  .my-account-page .return-acc-detail a:hover {
+    color: var(--font-color-header);
+  }
+  .my-account-page .order-info-overwrap {
+    margin-top: 30px;
+  }
+  /* order number title css */
+  .my-account-page .order-info-overwrap h2 {
+    font-size: 18px;
+    display: -ms-flexbox;
+    display: flex;
+
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .my-account-page .order-info-overwrap h2 span.order-date {
+    color: var(--font-color-body);
+    font-size: var(--font-size-body);
+    font-weight: 400;
+    margin-inline-start: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .my-account-page .order-info-overwrap h2 span.order-date::before {
+    content: "";
+    width: 15px;
+    height: 2px;
+    background-color: var(--font-color-body);
+    margin-inline-end: 5px;
+  }
+  /* order grid css */
+  .my-account-page .order-address {
+    margin-top: 30px;
+    padding: 30px;
+    background-color: var(--extra-color-body);
+  }
+  .my-account-page .order-address ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  @media (max-width: 479px) {
+    .my-account-page .order-address ul {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 15px;
+    }
+    .my-account-page .order-address ul li {
+      padding-top: 30px;
+      border-top: 1px solid var(--theme-border-color);
+    }
+    .my-account-page .order-address ul li:first-child {
+      padding-top: 0px;
+      border-top: none;
+    }
+  }
+  /* address css */
+  .my-account-page .order-address ul li h6 {
+    font-size: 18px;
+  }
+  .my-account-page .order-address ul li .order-paymenr-status {
+    margin-top: 20px;
+  }
+  .my-account-page .order-address ul li .order-paymenr-status .order-status {
+    display: flex;
+    margin-top: 9px;
+  }
+  .my-account-page .order-address ul li .order-paymenr-status .order-status:first-child {
+    margin-top: 0;
+  }
+  .my-account-page .order-address ul li .order-paymenr-status .order-status span.payment-status-title {
+    color: var(--font-color-header);
+    font-weight: 600;
+  }
+  .my-account-page .order-address ul li .order-paymenr-status .order-status span.payment-status {
+    margin-inline-start: 5px;
+  }
+  .my-account-page .order-address ul li p.address {
+    margin-top: 24px;
+    line-height: 1;
+  }
+  .my-account-page .order-address ul li p.address span {
+    display: block;
+    margin-top: 11px;
+  }
+  .my-account-page .order-address ul li p.address span:first-child {
+    margin-top: 0px;
+  }
+  /* order-overview css */
+  .my-account-page .order-overview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: 0px 0px 0px -30px;
+  }
+  .my-account-page .order-overview .over-view-summary,
+  .my-account-page .order-overview .payment-summary {
+    width: calc(50% - 30px);
+    margin: 30px 0px 0px 30px;
+    padding: 30px;
+  }
+  .my-account-page .order-overview .over-view-summary {
+    background-color: var(--extra-color-body);
+  }
+  .my-account-page .order-overview .payment-summary {
+    position: sticky;
+    top: 0;
+    background-color: var(--extra-color-body);
+  }
+  @media (max-width: 991px) {
+    .my-account-page .order-overview .over-view-summary,
+    .my-account-page .order-overview .payment-summary {
+      width: calc(100% - 30px);
+    }
+    .my-account-page .order-overview .payment-summary {
+      position: unset;
+    }
+  }
+  @media (max-width: 767px) {
+    .my-account-page .order-overview {
+      display: flex;
+      flex-wrap: wrap;
+      margin-inline-start: -12px;
+    }
+    .my-account-page .order-overview .over-view-summary,
+    .my-account-page .order-overview .payment-summary {
+      width: calc(100% - 12px);
+      padding: 30px 12px;
+      margin-inline-start: 12px;
+    }
+  }
+  /* order summary css */
+  .my-account-page .order-overview .over-view-summary h6 {
+    font-size: 18px;
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product {
+    margin-top: 20px;
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product li {
+    margin-top: 26px;
+    padding-top: 25px;
+    border-top: 1px solid var(--theme-border-color);
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product li:first-child {
+    margin-top: 0px;
+    padding-top: 0px;
+    border-top: none;
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item {
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 9px 0px 0px -30px;
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item:first-child {
+    margin: 0px 0px 0px -30px;
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-pro,
+  .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-info {
+    width: calc(50% - 30px);
+    margin: 0px 0px 0px 30px;
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-pro {
+    color: var(--font-color-header);
+    font-weight: 600;
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-info a {
+    color: var(--font-color-body);
+  }
+  .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-info a:hover {
+    color: var(--font-color-header);
+  }
+  @media (max-width: 767px) {
+    .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item {
+      margin: 9px 0px 0px -12px;
+    }
+    .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item:first-child {
+      margin: 0px 0px 0px -12px;
+    }
+    .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-pro,
+    .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-info {
+      width: calc(50% - 12px);
+      margin: 0px 0px 0px 12px;
+    }
+  }
+  @media (max-width: 479px) {
+    .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-pro,
+    .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-info {
+      width: calc(100% - 12px);
+    }
+    .my-account-page .order-overview .over-view-summary ul.order-product li .order-overview-wrap .order-item span.order-info {
+      margin: 6px 0px 0px 12px;
+    }
+  }
+  /* order note css */
+  .my-account-page .order-overview ul.order-product li .note {
+    margin-top: 19px;
+    margin-bottom: 0;
+    padding: 0;
+    border: none;
+    text-align: start;
+  }
+  .my-account-page .order-overview ul.order-product li .note a.order-company-track {
+    font-size: var(--font-size-body);
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px 0px 0px -30px;
+  }
+  .my-account-page .order-overview ul.order-product li .note a.order-company-track span.track-company,
+  .my-account-page .order-overview ul.order-product li .note a.order-company-track span.track-num {
+    width: calc(50% - 30px);
+    margin: 0px 0px 0px 30px;
+    font-weight: 600;
+  }
+  .my-account-page .order-overview ul.order-product li .note a.order-company-track span.track-company {
+    color: var(--font-color-header);
+  }
+  .my-account-page .order-overview ul.order-product li .note a.order-company-track span.track-num {
+    color: var(--font-color-primary);
+  }
+  .my-account-page .order-overview ul.order-product li .note span.order-fulfill-date {
+    display: block;
+    font-size: var(--font-size-body);
+    margin-top: 19px;
+  }
+  .my-account-page .order-overview ul.order-product li .note .order-info-note {
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 19px 0px 0px -30px;
+  }
+  .my-account-page .order-overview ul.order-product li .note .order-info-note span.note-title,
+  .my-account-page .order-overview ul.order-product li .note .order-info-note span.note-desc {
+    font-size: var(--font-size-body);
+    width: calc(50% - 30px);
+    margin: 0px 0px 0px 30px;
+  }
+  .my-account-page .order-overview ul.order-product li .note .order-info-note span.note-title {
+    color: var(--font-color-header);
+    font-weight: 600;
+  }
+  @media (max-width: 767px) {
+    .my-account-page .order-overview ul.order-product li .note a.order-company-track,
+    .my-account-page .order-overview ul.order-product li .note .order-info-note {
+      margin: 19px 0px 0px -12px;
+    }
+    .my-account-page .order-overview ul.order-product li .note a.order-company-track span.track-company,
+    .my-account-page .order-overview ul.order-product li .note a.order-company-track span.track-num,
+    .my-account-page .order-overview ul.order-product li .note .order-info-note span.note-title,
+    .my-account-page .order-overview ul.order-product li .note .order-info-note span.note-desc {
+      width: calc(50% - 12px);
+      margin: 0px 0px 0px 12px;
+    }
+  }
+  @media (max-width: 479px) {
+    .my-account-page .order-overview ul.order-product li .note a.order-company-track span.track-num,
+    .my-account-page .order-overview ul.order-product li .note .order-info-note span.note-desc {
+      width: calc(100% - 12px);
+      margin: 6px 0px 0px 12px;
+    }
+  }
+  /* order cancel css */
+  .my-account-page .errors.order-cancel {
+    padding: 15px 30px;
+    margin: 27px 0 30px;
+  }
+  .my-account-page .errors.order-cancel p {
+    color: #d02e2e;
+    font-size: var(--font-size-body);
+  }
+  /* payment summary css */
+  .my-account-page .order-overview .payment-summary h6 {
+    font-size: 18px;
+  }
+  .my-account-page .order-overview .payment-summary .order-total-wrap {
+    margin-top: 20px;
+  }
+  .my-account-page .order-overview .payment-summary .order-total-wrap ul li {
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 9px 0px 0px -30px;
+  }
+  .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-title,
+  .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-price {
+    width: calc(50% - 30px);
+    margin: 0px 0px 0px 30px;
+    font-weight: 600;
+  }
+  .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-title {
+    color: var(--font-color-body);
+  }
+  .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-price {
+    color: var(--font-color-header);
+  }
+  @media (max-width: 767px) {
+    .my-account-page .order-overview .payment-summary .order-total-wrap ul li {
+      margin: 9px 0px 0px -12px;
+    }
+    .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-title,
+    .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-price {
+      width: calc(50% - 12px);
+      margin: 0px 0px 0px 12px;
+    }
+  }
+  @media (max-width: 479px) {
+    .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-title,
+    .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-price {
+      width: calc(100% - 12px);
+    }
+    .my-account-page .order-overview .payment-summary .order-total-wrap ul li span.order-t-price {
+      margin: 6px 0px 0px 12px;
+    }
+  }

@@ -1,0 +1,67 @@
+{%- liquid
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  else
+    assign target = product
+  endif
+
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign price_min = product.price_min
+  assign price_max = product.price_max
+  assign money_price = price | money
+  assign money_price_min = price_min | money
+  assign money_price_max = price_max | money
+  if settings.currency_code_enabled
+    assign money_price = price | money_with_currency
+    assign money_price_min = price_min | money_with_currency
+    assign money_price_max = price_max | money_with_currency
+  endif
+
+-%}
+{%- unless target == null -%}
+  {%- if product.quantity_price_breaks_configured? -%}
+    {%- if show_compare_at_price == true and compare_at_price -%}
+      {%- unless product.price_varies == false and product.compare_at_price_varies %}
+        <span>
+          <s class="price-item price-item--regular variant-item__old-price">
+            {% if settings.currency_code_enabled %}
+              {{ compare_at_price | money_with_currency }}
+            {% else %}
+              {{ compare_at_price | money }}
+            {% endif %}
+          </s>
+        </span>
+      {%- endunless -%}
+    {%- endif -%}
+    <span class="price-item price-item--regular">
+      {{- 'products.product.volume_pricing.price_range' | t: minimum: money_price_min, maximum: money_price_max -}}
+    </span>
+  {%- endif -%}
+  <div class="price-box {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} price--on-sale{% endif -%}" id="price-{{ section.id }}">
+    <span class="new-price" id="ProductPrice">
+      {{ money_price }}
+    </span>
+    {%- unless product.price_varies == false and product.compare_at_price_varies %}
+      <span class="old-price" id="ComparePrice">
+        {% if settings.currency_code_enabled %}
+          {{ compare_at_price | money_with_currency }}
+        {% else %}
+          {{ compare_at_price | money }}
+        {% endif %}
+      </span>
+    {%- endunless -%}
+  </div>
+  <small class="unit-price caption{% if product.selected_or_first_available_variant.unit_price_measurement == nil %} hidden{% endif %}" id="unit-price-{{ section.id }}">
+    <span class="price-item price-item--last">
+      <span>{{- product.selected_or_first_available_variant.unit_price | money -}}</span>
+      <span aria-hidden="true">/</span>
+      <span>
+        {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+          {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+        {%- endif -%}
+        {{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}
+      </span>
+    </span>
+  </small>
+{%- endunless -%}

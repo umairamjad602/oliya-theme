@@ -1,0 +1,74 @@
+<li class="menu-link" {{ block.shopify_attributes }}>
+  <a
+    href="{{ block.settings.menu_single_url }}"
+    class="link-title"
+    style="--font-size: {{ section.settings.menu_font_size }}px; --font-size-lg: {{ section.settings.menu_font_size_lg }}px;  --text-transform: {{ section.settings.menu_text_transform }};  --font-weight: {{ section.settings.menu_font_weight }};"
+  >
+    <span class="sp-link-title">
+      {{- block.settings.menu_single_title -}}
+      {%- if block.settings.menu_single_label != '' -%}
+        <span class="{{ section.id }}-{{ block.id }}-label">{{ block.settings.menu_single_label }}</span>
+      {%- endif -%}
+    </span>
+    <span class="menu-arrow"><i class="feather-chevron-down"></i></span>
+  </a>
+  <div class="link-title-lg">
+    <a href="{{ block.settings.menu_single_url }}" class="sp-link-title">{{ block.settings.menu_single_title }}</a>
+    <button
+      type="button" data-bs-toggle="collapse"
+      data-bs-target="#single-collapse-{{ block.settings.menu_single_title | handleize }}"
+      class="menu-arrow dropdown-btn"
+      aria-label="{{ block.settings.menu_single_title | handleize }}"
+    >
+      <i class="feather-plus"></i>
+    </button>
+  </div>
+  <ul
+    class="list-unstyled menu-dropdown single-menu dropdown-content collapse"
+    id="single-collapse-{{ block.settings.menu_single_title | handleize }}"
+  >
+    {% assign menu_single_select = block.settings.menu_single_select %}
+    {% for link in linklists[menu_single_select].links %}
+      {% if linklists[menu_single_select].links != '' %}
+        <li class="singlemenu-li">
+          <a href="{{ link.url }}" class="singlelink-title">
+            <span class="sp-link-title">{{ link.title }}</span>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</li>
+<style>
+  /*=====================================
+    header label css
+  ======================================*/
+  a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label {
+    color: {{ block.settings.menu_single_label_color }};
+    font-size: {{ block.settings.menu_single_label_font_size }}px;
+    padding: 2px 5px;
+    position: absolute;
+    top: -{{ block.settings.menu_single_label_top_position }}px;
+    right: 0;
+    transform: translateX(100%);
+    background-color: {{ block.settings.menu_single_label_bgcolor }};
+    text-transform: {{ block.settings.menu_single_label_text_transform }};
+    font-weight: {{ block.settings.menu_single_label_font-weight }};
+    border-radius: {{ block.settings.menu_single_label_border_radius }}px;
+    line-height: {{ block.settings.menu_single_label_line_height }};
+  }
+  a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label::before {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid {{ block.settings.menu_single_label_bgcolor }};
+  }
+  @media (max-width: 1199px) {
+    a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label {
+      top: -8px;
+    }
+  }
+</style>

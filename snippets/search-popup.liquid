@@ -1,0 +1,110 @@
+<div class="search-modal modal fade" id="modal-search" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="container">
+      <button type="button" class="pop-close" data-bs-dismiss="modal" aria-label="close">
+        <i class="feather-x"></i>
+      </button>
+      <div class="search-title">
+        <h2 class="mr-0">{{ settings.search_modal_title }}</h2>
+      </div>
+      {%- if settings.ajax_search_enabled -%}
+        <search-ajax class="search-form">
+      {%- else -%}
+        <search-form class="search-form">
+      {%- endif -%}
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search">
+        <div class="field">
+          <label for="search" class="hidden">{{ 'templates.search.placeholder' | t }}</label>
+          <input
+            id="search"
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="{{ 'templates.search.placeholder' | t }}"
+            {%- if settings.ajax_search_enabled -%}
+              role="combobox"
+              aria-owns="search-ajax-results"
+              aria-controls="search-ajax-results"
+              aria-haspopup="listbox"
+              aria-autocomplete="list"
+              autocorrect="off"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+            {%- endif -%}
+            required
+          >
+          <input type="hidden" name="options[prefix]" value="last">
+          <button type="reset" class="reset-input hidden" aria-label="reset"></button>
+          <button class="search-btn" aria-label="search">
+            <i class="ri-search-line"></i>
+          </button>
+        </div>
+        {%- if settings.ajax_search_enabled -%}
+          <div class="search-ajax" tabindex="-1" data-search-ajax></div>
+          <span class="search-ajax-status visually-hidden" role="status" aria-hidden="true"></span>
+        {%- endif -%}
+      </form>
+      {%- if settings.ajax_search_enabled -%}
+        </search-ajax>
+      {%- else -%}
+        </search-form>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+</div>
+<style>
+  .search-modal .modal-dialog {
+    padding: 60px 0px;
+    max-width: 100%;
+    margin: 0;    
+    background-color: var(--extra-color-body);
+  }
+  .search-modal .modal-dialog .modal-content {
+    background-color: var(--extra-color-body);
+    padding: 0;
+    border: none;
+    border-radius: 0px;
+  }
+  .search-modal .search-title {
+    text-align: center;
+    padding-bottom: 30px;
+  }
+  .search-modal .search-title h2 {
+    font-size: 28px;
+  }
+  .search-modal .search-ajax .container {
+    padding: 0;
+  }
+  .search-modal button.pop-close {
+    color: var(--font-color-header);
+    font-size: 20px;
+    line-height: 0;
+    top: -30px;
+    inset-inline-end: 30px;
+    position: absolute;
+  }
+  .search-modal button.pop-close:hover {
+    color: var(--font-color-header);
+  }
+  .search-modal .search-form .field {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .search-modal .search-form .field input {
+    width: 100%;
+  }
+  .search-modal .search-form .field .search-btn {
+    font-size: 16px;
+    position: absolute;
+    inset-inline-end: 15px;
+  }
+  @media(max-width: 767px){
+    .search-modal .search-title h2 {
+      font-size: 22px;
+    }
+  }
+</style>

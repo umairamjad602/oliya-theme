@@ -1,0 +1,62 @@
+.about-service-text {
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+  position: relative;
+  background-color: var(--background-color);
+}
+@media (max-width: 767px) {
+  .about-service-text {
+    padding-top: var(--padding-top-xs);
+    padding-bottom: var(--padding-bottom-xs);
+  }
+}
+.banner-with-text-columns .banner-content {
+  position: relative;
+  z-index: 1;
+}
+.banner-with-text-columns .banner-content .about-banner {
+  position: relative;
+  z-index: 1;
+}
+.banner-with-text-columns .banner-content .about-banner img {
+  width: 100%;
+}
+/*secrvice content*/
+.banner-with-text-columns ul.about-service-text {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+.banner-with-text-columns ul.about-service-text li.about-service-wrapper .service-block {
+  width: 66.67%;
+  margin: 0 auto;
+  text-align: center;
+}
+.banner-with-text-columns ul.about-service-text li.about-service-wrapper .service-block h6 {
+  color: var(--font-color-header);
+  font-size: 18px;
+  font-weight: 600;
+}
+.banner-with-text-columns ul.about-service-text li.about-service-wrapper .service-block p {
+  margin-top: 20px;
+}
+@media (max-width: 1599px) {
+  .banner-with-text-columns ul.about-service-text li.about-service-wrapper .service-block {
+    width: 83.33%;
+  }
+}
+@media (max-width: 1199px) {
+  .banner-with-text-columns ul.about-service-text li.about-service-wrapper .service-block {
+    width: 100%;
+  }
+}
+@media (max-width: 767px) {
+  .banner-with-text-columns ul.about-service-text {
+    gap: 15px;
+  }
+}
+@media (max-width: 600px) {
+  .banner-with-text-columns ul.about-service-text {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -1,0 +1,229 @@
+{{ 'image-with-text.css' | asset_url | stylesheet_tag }}
+<section
+  class="image-with-text"
+  style="--padding-top: {{ section.settings.section_padding_top }}px;--padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;--padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="about-area {% if section.settings.show_row_reverse %} row-reverse {% endif %}">
+      <div class="about-image {% if section.settings.home_about_image2 != blank %}about-image-dual{% endif %}">
+        {%- if section.settings.home_about_image != blank -%}
+          {{
+            section.settings.home_about_image
+            | image_url: width: 800
+            | image_tag: class: 'lazyload about-img-1', loading: 'lazy'
+          }}
+        {%- else -%}
+          {%- capture placeholder -%}hero-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
+          {{ placeholder | placeholder_svg_tag: 'placeholder-svg desk-img about-img-1' }}
+        {%- endif -%}
+        {%- if section.settings.home_about_image2 != blank -%}
+          {{
+            section.settings.home_about_image2
+            | image_url: width: 800
+            | image_tag: class: 'lazyload about-img-2', loading: 'lazy'
+          }}
+        {%- endif -%}
+      </div>
+      <div class="about-content">
+        {%- for block in section.blocks -%}
+          {% case block.type %}  
+            {%- when 'caption' -%}
+              <span class="subtitle">
+                {{- block.settings.text -}}
+              </span>
+            {%- when 'heading' -%}
+            <h2 class="title">
+              {{ block.settings.heading }}
+            </h2>
+            {%- when 'text' -%}
+            {{ block.settings.text }}
+            {%- when 'button' -%}
+            <a href="{{ block.settings.button_url }}" class="about-text-link">{{ block.settings.button }} →</a>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Image with text",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Row reverse option"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_row_reverse",
+      "label": "Row reverse",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "home_about_image",
+      "label": "Image (top)",
+      "info": "Recommended size: 540x400px"
+    },
+    {
+      "type": "image_picker",
+      "id": "home_about_image2",
+      "label": "Second image (bottom) — creates dual-image layout",
+      "info": "Recommended size: 540x400px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "caption",
+      "name": "Caption",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Add a tagline",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Image with text",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+          "label": "text"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button",
+          "default": "Button label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with text",
+      "blocks": [
+        {
+          "type": "caption"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  {% if section.settings.show_row_reverse %}
+  .image-with-text .about-area.row-reverse .about-content {
+  	order: -1;
+  }
+  {% endif %}
+</style>

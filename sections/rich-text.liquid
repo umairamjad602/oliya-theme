@@ -1,0 +1,243 @@
+<section
+  class="rich-text"
+  style="--padding-top: {{ section.settings.section_padding_top }}px;--padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;--padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="rich-text__blocks {{ section.settings.content_alignment }}">
+      {%- for block in section.blocks -%}
+        {% case block.type %}  
+          {%- when 'caption' -%}
+            <span class="subtitle">
+              {{- block.settings.text -}}
+            </span>
+          {%- when 'heading' -%}
+          <h2 class="title">
+            {{ block.settings.heading }}
+          </h2>
+          {%- when 'text' -%}
+          {{ block.settings.text }}
+          {%- when 'button' -%}
+          <a href="{{ block.settings.button_url }}" class="btn-style">{{ block.settings.button }}</a>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Content alignment"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "caption",
+      "name": "Caption",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Add a tagline",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Talk about your brand",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>",
+          "label": "text"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button",
+          "default": "Button label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich text",
+      "blocks": [
+        {
+          "type": "caption"
+        },
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .rich-text .rich-text__blocks.left {
+    text-align: start;
+  }
+  .rich-text .rich-text__blocks.center {
+    text-align: center;
+  }
+  .rich-text .rich-text__blocks.right {
+    text-align: end;
+  }
+  .rich-text .rich-text__blocks span.subtitle {
+    font-size: 16px;
+    margin: 0;
+    padding-top: 15px;
+    display: block;
+  }
+  .rich-text .rich-text__blocks h2.title {
+    font-size: 36px;
+    margin: 0;
+    padding-top: 15px;
+  }
+  .rich-text .rich-text__blocks p {
+    margin: 0;
+    padding-top: 15px;
+    max-width: 50%;
+  }
+  .rich-text .rich-text__blocks.left p {
+    margin-right: auto;
+  }
+  .rich-text .rich-text__blocks.center p {
+    margin: 0 auto;
+  }
+  .rich-text .rich-text__blocks.right p {
+     margin-left: auto;
+  }
+  .rich-text .rich-text__blocks a {
+    margin: 0;
+    margin-top: 25px;
+  }
+  @media(max-width: 479px) {
+    .rich-text .rich-text__blocks p {
+       max-width: 100%;
+    }
+  }
+</style>

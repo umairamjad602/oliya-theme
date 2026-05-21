@@ -1,0 +1,23 @@
+{% if settings.sale_percent_enable
+  and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price
+  and product.available == true
+%}
+  <div class="product-label">
+    {{ 'products.product.sale' | t }}
+    <span class="percent-count">
+      {{-
+        product.selected_or_first_available_variant.compare_at_price
+        | minus: product.selected_or_first_available_variant.price
+        | times: 100.0
+        | divided_by: product.selected_or_first_available_variant.compare_at_price
+        | round
+        | append: '%'
+      -}}
+    </span>
+  </div>
+{% endif %}
+{% if product.available == false %}
+  <div class="product-label soldout-title">
+    {{ settings.soldout_title }}
+  </div>
+{% endif %}

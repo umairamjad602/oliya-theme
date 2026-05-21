@@ -1,0 +1,63 @@
+{%- liquid
+  assign ratio = 1
+  if article.image and settings.blog_image_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif article.image and settings.blog_image_ratio == 'adapt'
+    assign ratio = article.image.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+-%}
+<div class="blog-block">
+  <a
+    href="{{ article.url }}"
+    class="blog-img ratio"
+    style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+  >
+    {%- if article.image != blank -%}
+      {% assign image_height = article.image.src.width | divided_by: article.image.src.aspect_ratio %}
+      {{
+        article.image.src
+        | image_url: width: 1080
+        | image_tag: width: article.image.src.width, height: image_height, class: 'lazyload', loading: 'lazy'
+      }}
+    {%- else -%}
+      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+      {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+    {%- endif -%}
+    <span class="btn-style icon">
+      {{ settings.blog_read }}
+    </span>
+  </a>
+  <div class="blog-post-content">
+
+    <div class="author-date">
+      {%- if settings.article_author_enable -%}
+        <span class="author-name">{{ 'blogs.article.author_by' | t }} {{ article.author | truncatewords: 2 | remove: "." }}</span>
+      {%- endif -%}
+
+      <span class="date-time">
+        <span class="date">{{ article.published_at | date: '%d' }}</span>,
+        <span class="time">{{ article.published_at | date: '%b' }}</span>,
+        <span class="year">{{ article.published_at | date: '%Y' }}</span>
+      </span>
+    </div>
+
+    <div class="title-block">
+      <a href="{{ article.url }}" class="blog-title">{{ article.title | truncatewords: 10 }}</a>
+      {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+        <p class="mr-0 blog-desc">
+          {%- if article.excerpt.size > 0 -%}
+            {{ article.excerpt | strip_html | truncatewords: 30 }}
+          {%- else -%}
+            {{ article.content | strip_html | strip | truncate: 70 }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+      <a href="{{ article.url }}" class="read-more">
+        {{ settings.blog_read_btn }}
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,956 @@
+
+<link href="{{ 'slider-category2-css.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<section class="slider-category2-area">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="row">
+      <div class="col">
+        {% if section.settings.section_title != '' or section.settings.section_sub_title != '' %}
+        <div class="section-capture">
+          <div class="section-title">
+            {% if section.settings.section_sub_title != '' %}
+            <span class="sub-title" data-fade-in>{{ section.settings.section_sub_title }}</span>
+            {% endif %}
+            {% if section.settings.section_title != '' %}
+            <h2 data-fade-in>{{ section.settings.section_title }}</h2>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        <div class="category-main">
+          <div class="category-tab">
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" data-fade-in>
+                <a class="active show" role="tab" data-bs-toggle="tab" href="#tab-1-{{ section.id }}">
+                  <span class="tab-title">{{- section.settings.category_tab_1_title | default: 'Collection' -}}</span>
+                  <span class="tab-arrow"><i class="{% if request.locale.iso_code == 'ar' %}feather-chevron-left{% else %}feather-chevron-right{% endif %}"></i></span>
+                  {% assign category_product = collections[section.settings.category_tab_collection_1] %}
+                    <span class="category-item">
+                      <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                      <span class="rightarrow-cat"><i class="ri-arrow-right-up-line"></i></span>
+                      {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                      <span class="item">{{ section.settings.item_label }}</span>
+                      {%- else -%}
+                      {% endif %}           
+                    </span>
+                </a>
+              </li>
+              <li role="presentation" data-fade-in>
+                <a class="" role="tab" data-bs-toggle="tab" href="#tab-2-{{ section.id }}">
+                  <span class="tab-title">{{- section.settings.category_tab_2_title | default: 'Collection' -}}</span>
+                  <span class="tab-arrow"><i class="feather-chevron-right"></i></span>
+                  {% assign category_product = collections[section.settings.category_tab_collection_2] %}
+                    <span class="category-item">
+                      <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                      <span class="rightarrow-cat"><i class="ri-arrow-right-up-line"></i></span>
+                      {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                      <span class="item">{{ section.settings.item_label }}</span>
+                      {%- else -%}
+                      {% endif %}           
+                    </span>
+                </a>
+              </li>
+              <li role="presentation" data-fade-in>
+                <a class="" role="tab" data-bs-toggle="tab" href="#tab-3-{{ section.id }}">
+                  <span class="tab-title">{{- section.settings.category_tab_3_title | default: 'Collection' -}}</span>
+                  <span class="tab-arrow"><i class="feather-chevron-right"></i></span>
+                  {% assign category_product = collections[section.settings.category_tab_collection_3] %}
+                    <span class="category-item">
+                      <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                      <span class="rightarrow-cat"><i class="ri-arrow-right-up-line"></i></span>
+                      {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                      <span class="item">{{ section.settings.item_label }}</span>
+                      {%- else -%}
+                      {% endif %}           
+                    </span>
+                </a>
+              </li>
+              <li role="presentation" data-fade-in>
+                <a class="" role="tab" data-bs-toggle="tab" href="#tab-4-{{ section.id }}">
+                  <span class="tab-title">{{- section.settings.category_tab_4_title | default: 'Collection' -}}</span>
+                  <span class="tab-arrow"><i class="feather-chevron-right"></i></span>
+                  {% assign category_product = collections[section.settings.category_tab_collection_4] %}
+                    <span class="category-item">
+                      <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                      <span class="rightarrow-cat"><i class="ri-arrow-right-up-line"></i></span>
+                      {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                      <span class="item">{{ section.settings.item_label }}</span>
+                      {%- else -%}
+                      {% endif %}           
+                    </span>
+                </a>
+              </li>
+              <li role="presentation" data-fade-in>
+                <a class="" role="tab" data-bs-toggle="tab" href="#tab-5-{{ section.id }}">
+                  <span class="tab-title">{{- section.settings.category_tab_5_title | default: 'Collection' -}}</span>
+                  <span class="tab-arrow"><i class="feather-chevron-right"></i></span>
+                  {% assign category_product = collections[section.settings.category_tab_collection_5] %}
+                    <span class="category-item">
+                      <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                      <span class="rightarrow-cat"><i class="ri-arrow-right-up-line"></i></span>
+                      {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                      <span class="item">{{ section.settings.item_label }}</span>
+                      {%- else -%}
+                      {% endif %}           
+                    </span>
+                </a>
+              </li>
+              <li role="presentation" data-fade-in>
+                <a class="" role="tab" data-bs-toggle="tab" href="#tab-6-{{ section.id }}">
+                  <span class="tab-title">{{- section.settings.category_tab_6_title | default: 'Collection' -}}</span>
+                  <span class="tab-arrow"><i class="feather-chevron-right"></i></span>
+                  {% assign category_product = collections[section.settings.category_tab_collection_6] %}
+                    <span class="category-item">
+                      <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                      <span class="rightarrow-cat"><i class="ri-arrow-right-up-line"></i></span>
+                      {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                      <span class="item">{{ section.settings.item_label }}</span>
+                      {%- else -%}
+                      {% endif %}           
+                    </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="category-slider">
+            <div class="tab-content tabs">
+              <div class="tab-pane fade active show" id="tab-1-{{ section.id }}" role="tabpanel">
+                <div class="category-sub-slider swiper" id="category-tab-{{ section.id }}" data-slides-per-view="{{ section.settings.category_special_product_limit }}">
+                  <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                    {%- case block.type -%}
+                    {%- when 'category_1_tab' -%}
+                    {% assign category_product = collections[block.settings.category_tab_collection_1] %}
+                    <div class="swiper-slide" data-fade-in>
+                      <div class="category-sub-item" style="background-color: {{ section.settings.sub_item_bg }};">
+                        <div class="category">
+                          <a href="{{ category_product.url }}" class="collection-title">{{ category_product.title | default: 'Collection' }}</a>
+                          <span class="image-sub">
+                            {%- if block.settings.catimage1 -%}
+                            {{ block.settings.catimage1 | image_url: width: 512 | image_tag:
+                            loading: 'lazy',
+                            width: block.settings.catimage1.width,
+                            height: block.settings.catimage1.height,
+                            class: "img-fluid lazyload",
+                            alt: block.settings.catimage1.alt | escape }}
+                            {%- else -%}
+                            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                            {%- endif -%}
+                          </span>
+                          <div class="category-sub-content">
+                            <span class="category-item">
+                              <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                              {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                              <span class="item">{{ section.settings.item_label }}</span>
+                              {%- else -%}
+                              <span class="item">{{ section.settings.items_label }}</span>
+                              {% endif %}           
+                            </span>
+                            <span class="btn-subtext">{{ section.settings.collection_button_text }}</span>
+                            <a href="{{ category_product.url }}" class="collection-button btn-style3">{{ section.settings.collection_button_text-btn }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%- endcase -%}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="tab-2-{{ section.id }}" role="tabpanel">
+                <div class="category-sub-slider swiper" id="category-tab-{{ section.id }}" data-slides-per-view="{{ section.settings.category_special_product_limit }}">
+                  <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                    {%- case block.type -%}
+                    {%- when 'category_2_tab' -%}
+                    {% assign category_product = collections[block.settings.category_tab_collection_2] %}
+                    <div class="swiper-slide" data-fade-in>
+                      <div class="category-sub-item" style="background-color: {{ section.settings.sub_item_bg }};">
+                        <div class="category">
+                          <a href="{{ category_product.url }}" class="collection-title">{{ category_product.title | default: 'Collection' }}</a>
+                          <span class="image-sub">
+                            {%- if block.settings.catimage2 -%}
+                            {{ block.settings.catimage2 | image_url: width: 512 | image_tag:
+                            loading: 'lazy',
+                            width: block.settings.catimage2.width,
+                            height: block.settings.catimage2.height,
+                            class: "img-fluid lazyload",
+                            alt: block.settings.catimage2.alt | escape }}
+                            {%- else -%}
+                            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                            {%- endif -%}
+                          </span>
+                          <div class="category-sub-content">
+                            <span class="category-item">
+                              <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                              {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                              <span class="item">{{ section.settings.item_label }}</span>
+                              {%- else -%}
+                              <span class="item">{{ section.settings.items_label }}</span>
+                              {% endif %}           
+                            </span>
+                            <span class="btn-subtext">{{ section.settings.collection_button_text }}</span>
+                            <a href="{{ category_product.url }}" class="collection-button btn-style3">{{ section.settings.collection_button_text-btn }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%- endcase -%}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="tab-3-{{ section.id }}" role="tabpanel">
+                <div class="category-sub-slider swiper" id="category-tab-{{ section.id }}" data-slides-per-view="{{ section.settings.category_special_product_limit }}">
+                  <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                    {%- case block.type -%}
+                    {%- when 'category_3_tab' -%}
+                    {% assign category_product = collections[block.settings.category_tab_collection_3] %}
+                    <div class="swiper-slide" data-fade-in>
+                      <div class="category-sub-item" style="background-color: {{ section.settings.sub_item_bg }};">
+                        <div class="category">
+                          <a href="{{ category_product.url }}" class="collection-title">{{ category_product.title | default: 'Collection' }}</a>
+                          <span class="image-sub">
+                            {%- if block.settings.catimage3 -%}
+                            {{ block.settings.catimage3 | image_url: width: 512 | image_tag:
+                            loading: 'lazy',
+                            width: block.settings.catimage3.width,
+                            height: block.settings.catimage3.height,
+                            class: "img-fluid lazyload",
+                            alt: block.settings.catimage3.alt | escape }}
+                            {%- else -%}
+                            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                            {%- endif -%}
+                          </span>
+                          <div class="category-sub-content">
+                            <span class="category-item">
+                              <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                              {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                              <span class="item">{{ section.settings.item_label }}</span>
+                              {%- else -%}
+                              <span class="item">{{ section.settings.items_label }}</span>
+                              {% endif %}           
+                            </span>
+                            <span class="btn-subtext">{{ section.settings.collection_button_text }}</span>
+                            <a href="{{ category_product.url }}" class="collection-button btn-style3">{{ section.settings.collection_button_text-btn }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%- endcase -%}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="tab-4-{{ section.id }}" role="tabpanel">
+                <div class="category-sub-slider swiper" id="category-tab-{{ section.id }}" data-slides-per-view="{{ section.settings.category_special_product_limit }}">
+                  <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                    {%- case block.type -%}
+                    {%- when 'category_4_tab' -%}
+                    {% assign category_product = collections[block.settings.category_tab_collection_4] %}
+                    <div class="swiper-slide" data-fade-in>
+                      <div class="category-sub-item" style="background-color: {{ section.settings.sub_item_bg }};">
+                        <div class="category">
+                          <a href="{{ category_product.url }}" class="collection-title">{{ category_product.title | default: 'Collection' }}</a>
+                          <span class="image-sub">
+                            {%- if block.settings.catimage4 -%}
+                            {{ block.settings.catimage4 | image_url: width: 512 | image_tag:
+                            loading: 'lazy',
+                            width: block.settings.catimage4.width,
+                            height: block.settings.catimage4.height,
+                            class: "img-fluid lazyload",
+                            alt: block.settings.catimage4.alt | escape }}
+                            {%- else -%}
+                            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                            {%- endif -%}
+                          </span>
+                          <div class="category-sub-content">
+                            <span class="category-item">
+                              <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                              {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                              <span class="item">{{ section.settings.item_label }}</span>
+                              {%- else -%}
+                              <span class="item">{{ section.settings.items_label }}</span>
+                              {% endif %}           
+                            </span>
+                            <span class="btn-subtext">{{ section.settings.collection_button_text }}</span>
+                            <a href="{{ category_product.url }}" class="collection-button btn-style3">{{ section.settings.collection_button_text-btn }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%- endcase -%}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="tab-5-{{ section.id }}" role="tabpanel">
+                <div class="category-sub-slider swiper" id="category-tab-{{ section.id }}" data-slides-per-view="{{ section.settings.category_special_product_limit }}">
+                  <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                    {%- case block.type -%}
+                    {%- when 'category_5_tab' -%}
+                    {% assign category_product = collections[block.settings.category_tab_collection_5] %}
+                    <div class="swiper-slide" data-fade-in>
+                      <div class="category-sub-item" style="background-color: {{ section.settings.sub_item_bg }};">
+                        <div class="category">
+                          <a href="{{ category_product.url }}" class="collection-title">{{ category_product.title | default: 'Collection' }}</a>
+                          <span class="image-sub">
+                            {%- if block.settings.catimage5 -%}
+                            {{ block.settings.catimage5 | image_url: width: 512 | image_tag:
+                            loading: 'lazy',
+                            width: block.settings.catimage5.width,
+                            height: block.settings.catimage5.height,
+                            class: "img-fluid lazyload",
+                            alt: block.settings.catimage5.alt | escape }}
+                            {%- else -%}
+                            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                            {%- endif -%}
+                          </span>
+                          <div class="category-sub-content">
+                            <span class="category-item">
+                              <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                              {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                              <span class="item">{{ section.settings.item_label }}</span>
+                              {%- else -%}
+                              <span class="item">{{ section.settings.items_label }}</span>
+                              {% endif %}           
+                            </span>
+                            <span class="btn-subtext">{{ section.settings.collection_button_text }}</span>
+                            <a href="{{ category_product.url }}" class="collection-button btn-style3">{{ section.settings.collection_button_text-btn }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%- endcase -%}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="tab-6-{{ section.id }}" role="tabpanel">
+                <div class="category-sub-slider swiper" id="category-tab-{{ section.id }}" data-slides-per-view="{{ section.settings.category_special_product_limit }}">
+                  <div class="swiper-wrapper">
+                    {% for block in section.blocks %}
+                    {%- case block.type -%}
+                    {%- when 'category_6_tab' -%}
+                    {% assign category_product = collections[block.settings.category_tab_collection_6] %}
+                    <div class="swiper-slide" data-fade-in>
+                      <div class="category-sub-item" style="background-color: {{ section.settings.sub_item_bg }};">
+                        <div class="category">
+                          <a href="{{ category_product.url }}" class="collection-title">{{ category_product.title | default: 'Collection' }}</a>
+                          <span class="image-sub">
+                            {%- if block.settings.catimage6 -%}
+                            {{ block.settings.catimage6 | image_url: width: 512 | image_tag:
+                            loading: 'lazy',
+                            width: block.settings.catimage6.width,
+                            height: block.settings.catimage6.height,
+                            class: "img-fluid lazyload",
+                            alt: block.settings.catimage6.alt | escape }}
+                            {%- else -%}
+                            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                            {%- endif -%}
+                          </span>
+                          <div class="category-sub-content">
+                            <span class="category-item">
+                              <span class="count">{{ category_product.products.count | default: "0" }}+ </span>
+                              {% if category_product.products.count == 0 or category_product.products.count == 1 %}
+                              <span class="item">{{ section.settings.item_label }}</span>
+                              {%- else -%}
+                              <span class="item">{{ section.settings.items_label }}</span>
+                              {% endif %}           
+                            </span>
+                            <span class="btn-subtext">{{ section.settings.collection_button_text }}</span>
+                            <a href="{{ category_product.url }}" class="collection-button btn-style3">{{ section.settings.collection_button_text-btn }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {%- endcase -%}
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <script type="text/javascript">
+                addEventListener('DOMContentLoaded', (event) => {
+                  var swiper = new Swiper('#category-tab-{{ section.id }}', {
+                    loop: false,
+                    slidesPerView: {{ section.settings.category_sub_item }},
+                    grid: {
+                      rows: {{ section.settings.category_sub_col }},
+                      fill: 'row' | 'column',
+                    },
+                    spaceBetween: 12,
+                    observer: true,
+                    observeParents: true,
+                    watchSlidesProgress: true,
+                    {% if request.locale.iso_code == 'ar' %}
+                    rtl: true,
+                    {%- endif -%}
+                    navigation: {
+                      nextEl: '.swiper-next-{{ section.id }}',
+                      prevEl: '.swiper-prev-{{ section.id }}',
+                    },
+                    pagination: {
+                      el: ".swiper-pagination-{{ section.id }}",
+                      clickable: true
+                    },
+                    autoplay: {
+                      delay: 5000,
+                      disableOnInteraction: false,
+                      pauseOnMouseEnter: true
+                    },
+                    speed: 1000,
+                    breakpoints: {
+                      0: {
+                        slidesPerView: 1,
+                        grid: {
+                          rows: {{ section.settings.category_sub_col }},
+                          fill: 'row' | 'column',
+                        },
+                        spaceBetween: 12,
+                      },
+                      320: {
+                        slidesPerView: 2,
+                        grid: {
+                          rows: {{ section.settings.category_sub_col }},
+                          fill: 'row' | 'column',
+                        },
+                        spaceBetween: 12,
+                      },
+                      540: {
+                        slidesPerView: 2,
+                        grid: {
+                          rows: {{ section.settings.category_sub_col }},
+                          fill: 'row' | 'column',
+                        },
+                        spaceBetween: 12,
+                      },
+                      640: {
+                        slidesPerView: 2,
+                        grid: {
+                          rows: {{ section.settings.category_sub_col }},
+                          fill: 'row' | 'column',
+                        },
+                        spaceBetween: 12,
+                      },
+                      768: {
+                        slidesPerView: 2,
+                        grid: {
+                          rows: {{ section.settings.category_sub_col }},
+                          fill: 'row' | 'column',
+                        },
+                        spaceBetween: 30,
+                      },
+                      1024: {
+                        slidesPerView: 2,
+                        grid: {
+                          rows: {{ section.settings.category_sub_col }},
+                          fill: 'row' | 'column',
+                        },
+                        spaceBetween: 30,
+                      },
+                      1199: {
+                        slidesPerView: 3,
+                        grid: {
+                          rows: {{ section.settings.category_sub_col }},
+                          fill: 'row' | 'column',
+                        },
+                        spaceBetween: 30,
+                      },
+                      1499: {
+                        slidesPerView: {{ section.settings.category_sub_item }},
+                        grid: {
+                          rows: {{ section.settings.category_sub_col }},
+                          fill: 'row' | 'column',
+                        },
+                        spaceBetween: 30,
+                      }
+                    }
+                  });
+                });
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Category 2",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop / Laptop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad pro / Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_lg",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_lg",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "sub_item_bg",
+      "label": "Category item background",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background Color",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "section_sub_title",
+      "label": "Section sub title"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Shop category"
+    },
+    {
+      "type": "header",
+      "content": "Category tab 1"
+    },
+    {
+      "type": "text",
+      "id": "category_tab_1_title",
+      "label": "Section title",
+      "default": "Classic pottery"
+    },
+    {
+      "type": "collection",
+      "id": "category_tab_collection_1",
+      "label": "Collection1"
+    },
+    {
+      "type": "header",
+      "content": "Category tab 2"
+    },
+    {
+      "type": "collection",
+      "id": "category_tab_collection_2",
+      "label": "Collection2"
+    },
+    {
+      "type": "text",
+      "id": "category_tab_2_title",
+      "label": "Section title",
+      "default": "Antique decor"
+    },
+    {
+      "type": "header",
+      "content": "Category tab 3"
+    },
+    {
+      "type": "collection",
+      "id": "category_tab_collection_3",
+      "label": "Collection3"
+    },
+    {
+      "type": "text",
+      "id": "category_tab_3_title",
+      "label": "Section title",
+      "default": "Art painting"
+    },
+    {
+      "type": "header",
+      "content": "Category tab 4"
+    },
+    {
+      "type": "collection",
+      "id": "category_tab_collection_4",
+      "label": "Collection4"
+    },
+    {
+      "type": "text",
+      "id": "category_tab_4_title",
+      "label": "Section title",
+      "default": "Old currency"
+    },
+    {
+      "type": "header",
+      "content": "Category tab 5"
+    },
+    {
+      "type": "collection",
+      "id": "category_tab_collection_5",
+      "label": "Collection5"
+    },
+    {
+      "type": "text",
+      "id": "category_tab_5_title",
+      "label": "Section title",
+      "default": "Vintage statue"
+    },
+    {
+      "type": "header",
+      "content": "Category tab 6"
+    },
+    {
+      "type": "collection",
+      "id": "category_tab_collection_6",
+      "label": "Collection6"
+    },
+    {
+      "type": "text",
+      "id": "category_tab_6_title",
+      "label": "Section title",
+      "default": "Vintage statue"
+    },
+    {
+      "type": "header",
+      "content": "Category item label"
+    },
+    {
+      "type": "text",
+      "id": "item_label",
+      "label": "Item label",
+      "default": "Jewelry is the most transformative thing you can wear."
+    },
+    {
+      "type": "text",
+      "id": "items_label",
+      "label": "Items label",
+      "default": "Items"
+    },
+    {
+      "type": "text",
+      "id": "collection_button_text",
+      "label": "Collection hover button title",
+      "default": "Jewelry is the most transformative thing you can wear."
+    },
+    {
+      "type": "text",
+      "id": "collection_button_text-btn",
+      "label": "Collection button",
+      "default": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Slider option"
+    },
+    {
+      "type": "select",
+      "id": "category_sub_col",
+      "label": "Slides per column",
+      "options": [
+        {
+          "label": "1 Products",
+          "value": "1"
+        },
+        {
+          "label": "2 Products",
+          "value": "2"
+        },
+        {
+          "label": "3 Products",
+          "value": "3"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "category_sub_item",
+      "label": "Slides per view",
+      "options": [
+        {
+          "label": "3 Products",
+          "value": "3"
+        },
+        {
+          "label": "4 Products",
+          "value": "4"
+        },
+        {
+          "label": "5 Products",
+          "value": "5"
+        }
+      ],
+      "default": "3"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_1_tab",
+      "name": "Tab 1 collection",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Select collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "catimage1",
+          "label": "Image",
+          "info": "Select collection image"
+        },
+        {
+          "type": "collection",
+          "id": "category_tab_collection_1",
+          "label": "Collection"
+        },
+        {
+          "type": "header",
+          "content": "Select collection"
+        }
+      ]
+    },
+    {
+      "type": "category_2_tab",
+      "name": "Tab 2 collection",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Select collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "catimage2",
+          "label": "Image",
+          "info": "Select collection image"
+        },
+        {
+          "type": "collection",
+          "id": "category_tab_collection_2",
+          "label": "Collection"
+        },
+        {
+          "type": "header",
+          "content": "Select collection"
+        }
+      ]
+    },
+    {
+      "type": "category_3_tab",
+      "name": "Tab 3 collection",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Select collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "catimage3",
+          "label": "Image",
+          "info": "Select collection image"
+        },
+        {
+          "type": "collection",
+          "id": "category_tab_collection_3",
+          "label": "Collection"
+        },
+        {
+          "type": "header",
+          "content": "Select collection"
+        }
+      ]
+    },
+    {
+      "type": "category_4_tab",
+      "name": "Tab 4 collection",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Select collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "catimage4",
+          "label": "Image",
+          "info": "Select collection image"
+        },
+        {
+          "type": "collection",
+          "id": "category_tab_collection_4",
+          "label": "Collection"
+        },
+        {
+          "type": "header",
+          "content": "Select collection"
+        }
+      ]
+    },
+    {
+      "type": "category_5_tab",
+      "name": "Tab 5 collection",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Select collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "catimage5",
+          "label": "Image",
+          "info": "Select collection image"
+        },
+        {
+          "type": "collection",
+          "id": "category_tab_collection_5",
+          "label": "Collection"
+        },
+        {
+          "type": "header",
+          "content": "Select collection"
+        }
+      ]
+    },
+    {
+      "type": "category_6_tab",
+      "name": "Tab 6 collection",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Select collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "catimage6",
+          "label": "Image",
+          "info": "Select collection image"
+        },
+        {
+          "type": "collection",
+          "id": "category_tab_collection_6",
+          "label": "Collection"
+        },
+        {
+          "type": "header",
+          "content": "Select collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category 2"
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .slider-category2-area {
+    background-color: {{ section.settings.section_bg_color }};
+    text-align: center;
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  }
+  @media(max-width: 1199px) {
+    .slider-category2-area {
+      padding-top: {{ section.settings.section_padding_top_lg }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom_lg }}px;
+    }
+  }
+  @media(max-width: 767px) {
+    .slider-category2-area {
+      padding-top: {{ section.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom_xs }}px;
+    }
+  }
+  .image-sub img {
+    border-radius: 1000px;
+    overflow: hidden;
+  }
+</style>

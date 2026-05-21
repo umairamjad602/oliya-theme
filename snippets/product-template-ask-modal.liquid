@@ -1,0 +1,129 @@
+<div class="modal fade center size-modal" id="size-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <button type="button" class="pop-close" data-bs-dismiss="modal" aria-label="close">
+        <i class="feather-x"></i>
+      </button>
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'product_modal' -%}
+            {% assign page_content = block.settings.sizeguide_page %}
+            {{ pages[page_content].content }}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+<div class="modal fade center share-modal" id="share-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <button type="button" class="pop-close" data-bs-dismiss="modal" aria-label="close">
+        <i class="feather-x"></i>
+      </button>
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'product_modal' -%}
+            <div class="product_share-social" {{ block.shopify_attributes }}>
+              <div class="product_share-copy" data-text="Copy link">
+                <span class="sub-title">{{ block.settings.copy_title }}</span>
+                <div class="content">
+                  <input
+                    class="url_share"
+                    type="text"
+                    id="copy-input"
+                    value="{{ shop.url }}{{ product.url }}"
+                    readonly
+                  >
+                  <button onclick="myFunction()" aria-label="{{ block.settings.copy_button }}">
+                    {{ block.settings.copy_button }}
+                  </button>
+                </div>
+              </div>
+              <div class="product_share-icon">
+                <span class="sub-title">{{ block.settings.share_title }}</span>
+                {% render 'social-share' %}
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+<div class="modal fade center que-modal" id="que-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <button type="button" class="pop-close" data-bs-dismiss="modal" aria-label="close">
+        <i class="feather-x"></i>
+      </button>
+      <div class="ask-form">
+        <h6 class="mr-0">{{ 'contact.ask-form.heading' | t }}</h6>
+        {% form 'contact', id: 'contact-form-ask' %}
+          <input type="hidden" name="contact[product]" value="{{ product.title }}">
+          <input type="hidden" name="contact[product url]" value="{{ shop.url }}{{ product.url }}">
+          <div class="form-grp">
+            <ul class="list-unstyled">
+              <li>
+                <label for="contactName" class="hidden">{{ 'contact.ask-form.name' | t }}</label>
+                <input
+                  type="text"
+                  id="contactName"
+                  name="contact[name]"
+                  required
+                  placeholder="{{ 'contact.ask-form.name' | t }}*"
+                >
+              </li>
+              <li>
+                <label for="contactPhone" class="hidden">{{ 'contact.ask-form.phone' | t }}</label>
+                <input
+                  type="text"
+                  id="contactPhone"
+                  name="contact[phone]"
+                  placeholder="{{ 'contact.ask-form.phone' | t }}"
+                >
+              </li>
+              <li>
+                <label for="contactEmail" class="hidden">{{ 'contact.ask-form.email' | t }}</label>
+                <input
+                  id="contactEmail"
+                  type="email"
+                  name="contact[email]"
+                  required
+                  autocorrect="off"
+                  placeholder="{{ 'contact.ask-form.email' | t }}*"
+                >
+              </li>
+              <li>
+                <label for="contactQuestion" class="hidden">{{ 'contact.ask-form.message' | t }}</label>
+                <textarea
+                  id="contactQuestion"
+                  name="contact[question]"
+                  rows="4"
+                  required
+                  placeholder="{{ 'contact.ask-form.message' | t }}*"
+                ></textarea>
+              </li>
+            </ul>
+            <p class="mr-0">* {{ 'contact.ask-form.required-fields' | t }}</p>
+            <button type="submit" class="btn-style2" aria-label="{{ 'contact.ask-form.send' | t }}">
+              {{ 'contact.ask-form.send' | t }}
+            </button>
+          </div>
+          {% if form.posted_successfully? %}
+            <p class="mr-0 alert alert-success">{{ 'contact.ask-form.post_success' | t }}</p>
+          {% endif %}
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function myFunction() {
+    // Get the text field
+    var copyText = document.getElementById("copy-input");
+    // Select the text field
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(copyText.value);
+  }
+</script>

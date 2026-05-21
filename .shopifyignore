@@ -1,0 +1,27 @@
+# Ignore editor/OS temporary files — must use **/ to match inside subdirectories
+**/*.tmp
+**/*.tmp.*
+*.tmp
+*.tmp.*
+**/*~
+*~
+.DS_Store
+**/.DS_Store
+Thumbs.db
+desktop.ini
+
+# Shopify CLI own temp files (pattern: filename.ext.tmp.PID.hash)
+sections/*.tmp.*
+templates/*.tmp.*
+assets/*.tmp.*
+snippets/*.tmp.*
+layout/*.tmp.*
+config/*.tmp.*
+locales/*.tmp.*
+
+# Ignore Claude Code working files
+.claude/
+
+# Ignore Node/build artifacts
+node_modules/
+*.log

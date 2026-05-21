@@ -1,0 +1,318 @@
+{{ 'banner-lookbook.css' | asset_url | stylesheet_tag }}
+<section class="banner-lookbook" style="--padding-top: {{ section.settings.section_padding_top }}px;--padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;--padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;--background-color: {{ section.settings.section_bg_color }};">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="row">
+      <div class="col">
+        <div class="grid-wrap">
+          <div class="grid-wrapper">
+            <div class="banner-block">
+              {%- if section.settings.banner_img != blank -%}
+              {{ section.settings.banner_img | image_url: width: 1080 | image_tag:
+                loading: 'lazy',
+                width: section.settings.banner_img.width,
+                height: section.settings.banner_img.height,
+                class: "img-fluid lazyload",
+                alt: section.settings.banner_img.alt | escape }}
+              {%- else -%}
+              {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+              {%- endif -%}
+              {% for block in section.blocks %}
+              {%- case block.type -%}
+              {%- when 'lookbook' -%}
+              {%- assign product = block.settings.product1 -%}
+              {% if product != '' %}
+              <div class="st-hotspot" style="top: {{ block.settings.hotspot1_top }}%;left: {{ block.settings.hotspot1_left }}%;">
+                <div class="st-btn" style="top: {{ block.settings.hotspot1_top }}%;left: {{ block.settings.hotspot1_left }}%;">
+                    <span class="hotspot-dott-bg"></span>
+                    <span class="hotspot-dott"></span>
+                </div>
+                <div class="st-content-parent">
+                  {% render 'product-grid-list-lookbook', product: product %}
+                </div>
+              </div>
+              {% endif %}
+              {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="grid-wrapper title-wrapper">
+            <div class="banner-slider swiper" id="banner-slider-{{ section.id }}">
+              <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                {%- case block.type -%}
+                {%- when 'lookbook' -%}
+                <div class="swiper-slide slide-{{ block.id }}">
+                  <a class="banner-block" href="{{ block.settings.banner_url }}">
+                    {%- if block.settings.banner_img != blank -%}
+                    {{ block.settings.banner_img | image_url: width: 1080 | image_tag:
+                     loading: 'lazy',
+                     width: block.settings.banner_img.width,
+                     height: block.settings.banner_img.height,
+                     class: "img-fluid lazyload",
+                     alt: block.settings.banner_img.alt | escape }}
+                     {%- else -%}
+                     {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                     {%- endif -%}
+                     <div class="banner-title">
+                        <div class="text-cotent">
+                          <div class="title-block">
+                            {% if block.settings.banner_sub_title != '' %}
+                            <span data-fade-in style="color: {{ block.settings.banner_sub_title_color }};">{{ block.settings.banner_sub_title }}</span>
+                            {% endif %}
+                            {% if block.settings.banner_title != '' %}
+                            <h2 data-fade-in class="mr-0" style="color: {{ block.settings.banner_title_color }};">{{ block.settings.banner_title }}</h2>
+                            {% endif %}
+                          </div>
+                          {% if block.settings.banner_btn != '' %}
+                          <button class="btn-style" data-fade-in>{{ block.settings.banner_btn }}</button>
+                          {% endif %}
+                        </div>
+                     </div>
+                   </a>
+                 </div>
+                 {%- endcase -%}
+                 {% endfor %}
+               </div>
+               <div class="swiper-dott"></div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if section.settings.section_headding != '' %}
+  <div class="section-heading">
+    <h1 data-fade-in style="color: {{ section.settings.section_headding_color }}">{{ section.settings.section_headding }}</h1>
+  </div>
+  {% endif %}
+</section>
+<script type="text/javascript">
+addEventListener('DOMContentLoaded', (event) => {
+  $('.st-btn').on('click', function(){
+    $(this).parent('.st-hotspot').toggleClass("open").siblings().removeClass("open");
+  });
+});
+addEventListener('DOMContentLoaded', (event) => {
+  var swiper_look = new Swiper('#banner-slider-{{ section.id }}', {
+    slidesPerView: 1,
+    loop: false,
+    grid: {
+      rows: 1,
+      fill: 'row' | 'column',
+    },
+    spaceBetween: 0,
+    observer: true,
+    observeParents: true,
+    watchSlidesProgress: true,
+    slideToClickedSlide: true,
+    loopedSlides: 50,
+    pagination: {
+      clickable: true,
+      el: ".swiper-dott",
+    },
+    {% if section.settings.slider_autoplay_enable %}
+    autoplay: {
+      delay: {{ section.settings.slider_autoplay_timeout }},
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true
+    },
+    speed: {{ section.settings.slider_autoplay_speed }},
+    {% endif %}
+  });
+  document.querySelectorAll('.banner-block .st-hotspot').forEach((button, index) => {
+    button.addEventListener('click', () => {
+      swiper_look.slideToLoop(index); // Change slide based on the button clicked
+    });
+  });
+});
+</script>
+{% schema %}
+{
+  "name": "Banner lookbook",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Banner image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img",
+      "label": "Banner image",
+      "info": "Recommended size: 660x660px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "lookbook",
+      "name": "Lookbook",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Lookbook pointer"
+        },
+        {
+          "type": "range",
+          "id": "hotspot1_top",
+          "label": "Hotspot top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 60
+        },
+        {
+          "type": "range",
+          "id": "hotspot1_left",
+          "label": "Hotspot left",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 60
+        },
+        {
+          "type": "header",
+          "content": "Select product"
+        },
+        {
+          "type": "product",
+          "id": "product1",
+          "label": "Select product"
+        },
+        {
+          "type": "header",
+          "content": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_img",
+          "label": "Banner image",
+          "info": "Recommended size: 660x660px"
+        },
+        {
+          "type": "url",
+          "id": "banner_url",
+          "label": "Banner url"
+        },
+        {
+          "type": "text",
+          "id": "banner_sub_title",
+          "label": "Banner subtitle",
+          "default": "Big discount only 30% off"
+        },
+        {
+          "type": "color",
+          "id": "banner_sub_title_color",
+          "label": "Banner subtitle color",
+          "default": "#fff"
+        },
+        {
+          "type": "text",
+          "id": "banner_title",
+          "label": "Banner title",
+          "default": "Weekly sale"
+        },
+        {
+          "type": "color",
+          "id": "banner_title_color",
+          "label": "Banner title color",
+          "default": "#fff"
+        },
+        {
+          "type": "text",
+          "id": "banner_btn",
+          "label": "Banner button",
+          "default": "Shop now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner lookbook"
+    }
+  ]
+}
+{% endschema %}

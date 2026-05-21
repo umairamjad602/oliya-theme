@@ -1,0 +1,329 @@
+{{ 'contact-location-list.css' | asset_url | stylesheet_tag }}
+<section
+  class="contact-location-list"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;--background-color: {{ section.settings.section_background_color }};"
+>
+  <div class="banner-bg" id="banner-bg">
+    {%- if section.settings.banner_img != blank -%}
+      {{
+        section.settings.banner_img
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'lazy',
+          width: section.settings.banner_img.width,
+          height: section.settings.banner_img.height,
+          class: 'lazyload',
+          alt: section.settings.banner_img.alt
+        | escape
+      }}
+    {%- else -%}
+      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+      {{ 'hero-apparel-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="location-block" id="location-block">
+      {% if section.settings.section_subheading != '' or section.settings.section_heading != '' %}
+        <div class="section-capture">
+          <div class="section-title">
+            {% if section.settings.section_subheading != '' %}
+              <span data-fade-in class="sub-title">{{ section.settings.section_subheading }}</span>
+            {% endif %}
+            {% if section.settings.section_heading != '' %}
+              <h2 class="mr-0" data-fade-in>{{ section.settings.section_heading }}</h2>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+      <div class="location-slider">
+        <div class="swiper" id="location-slider-{{ section.id }}" data-slides-per-view="4">
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="add-block">
+                  <span class="flag-img">
+                    {%- if block.settings.flag_img != blank -%}
+                      {{
+                        block.settings.flag_img
+                        | image_url: width: 200
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.flag_img.width,
+                          height: block.settings.flag_img.height,
+                          class: 'lazyload',
+                          alt: block.settings.flag_img.alt
+                        | escape
+                      }}
+                    {%- else -%}
+                      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                      {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                    {%- endif -%}
+                  </span>
+                  <p class="mr-0">{{ block.settings.address_text }}</p>
+                  <div class="url-content">
+                    <a class="mobile" href="tel:{{ block.settings.add_mobile }}">{{ block.settings.add_mobile }}</a>
+                    <a class="mail" href="mail:{{ block.settings.add_email }}">{{ block.settings.add_email }}</a>
+                  </div>
+                  <span class="cnt-title">{{ block.settings.country_name }}</span>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+        <div class="swiper-arrow">
+          <span class="arrow-prev arrow-prev-{{ section.id }}"><i class="feather-arrow-left"></i></span>
+          <span class="arrow-next arrow-next-{{ section.id }}"><i class="feather-arrow-right"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+  addEventListener('DOMContentLoaded', (event) => {
+    var swiper = new Swiper('#location-slider-{{ section.id }}', {
+      {%- if request.locale.iso_code == 'ar' -%}
+      rtl: true,
+      {%- endif -%}
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
+      navigation: {
+        nextEl: '.arrow-next-{{ section.id }}',
+        prevEl: '.arrow-prev-{{ section.id }}',
+      },
+      speed: 1000,
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          spaceBetween: 12
+        },
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 12
+        },
+        360: {
+          slidesPerView: 1,
+          spaceBetween: 12
+        },
+        540: {
+          slidesPerView: 2,
+          spaceBetween: 12
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 12
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+        1199: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        },
+        1499: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        }
+      }
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "Contact location list",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_img",
+      "label": "Image",
+      "info": "Recommended size: 1920x770px"
+    },
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading",
+      "default": "subheading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "address",
+      "name": "Address",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "flag_img",
+          "label": "Flag image",
+          "info": "Recommended size: 72x44px"
+        },
+        {
+          "type": "text",
+          "id": "address_text",
+          "label": "Address text",
+          "default": "425 Broadway, 20th floor pharchard view, London"
+        },
+        {
+          "type": "text",
+          "id": "add_mobile",
+          "label": "Mobile number",
+          "default": "+91 123 456 7890"
+        },
+        {
+          "type": "text",
+          "id": "add_email",
+          "label": "Email address",
+          "default": "support@store.com"
+        },
+        {
+          "type": "text",
+          "id": "country_name",
+          "label": "Country name",
+          "default": "London"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact location list",
+      "blocks": [
+        {
+          "type": "address"
+        },
+        {
+          "type": "address"
+        },
+        {
+          "type": "address"
+        },
+        {
+          "type": "address"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

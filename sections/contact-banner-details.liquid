@@ -1,0 +1,270 @@
+{{ 'contact-banner-details.css' | asset_url | stylesheet_tag }}
+<section
+  class="contact-details"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="contact-content">
+      <div class="contact-detail image-warp">
+        <a href="{{ section.settings.contact_img_url }}" class="contact-img-wrap banner-hover">
+          {%- if section.settings.contact_img != blank -%}
+            {{
+              section.settings.contact_img
+              | image_url: width: 1024
+              | image_tag:
+                loading: 'lazy',
+                width: section.settings.contact_img.width,
+                height: section.settings.contact_img.height,
+                class: 'lazyload',
+                alt: section.settings.contact_img.alt
+              | escape
+            }}
+          {%- else -%}
+            {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+            {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          {%- endif -%}
+        </a>
+      </div>
+      <div class="contact-detail get-info">
+        <div class="store-info">
+          <div class="section-title">
+            {% if section.settings.section_subheading != '' %}
+              <span class="sub-title" data-fade-in>{{ section.settings.section_subheading }}</span>
+            {% endif %}
+            {% if section.settings.section_heading != '' %}
+              <h2 class="mr-0" data-fade-in>{{ section.settings.section_heading }}</h2>
+            {% endif %}
+          </div>
+          <ul class="list-unstyled info_wrap">
+            <li data-fade-in class="info_wrapper">
+              <div class="info-block">
+                <div class="icon">
+                  {{ section.settings.info_icon1 }}
+                </div>
+                <div class="text-block">
+                  <span>{{ section.settings.info_title1 }}</span>
+                  <p class="mr-0">{{ section.settings.info_link1 }}</p>
+                </div>
+              </div>
+            </li>
+            <li data-fade-in class="info_wrapper">
+              <div class="info-block">
+                <div class="icon">
+                  {{ section.settings.info_icon2 }}
+                </div>
+                <div class="text-block">
+                  <span>{{ section.settings.info_title2 }}</span>
+                  <p class="mr-0">{{ section.settings.info_link2 }}</p>
+                </div>
+              </div>
+            </li>
+            <li data-fade-in class="info_wrapper">
+              <div class="info-block">
+                <div class="icon">
+                  {{ section.settings.info_icon3 }}
+                </div>
+                <div class="text-block">
+                  <span>{{ section.settings.info_title3 }}</span>
+                  <p class="mr-0">{{ section.settings.info_link3 }}</p>
+                  <div class="social-wrap">
+                    {% render 'social-media' %}
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Contact banner details",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "image_picker",
+      "id": "contact_img",
+      "label": "Image",
+      "info": "Recommended size: 1400x640px"
+    },
+    {
+      "type": "url",
+      "id": "contact_img_url",
+      "label": "url"
+    },
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading",
+      "default": "subheading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "heading"
+    },
+    {
+      "type": "header",
+      "content": "Information"
+    },
+    {
+      "type": "textarea",
+      "id": "info_icon1",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "info_title1",
+      "label": "Heading",
+      "default": "Address"
+    },
+    {
+      "type": "text",
+      "id": "info_link1",
+      "label": "Heading",
+      "default": "70 Washington square south new york, NY 10012, united states"
+    },
+    {
+      "type": "textarea",
+      "id": "info_icon2",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "info_title2",
+      "label": "Heading",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "info_link2",
+      "label": "Heading",
+      "default": "+1 234 567 8910"
+    },
+    {
+      "type": "textarea",
+      "id": "info_icon3",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "info_title3",
+      "label": "Heading",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "info_link3",
+      "label": "Heading",
+      "default": "info@yourdomain.com"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact banner details"
+    }
+  ]
+}
+{% endschema %}

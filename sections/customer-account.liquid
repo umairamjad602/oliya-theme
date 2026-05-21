@@ -1,0 +1,133 @@
+{{ 'customer-account.css' | asset_url | stylesheet_tag }}
+<section class="customer-page section-ptb my-account-page">
+  <div class="container">
+    <div class="section-capture">
+      <div class="section-title">
+        <h2 class="mr-0">
+          <span>
+            {{- customer.first_name | capitalize }}
+            {{ customer.last_name | capitalize -}}
+          </span>
+        </h2>
+      </div>
+    </div>
+    <div class="account-history">
+      <ul class="list-unstyled">
+        <li>
+          <div class="acc-info-wrap">
+            <h6 class="mr-0">{{ 'customer.account.title' | t }}</h6>
+            <span class="acc-info-link">
+              <a href="/account/addresses">
+                {{- 'customer.account.view_addresses' | t }} (<span class="address-counter">
+                  {{- customer.addresses_count -}}</span
+                >)</a
+              >
+              <a href="/account/logout">{{- 'customer.account.logout' | t }}</a>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="acc-info-wrap">
+            <h6 class="mr-0">{{ 'customer.account.details' | t }}</h6>
+            <div class="customer-address">
+              {{ customer.default_address | format_address }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="order-history-wrap"
+      style="--padding-top: {{ settings.section_padding_top }}px; --padding-top-xs: {{ settings.section_padding_top_xs }}px;"
+    >
+      <div class="section-capture">
+        <div class="section-title">
+          <h2 class="mr-0">
+            {{ 'customer.orders.title' | t | split: ' ' | first -}}
+            {{- 'customer.orders.title' | t | split: ' ' | last }}
+          </h2>
+        </div>
+      </div>
+      {%- paginate customer.orders by 50 -%}
+        {%- if customer.orders.size != 0 -%}
+          <div class="order-wrap">
+            <ul class="list-unstyled">
+              {% for order in customer.orders %}
+                <li
+                  {% if order.cancelled %}
+                    class="error"
+                  {% endif %}
+                >
+                  {% if order.cancelled %}
+                    <div class="errors">
+                      {% assign cancelled_at = order.cancelled_at | date: '%B %d, %Y %I:%M%p' %}
+                      <p class="mr-0">{{ 'customer.order.cancelled' | t: date: cancelled_at }}</p>
+                    </div>
+                  {% endif %}
+                  <label>
+                    <span class="order-detail-title">{{ 'customer.orders.order_number' | t }}</span>
+                    <span class="order-detail-status">{{ order.name | link_to: order.customer_url }}</span>
+                  </label>
+                  <div class="order-info-wrap">
+                    <div class="order-detail order-info">
+                      <div class="order-info-check order-date">
+                        <span class="order-detail-title">{{ 'customer.orders.date' | t }}</span>
+                        <span class="order-detail-status">{{ order.created_at | date: format: 'month_day_year' }}</span>
+                      </div>
+                      <div class="order-info-check order-total">
+                        <span class="order-detail-title">{{ 'customer.orders.total' | t }}</span>
+                        <span class="order-detail-status">{{ order.total_price | money }}</span>
+                      </div>
+                    </div>
+                    <div class="order-detail order-status">
+                      <div class="order-info-check order-payment">
+                        <span class="order-detail-title">{{ 'customer.orders.payment_status' | t }}</span>
+                        <span class="order-detail-status {% if order.financial_status == 'paid' %}text-success{% else %}text-danger{% endif %}">
+                          {{- order.financial_status_label -}}
+                        </span>
+                      </div>
+                      <div class="order-info-check order-fulfill">
+                        <span class="order-detail-title">{{ 'customer.orders.fulfillment_status' | t }}</span>
+                        <span class="order-detail-status">{{ order.fulfillment_status_label }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  {%- if order.note -%}
+                    <div class="order-info-note">
+                      <span class="order-detail-title">{{- 'customer.account.note' | t }}</span>
+                      <span class="order-detail-status text-danger">{{ order.note }}</span>
+                    </div>
+                  {%- endif -%}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+        {%- else -%}
+          <div class="order-wrap">
+            <div class="order-info-wrap-empty">
+              <p class="mr-0 text-danger">{{ 'customer.orders.none' | t }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if paginate.pages > 1 -%}
+          <div class="paginatoin-area">
+            <ul class="list-unstyled paginate">
+              <li class="page-numerous">
+                {%- render 'pagination', paginate: paginate -%}
+              </li>
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Customer account",
+  "settings": [
+  ]
+}
+{% endschema %}

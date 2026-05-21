@@ -1,0 +1,20 @@
+<div class="product-info" {{ block.shopify_attributes }}>
+  <div class="popup-block">
+    <button type="button" data-bs-target="#modal-{{ block.id }}" class="modal-button" data-bs-toggle="modal" role="button" aria-label="{{ block.settings.popup_title }}">
+      <h6 class="tab-name mr-0">{{ block.settings.popup_title }}</h6>
+    </button>
+    <div class="modal fade size-modal" id="modal-{{ block.id }}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <button type="button" class="pop-close close" data-bs-dismiss="modal" aria-label="close">
+            <i class="feather-x"></i>
+          </button>
+          <div class="content-block">
+            {{ block.settings.content }}
+            {{ block.settings.page.content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

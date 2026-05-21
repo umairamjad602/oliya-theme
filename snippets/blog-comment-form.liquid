@@ -1,0 +1,180 @@
+{% form 'new_comment', article %}
+  {%- liquid
+    assign post_message = 'blogs.comments.success'
+    if blog.moderated? and comment.status == 'unapproved'
+      assign post_message = 'blogs.comments.success_moderated'
+    endif
+  -%}
+  <div class="comments-reply-area">
+    <h6 class="comment-title mr-0">{{ 'blogs.comments.title' | t }}</h6>
+    {%- if form.errors -%}
+      <div class="form__message" role="alert">
+        <h3 class="form-status caption-large text-body" tabindex="-1" autofocus>
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+          {{ 'templates.contact.form.error_heading' | t }}
+        </h3>
+      </div>
+      <ul class="form-status-list caption-large">
+        {%- for field in form.errors -%}
+          <li>
+            <a href="#CommentForm-{{ field }}" class="link">
+              {%- if form.errors.translated_fields[field] contains 'author' -%}
+                {{ 'blogs.article.name' | t }}
+              {%- elsif form.errors.translated_fields[field] contains 'body' -%}
+                {{ 'blogs.article.message' | t }}
+              {%- else -%}
+                {{ form.errors.translated_fields[field] }}
+              {%- endif -%}
+              {{ form.errors.messages[field] }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- elsif form.posted_successfully? -%}
+      <div class="form-status-list form__message" role="status">
+        <p class="form-status" tabindex="-1" autofocus>
+          <span class="svg-wrapper">
+            <svg style="width: 15px;" class="icon icon-success" viewBox="0 0 13 13">
+              <path fill="#428445" stroke="#fff" stroke-width=".7" d="M6.5 12.35a5.85 5.85 0 1 0 0-11.7 5.85 5.85 0 0 0 0 11.7Z"/><path stroke="#fff" d="m5.533 8.664 3.72-3.982M4.106 6.769l2.032 1.857"/>
+            </svg>
+          </span>
+          {{ post_message | t }}
+        </p>
+      </div>
+    {%- endif -%}
+    <form action="#" class="comment-form-area">
+      <div class="form-wrap">
+        <div class="form-filed">
+          <label for="commentAuthor">
+            {{- 'blogs.comments.name' | t -}}
+            <span class="required">*</span></label
+          >
+          <input
+            type="text"
+            class="{% if form.errors contains 'author' %}error{% endif %}"
+            name="comment[author]"
+            id="commentAuthor"
+            value="{{ form.author }}"
+            placeholder="{{ 'blogs.comments.name' | t }}"
+            required
+            {% if form.errors contains 'author' %}
+              aria-invalid="true"
+              aria-describedby="CommentForm-author-error"
+            {% endif %}
+          >
+          {%- if form.errors contains 'author' -%}
+          <small id="CommentForm-author-error">
+          <span class="form__message">
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+          {{- 'blogs.article.name' | t }}
+          {{ form.errors.messages.author }}.</span
+          >
+          </small>
+          {%- endif -%}
+        </div>
+        <div class="form-filed">
+          <label for="commentEmail">
+            {{- 'blogs.comments.email' | t -}}
+            <span class="required">*</span></label
+          >
+          <input
+            type="text"
+            class="{% if form.errors contains 'email' %}error{% endif %}"
+            name="comment[email]"
+            id="commentEmail"
+            value="{{ form.email }}"
+            placeholder="{{ 'blogs.comments.email' | t }}"
+            required
+            {% if form.errors contains 'email' %}
+              aria-invalid="true"
+              aria-describedby="CommentForm-email-error"
+            {% endif %}
+          >
+          {%- if form.errors contains 'email' -%}
+            <small id="CommentForm-email-error">
+              <span class="form__message">
+                <span class="svg-wrapper">
+                  {{- 'icon-error.svg' | inline_asset_content -}}
+                </span>
+                {{- 'blogs.article.email' | t }}
+                {{ form.errors.messages.email }}.</span
+              >
+            </small>
+          {%- endif -%}
+        </div>
+        <div class="form-filed">
+          <label for="commentBody">
+            {{- 'blogs.comments.message' | t -}}
+            <span class="required">*</span></label
+          >
+          <textarea
+            rows="5"
+            class="comment-notes{% if form.errors contains 'body' %} error{% endif %}"
+            name="comment[body]"
+            id="commentBody"
+            placeholder="{{ 'blogs.comments.message' | t }}"
+            required
+            {% if form.errors contains 'body' %}
+                  aria-invalid="true"
+                  aria-describedby="CommentForm-body-error"
+                {% endif %}
+          >{{ form.body }}</textarea>
+          {%- if form.errors contains 'body' -%}
+              <small id="CommentForm-body-error">
+                <span class="form__message">
+                  <span class="svg-wrapper">
+                    {{- 'icon-error.svg' | inline_asset_content -}}
+                  </span>
+                  {{- 'blogs.article.message' | t }}
+                  {{ form.errors.messages.body }}.</span
+                >
+              </small>
+            {%- endif -%}
+        </div>
+      </div>
+      {% if blog.moderated? %}
+        <p class="mr-0">{{ 'blogs.comments.moderated' | t }}</p>
+      {% endif %}
+      <div class="comment-form-submit">
+        <button class="btn btn-style" type="submit" aria-label="{{ 'blogs.comments.post' | t }}">
+          <span class="pre-msg">{{ 'blogs.comments.post' | t }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+{% endform %}
+<style>
+  .comments-reply-area h6.comment-title {
+    font-size: var(--subtitle-font-size-body);
+    font-weight: var(--subtitle-custom-font-weight-body);
+    position: relative;
+  }
+  .comments-reply-area .errors {
+    padding: 10px 15px;
+    margin: 18px 0;
+    border: 1px solid #d02e2e;
+    border-radius: 0;
+  }
+  .comments-reply-area .form-wrap .form-filed {
+    margin-top: 25px;
+  }
+  .comments-reply-area .form-wrap .form-filed label {
+    display: block;
+    margin-bottom: 11px;
+  }
+  .comments-reply-area .form-wrap .form-filed input,
+  .comments-reply-area .form-wrap .form-filed textarea {
+    width: 100%;
+  }
+  .comments-reply-area .form-wrap .form-filed input.error,
+  .comments-reply-area .form-wrap .form-filed textarea.error {
+    border: 1px solid #d02e2e;
+  }
+  .comments-reply-area .comment-form-submit {
+    margin-top: 30px;
+  }
+</style>

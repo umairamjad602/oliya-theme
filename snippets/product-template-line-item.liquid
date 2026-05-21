@@ -1,0 +1,122 @@
+<div class="product-info" {{ block.shopify_attributes }}>
+  <div class="line-item">
+    {% if block.settings.label != blank %}
+      <label class="label" for="{{ block.settings.label }}">{{ block.settings.label }}:</label>
+      {% if block.settings.type == 'text' %}
+        <input
+          type="text"
+          name="properties[{{ block.settings.label }}]"
+          id="{{ block.settings.label }}"
+          form="{{ product_form_id }}"
+          placeholder="{{ block.settings.placeholder }}"
+        >
+      {% elsif block.settings.type == 'checkbox' %}
+        <input
+          type="checkbox"
+          name="properties[{{ block.settings.label }}]"
+          id="{{ block.settings.label }}"
+          form="{{ product_form_id }}"
+          value="{{ block.settings.checked }}"
+        >
+      {% elsif block.settings.type == 'dropdown' %}
+        {% if block.settings.style == 'dropdown' %}
+          <select
+            name="properties[{{ block.settings.label }}]"
+            id="{{ block.settings.label }}"
+            form="{{ product_form_id }}"
+          >
+            {% assign array = block.settings.dropdown_options | split: ',' %}
+            {% for option in array %}
+              {% if option != blank %}
+                <option value="{{ option | strip }}">{{ option | strip }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+        {% elsif block.settings.style == 'radio' %}
+          {% assign array = block.settings.dropdown_options | split: ',' %}
+          <div class="radio-block">
+            {% for option in array %}
+              {% if option != blank %}
+                <label for="{{ option | strip }}">
+                  <input
+                    type="radio"
+                    name="properties[{{ block.settings.label }}]"
+                    id="{{ option | strip }}"
+                    form="{{ product_form_id }}"
+                    value="{{ option | strip }}"
+                  >
+                  <span>{{ option | strip }}</span>
+                </label>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+
+      {% elsif block.settings.type == 'image' %}
+        <input
+          type="file"
+          name="properties[{{ block.settings.label }}]"
+          id="{{ block.settings.label }}"
+          form="{{ product_form_id }}"
+          placeholder="{{ block.settings.placeholder }}"
+        >
+      {% endif -%}
+    {%- endif %}
+  </div>
+</div>
+<style>
+  .line-item .label {
+    color: var(--font-color-header);
+    font-size: var(--subtitle-font-size-body);
+    font-weight: var(--subtitle-custom-font-weight-body);
+    padding-bottom: 15px;
+    display: block;
+  }
+  .line-item input {
+  	width: 100%;
+  }
+  .line-item input[type=checkbox] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 48px;
+    height: 24px;
+    border-radius: 12px;
+    background: var(--extra-color-body);
+    position: relative;
+    cursor: pointer;
+    border: none;
+  }
+  .line-item input[type=checkbox]:after {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 10px #00000026;
+    transition: all .25s cubic-bezier(.104,.204,.492,1);
+  }
+  .line-item input[type=checkbox]:checked {
+  	background: #222;
+  }
+  .line-item input[type=checkbox]:checked:after {
+    transform: translate(24px);
+  }
+  .line-item select {
+  	cursor: pointer;
+  	width: 100%;
+  }
+  .line-item .radio-block label {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+  }
+  .line-item .radio-block input {
+    width: auto;
+    margin: 0;
+    margin-right: 5px;
+  }
+</style>

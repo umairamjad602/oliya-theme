@@ -1,0 +1,672 @@
+{{ 'refund-policy.css' | asset_url | stylesheet_tag }}
+<section
+  class="refund-policy"
+style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="grid-wrap">
+      <div class="grid-wrapper">
+        <ul class="rule-wrap list-unstyled">
+          {% for block in section.blocks %}
+            {%- case block.type -%}
+              {%- when 'title' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  {% if block.settings.title != '' %}
+                    <h2 class="mr-0">{{ block.settings.title }}</h2>
+                  {% endif %}
+                </li>
+              {%- when 'sub_title' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  {% if block.settings.sub_title != '' %}
+                    <h6 class="mr-0">{{ block.settings.sub_title }}</h6>
+                  {% endif %}
+                </li>
+              {%- when 'description' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  {% if block.settings.list_desc != '' or block.settings.list_email != '' %}
+                    <p class="mr-0">
+                      {{ block.settings.list_desc }}
+                      {% if block.settings.list_email != '' %}
+                        <a href="mailto:{{ block.settings.list_email }}">{{ block.settings.list_email }}</a>
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                </li>
+              {%- when 'text_point' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  <ul class="list-block list-unstyled">
+                    <li>
+                      {% if block.settings.list_point != '' %}
+                        <span>{{ block.settings.list_point }}</span>
+                      {% endif %}
+                      {% if block.settings.list_desc != '' %}
+                        <p class="mr-0">{{ block.settings.list_desc }}</p>
+                      {% endif %}
+                    </li>
+                  </ul>
+                </li>
+              {%- when 'list_table' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  <table>
+                    {% if block.settings.heading1 != '' or block.settings.heading2 != '' %}
+                      <tr>
+                        <th>
+                          <li>{{ block.settings.heading1 }}</li>
+                        </th>
+                        <th>
+                          <li>{{ block.settings.heading2 }}</li>
+                        </th>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point1 != '' or block.settings.heading2_point1 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point1 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point1 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point2 != '' or block.settings.heading2_point2 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point2 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point2 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point3 != '' or block.settings.heading2_point3 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point3 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point3 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point4 != '' or block.settings.heading2_point4 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point4 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point4 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point5 != '' or block.settings.heading2_point5 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point5 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point5 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point6 != '' or block.settings.heading2_point6 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point6 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point6 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </table>
+                </li>
+            {%- endcase -%}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="grid-wrapper">
+        <ul class="rule-wrap list-unstyled">
+          {% for block in section.blocks %}
+            {%- case block.type -%}
+              {%- when 'title2' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  {% if block.settings.title != '' %}
+                    <h2 class="mr-0">{{ block.settings.title }}</h2>
+                  {% endif %}
+                </li>
+              {%- when 'sub_title2' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  {% if block.settings.sub_title != '' %}
+                    <h6 class="mr-0">{{ block.settings.sub_title }}</h6>
+                  {% endif %}
+                </li>
+              {%- when 'description2' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  {% if block.settings.list_desc != '' or block.settings.list_email != '' %}
+                    <p class="mr-0">
+                      {{ block.settings.list_desc }}
+                      {% if block.settings.list_email != '' %}
+                        <a href="mailto:{{ block.settings.list_email }}">{{ block.settings.list_email }}</a>
+                      {% endif %}
+                    </p>
+                  {% endif %}
+                </li>
+              {%- when 'text_point2' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  <ul class="list-block list-unstyled">
+                    <li>
+                      {% if block.settings.list_point != '' %}
+                        <span>{{ block.settings.list_point }}</span>
+                      {% endif %}
+                      {% if block.settings.list_desc != '' %}
+                        <p class="mr-0">{{ block.settings.list_desc }}</p>
+                      {% endif %}
+                    </li>
+                  </ul>
+                </li>
+              {%- when 'list_table2' -%}
+                <li data-fade-in class="rule-wrapper" {{ block.shopify_attributes }}>
+                  <table>
+                    {% if block.settings.heading1 != '' or block.settings.heading2 != '' %}
+                      <tr>
+                        <th>
+                          <li>{{ block.settings.heading1 }}</li>
+                        </th>
+                        <th>
+                          <li>{{ block.settings.heading2 }}</li>
+                        </th>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point1 != '' or block.settings.heading2_point1 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point1 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point1 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point2 != '' or block.settings.heading2_point2 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point2 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point2 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point3 != '' or block.settings.heading2_point3 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point3 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point3 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point4 != '' or block.settings.heading2_point4 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point4 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point4 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point5 != '' or block.settings.heading2_point5 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point5 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point5 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                    {% if block.settings.heading1_point6 != '' or block.settings.heading2_point6 != '' %}
+                      <tr>
+                        <td>
+                          <span>{{ block.settings.heading1_point6 }}</span>
+                        </td>
+                        <td>
+                          <span>{{ block.settings.heading2_point6 }}</span>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  </table>
+                </li>
+            {%- endcase -%}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Refund policy text",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "sub_title",
+      "name": "Subheading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Subheading",
+          "default": "Subheading"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "settings": [
+        {
+          "type": "text",
+          "id": "list_desc",
+          "label": "Description",
+          "default": "Description"
+        }
+      ]
+    },
+    {
+      "type": "text_point",
+      "name": "List text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "list_point",
+          "label": "List text",
+          "default": "List text"
+        },
+        {
+          "type": "text",
+          "id": "list_desc",
+          "label": "List description",
+          "default": "List description"
+        }
+      ]
+    },
+    {
+      "type": "list_table",
+      "name": "List table",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading1",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point1",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point1",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point2",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point2",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point3",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point3",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point4",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point4",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point5",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point5",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point6",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point6",
+          "label": "Heading",
+          "default": "heading"
+        }
+      ]
+    },
+    {
+      "type": "title2",
+      "name": "Heading right",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "sub_title2",
+      "name": "Subheading right",
+      "settings": [
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Subheading",
+          "default": "Subheading"
+        }
+      ]
+    },
+    {
+      "type": "description2",
+      "name": "Description right",
+      "settings": [
+        {
+          "type": "text",
+          "id": "list_desc",
+          "label": "Description",
+          "default": "Description"
+        }
+      ]
+    },
+    {
+      "type": "text_point2",
+      "name": "List text right",
+      "settings": [
+        {
+          "type": "text",
+          "id": "list_point",
+          "label": "List text",
+          "default": "List text"
+        },
+        {
+          "type": "text",
+          "id": "list_desc",
+          "label": "List description",
+          "default": "List description"
+        }
+      ]
+    },
+    {
+      "type": "list_table2",
+      "name": "Table right",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading1",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point1",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point1",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point2",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point2",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point3",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point3",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point4",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point4",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point5",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point5",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading1_point6",
+          "label": "Heading",
+          "default": "heading"
+        },
+        {
+          "type": "text",
+          "id": "heading2_point6",
+          "label": "Heading",
+          "default": "heading"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Refund policy text",
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "sub_title"
+        },
+        {
+          "type": "text_point"
+        },
+        {
+          "type": "list_table"
+        },
+        {
+          "type": "title2"
+        },
+        {
+          "type": "sub_title2"
+        },
+        {
+          "type": "text_point2"
+        },
+        {
+          "type": "list_table2"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

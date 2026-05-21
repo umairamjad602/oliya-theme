@@ -1,0 +1,474 @@
+<section
+  class="blog-section"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px; --background-color: {{ section.settings.section_bgcolor }};"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="blog-wrap {{ section.settings.sidebar_handle }}">
+      {%- unless section.settings.sidebar_handle == 'without-sidebar' -%}
+      <div class="sidebar-wrapper blog-sidebar">
+        {% render 'blog-sidebar' %}
+      </div>
+      {%- endunless -%}
+      <div class="sidebar-wrapper blog-article">
+        {%- assign blogs_limit = section.settings.blog_news_limit_handle -%}
+        {%- paginate blog.articles by blogs_limit -%}
+          <ul class="list-unstyled single-blog-area grid-{{ section.settings.blog_news_column }}">
+            {% for article in blog.articles %}
+              <li class="blog-slider">
+                {% render 'blog-grid-item', article: article %}
+              </li>
+            {% endfor %}
+          </ul>
+          {% if paginate.pages > 1 %}
+            <div class="paginatoin-area">
+              {%- render 'pagination', paginate: paginate -%}
+            </div>
+          {% endif %}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Blog posts",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_bgcolor",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "select",
+      "id": "blog_news_column",
+      "label": "Blog grid",
+      "options": [
+        {
+          "label": "2 grid",
+          "value": "2"
+        },
+        {
+          "label": "3 grid",
+          "value": "3"
+        },
+        {
+          "label": "4 grid",
+          "value": "4"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "number",
+      "id": "blog_news_limit_handle",
+      "label": "Post limit",
+      "default": 6
+    },
+    {
+      "type": "text",
+      "id": "blog_news_through",
+      "label": "Through",
+      "default": "By"
+    },
+    {
+      "type": "text",
+      "id": "blog_news_read_btn",
+      "label": "Button label",
+      "default": "Read more"
+    },
+    {
+      "type": "text",
+      "id": "blog_news_cmt",
+      "label": "Comment",
+      "default": "Comment"
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "radio",
+      "id": "sidebar_handle",
+      "label": "Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left-sidebar"
+        },
+        {
+          "label": "Right",
+          "value": "right-sidebar"
+        },
+        {
+          "label": "Without",
+          "value": "without-sidebar"
+        }
+      ],
+      "default": "left-sidebar"
+    },
+    {
+      "type": "header",
+      "content": "Sticky position"
+    },
+    {
+      "type": "radio",
+      "id": "blog_sidebar_position_handle",
+      "label": "Position",
+      "options": [
+        {
+          "label": "Sticky",
+          "value": "sticky_sidebar"
+        },
+        {
+          "label": "Simple",
+          "value": "simple_sidebar"
+        }
+      ],
+      "default": "sticky_sidebar"
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_search_bar_enable",
+      "label": "Show searchbar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "blog_search_placeholder",
+      "label": "Placeholder",
+      "default": "Search"
+    },
+    {
+      "type": "header",
+      "content": "Recent posts"
+    },
+    {
+      "type": "checkbox",
+      "id": "recent_post_enable",
+      "label": "Show posts",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "recent_title",
+      "label": "Heading",
+      "default": "Recent posts"
+    },
+    {
+      "type": "number",
+      "id": "recent_post_limit_handle",
+      "label": "How many post show",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Select collection"
+    },
+    {
+      "type": "text",
+      "id": "blog_cat_title",
+      "label": "Heading",
+      "default": "Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "blog_cat_handle",
+      "label": "Select collection",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "tags_enable",
+      "label": "Show tags",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "blog_tags_title",
+      "label": "Heading",
+      "default": "Tags"
+    },
+    {
+      "type": "number",
+      "id": "blog_tags_list_limit_handle",
+      "label": "Show how many tags",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_new_enable",
+      "label": "Show newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "blog_new_title",
+      "label": "Newsletter",
+      "default": "Newsletter"
+    },
+    {
+      "type": "header",
+      "content": "Instagram gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_insta_enable",
+      "label": "Show instagram",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "blog_insta_title",
+      "label": "Heading",
+      "default": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "insta_url1",
+      "label": "image url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img1",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url2",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img2",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url3",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img3",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url4",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img4",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url5",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img5",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url6",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img6",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .blog-section {
+    background-color: var(--background-color);
+  }
+  .blog-section .blog-wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  .blog-section .blog-wrap.left-sidebar .blog-article {
+    grid-column: 2 / span 3;
+  }
+  .blog-section .blog-wrap.right-sidebar .blog-article {
+    grid-column: 1 / span 3;
+    order: -1;
+  }
+  .blog-section .blog-wrap.without-sidebar {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media (max-width: 1199px) {
+    .blog-section .blog-wrap {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .blog-section .blog-wrap.left-sidebar .blog-article {
+      grid-column: 2 / span 2;
+    }
+    .blog-section .blog-wrap.right-sidebar .blog-article {
+      grid-column: 1 / span 2;
+    }
+  }
+  @media(max-width: 991px) {
+    .blog-section .blog-wrap {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .blog-section .blog-wrap.right-sidebar .blog-article,
+    .blog-section .blog-wrap.left-sidebar .blog-article {
+      grid-column: unset;
+      order: -1;
+    }
+  }
+
+  .blog-section ul.single-blog-area {
+    display: grid;
+    gap: 30px;
+  }
+  .blog-section ul.single-blog-area.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .blog-section ul.single-blog-area.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .blog-section ul.single-blog-area.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media(max-width: 991px){
+    .blog-section ul.single-blog-area.grid-4,
+    .blog-section ul.single-blog-area.grid-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media(max-width: 600px){
+    .blog-section ul.single-blog-area.grid-4,
+    .blog-section ul.single-blog-area.grid-3,
+    .blog-section ul.single-blog-area.grid-2 {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+</style>

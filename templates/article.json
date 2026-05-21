@@ -1,0 +1,112 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "blog-post": {
+      "type": "blog-post",
+      "blocks": {
+        "article_image": {
+          "type": "article_image",
+          "settings": {}
+        },
+        "article_title": {
+          "type": "article_title",
+          "settings": {
+            "article_date_enable": true,
+            "article_comment_enable": true,
+            "article_author_enable": true
+          }
+        },
+        "article_content": {
+          "type": "article_content",
+          "settings": {}
+        },
+        "article_tag": {
+          "type": "article_tag",
+          "settings": {}
+        },
+        "article_social": {
+          "type": "article_social",
+          "settings": {}
+        },
+        "article_next_prev": {
+          "type": "article_next_prev",
+          "settings": {
+            "blog_prev_button_title": "Prev post",
+            "blog_next_button_title": "Next post"
+          }
+        }
+      },
+      "block_order": [
+        "article_image",
+        "article_title",
+        "article_content",
+        "article_tag",
+        "article_social",
+        "article_next_prev"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_ipad": 80,
+        "section_padding_bottom_ipad": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_bgcolor": "rgba(0,0,0,0)",
+        "sidebar_handle": "left-sidebar",
+        "blog_sidebar_position_handle": "sticky_sidebar",
+        "blog_search_bar_enable": true,
+        "blog_search_placeholder": "Search",
+        "recent_post_enable": true,
+        "recent_title": "Recent posts",
+        "recent_post_limit_handle": 3,
+        "blog_cat_title": "Categories",
+        "blog_cat_handle": "",
+        "tags_enable": true,
+        "blog_tags_title": "Tags",
+        "blog_tags_list_limit_handle": 15,
+        "blog_new_enable": true,
+        "blog_new_title": "Newsletter",
+        "blog_insta_enable": true,
+        "blog_insta_title": "Instagram",
+        "insta_url1": "https://www.instagram.com/",
+        "insta_img1": "shopify://shop_images/jewelry-5-insta-1.jpg",
+        "insta_url2": "https://www.instagram.com/",
+        "insta_img2": "shopify://shop_images/jewelry-5-insta-2.jpg",
+        "insta_url3": "https://www.instagram.com/",
+        "insta_img3": "shopify://shop_images/jewelry-5-insta-3.jpg",
+        "insta_url4": "https://www.instagram.com/",
+        "insta_img4": "shopify://shop_images/jewelry-5-insta-4.jpg",
+        "insta_url5": "https://www.instagram.com/",
+        "insta_img5": "shopify://shop_images/jewelry-5-insta-5.jpg",
+        "insta_url6": "https://www.instagram.com/",
+        "insta_img6": "shopify://shop_images/jewelry-5-insta-6.jpg",
+        "article_cmt": "Comment",
+        "article_avtar_enable": false
+      }
+    },
+    "section_border_LHG4Xg": {
+      "type": "section-border",
+      "name": "Border",
+      "settings": {
+        "border_width": "full",
+        "border_bg_color": "rgba(0,0,0,0)",
+        "border": 1,
+        "border_color": "#222222",
+        "border_color_opacity": 0.1
+      }
+    }
+  },
+  "order": [
+    "blog-post",
+    "section_border_LHG4Xg"
+  ]
+}

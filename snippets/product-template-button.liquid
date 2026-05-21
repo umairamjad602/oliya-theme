@@ -1,0 +1,124 @@
+<div class="product-info" {{ block.shopify_attributes }}>
+  {%- if product != blank -%}
+    {%- liquid
+      assign gift_card_recipient_feature_active = false
+      if block.settings.show_gift_card_recipient and product.gift_card?
+        assign gift_card_recipient_feature_active = true
+      endif
+    -%}
+    <cart-action class="product-form" data-hide-errors="{{ gift_card_recipient_feature_active }}">
+      <div class="pr-form-error" role="alert" hidden>
+        <span class="pr-form-error-text"></span>
+      </div>
+      {%- form 'product',
+        product,
+        id: product_form_id,
+        class: 'form',
+        novalidate: 'novalidate',
+        data-type: 'add-to-cart-form'
+      -%}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ product.selected_or_first_available_variant.id }}"
+          disabled
+          class="product-variant-id"
+        >
+        {%- if gift_card_recipient_feature_active -%}
+          {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+        {%- endif -%}
+        <div class="pr-form-button">
+          {%- liquid
+            assign check_against_inventory = true
+            if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+              assign check_against_inventory = false
+            endif
+            if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+              assign quantity_rule_soldout = true
+            endif
+          -%}
+          <div class="ajax-cart-btn">
+            <button
+              id="ProductSubmitButton-{{ section_id }}"
+              type="submit"
+              name="add"
+              {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+                disabled
+              {% endif %}
+              aria-label="{{ 'products.product.sold_out' | t }}"
+            >
+              <span class="cart-title">
+                {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                  {{ 'products.product.sold_out' | t }}
+                {%- else -%}
+                  {{ 'products.product.add_to_cart' | t }}
+                {%- endif -%}
+              </span>
+              <div class="ajax-loader hidden">
+                <span class="spinner-border"></span>
+              </div>
+            </button>
+          </div>
+          {%- if block.settings.show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+        </div>
+      {%- endform -%}
+    </cart-action>
+  {%- else -%}
+    <div class="product-form">
+      <div class="pr-form-button form">
+        <div class="ajax-cart-btn">
+          <button type="submit" name="add" class="" disabled aria-label="{{ 'products.product.sold_out' | t }}">
+            {{ 'products.product.sold_out' | t }}
+          </button>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+  {%- if show_pickup_availability -%}
+    {{ 'pickup-availability.css' | asset_url | stylesheet_tag }}
+
+    {%- assign pick_up_availabilities = product.selected_or_first_available_variant.store_availabilities
+      | where: 'pick_up_enabled', true
+    -%}
+
+    <pickup-availability
+      class="product__pickup-availabilities quick-add-hidden"
+      {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
+        available
+      {% endif %}
+      data-root-url="{{ routes.root_url }}"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      data-has-only-default-variant="{{ product.has_only_default_variant }}"
+      data-product-page-color-scheme="gradient"
+    >
+      <template>
+        <pickup-availability-preview class="pickup-availability-preview">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            aria-hidden="true"
+            focusable="false"
+            class="icon icon-unavailable"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path fill="#DE3618" stroke="#fff" d="M13.94 3.94L10 7.878l-3.94-3.94A1.499 1.499 0 103.94 6.06L7.88 10l-3.94 3.94a1.499 1.499 0 102.12 2.12L10 12.12l3.94 3.94a1.497 1.497 0 002.12 0 1.499 1.499 0 000-2.12L12.122 10l3.94-3.94a1.499 1.499 0 10-2.121-2.12z"/>
+          </svg>
+          <div class="pickup-availability-info">
+            <p class="mr-0 caption-large">{{ 'products.product.pickup_availability.unavailable' | t }}</p>
+            <button
+              class="pickup-availability-button link link--text underlined-link"
+              aria-label="{{ 'products.product.pickup_availability.refresh' | t }}"
+            >
+              {{ 'products.product.pickup_availability.refresh' | t }}
+            </button>
+          </div>
+        </pickup-availability-preview>
+      </template>
+    </pickup-availability>
+
+    <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+</div>

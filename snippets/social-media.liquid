@@ -1,0 +1,121 @@
+{% comment %}
+  Renders social icons.
+  Accepts:
+  - class: {String} a class to be added to the <ul> element (optional).
+
+  Usage:
+  {% render 'social-icons',
+    class: 'my-class'
+  %}
+{% endcomment %}
+<ul class="list-unstyled social-icon">
+  {%- if settings.social_facebook_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_facebook_link }}"
+        class="link list-social__link fb"
+        aria-label="{{ settings.social_facebook_link }}"
+      >
+        <i class="ri-facebook-fill"></i>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_instagram_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_instagram_link }}"
+        class="link list-social__link insta"
+        aria-label="{{ settings.social_instagram_link }}"
+      >
+        <i class="ri-instagram-line"></i>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_youtube_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_youtube_link }}"
+        class="link list-social__link yt"
+        aria-label="{{ settings.social_youtube_link }}"
+      >
+        <i class="ri-youtube-line"></i>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_tiktok_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_tiktok_link }}"
+        class="link list-social__link tik"
+        aria-label="{{ settings.social_tiktok_link }}"
+      >
+        <i class="ri-tiktok-fill"></i>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_twitter_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_twitter_link }}"
+        class="link list-social__link tw"
+        aria-label="{{ settings.social_twitter_link }}"
+      >
+        <i class="ri-twitter-x-line"></i>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_pinterest_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_pinterest_link }}"
+        class="link list-social__link pin"
+        aria-label="{{ settings.social_pinterest_link }}"
+      >
+        <i class="ri-pinterest-line"></i>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_snapchat_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_snapchat_link }}"
+        class="link list-social__link snap"
+        aria-label="{{ settings.social_snapchat_link }}"
+      >
+        <i class="ri-snapchat-line"></i>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_tumblr_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_tumblr_link }}"
+        class="link list-social__link tum"
+        aria-label="{{ settings.social_tumblr_link }}"
+      >
+        <i class="ri-tumblr-fill"></i>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_vimeo_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_vimeo_link }}"
+        class="link list-social__link vim"
+        aria-label="{{ settings.social_vimeo_link }}"
+      >
+        <i class="ri-vimeo-line"></i>
+      </a>
+    </li>
+  {%- endif -%}
+</ul>
+<style>
+  ul.social-icon{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  ul.social-icon li a {
+    font-size: 20px;
+  }
+</style>

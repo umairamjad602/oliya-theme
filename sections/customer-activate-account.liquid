@@ -1,0 +1,71 @@
+{{ 'customer-activate-account.css' | asset_url | stylesheet_tag }}
+<section class="customer-page section-ptb">
+  <div class="container">
+    <div class="acc-form">
+      <div class="log-acc-page">
+        <div class="section-capture">
+          <div class="section-title">
+            <h2 class="mr-0">{{ 'customer.activate_account.title' | t }}</h2>
+            <p class="desc">{{ 'customer.activate_account.subtext' | t }}</p>
+          </div>
+        </div>
+        <div class="acc-page">
+          <div class="login">
+            {% form 'activate_customer_password' %}
+              <div class="login-form-container">
+                {{ form.errors | default_errors }}
+                <ul class="list-unstyled fill-form">
+                  <li class="log-email">
+                    <label for="CustomerPassword" class="hidden-label">
+                      {{- 'customer.activate_account.password' | t -}}
+                    </label>
+                    <input
+                      type="password"
+                      value=""
+                      name="customer[password]"
+                      id="CustomerPassword"
+                      class="input-full"
+                      placeholder="{{ 'customer.activate_account.password' | t }}"
+                    >
+                  </li>
+                  <li class="log-email">
+                    <label for="CustomerPasswordConfirmation" class="hidden-label">
+                      {{- 'customer.activate_account.password_confirm' | t -}}
+                    </label>
+                    <input
+                      type="password"
+                      value=""
+                      name="customer[password_confirmation]"
+                      id="CustomerPasswordConfirmation"
+                      class="input-full"
+                      placeholder="{{ 'customer.activate_account.password_confirm' | t }}"
+                    >
+                  </li>
+                </ul>
+                <div class="form-action-button">
+                  <button type="submit" class="btn-style" aria-label="{{ 'customer.activate_account.submit' | t }}">
+                    {{ 'customer.activate_account.submit' | t }}
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn-style2"
+                    name="decline"
+                    aria-label="{{ 'customer.activate_account.cancel' | t }}"
+                  >
+                    {{ 'customer.activate_account.cancel' | t }}
+                  </button>
+                </div>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Customer addresses",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,173 @@
+{%- liquid
+  assign ratio = 1
+  if product.featured_media and settings.image_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif product.featured_media and settings.image_ratio == 'adapt'
+    assign ratio = product.featured_media.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+-%}
+
+<div class="product-grid-list">
+  <div class="single-product-wrap">
+    <div class="product-image" id="pro-img-{{ section.id }}-{{ product.id }}">
+      <a
+        class="pro-img ratio"
+        href="{{ product.url | within: collection }}"
+        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%; border-radius: {{ settings.reels_product_image }}px"
+      >
+       {%- if product.featured_media -%}
+      <div class="{%- if product.media[1] != blank -%} img1{%- endif -%}">
+        {% assign image_height = product.featured_media.width
+          | divided_by: product.featured_media.aspect_ratio
+        %}
+        {{
+          product.featured_media
+          | image_url: width: 720
+          | image_tag: width: product.featured_media.width, height: image_height, class: 'lazyload', loading: 'lazy'
+        }}
+      </div>
+      {%- if settings.pro_hover_enable and product.media[1] != blank -%}
+        <div class="img2">
+          {% assign image_height = product.media[1].width | divided_by: product.media[1].aspect_ratio %}
+          {{
+            product.media[1]
+            | image_url: width: 720
+            | image_tag: width: product.media[1].width, height: image_height, class: 'lazyload', loading: 'lazy'
+          }}
+        </div>
+      {%- endif -%}
+      {%- else -%}
+      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
+      {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+      </a>
+    </div>
+    <div class="product-content">
+      <h6 class="mr-0">
+        <a href="{{ product.url | within: collection }}" title="{{ product.title }}">{{ product.title }}</a>
+      </h6>
+      {% render 'price', product: product %}
+      {%- if settings.show_rating -%}
+        <div class="product-grid-rating">
+          <div class="jdgm-widget jdgm-preview-badge">
+            {{ product.metafields.judgeme.badge }}
+          </div>
+        </div>
+      {%- endif -%}
+      {% if settings.pro_gr_option_enable %}
+        {% render 'product-grid-option', product: product, color_label: color_label, section: section %}
+      {% endif %}
+    </div>
+    <div class="pro-list-btn">
+      <a id="pro-add-{{ section.id }}-{{ product.id }}"
+      data-id="{{ product.selected_or_first_available_variant.id }}"
+      class="ajax-cart-btn"
+      {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %} disabled {% endif %}>
+      <span class="cart-title">
+        {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+          {{ 'products.product.sold_out' | t }}
+        {%- else -%}
+          {{ 'products.product.add_to_cart' | t }}
+        {%- endif -%}
+      </span>
+      <div class="ajax-loader hidden">
+        <span class="spinner-border"></span>
+      </div>
+    </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('pro-add-{{ section.id }}-{{ product.id }}').addEventListener("click", function() {
+      ///alert('dsdsds');
+      var productId = $(this).attr("data-id");
+      ///alert(productId);
+      var quantity = 1;
+      var url = window.Shopify.routes.root + 'cart/add.js';
+      let sectionsToUpdate = 'ajax-cart';
+      let sectionsToCount = 'ajax-cart-icon';
+      $(this).addClass("loading");
+      $(this).find(".ajax-loader").removeClass("hidden");
+      let requestBody = {
+        'items': [{
+          'id': productId,
+          'quantity': quantity
+        }],
+        'sections': sectionsToUpdate,
+      };
+      let requestBodyCount = {
+        'items': [{
+          'id': productId,
+          'quantity': quantity
+        }],
+        'sections': sectionsToCount,
+      };
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      }).then(response => {
+        return response.json();
+      }).then(data => {
+        console.log(data);
+        var parsed = $.parseHTML(data.sections['ajax-cart']);
+        var result = $(parsed).find("#ajaxcart").html();
+        $('#ajaxcart').html('');
+        $('#ajaxcart').html(result);
+        if($('.mini-cart').hasClass('is-empty')){
+          document.querySelector('.mini-cart').classList.remove('is-empty');
+        }
+        setTimeout(function() {
+          document.querySelector('.mini-cart').classList.add('animate', 'active');
+          const checkbox = document.getElementById('toggleCheckbox');
+          const button = document.getElementById('ajaxcart-checkout');
+          
+          // Function to enable/disable attribute manipulation
+          function toggleAttributeManipulation() {
+            if (checkbox.checked) {
+              // Enable the button
+              button.disabled = false;
+              // Add attribute to the button
+              button.setAttribute('data-custom', 'example');
+            } else {
+              // Disable the button
+              button.disabled = true;
+              // Remove attribute from the button
+              button.removeAttribute('data-custom');
+            }
+          }
+          
+          // Attach event listener to checkbox change event
+          checkbox.addEventListener('change', toggleAttributeManipulation);
+        }, 200);
+      }).catch((error) => {
+        console.error('Error:', error);
+      });
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBodyCount)
+      }).then(response => {
+        return response.json();
+      }).then(data => {
+        var parsedCount = $.parseHTML(data.sections['ajax-cart-icon']);
+        var resultCount = $(parsedCount).find(".bigcounter").html();
+        $('.bigcounter').html('');
+        $('.bigcounter').html(resultCount);
+      }).catch((error) => {
+        console.error('Error:', error);
+      });
+      setTimeout(function() {
+        $('#pro-add-{{ section.id }}-{{ product.id }}').removeClass("loading");
+        $('#pro-add-{{ section.id }}-{{ product.id }}').find(".ajax-loader").addClass("hidden");
+      }, 500);
+    });
+</script>

@@ -1,0 +1,109 @@
+.search-page .main-title h2 {
+  font-size: 28px;
+}
+.search-page form.search .field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-page form.search .field input {
+  width: 100%;
+}
+.search-page form.search .field .search-btn {
+  position: absolute;
+  inset-inline-end: 15px;
+  font-size: 16px;
+}
+.search-page .pro-grli-wrapper {
+  margin-top: 30px;
+}
+.shop-page .filter-button {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 20px;
+  line-height: 1;
+  border: var(--sti-border);
+  text-transform: uppercase;
+  transition: none;
+}
+.shop-top-bar .product-filter button span {
+  margin-inline-start: 5px;
+}
+.shop-top-bar .product-filter button:hover {
+  color: #fff;
+  border-color: var(--font-color-primary);
+  background: var(--font-color-primary);
+}
+.shop-page .page-wrapper {
+  padding: 30px;
+  background: var(--extra-color-body);
+  height: 100%;
+}
+.shop-page .page-wrapper span.label {
+  display: block;
+  padding-top: 5px;
+}
+.search-page .page-search-bar form .form-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 0;
+  overflow: hidden;
+}
+.search-page .page-search-bar form .form-search input {
+  width: 100%;
+  height: 45px;
+}
+.search-page .page-search-bar form .form-search button.page-search-button {
+  color: #fff;
+  font-size: 16px;
+  position: absolute;
+  inset-inline-end: 0;
+  width: 60px;
+  height: 100%;
+  border-radius: var(--sti-border-radius);
+  background-color: var(--font-color-primary);
+}
+.search-page .page-search-bar form .form-search button.page-search-button:hover {
+}
+.search-page .page-search-bar form .form-search button.page-search-button i {
+  display: block;
+  line-height: 0;
+}
+.search-page .shop-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.search-page .shop-sidebar .sidebar-header .product-count-text {
+  display: none;
+}
+
+/*search grid css*/
+.search-page .search-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 0 0 -30px;
+}
+.search-page .search-list .page-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--extra-color-body);
+  padding: 30px;
+}
+.search-page .search-list .page-wrapper span.label {
+  display: block;
+  padding-top: 5px;
+}
+@media(max-width: 767px) {
+  .search-page .search-list {
+    margin: 0 0 0 -12px;
+  }
+  .search-page .main-title h2 {
+    font-size: 22px;
+  }
+}

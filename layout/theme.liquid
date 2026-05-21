@@ -1,0 +1,276 @@
+<!doctype html>
+<html
+  lang="{{ request.locale.iso_code }}"
+  dir="{%- if request.locale.iso_code == 'ar' -%}rtl{%- else -%}ltr{%- endif -%}"
+>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    {% render 'meta-tags' %}
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+
+    {%- liquid
+    unless settings.body_custom_font_handle_enable
+      assign body_font = settings.body_font_handle
+      assign body_font_bolder = body_font | font_modify: 'weight', 'bolder'
+      assign body_font_bold = body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+    endunless
+    unless settings.header_custom_font_handle_enable
+      assign header_font = settings.header_font_handle
+    endunless
+    unless settings.section_header_custom_font_handle_enable
+      assign section_header_font = settings.section_header_font_handle
+    endunless
+    unless settings.paragraph_custom_font_handle_enable
+      assign paragraph_font = settings.paragraph_font_handle
+    endunless
+    unless settings.other_custom_font_handle_enable
+      assign other_font = settings.other_font_handle
+    endunless
+    -%}
+    <style>
+      {% if settings.header_custom_font_handle_enable %}
+      @import url('https://fonts.googleapis.com/css2?family={{ settings.header_custom_font_handle }}:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      {% else %}
+      {{ header_font | font_face: font_display: 'swap' }}
+      {% endif %}
+      {% if settings.section_header_custom_font_handle_enable %}
+      @import url('https://fonts.googleapis.com/css2?family={{ settings.section_header_custom_font_handle }}:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      {% else %}
+      {{ section_header_font | font_face: font_display: 'swap' }}
+      {% endif %}
+      {% if settings.paragraph_custom_font_handle_enable %}
+      @import url('https://fonts.googleapis.com/css2?family={{ settings.paragraph_custom_font_handle }}:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      {% else %}
+      {{ paragraph_font | font_face: font_display: 'swap' }}
+      {% endif %}
+      {% if settings.other_custom_font_handle_enable %}
+      @import url('https://fonts.googleapis.com/css2?family={{ settings.other_custom_font_handle }}:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      {% else %}
+      {{ other_font | font_face: font_display: 'swap' }}
+      {% endif %}
+      {% if settings.body_custom_font_handle_enable %}
+      @import url('https://fonts.googleapis.com/css2?family={{ settings.body_custom_font_handle }}:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      {% else %}
+      {{ body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bolder | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+      {% endif %}
+      {%- liquid
+      unless settings.header_custom_font_handle_enable
+        assign header_font = settings.header_font_handle
+       endunless 
+      -%}
+      {%- liquid
+        unless settings.section_header_custom_font_handle_enable
+          assign section_header_font = settings.section_header_font_handle
+        endunless
+      -%}
+      {%- liquid
+        unless settings.paragraph_custom_font_handle_enable
+        assign paragraph_font = settings.paragraph_font_handle
+        endunless
+      -%}
+      {%- liquid
+        unless settings.other_custom_font_handle_enable
+          assign other_font = settings.other_font_handle
+        endunless
+      -%}
+      {%- liquid
+        unless settings.body_custom_font_handle_enable
+          assign body_font = settings.body_font_handle
+          assign body_font_bolder = body_font | font_modify: 'weight', 'bolder'
+          assign body_font_bold = body_font | font_modify: 'weight', 'bold'
+          assign body_font_italic = body_font | font_modify: 'style', 'italic'
+          assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+        endunless
+      -%}
+    </style>
+    {%- render 'header-css' -%}
+    {%- render 'css-variables' -%}
+    <style>
+      {%- liquid 
+        unless settings.header_custom_font_handle_enable
+          echo header_font | font_face: font_display: 'swap'
+        endunless
+      -%}
+      {% unless settings.section_header_custom_font_handle_enable %}
+      {{ section_header_font | font_face: font_display: 'swap' }}
+      {% endunless %}
+      {% unless settings.paragraph_custom_font_handle_enable %}
+      {{ paragraph_font | font_face: font_display: 'swap' }}
+      {% endunless %}
+      {% unless settings.other_custom_font_handle_enable %}
+      {{ other_font | font_face: font_display: 'swap' }}
+      {% endunless %}
+      {% unless settings.body_custom_font_handle_enable %}
+      {{ body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bolder | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+      {% endunless %}
+      :root {
+        --font-weight-body--bold: {{ body_font_bold.weight | default: 700 }};
+        --font-weight-body--bolder: {{ body_font_bolder.weight | default: 700 }};
+        --font-color-body: {{ settings.body_text_color }};
+        --font-size-body: {{ settings.body_font_size }}px;
+        --subtitle-font-size-body: {{ settings.subtitle_body_font_size }}px;
+        --background-color-body: {{ settings.body_bgcolor }};
+        --extra-color-body: {{ settings.extra_bgcolor }};
+        --button-radius: {{ settings.btn1_border_radius }}px;
+        {% if settings.body_custom_font_handle_enable %}
+        --font-custom-stack-body: '{{ settings.body_custom_font_handle }}', sans-serif;
+        --font-custom-weight-body: {{ settings.body_custom_font_weight }};
+        --font-custom-style-body: {{ settings.body_custom_font_style }};
+        {% else %}
+        --font-stack-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+        --font-weight-body: {{ body_font.weight }};
+        --font-style-body: {{ body_font.style }};
+        {% endif %}
+        --subtitle-custom-font-weight-body: {{ settings.body_custom_font_weight_subtitle }};
+        --font-letter-spacing-body: {{ settings.body_letter_spacing }}px;
+
+        --font-color-header: {{ settings.heading_text_color }};
+
+        {% if settings.header_custom_font_handle_enable %}
+        --font-custom-stack-header: '{{ settings.header_custom_font_handle }}', sans-serif;
+        --font-custom-weight-header: {{ settings.header_custom_font_weight }};
+        --font-custom-style-header: {{ settings.header_custom_font_style }};
+        {% else %}
+        --font-stack-header: {{ header_font.family }}, {{ header_font.fallback_families }};
+        --font-weight-header: {{ header_font.weight }};
+        --font-style-header: {{ header_font.style }};
+        {% endif %}
+
+        --font-color-section-header: {{ settings.section_heading_text_color }};
+        
+        {% if settings.section_header_custom_font_handle_enable %}
+        --font-custom-stack-section-header: '{{ settings.section_header_custom_font_handle }}', sans-serif;
+        --font-custom-weight-section-header:{{ settings.section_header_custom_font_weight }};
+        --font-custom-style-section-header: {{ settings.section_header_custom_font_style }};
+        {% else %}
+        --font-stack-section-header: {{ section_header_font.family }}, {{ section_header_font.fallback_families }};
+        --font-weight-section-header: {{ section_header_font.weight }};
+        --font-style-section-header: {{ section_header_font.style }};
+        {% endif %}
+
+        --font-text-section-header: {{ settings.section_header_text_transform }};
+        
+        {% if settings.paragraph_custom_font_handle_enable %}
+        --font-custom-stack-paragraph: '{{ settings.paragraph_custom_font_handle }}', sans-serif;
+        --font-custom-weight-paragraph: {{ settings.paragraph_custom_font_weight }};
+        --font-custom-style-paragraph: {{ settings.paragraph_custom_font_style }};
+        {% else %}
+        --font-stack-paragraph: {{ paragraph_font.family }}, {{ paragraph_font.fallback_families }};
+        {% endif %}
+
+        --font-line-height-paragraph: {{ settings.paragraph_font_line_height }}px;
+        {% if settings.other_custom_font_handle_enable %}
+        --font-custom-stack-other: '{{ settings.other_custom_font_handle }}', sans-serif;
+        {% else %}
+        --font-stack-other: {{ other_font.family }}, {{ other_font.fallback_families }};
+        {% endif %}
+        --font-color-primary: {{ settings.color_primary }};
+        --font-color-link: {{ settings.link_text_color }};
+        --theme-border-color: {{ settings.theme_border_color | color_modify: 'alpha', settings.theme_border_color_opacity }};
+        --sti-color: {{ settings.tag_color }};
+        --sti-font-size: {{ settings.tag_font_size }}px;
+        --sti-bgcolor: {{ settings.tag_bgcolor }};
+        --sti-text: {{ settings.tag_text_transform }};
+        --sti-font-weight: {{ settings.tag_font_weight }};
+        --sti-border: 1px solid {{ settings.tag_border_color | color_modify: 'alpha', settings.tag_border_color_opacity }};
+        --sti-border-radius: {{ settings.tag_border_radius }}px;
+        --box-body-bgcolor: {{ settings.box_body_bgcolor }};
+      }
+    </style>
+    {{ content_for_header }}
+    <script type="text/javascript" src="{{ 'plugins.js' | asset_url }}" defer></script>
+    {%- render 'header-js' -%}
+    {% if template contains 'customers' or 'cart' %}
+      <script type="text/javascript" src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+    {% endif %}
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+    {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
+      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  </head>
+  <body
+    id="{{ page_title | handle }}"
+    class="{% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }}"
+  >
+    <a class="skip-to-content-link btn-style visually-hidden" href="#MainContent">
+      {{ 'general.accessibility.skip_to_text' | t }}
+    </a>
+    {% liquid
+      if settings.cart_type == 'drawer'
+        render 'ajax-cart'
+      endif
+      sections 'header-group'
+      if settings.breadcrumb_banner_enable and template != 'index'
+        unless template.name == 'product'
+          render 'breadcrumb-banner'
+        endunless
+      endif
+    -%}
+    <main role="main">
+      {{ content_for_layout }}
+    </main>
+    {%- liquid
+      render 'fullscreen-bg'
+      sections 'footer-group'
+      render 'back-to-top'
+      section 'mobile-sticky-menu'
+    -%}
+    <script
+      type="text/javascript"
+    >
+      window.money_format = '{{ shop.money_format }}';
+      window.pro_id = '{{ product.id }}';
+      window.routes = {
+        increase_cart_url: '{{ routes.cart_add_url }}',
+        edite_cart_url: '{{ routes.cart_change_url }}',
+        change_cart_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        ajax_search_url: '{{ routes.predictive_search_url }}'
+      };
+      window.stCartString = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        qtyError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+      }
+      window.stThemeString = {
+        Straddcart: `{{ 'products.product.add_to_cart' | t }}`,
+        Strsoldout: `{{ 'products.product.sold_out' | t }}`,
+        Strunavailable: `{{ 'products.product.unavailable' | t }}`,
+        StrunavailableOp: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
+      }
+    </script>
+    {%- if settings.ajax_search_enabled -%}
+      <script src="{{ 'search-ajax.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+  </body>
+</html>

@@ -1,0 +1,189 @@
+{{ 'list-collection.css' | asset_url | stylesheet_tag }}
+<section class="list-collection section-ptb">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <ul class="list-unstyled grid-wrap">
+      {% for collection in collections %}
+        {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
+        <li class="grid-wrapper">
+          <a class="coll-block" href="{{ collection.url }}">
+              {%- if collection.metafields.custom.collection_thumb != blank -%}
+                {%- liquid
+                assign ratio = 1
+                if section.settings.image_ratio == 'portrait'
+                  assign ratio = 0.8
+                elsif section.settings.image_ratio == 'adapt'
+                  if collection.metafields.custom.collection_thumb
+                    assign ratio = collection.metafields.custom.collection_thumb.aspect_ratio
+                  else
+                    assign ratio = collection.metafields.custom.collection_thumb.aspect_ratio
+                  endif
+                endif
+                if ratio == 0 or ratio == null
+                  assign ratio = 1
+                endif
+              -%}
+              <div
+              class="collection-img ratio banner-hover"
+              style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+            >
+                {% assign image_height = collection.metafields.custom.collection_thumb.width
+                  | divided_by: collection.metafields.custom.collection_thumb.aspect_ratio
+                %}
+                {{
+                  collection.metafields.custom.collection_thumb.first
+                  | image_url: width: 1080
+                  | image_tag:
+                    width: collection.metafields.custom.collection_thumb.first.width,
+                    height: image_height,
+                    class: 'lazyload',
+                    loading: 'lazy'
+                }}
+                <span>{{ collection.all_products_count }}</span>
+                </div>
+              {% else %}
+                {%- if collection.image != blank -%}
+                  {%- liquid
+                  assign ratio = 1
+                  if section.settings.image_ratio == 'portrait'
+                    assign ratio = 0.8
+                  elsif section.settings.image_ratio == 'adapt'
+                    if collection.metafields.custom.collection_thumb
+                      assign ratio = collection.metafields.custom.collection_thumb.aspect_ratio
+                    else
+                      assign ratio = collection.image.aspect_ratio
+                    endif
+                  endif
+                  if ratio == 0 or ratio == null
+                    assign ratio = 1
+                  endif
+                -%}
+                  <div
+              class="collection-img ratio banner-hover"
+              style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+            >
+                {{
+                  collection.image
+                  | image_url: width: 1080
+                  | image_tag:
+                    width: collection.image.width,
+                    height: image_height,
+                    class: 'lazyload',
+                    loading: 'lazy'
+                }}
+                <span>{{ collection.all_products_count }}</span>
+                </div>
+                {%- else -%}
+                {% assign image_height = collection.image.width
+                  | divided_by: collection.image.aspect_ratio
+                %}
+                {%- liquid
+                  assign ratio = 1
+                  if section.settings.image_ratio == 'portrait'
+                    assign ratio = 0.8
+                  elsif section.settings.image_ratio == 'adapt'
+                    if collection.metafields.custom.collection_thumb
+                      assign ratio = collection.metafields.custom.collection_thumb.aspect_ratio
+                    else
+                      assign ratio = collection.products.first.aspect_ratio
+                    endif
+                  endif
+                  if ratio == 0 or ratio == null
+                    assign ratio = 1
+                  endif
+                -%}
+                  <div
+              class="collection-img ratio banner-hover"
+              style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+            >
+                  {%- if collection.products.first != blank -%}
+                {{
+                  collection.products.first
+                  | image_url: width: 1080
+                  | image_tag:
+                    width: collection.products.first.width,
+                    height: image_height,
+                    class: 'lazyload',
+                    loading: 'lazy'
+                }}
+                {%- else -%}
+                {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
+                {{ placeholder | placeholder_svg_tag: 'placeholder-svg mobile-img' }}
+                {%- endif -%}
+                  <span>{{ collection.all_products_count }}</span>
+                </div>
+                {%- endif -%}
+              {% endif %}
+            <div class="collection-content">
+              <div class="content">
+                <h6 class="mr-0">{{ collection_title | upcase }}</h6>
+              </div>
+            </div>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Collection list page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Thumbnail"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Add collection image with metafield](\/admin\/metafields\/product\/create)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Input name: 'collection thumb', Select type: 'file', and save matafield"
+    },
+    {
+      "type": "header",
+      "content": "Image ratio"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image shape"
+    }
+  ]
+}
+{% endschema %}

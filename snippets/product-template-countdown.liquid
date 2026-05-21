@@ -1,0 +1,9 @@
+{% if product.metafields.custom.timer %}
+<div class="product-info">
+    {% assign utc_time = product.metafields.custom.timer | date: "%Y-%m-%dT%H:%M:%S" %}
+    <div class="week-countdown" id="counter-event-{{ product.id }}" data-enddate="{{ utc_time }}">
+        <p class="mr-0">{{ block.settings.hurry_up_text }}</p>
+        <span></span>
+    </div>
+</div>
+{% endif %}

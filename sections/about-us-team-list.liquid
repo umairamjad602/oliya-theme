@@ -1,0 +1,231 @@
+{{ 'about-us-team-list.css' | asset_url | stylesheet_tag }}
+<section
+  class="about-team"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px; --background-color: {{ section.settings.section_background_color }};"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="our-team">
+      {% if section.settings.section_subheading != '' or section.settings.section_heading != '' %}
+        <div class="section-capture">
+          <div class="section-title">
+            {% if section.settings.section_subheading != '' %}
+              <span data-fade-in class="sub-title">{{ section.settings.section_subheading }}</span>
+            {% endif %}
+            {% if section.settings.section_heading != '' %}
+              <h2 class="mr-0" data-fade-in>{{ section.settings.section_heading }}</h2>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+      <div class="team-wrap">
+        <ul class="list-unstyled">
+          {% for block in section.blocks %}
+            <li class="team-content" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.member_url }}" class="banner-hover">
+                {%- if block.settings.member_img != blank -%}
+                  {{
+                    block.settings.member_img
+                    | image_url: width: 500
+                    | image_tag:
+                      loading: 'lazy',
+                      width: block.settings.member_img.width,
+                      height: block.settings.member_img.height,
+                      class: 'lazyload',
+                      alt: block.settings.member_img.alt
+                    | escape
+                  }}
+                {%- else -%}
+                  {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                  {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                {%- endif -%}
+              </a>
+              <div class="team-info">
+                <h6 class="mr-0" data-fade-in>{{ block.settings.member_name }}</h6>
+                <span data-fade-in>{{ block.settings.member_position }}</span>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "About us team list",
+  "settings": [
+  {
+    "type": "header",
+    "content": "Section width"
+  },
+  {
+    "type": "select",
+    "id": "container",
+    "label": "Section width",
+    "options": [
+      {
+        "label": "Fluid",
+        "value": "fluid"
+      },
+      {
+        "label": "Normal",
+        "value": "normal"
+      }
+    ],
+    "default": "normal"
+  },
+  {
+    "type": "header",
+    "content": "Section space top bottom"
+  },
+  {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+  {
+    "type": "header",
+    "content": "Section background color"
+  },
+  {
+    "type": "color",
+    "id": "section_background_color",
+    "label": "Background color",
+    "default": "#FFFFFF"
+  },
+  {
+    "type": "header",
+    "content": "Section heading"
+  },
+  {
+    "type": "text",
+    "id": "section_subheading",
+    "label": "Subheading",
+    "default": "subheading"
+  },
+  {
+    "type": "text",
+    "id": "section_heading",
+    "label": "Heading",
+    "default": "heading"
+  }
+  ],
+  "blocks": [
+  {
+    "type": "our-team",
+    "name": "Block",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "member_img",
+      "label": "Image",
+      "info": "Recommended size: 450x580px"
+    },
+    {
+      "type": "url",
+      "id": "member_url",
+      "label": "url"
+    },
+    {
+      "type": "text",
+      "id": "member_name",
+      "label": "Title",
+      "default": "title"
+    },
+    {
+      "type": "text",
+      "id": "member_position",
+      "label": "Title",
+      "default": "title"
+    }
+    ]
+  }
+  ],
+  "presets": [
+  {
+    "name": "About us team list",
+    "blocks": [
+      {
+        "type": "our-team"
+      },
+      {
+        "type": "our-team"
+      },
+      {
+        "type": "our-team"
+      },
+      {
+        "type": "our-team"
+      }
+    ]
+  }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,82 @@
+@media (max-width: 767px){
+    .store-location .contact-map-wrap{
+      padding-top: 30px;
+    }
+  }
+  .store-location .section-title {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .store-location .store-content:first-child {
+    padding-top: 0px;
+  }
+  .store-location .store-content {
+    padding-top: 30px;
+  }
+  .store-location .store-content .contact-content {
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  .store-location .store-content:nth-child(even) .contact-content .contact-detail.get-info {
+    order: -1;
+  }
+
+  /*information block*/
+  .store-location .store-info {
+    width: 66.67%;
+    margin: 0 auto;
+  }
+  .store-location .store-info .info_wrap {
+    margin-top: 60px;
+  }
+  .store-location .store-info ul li{
+    margin-top: 30px;
+  }
+  .store-location .store-info ul li:first-child{
+    margin-top: 0px;
+  }
+  .store-location .store-info ul li .info-block{
+    display: flex;
+    align-items: center;
+  }
+  .store-location .store-info ul li .info-block .icon {
+    font-size: 20px;
+    color: var(--font-color-header);
+  }
+  .store-location .store-info ul li .info-block .text-block {
+    margin-inline-start: 30px;
+  }
+  .store-location .store-info ul li .info-block .text-block span{
+    color: var(--font-color-header);
+    font-size: var(--subtitle-font-size-body);
+    font-weight: var(--subtitle-custom-font-weight-body);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .store-location .store-info ul li .info-block .text-block p,
+  .store-location .store-info ul li .info-block .text-block a{
+    color: var(--font-color-body);
+    display: block;
+    padding-top: 5px;
+  }
+  @media(max-width: 1199px){
+    .store-location .store-info {
+      width: 100%;
+    }
+    .store-location .store-info .info_wrap {
+      margin-top: 30px;
+    }
+    .store-location .store-info ul li {
+      margin-top: 20px;
+    }
+  }
+  @media(max-width: 991px) {
+    .store-location .store-content .contact-content {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .store-location .store-content:nth-child(even) .contact-content .contact-detail.get-info {
+      order: 0;
+    }
+  }

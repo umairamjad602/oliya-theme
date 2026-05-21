@@ -1,0 +1,34 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "customer-login": {
+      "type": "customer-login",
+      "settings": {
+        "enable_shop_login_button": true
+      }
+    },
+    "section_border_TnURq7": {
+      "type": "section-border",
+      "name": "Border",
+      "settings": {
+        "border_width": "full",
+        "border_bg_color": "transparent",
+        "border": 1,
+        "border_color": "#222222",
+        "border_color_opacity": 0.1
+      }
+    }
+  },
+  "order": [
+    "customer-login",
+    "section_border_TnURq7"
+  ]
+}

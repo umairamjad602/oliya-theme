@@ -1,0 +1,148 @@
+  .about-section6 { 
+    background-color: var(--background-color);
+  }
+  .about-section6 .section-title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .about-section6 .section-title span.sub-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+  .about-section6 .section-title p {
+    max-width: 58.33%;
+  }
+  @media(max-width: 1199px){
+    .about-section6 .section-title p {
+      max-width: 100%;
+    }
+  }
+
+  .about-section6 .rotate-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 30px;
+  }
+  .about-section6 .rotate-image::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #e2e2e2;
+  }
+  .about-section6 .rotate-image .play-button {
+    position: relative;
+    padding: 0px 30px;
+    z-index: 1;
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-color);
+  }
+  .about-section6 .rotate-image .play-button i {
+    position: absolute;
+  }
+  .about-section6 .rotate-image .play-button svg {
+    -webkit-animation: spin 8s linear infinite;
+    animation: spin 8s linear infinite;
+    fill: var(--font-color-header);
+    transform-origin: center;
+  }
+
+  .about-section6 .rotate-image .play-button svg textPath {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 9px;
+  }
+
+  /* about css */
+  .about-section6 .about-content {
+    display: grid;
+    gap: 30px;
+  }
+  .about-section6 .about-content .about-banner-area {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .about-section6 .about-content .about-banner-area:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+  .about-section6 .about-content .about-banner-area .single-banner {
+    width: 50%;
+  }
+  .about-section6 .about-content .about-banner-area .abt-banner-desc {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .about-section6 .about-content .about-banner-area:nth-of-type(odd) .abt-banner-desc {
+    padding-inline-start: 60px;
+  }
+  .about-section6 .about-content .about-banner-area:nth-of-type(even) .abt-banner-desc {
+    padding-inline-end: 60px;
+  }
+  @media(max-width: 1199px) {
+    .about-section6 .about-content .about-banner-area:nth-of-type(odd) .abt-banner-desc {
+      padding-inline-start: 30px;
+    }
+    .about-section6 .about-content .about-banner-area:nth-of-type(even) .abt-banner-desc {
+      padding-inline-end: 30px;
+    }
+  }
+  @media(max-width: 767px) {
+    .about-section6 .about-content .about-banner-area,
+    .about-section6 .about-content .about-banner-area:nth-of-type(even) {
+      flex-direction: column;
+    }
+    .about-section6 .about-content .about-banner-area .single-banner,
+    .about-section6 .about-content .about-banner-area .abt-banner-desc {
+      width: 100%;
+    }
+    .about-section6 .about-content .about-banner-area:nth-of-type(odd) .abt-banner-desc,
+    .about-section6 .about-content .about-banner-area:nth-of-type(even) .abt-banner-desc {
+      padding: 24px 0 0;
+    }
+  }
+
+  /* about content css */
+  .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk {
+    max-width: 66.67%;
+    margin: 0 auto;
+  }
+  .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk h6 {
+    font-size: 34px;
+  }
+  .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk p {
+    margin-top: 30px;
+  }
+  .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk h2.name-title {
+    color: var(--font-color-primary);
+    font-size: 52px;
+    margin-top: 32px;
+    font-weight: 300;
+  }
+  .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk a {
+    margin-top: 30px;
+  }
+  @media (max-width: 1199px) {
+    .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk {
+      max-width: 100%;
+    }
+    .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk h6 {
+      font-size: 24px;
+    }
+    .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk p {
+      margin-top: 20px;
+    }
+    .about-section6 .about-content .about-banner-area .abt-banner-desc .banner-desk h2.name-title {
+      font-size: 34px;
+      margin-top: 20px;
+    }
+  }

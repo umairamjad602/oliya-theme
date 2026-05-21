@@ -1,0 +1,234 @@
+{{ 'about-us-icon-row.css' | asset_url | stylesheet_tag }}
+<section
+  class="about-section5"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;--background-color: {{ section.settings.section_background_color }};"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    {% if section.settings.section_subheading != '' or section.settings.section_heading != '' %}
+      <div class="section-capture">
+        <div class="section-title">
+          {% if section.settings.section_subheading != '' %}
+            <span data-fade-in class="sub-title">{{ section.settings.section_subheading }}</span>
+          {% endif %}
+          {% if section.settings.section_heading != '' %}
+            <h2 class="mr-0" data-fade-in>{{ section.settings.section_heading }}</h2>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    <ul class="list-unstyled ser-wrap">
+      {% for block in section.blocks %}
+        <li class="ser-wrapper ser-{{ block.id }}" {{ block.shopify_attributes }}>
+          <div class="ser-block">
+            <a
+              href="{{ block.settings.icon_url }}"
+              class="ser-icon"
+              style="background-color: {{ block.settings.service_bg_color }};"
+            >
+              {% if block.settings.text_icon1 != '' %}
+                <span class="icon">
+                  {{ block.settings.text_icon1 }}
+                </span>
+              {% endif %}
+            </a>
+            <div class="ser-content">
+              {% if block.settings.service_title != '' %}
+                <h6 class="mr-0" data-fade-in>{{ block.settings.service_title }}</h6>
+              {% endif %}
+              {% if block.settings.service_desc != '' %}
+                <p class="mr-0" data-fade-in>{{ block.settings.service_desc }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "About us icon row",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading",
+      "default": "subheading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "our_services",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "For icon"
+        },
+        {
+          "type": "textarea",
+          "id": "text_icon1",
+          "label": "Icon",
+          "info": "[More icon](https:\/\/feathericons.com)",
+          "default": "<i class='feather-map-pin'></i>"
+        },
+        {
+          "type": "url",
+          "id": "icon_url",
+          "label": "Url"
+        },
+        {
+          "type": "text",
+          "id": "service_title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "service_desc",
+          "label": "Description",
+          "default": "The green to Wear 2.0 standard aims to minimize the"
+        },
+        {
+          "type": "color",
+          "id": "service_bg_color",
+          "label": "Icon background color",
+          "default": "#f4f2f0"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us icon row",
+      "blocks": [
+        {
+          "type": "our_services"
+        },
+        {
+          "type": "our_services"
+        },
+        {
+          "type": "our_services"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

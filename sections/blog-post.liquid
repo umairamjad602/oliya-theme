@@ -1,0 +1,706 @@
+{{ 'article.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign ratio = 1
+  if article.image and settings.blog_image_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif article.image and settings.blog_image_ratio == 'adapt'
+    assign ratio = article.image.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+-%}
+<section
+  class="article-section"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="blog-article-wrapper {{ section.settings.sidebar_handle }}">
+      {%- unless section.settings.sidebar_handle == 'without-sidebar' -%}
+        <div class="blog-article-wrap blog-sidebar">
+          {% render 'blog-sidebar' %}
+        </div>
+      {%- endunless -%}
+      <div class="blog-article-wrap blog-article">
+        <div class="single-blog-area">
+          <div class="single-blog-post">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  {% render block %}
+                {%- when 'article_image' -%}
+                  <div class="blog-post-opt" {{ block.shopify_attributes }}>
+                    <div class="blog-image">
+                      <a
+                        href="{{ article.url }}"
+                        class="banner-hover ratio"
+                        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+                      >
+                        {%- if article.image != blank -%}
+                          {% assign image_height = article.image.width | divided_by: article.image.aspect_ratio %}
+                          {{
+                            article.image
+                            | image_url: width: 3000
+                            | image_tag:
+                              width: article.image.width,
+                              height: image_height,
+                              class: 'lazyload',
+                              loading: 'lazy'
+                          }}
+                        {%- else -%}
+                          {%- capture placeholder -%}hero-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
+                          {{ placeholder | placeholder_svg_tag: 'placeholder-svg desk-img' }}
+                        {%- endif -%}
+                      </a>
+                    </div>
+                  </div>
+                {%- when 'article_title' -%}
+                  <div class="blog-post-opt opt" {{ block.shopify_attributes }}>
+                    <div class="blog-revert">
+                      <ul class="list-unstyled">
+                        {%- if block.settings.article_date_enable -%}
+                          <li class="date-time">
+                            <span>{{ article.published_at | date: '%b %d, %Y' }}</span>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.article_author_enable -%}
+                          <li class="post-info">
+                            <span>
+                              {{- 'blogs.article.author_by' | t }}
+                              {{ article.author | remove: '.' -}}
+                            </span>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.article_comment_enable -%}
+                          <li class="blog-comment">
+                            <span class="comment-count">
+                              {%- if article.comments_count == 1 -%}
+                                {{- 'blogs.comments.with_count.one' | t: count: article.comments_count -}}
+                              {%- else -%}
+                                {{- 'blogs.comments.with_count.other' | t: count: article.comments_count -}}
+                              {%- endif -%}
+                            </span>
+                          </li>
+                        {%- endif -%}
+                      </ul>
+                      <h1 class="post-title mr-0">{{ article.title }}</h1>
+                    </div>
+                  </div>
+                {%- when 'article_content' -%}
+                  <div class="blog-post-opt" {{ block.shopify_attributes }}>
+                    <div class="blog-content">
+                      {{ article.content }}
+                    </div>
+                  </div>
+                {%- when 'article_tag' -%}
+                  {% if article.tags.size > 0 %}
+                    <div class="blog-post-opt opt" {{ block.shopify_attributes }}>
+                      <div class="post-info-tag">
+                        <ul class="list-unstyled post-tag">
+                          {% for tag in article.tags %}
+                            <li>{{ tag | link_to_tag: tag }}</li>
+                          {% endfor %}
+                        </ul>
+                        <div class="blog-share">
+                          {% render 'social-share-blog' %}
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                {%- when 'article_next_prev' -%}
+                  <div class="blog-post-opt opt" {{ block.shopify_attributes }}>
+                    <div class="blog-prev-next">
+                      <ul class="list-unstyled">
+                        <li>
+                          <a href="{{ blog.previous_article }}">
+                            <i class="feather-arrow-left"></i>
+                            <span>{{ block.settings.blog_prev_button_title }}</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ blog.next_article }}">
+                            <span>{{ block.settings.blog_next_button_title }}</span>
+                            <i class="feather-arrow-right"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+          {% if article.comments_enabled? %}
+            {% paginate article.comments by 5 %}
+              <div id="comments" class="blog-comments">
+                {% if article.comments.size > 0 %}
+                  <div class="review_comment">
+                    <div class="cmt-tit-count">
+                      <h6 class="mr-0 comment-title">
+                        <span class="cmt-title">{{ section.settings.article_cmt }}</span>
+                        <span class="cmt-count">({{ article.comments_count }})</span>
+                      </h6>
+                    </div>
+                    <div class="cmt-info-wrap">
+                      {% for comment in article.comments %}
+                        <div class="comment-info">
+                          <div class="comment-avtar">
+                            <div class="review-name">
+                              <span class="avtar-cmt">
+                                {% if section.settings.article_avtar_enable %}
+                                  <i class="ri-user-add-line"></i>
+                                {% else %}
+                                  <span class="cmt-auth">{{ comment.author | slice: 0, 2 }}</span>
+                                {% endif %}
+                              </span>
+                            </div>
+                            <div class="review-info">
+                              <span class="cmt-authr">{{ comment.author }}</span>
+                              <span class="time">{{ comment.created_at | date: '%b %d, %Y' }}</span>
+                            </div>
+                          </div>
+                          <div class="comment-content">
+                            <div class="comment-desc">
+                              {{ comment.content }}
+                            </div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+                {% if paginate.pages > 1 %}
+                  <div class="paginatoin-area">
+                    {%- render 'pagination', paginate: paginate -%}
+                  </div>
+                {% endif %}
+              </div>
+            {% endpaginate %}
+            <div class="blog-comment-form">
+              {% render 'blog-comment-form' %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Blog post",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_bgcolor",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "radio",
+      "id": "sidebar_handle",
+      "label": "Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left-sidebar"
+        },
+        {
+          "label": "Right",
+          "value": "right-sidebar"
+        },
+        {
+          "label": "Without",
+          "value": "without-sidebar"
+        }
+      ],
+      "default": "left-sidebar"
+    },
+    {
+      "type": "header",
+      "content": "Sticky position"
+    },
+    {
+      "type": "radio",
+      "id": "blog_sidebar_position_handle",
+      "label": "Position",
+      "options": [
+        {
+          "label": "Sticky",
+          "value": "sticky_sidebar"
+        },
+        {
+          "label": "Simple",
+          "value": "simple_sidebar"
+        }
+      ],
+      "default": "sticky_sidebar"
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_search_bar_enable",
+      "label": "Show searchbar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "blog_search_placeholder",
+      "label": "Placeholder",
+      "default": "Search"
+    },
+    {
+      "type": "header",
+      "content": "Recent posts"
+    },
+    {
+      "type": "checkbox",
+      "id": "recent_post_enable",
+      "label": "Show posts",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "recent_title",
+      "label": "Heading",
+      "default": "Recent posts"
+    },
+    {
+      "type": "number",
+      "id": "recent_post_limit_handle",
+      "label": "How many post show",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Select collection"
+    },
+    {
+      "type": "text",
+      "id": "blog_cat_title",
+      "label": "Heading",
+      "default": "Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "blog_cat_handle",
+      "label": "Select collection",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "tags_enable",
+      "label": "Show tags",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "blog_tags_title",
+      "label": "Heading",
+      "default": "Tags"
+    },
+    {
+      "type": "number",
+      "id": "blog_tags_list_limit_handle",
+      "label": "Show how many tags",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_new_enable",
+      "label": "Show newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "blog_new_title",
+      "label": "Newsletter",
+      "default": "Newsletter"
+    },
+    {
+      "type": "header",
+      "content": "Instagram gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "blog_insta_enable",
+      "label": "Show instagram",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "blog_insta_title",
+      "label": "Heading",
+      "default": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "insta_url1",
+      "label": "image url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img1",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url2",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img2",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url3",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img3",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url4",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img4",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url5",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img5",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "url",
+      "id": "insta_url6",
+      "label": "url"
+    },
+    {
+      "type": "image_picker",
+      "id": "insta_img6",
+      "label": "Image",
+      "info": "Recommended size: 500x500px"
+    },
+    {
+      "type": "header",
+      "content": "Comment"
+    },
+    {
+      "type": "text",
+      "id": "article_cmt",
+      "label": "Heading",
+      "default": "Comment"
+    },
+    {
+      "type": "paragraph",
+      "content": "Avtar option In place of comment author first two character name"
+    },
+    {
+      "type": "checkbox",
+      "id": "article_avtar_enable",
+      "label": "Show avtar",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "article_image",
+      "name": "Featured image",
+      "limit": 1
+    },
+    {
+      "type": "article_title",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Author"
+        },
+        {
+          "type": "checkbox",
+          "id": "article_date_enable",
+          "label": "Show date",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "article_comment_enable",
+          "label": "Show comment",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "article_author_enable",
+          "label": "Show author",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "article_content",
+      "name": "Content",
+      "limit": 1
+    },
+    {
+      "type": "article_tag",
+      "name": "Tag",
+      "limit": 1
+    },
+    {
+      "type": "article_social",
+      "name": "Share",
+      "limit": 1
+    },
+    {
+      "type": "article_next_prev",
+      "name": "Next/prev",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Blog previous next post"
+        },
+        {
+          "type": "text",
+          "id": "blog_prev_button_title",
+          "label": "Previous button label",
+          "default": "Prev post"
+        },
+        {
+          "type": "text",
+          "id": "blog_next_button_title",
+          "label": "Next button label",
+          "default": "Next post"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .article-section {
+    background-color: {{ section.settings.section_bgcolor }};
+  }
+  .article-section .blog-article-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  .article-section .blog-article-wrapper.left-sidebar .blog-article {
+    grid-column: 2 / span 3;
+  }
+  .article-section .blog-article-wrapper.right-sidebar .blog-article {
+    grid-column: 1 / span 3;
+    order: -1;
+  }
+  .article-section .blog-article-wrapper.without-sidebar {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media (max-width: 1199px) {
+    .article-section .blog-article-wrapper {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .article-section .blog-article-wrapper.left-sidebar .blog-article {
+      grid-column: 2 / span 2;
+    }
+    .article-section .blog-article-wrapper.right-sidebar .blog-article {
+      grid-column: 1 / span 2;
+    }
+  }
+  @media(max-width: 991px) {
+    .article-section .blog-article-wrapper {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .article-section .blog-article-wrapper.right-sidebar .blog-article,
+    .article-section .blog-article-wrapper.left-sidebar .blog-article {
+      grid-column: unset;
+      order: -1;
+    }
+  }
+  
+
+  .cmt-tit-count h6 {
+    font-size: 18px;
+    position: relative;
+  }
+  .cmt-info-wrap .comment-info {
+    margin-top: 23px;
+  }
+  .cmt-info-wrap .comment-info:first-child {
+    margin-top: 30px;
+  }
+  .cmt-info-wrap .comment-info .comment-avtar {
+    display: flex;
+  }
+  .cmt-info-wrap .comment-info .comment-avtar .review-name .avtar-cmt,
+  .cmt-info-wrap .comment-info .comment-avtar .review-name .avtar-cmt .cmt-auth {
+    height: 45px;
+    width: 45px;
+    background-color: var(--font-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cmt-info-wrap .comment-info .comment-avtar .review-name .avtar-cmt {
+    font-size: 20px;
+    color: var(--font-color-header);
+  }
+  .cmt-info-wrap .comment-info .comment-avtar .review-name .avtar-cmt .cmt-auth {
+    font-size: var(--font-size-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .cmt-info-wrap .comment-info .comment-avtar .review-info {
+    margin-inline-start: 15px;
+  }
+  .cmt-info-wrap .comment-info .comment-avtar .review-info span {
+    display: block;
+  }
+  .cmt-info-wrap .comment-info .comment-avtar .review-info span.cmt-authr {
+    color: var(--font-color-header);
+    font-size: var(--font-size-body);
+    font-weight: 600;
+  }
+  .cmt-info-wrap .comment-info .comment-avtar .review-info span.time {
+    margin-top: 6px;
+  }
+  .cmt-info-wrap .comment-info .comment-content {
+    margin-top: 7px;
+  }
+</style>

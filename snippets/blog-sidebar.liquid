@@ -1,0 +1,248 @@
+{{ 'blog-sidebar.css' | asset_url | stylesheet_tag }}
+<div class="blog-sidebar-wrap {% if section.settings.blog_sidebar_position_handle == "sticky_sidebar" %}sticky{% endif %}">
+  {% if section.settings.blog_search_bar_enable %}
+    <div class="blog-post-sidebar blog-search">
+      <div class="search-post">
+        <form action="/search" method="get" role="search">
+          <div class="form-search">
+            <input type="hidden" name="type" value="article">
+            <input type="hidden" name="options[prefix]" value="last">
+            <label for="search" class="hidden"></label>
+            <input
+              id="search"
+              type="search"
+              name="q"
+              class="input-text"
+              value="{{ search.terms | escape }}"
+              placeholder="{{ section.settings.blog_search_placeholder }}"
+              required
+            >
+            <button class="btn-search" type="submit" aria-label="search"><i class="ri-search-line"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+  {% if section.settings.recent_post_enable %}
+    <div class="blog-post-sidebar blog-sidebar-recent-post">
+      <h6 class="mr-0 blog-sidebar-title">{{ section.settings.recent_title }}</h6>
+      {% assign recent_post_limit = section.settings.recent_post_limit_handle %}
+      {% for article in blogs[blog.handle].articles limit: recent_post_limit %}
+        <div class="sidbar-inner banner-hover">
+          <div class="post-image">
+            <a href="{{ article.url }}">
+              {%- if article.image != blank -%}
+                {% assign image_height = article.image.src.width | divided_by: article.image.src.aspect_ratio %}
+                {{
+                  article.image.src
+                  | image_url: width: 300
+                  | image_tag: width: article.image.src.width, height: image_height, class: 'lazyload', loading: 'lazy'
+                }}
+              {%- else -%}
+                {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+              {%- endif -%}
+            </a>
+          </div>
+          <div class="recent-blog-content">
+            <span>{{ article.published_at | date: '%b %d, %Y' }}</span>
+            <h4 class="mr-0">
+              <a href="{{ article.url }}">{{ article.title }}</a>
+            </h4>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if section.settings.blog_cat_handle != '' %}
+    <div class="blog-post-sidebar blog-cat">
+      <h6 class="mr-0 blog-sidebar-title">{{ section.settings.blog_cat_title }}</h6>
+      <ul class="cat-block list-unstyled">
+        {% assign cat_menu = section.settings.blog_cat_handle %}
+        {% for link in linklists[cat_menu].links %}
+          {% if linklists[cat_menu].links != '' %}
+            <li class="cat-link">
+              <a href="{{ link.url }}" class="cat-sublink">{{ link.title }}</a>
+              {% assign child_list_handle = link.title | handleize %}
+              {% if linklists[child_list_handle].links != '' %}
+                <ul class="cat-supmenu list-unstyled">
+                  {% for childlink in linklists[child_list_handle].links %}
+                    <li class="cat-suplink-li">
+                      <a href="{{ childlink.url }}" class="cat-suplink">{{ childlink.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  {% if section.settings.tags_enable and blog.all_tags.size > 0 %}
+    <div class="blog-post-sidebar blog-tags">
+      <h6 class="mr-0 blog-sidebar-title">{{ section.settings.blog_tags_title }}</h6>
+      <div class="sidebartag">
+        <ul class="sidebar-tag list-unstyled">
+          {% assign tags_list_limit = section.settings.blog_tags_list_limit_handle %}
+          {% for tag in blog.all_tags limit: tags_list_limit %}
+            <li>
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+  {% if section.settings.blog_new_enable %}
+    <div class="blog-post-sidebar blog-news">
+      <h6 class="mr-0 blog-sidebar-title">{{ section.settings.blog_new_title }}</h6>
+      {% form 'customer' %}
+        {{ form.errors | default_errors }}
+        {% if form.posted_successfully? %}
+          <p class="mr-0 text-success">
+            <span>{{ 'general.newsletter_form.confirmation' | t }}</span>
+          </p>
+        {% endif %}
+        <div class="news-content">
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label for="E-mail" class="hidden"></label>
+          <input
+            type="email"
+            name="contact[email]"
+            class="email mail"
+            id="E-mail"
+            value="{% if customer %}{{ customer.email }}{% endif %}"
+            placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}"
+            autocapitalize="off"
+            required
+          >
+          <button type="submit" name="commit" id="Subscribe" aria-label="email">
+            <i class="feather-mail"></i>
+          </button>
+        </div>
+      {% endform %}
+    </div>
+  {% endif %}
+  {% if section.settings.blog_insta_enable %}
+    <div class="blog-post-sidebar blog-news">
+      <h6 class="mr-0 blog-sidebar-title">{{ section.settings.blog_insta_title }}</h6>
+      <div class="insta-block">
+        <a class="img-content" href="{{ section.settings.insta_url1 }}">
+          {%- if section.settings.insta_img1 != blank -%}
+            {% assign image_height = section.settings.insta_img1.width
+              | divided_by: section.settings.insta_img1.aspect_ratio
+            %}
+            {{
+              section.settings.insta_img1
+              | image_url: width: 300
+              | image_tag:
+                width: section.settings.insta_img1.width,
+                height: image_height,
+                class: 'lazyload',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+            {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          {%- endif -%}
+        </a>
+        <a class="img-content" href="{{ section.settings.insta_url2 }}">
+          {%- if section.settings.insta_img2 != blank -%}
+            {% assign image_height = section.settings.insta_img2.width
+              | divided_by: section.settings.insta_img1.aspect_ratio
+            %}
+            {{
+              section.settings.insta_img2
+              | image_url: width: 300
+              | image_tag:
+                width: section.settings.insta_img2.width,
+                height: image_height,
+                class: 'lazyload',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+            {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          {%- endif -%}
+        </a>
+        <a class="img-content" href="{{ section.settings.insta_url3 }}">
+          {%- if section.settings.insta_img3 != blank -%}
+            {% assign image_height = section.settings.insta_img3.width
+              | divided_by: section.settings.insta_img3.aspect_ratio
+            %}
+            {{
+              section.settings.insta_img3
+              | image_url: width: 300
+              | image_tag:
+                width: section.settings.insta_img3.width,
+                height: image_height,
+                class: 'lazyload',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+            {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          {%- endif -%}
+        </a>
+        <a class="img-content" href="{{ section.settings.insta_url4 }}">
+          {%- if section.settings.insta_img4 != blank -%}
+            {% assign image_height = section.settings.insta_img4.width
+              | divided_by: section.settings.insta_img4.aspect_ratio
+            %}
+            {{
+              section.settings.insta_img4
+              | image_url: width: 300
+              | image_tag:
+                width: section.settings.insta_img4.width,
+                height: image_height,
+                class: 'lazyload',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+            {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          {%- endif -%}
+        </a>
+        <a class="img-content" href="{{ section.settings.insta_url5 }}">
+          {%- if section.settings.insta_img5 != blank -%}
+            {% assign image_height = section.settings.insta_img5.width
+              | divided_by: section.settings.insta_img5.aspect_ratio
+            %}
+            {{
+              section.settings.insta_img5
+              | image_url: width: 300
+              | image_tag:
+                width: section.settings.insta_img5.width,
+                height: image_height,
+                class: 'lazyload',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+            {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          {%- endif -%}
+        </a>
+        <a class="img-content" href="{{ section.settings.insta_url6 }}">
+          {%- if section.settings.insta_img6 != blank -%}
+            {% assign image_height = section.settings.insta_img6.width
+              | divided_by: section.settings.insta_img6.aspect_ratio
+            %}
+            {{
+              section.settings.insta_img6
+              | image_url: width: 300
+              | image_tag:
+                width: section.settings.insta_img6.width,
+                height: image_height,
+                class: 'lazyload',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+            {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          {%- endif -%}
+        </a>
+      </div>
+    </div>
+  {% endif %}
+</div>

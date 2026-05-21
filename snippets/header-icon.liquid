@@ -1,0 +1,49 @@
+<ul class="shop-element list-unstyled">
+  {%- if settings.search_enable -%}
+    <li class="side-wrap search-wrap">
+      <button class="search-popup header-icon" type="button" data-bs-target="#modal-search" data-bs-toggle="modal" role="button" aria-label="search">
+        <i class="ri-search-line"></i>
+      </button>
+    </li>
+  {%- endif -%}
+  {% if shop.customer_accounts_enabled %}
+  <li class="side-wrap user-wrap">
+      <a href="{{ routes.account_url }}" class="header-icon" aria-label="User">
+        <span class="icon">
+          {%- if customer %}<i class="ri-user-follow-line"></i>{% else %}<i class="ri-user-add-line"></i>{% endif -%}
+        </span>
+      </a>
+  </li>
+  {% endif %}
+  {%- if settings.wishlist_enable -%}
+    <li class="side-wrap wishlist-wrap">
+      <a class="header-icon" href="{{ settings.wishlist_page_url }}" title="Wishlist">
+        <span class="icon"><i class="ri-heart-add-line"></i></span>
+        {%- if settings.wl_title != '' %}
+        <span class="title">
+          {{ settings.wl_title }}
+        </span>
+        {%- endif %}
+        <span class="wishlist-counter">{{ wishlist.count }}</span>
+      </a>
+    </li>
+    {%- endif -%}
+    {%- if settings.cart_enable -%}
+      <li class="side-wrap cart-wrap">
+        <a href="{{ routes.cart_url }}" class="header-icon" id="ajax-cart-icon" aria-label="Cart">
+          <span class="icon">
+            <i class="ri-shopping-bag-line"></i>
+          </span>
+          {%- if settings.cart_title != '' %}
+          <span class="title">{{ settings.cart_title }}</span>
+          {%- endif %}
+          <div class="ajax-cart-count bigcounter">
+            {%- if cart.item_count < 100 -%}
+              <span aria-hidden="true">{{ cart.item_count }}</span>
+            {%- endif -%}
+            <span class="visually-hidden">{{ 'sections.cart_count' | t: count: cart.item_count }}</span>
+          </div>
+        </a>
+      </li>
+    {%- endif -%}
+</ul>

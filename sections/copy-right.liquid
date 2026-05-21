@@ -1,0 +1,165 @@
+<footer class="footer-bottom-area">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <ul class="list-unstyled ft-bottom">
+      <li class="copy-right">
+        <p class="mr-0">
+          {{ section.settings.copy_right_text }}
+        </p>
+      </li>
+      {% if section.settings.social_enable %}
+        <li class="social-icon">
+          {% render 'social-media' %}
+        </li>
+      {% endif %}
+      {% if section.settings.payment_enable %}
+        <li class="pay-icon">
+          {%- render 'payment-icon' -%}
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "Copyright",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "#f3f2ee"
+    },
+    {
+      "type": "header",
+      "content": "Social icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "social_enable",
+      "label": "Show icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Payment icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_enable",
+      "label": "Show payment",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "label": "Font size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_font_size_lg",
+      "label": "Font size laptop",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_font_weight",
+      "label": "Font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Font color",
+      "default": "#6f6f6f"
+    },
+    {
+      "type": "liquid",
+      "id": "copy_right_text",
+      "label": "Copyright text",
+      "default": "Copyright © 2023 by spacingtech"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Copyright"
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .footer-bottom-area {
+    background-color: {{ section.settings.section_background_color }};
+    padding: 15px 0;
+  }
+  .footer-bottom-area ul.ft-bottom {
+    display: flex;
+    align-items: center;
+    {% if section.settings.payment_enable or section.settings.social_enable %}
+    justify-content: space-between;
+    {% else %}
+    justify-content: center;
+    {% endif %}
+  }
+  @media (max-width: 1199px) {
+    .footer-bottom-area ul.ft-bottom {
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer-bottom-area ul.ft-bottom > li {
+      margin-top: 15px;
+    }
+    .footer-bottom-area ul.ft-bottom > li:first-child {
+      margin-top: 0px;
+    }
+  }
+  .footer-bottom-area ul.ft-bottom li.copy-right a,
+  .footer-bottom-area ul.ft-bottom li.copy-right p {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.text_font_size }}px;
+    font-weight: {{ section.settings.text_font_weight }};
+    line-height: normal;
+  }
+  .footer-bottom-area ul.ft-bottom li.copy-right a:hover {
+    text-decoration: underline;
+  }
+  @media(max-width: 1499px){
+    .footer-bottom-area ul.ft-bottom li.copy-right p {
+      font-size: {{ section.settings.text_font_size_lg }}px;
+    }
+  }
+</style>

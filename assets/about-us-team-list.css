@@ -1,0 +1,40 @@
+.about-team {
+  background-color: var(--background-color);
+}
+.about-team .our-team .team-wrap ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+@media (max-width: 991px) {
+  .about-team .our-team .team-wrap ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .about-team .our-team .team-wrap ul {
+    gap: 15px;
+    row-gap: 30px;
+  }
+}
+@media (max-width: 320px) {
+  .about-team .our-team .team-wrap ul {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* team content css */
+.about-team .our-team .team-wrap ul li.team-content .team-info {
+  text-align: center;
+  padding-top: 25px;
+}
+.about-team .our-team .team-wrap ul li.team-content .team-info h6 {
+  color: var(--font-color-header);
+  font-size: var(--subtitle-font-size-body);
+  font-weight: var(--subtitle-custom-font-weight-body);
+  text-transform: uppercase;
+}
+.about-team .our-team .team-wrap ul li.team-content .team-info span {
+  display: block;
+  margin-top: 7px;
+}

@@ -1,0 +1,93 @@
+.product__pickup-availabilities {
+  display: flex;
+}
+.product__pickup-availabilities .pickup-availability-preview {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.product__pickup-availabilities .pickup-availability-preview svg {
+  width: 18px;
+  margin-top: 5px;
+}
+.product__pickup-availabilities .pickup-availability-preview .pickup-availability-info button {
+  margin-top: 5px;
+  font-size: 16px;
+  color: var(--font-color-header);
+  text-decoration: underline;
+  font-weight: 600;
+}
+.pickup-drawer .drawer-block {
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding: 30px;
+  width: 450px;
+  height: 100%;
+  overflow-y: auto;
+  transform: translate(100%);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all .3s ease-in-out 0s;
+  -o-transition: all .3s ease-in-out 0s;
+  transition: all .3s ease-in-out 0s;
+  background-color: var(--background-color-body);
+}
+.pickup-drawer[open] .drawer-block{
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0);
+}
+.pickup-drawer:after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all .3s ease-in-out 0s;
+  -o-transition: all .3s ease-in-out 0s;
+  transition: all .3s ease-in-out 0s;
+  background-color: rgba(0, 0, 0, 50%);
+}
+.pickup-drawer[open]:after {
+  opacity: 1;
+  visibility: visible;
+}
+.pickup-drawer .drawer-block .close {
+  font-size: 20px;
+  line-height: 1;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+.pickup-drawer .pickup-availability-header h2 {
+  font-size: 22px;
+}
+.pickup-drawer .pickup-availability-list {
+  margin-top: 30px;
+  gap: 30px;
+  display: grid;
+}
+.pickup-drawer .pickup-availability-list .pickup-availability-list__item h6 {
+  font-size: 16px;
+}
+.pickup-drawer .pickup-availability-list .pickup-availability-list__item p {
+  margin-top: 10px;
+}
+.pickup-drawer .pickup-availability-list .pickup-availability-list__item p svg {
+  width: 18px;
+}
+@media(max-width: 479px){
+  .pickup-drawer .drawer-block {
+    padding: 15px;
+    width: 350px;
+  }
+  .product__pickup-availabilities {
+    margin-top: 20px;
+  }
+}

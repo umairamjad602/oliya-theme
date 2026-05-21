@@ -1,0 +1,59 @@
+{%- unless product.has_only_default_variant -%}
+<div class="pr-gr-option"> 
+  {%- for option in product.options_with_values -%}
+  {%- liquid
+    assign is_color = false
+    assign downcase_option = option.name | downcase
+    if color_label contains downcase_option
+    assign is_color = true
+    assign variant_option = 'option' | append: forloop.index
+    endif
+  -%}
+  {%- if is_color -%}
+  <div class="option-block">
+    {%- capture option_name -%}option{{ option.position }}{%- endcapture -%}
+    {%- for value in option.values -%}
+    {%- liquid 
+      for variant in product.variants
+      if variant[variant_option] == value
+      assign variant_for_value = variant
+      break
+      endif
+      endfor
+       assign swatch_focal_point = null
+      if value.swatch.image
+        assign image_url = value.swatch.image | image_url: width: 50
+        assign swatch_value = 'url(' | append: image_url | append: ')'
+        assign swatch_focal_point = value.swatch.image.presentation.focal_point
+      elsif value.swatch.color
+        assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+      else
+        assign swatch_value = null
+      endif
+    -%}
+    <form-wrap class="variant-option item-color {% if forloop.first %}active-variant{% endif %}">
+      <div class="variant-item item-data" id="item-color-{{ section.id }}-{{ product.id }}-{{ variant_for_value.id }}" dataprice="{{ variant_for_value.price }}" datacompare="{{ variant_for_value.compare_at_price }}" dataavailable="{{ variant_for_value.available }}" dataimg="{{ variant_for_value.featured_image | image_url: width: 720 }}" dataurl="{{ variant_for_value.url }}">
+        <label class="op-lb color cust-checkbox-label {{ value | downcase | replace: " ", "-" }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ value }}">
+          {%- liquid
+            assign swatch_value = null
+            if value.swatch.image
+              assign image_url = swatch.image | image_url: width: 50
+              assign swatch_value = 'url(' | append: image_url | append: ')'
+              assign swatch_focal_point = swatch.image.presentation.focal_point
+            elsif value.swatch.color
+              assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+            endif
+          -%}
+          <span
+            class="color-swatch cust-check swatch"
+            style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"
+        ></span>
+        </label>
+      </div>
+    </form-wrap>
+    {%- endfor -%} 
+  </div>
+  {%- endif -%}
+  {%- endfor -%}
+</div>
+{%- endunless -%}

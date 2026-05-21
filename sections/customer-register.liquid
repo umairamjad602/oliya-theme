@@ -1,0 +1,141 @@
+{{ 'customer-register.css' | asset_url | stylesheet_tag }}
+<section class="customer-page section-ptb">
+  <div class="container">
+    <div class="acc-form">
+      <div class="log-acc-page">
+        <div class="section-capture">
+          <div class="section-title">
+            <h2 class="mr-0">
+              <span>{{ 'customer.register.title' | t }}</span>
+            </h2>
+          </div>
+        </div>
+        <div class="acc-page">
+          <div class="registers">
+            {% form 'create_customer' %}
+              <div class="login-form-container">
+                {{ form.errors | default_errors }}
+                <ul class="list-unstyled fill-form">
+                  <li class="fname">
+                    <label for="FirstName">{{ 'customer.register.first_name' | t }}</label>
+                    <input
+                      type="text"
+                      name="customer[first_name]"
+                      id="FirstName"
+                      class="input-full"
+                      placeholder="{{ 'customer.register.first_name' | t }}"
+                      {% if form.first_name %}
+                        value="{{ form.first_name }}"
+                      {% endif %}
+                      autocapitalize="words"
+                      autofocus
+                      required
+                    >
+                  </li>
+                  <li class="lname">
+                    <label for="LastName">{{ 'customer.register.last_name' | t }}</label>
+                    <input
+                      type="text"
+                      name="customer[last_name]"
+                      id="LastName"
+                      class="input-full"
+                      placeholder="{{ 'customer.register.last_name' | t }}"
+                      {% if form.last_name %}
+                        value="{{ form.last_name }}"
+                      {% endif %}
+                      autocapitalize="words"
+                      required
+                    >
+                  </li>
+                  <li class="log-email">
+                    <label for="Email">{{ 'customer.register.email' | t }}</label>
+                    <input
+                      type="email"
+                      name="customer[email]"
+                      id="Email"
+                      class="input-full{% if form.errors contains 'email' %} error{% endif %}"
+                      placeholder="{{ 'customer.register.email' | t }}"
+                      {% if form.email %}
+                        value="{{ form.email }}"
+                      {% endif %}
+                      autocorrect="off"
+                      autocapitalize="off"
+                      required
+                    >
+                  </li>
+                  <li class="log-pwd">
+                    <label for="CreatePassword">{{ 'customer.register.password' | t }}</label>
+                    <input
+                      type="password"
+                      name="customer[password]"
+                      id="CreatePassword"
+                      class="input-full{% if form.errors contains 'password' %} error{% endif %}"
+                      placeholder="{{ 'customer.register.password' | t }}"
+                      required
+                    >
+                  </li>
+                </ul>
+                <div class="form-action-button">
+                  {% if section.settings.register_agree_enable %}
+                    <div class="read-agree">
+                      <label>
+                        <span class="agree-text">
+                          {{- section.settings.register_agree_text }}
+                          <a href="{{ section.settings.register_terms_text_link }}">
+                            {{- section.settings.register_terms_text -}}
+                          </a></span
+                        >
+                        <input type="checkbox" class="cust-checkbox create-checkbox">
+                        <span class="cust-check"></span>
+                      </label>
+                    </div>
+                  {% endif %}
+                  <button
+                    type="submit"
+                    class="btn btn-style2 create"
+                    {% if section.settings.register_agree_enable %}
+                      disabled="disabled"
+                    {% endif %}
+                    aria-label="{{ 'customer.register.submit' | t }}"
+                  >
+                    {{ 'customer.register.submit' | t }}
+                  </button>
+                </div>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Customer register",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "register_agree_enable",
+      "label": "Show 'read'/'agree' text",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "register_agree_text",
+      "label": "Text",
+      "default": "I have read and agree with the"
+    },
+    {
+      "type": "text",
+      "id": "register_terms_text",
+      "label": "Link text",
+      "default": "Terms and condition"
+    },
+    {
+      "type": "url",
+      "id": "register_terms_text_link",
+      "label": "url"
+    }
+  ]
+}
+{% endschema %}

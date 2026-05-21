@@ -1,0 +1,279 @@
+<div class="product-info" {{ block.shopify_attributes }}>
+  <div
+    class="product-complementary"
+    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary"
+  >
+    {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+      <div class="heading">
+        <h6 class="mr-0">{{ block.settings.block_heading }}</h6>
+        <div class="swiper-arrow">
+          <span class="arrow-prev arrow-prev-{{ section.id }}"><i class="feather-arrow-left"></i></span>
+          <span class="arrow-next arrow-next-{{ section.id }}"><i class="feather-arrow-right"></i></span>
+        </div>
+      </div>
+      <div
+        class="product-slider swiper"
+        id="pro-{{ section.id }}"
+        data-slides-per-view="{{ section.settings.product_view }}"
+      >
+        <div class="swiper-wrapper">
+          {%- for product in recommendations.products -%}
+            <div class="swiper-slide">
+              {%- liquid
+                assign ratio = 1
+                if product.featured_media and settings.image_ratio == 'portrait'
+                  assign ratio = 0.8
+                elsif product.featured_media and settings.image_ratio == 'adapt'
+                  assign ratio = product.featured_media.aspect_ratio
+                endif
+                if ratio == 0 or ratio == null
+                  assign ratio = 1
+                endif
+              -%}
+              {%- assign color_label = 'Color,color,colour,couleur,cor,colore,farbe,색,色,カラー,färg,farve,szín,barva'
+                | split: ','
+              -%}
+              <div class="list-view">
+                <div class="product-image" id="pro-img-{{ section.id }}-{{ product.id }}">
+                  <a
+                    class="pro-img ratio"
+                    href="{{ product.url | within: collection }}"
+                    style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+                  >
+                    <div class="img1">
+                      {% assign image_height = product.featured_image.src.width
+                        | divided_by: product.featured_image.src.aspect_ratio
+                      %}
+                      {{
+                        product.featured_image.src
+                        | image_url: width: 720
+                        | image_tag:
+                          width: product.featured_image.src.width,
+                          height: image_height,
+                          class: 'lazyload',
+                          loading: 'lazy'
+                      }}
+                    </div>
+                    {%- if settings.pro_hover_enable -%}
+                      <div class="img2">
+                        {% assign image_height = product.images[1].width | divided_by: product.images[1].aspect_ratio %}
+                        {{
+                          product.images[1]
+                          | image_url: width: 720
+                          | image_tag:
+                            width: product.images[1].width,
+                            height: image_height,
+                            class: 'lazyload',
+                            loading: 'lazy'
+                        }}
+                      </div>
+                    {%- endif -%}
+                  </a>
+                </div>
+                <div class="product-content">
+                  <h6 class="mr-0">
+                    <a href="{{ product.url | within: collection }}" title="{{ product.title }}">{{ product.title }}</a>
+                  </h6>
+                  {% render 'price', product: product %}
+                  {%- if settings.show_rating -%}
+                    <div class="product-grid-rating">
+                      <div class="jdgm-widget jdgm-preview-badge">
+                        {{ product.metafields.judgeme.badge }}
+                      </div>
+                    </div>
+                  {%- endif -%}
+                  {% if settings.pro_gr_option_enable %}
+                    {% render 'product-grid-option', product: product, color_label: color_label, section: section %}
+                  {% endif %}
+                  <div class="product-action">
+                    {%- liquid
+                      if settings.cart_enable
+                        render 'cart-button', product: product, section_id: section.id
+                      endif
+                    -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+<script type="text/javascript">
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+    .then(response => response.text())
+    .then(text => {
+      const html = document.createElement('div');
+      html.innerHTML = text;
+      const recommendations = html.querySelector('.product-complementary');
+
+      if (recommendations && recommendations.innerHTML.trim().length) {
+        productRecommendationsSection.innerHTML = recommendations.innerHTML;
+        var swiper = new Swiper('#pro-{{ section.id }}', {
+          slidesPerView: 2,
+          spaceBetween: 30,
+          {%- if request.locale.iso_code == 'ar' -%}
+          rtl: true,
+          {%- endif -%}
+          navigation: {
+            nextEl: '.arrow-next-{{ section.id }}',
+            prevEl: '.arrow-prev-{{ section.id }}',
+          },
+          pagination: {
+            el: ".swiper-pagination-{{ section.id }}",
+            clickable: true
+          },
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+          },
+          speed: 1000,
+          breakpoints: {
+            0: {
+              slidesPerView: 1,
+            },
+            320: {
+              slidesPerView: 1,
+            },
+            360: {
+              slidesPerView: 1,
+            },
+            540: {
+              slidesPerView: 1,
+            },
+            640: {
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 1,
+            },
+            1199: {
+              slidesPerView: 2,
+            },
+            1499: {
+              slidesPerView: 2,
+            }
+          },
+        });
+        $('.item-data').on("click", function() {
+          $(this).parents('.option-block').find(".variant-option").removeClass('active-variant');
+          $(this).closest('form-wrap').addClass('active-variant');
+          var it_img = $(this).attr('dataimg');
+          $(this).parents('.list-view').find('.product-image .img1 img').attr('src',it_img);
+          $(this).parents('.list-view').find('.product-image .img1 img').attr('srcset',it_img);
+          var price = $(this).attr('dataprice');
+          var compareprice = $(this).attr('datacompare');
+          var stocks = $(this).attr('dataavailable');
+          $(this).parents('.list-view').find('.price-box .new-price').text(Shopify.formatMoney(price, window.money_format));
+          if (compareprice > price) {
+            $(this).parents('.list-view').find('.price-box .old-price').show();
+            $(this).parents('.list-view').find('.price-box .old-price').html(Shopify.formatMoney(compareprice, window.money_format));
+          }else{
+            $(this).parents('.list-view').find('.price-box .old-price').hide();
+          }
+        });
+      }
+    })
+    .catch(e => {
+      console.error(e);
+    });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-complementary');
+  const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+
+  observer.observe(productRecommendationsSection);
+</script>
+<style>
+  .product-complementary .heading {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .product-complementary .heading h6 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .product-complementary .heading .swiper-arrow {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    direction: ltr;
+  }
+  .product-complementary .heading .swiper-arrow span {
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+  }
+  .product-complementary .heading .swiper-arrow span:hover {
+    color: var(--font-color-primary);
+  }
+  .product-complementary .list-view {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--background-color-body);
+  }
+  .product-complementary .list-view .product-image {
+    width: 33.33%;
+  }
+  .product-complementary .list-view .product-image a.pro-img .img1 img {
+    -webkit-transition: all .4s ease-in-out 0s;
+    -o-transition: all .4s ease-in-out 0s;
+    transition: all .4s ease-in-out 0s;
+  }
+  .product-complementary .list-view .product-image a.pro-img .img2 img {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .4s ease-in-out 0s;
+    -o-transition: all .4s ease-in-out 0s;
+    transition: all .4s ease-in-out 0s;
+  }
+  .product-complementary .list-view .product-image a.pro-img:hover .img2 img {
+    opacity: 1;
+    visibility: visible;
+  }
+  .product-complementary .list-view .product-content {
+    width: 66.66%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 15px;
+    text-align: left;
+  }
+  .product-complementary .list-view .product-content h6 {
+    font-size: 16px;
+  }
+  .product-complementary .list-view .product-content .price-box {
+    margin-top: 10px;
+  }
+  .product-complementary .list-view .product-content .pr-gr-option {
+    margin-top: 10px;
+  }
+  .product-complementary .list-view .product-content .product-action {
+    margin-top: 10px;
+  }
+  .product-complementary .list-view .product-content .product-action .quick-action a {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid;
+    text-transform: uppercase;
+  }
+  .product-complementary .list-view .product-content .product-action .quick-action a.loading .cart-title {
+    display: none;
+  }
+</style>

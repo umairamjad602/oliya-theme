@@ -1,0 +1,250 @@
+  .my-account-page .return-acc-detail a {
+    color: var(--font-color-body);
+    text-decoration: underline;
+  }
+  .my-account-page .return-acc-detail a:hover {
+    color: var(--font-color-header);
+  }
+  /* .my-account-page .address-wrap ul.cust-address-wrap {
+    display: flex;
+    flex-wrap: wrap;
+  } */  
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+    margin-top: 30px;
+    width: 100%;
+    background-color: var(--extra-color-body);
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-wrap {
+    width: 50%;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-wrap h6 {
+    font-size: var(--subtitle-font-size-body);
+    font-weight: var(--subtitle-custom-font-weight-body);
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-wrap p.address span {
+    display: block;
+    margin-top: 6px;
+    line-height: normal;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-wrap p.address span:first-child {
+    margin-top: 20px;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-add-wrap {
+    width: 50%;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-add-wrap p.edit-address-button {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-add-wrap p.edit-address-button a {
+    color: var(--font-color-body);
+    position: relative;
+    padding: 5px 15px;
+    border: 1px solid var(--theme-border-color);
+    border-radius: 5px 0px 0px 5px;
+    -webkit-transition: all 0s ease-in-out 0s;
+    -o-transition: all 0s ease-in-out 0s;
+    transition: all 0s ease-in-out 0s;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-add-wrap p.edit-address-button a:last-child {
+    border-radius: 0px 5px 5px 0px;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-add-wrap p.edit-address-button a:hover {
+    color: var(--font-color-header);
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address a.add-more-add {
+    color: var(--font-color-body);
+    height: 100%;
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    -webkit-transition: all 0s ease-in-out 0s;
+    -o-transition: all 0s ease-in-out 0s;
+    transition: all 0s ease-in-out 0s;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address a.add-more-add i {
+    font-size: 45px;
+    display: block;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address a.add-more-add span {
+    font-size: 16px;
+    margin-top: 13px;
+  }
+  .my-account-page .address-wrap ul.cust-address-wrap li.cust-address:hover a.add-more-add {
+    color: var(--font-color-header);
+  }
+  .my-account-page .address-wrap .paginatoin-area ul.paginate li.page-numerous ul.pagination-box {
+    margin-top: 0;
+  }
+  @media (max-width: 767px) {
+    .my-account-page .address-wrap ul.cust-address-wrap li.cust-address {
+      flex-direction: column;
+      padding: 30px 12px;
+    }
+    .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-wrap,
+    .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-add-wrap {
+      width: 100%;
+    }
+    .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-add-wrap {
+      margin-top: 28px;
+    }
+    .my-account-page .address-wrap ul.cust-address-wrap li.cust-address .cust-add-wrap p.edit-address-button {
+      justify-content: flex-start;
+    }
+  }
+
+  /* adress form css */
+  .my-account-page .address-form {
+    margin-top: 30px;
+  }
+  .my-account-page .address-form h6 {
+    font-size: var(--subtitle-font-size-body);
+    font-weight: var(--subtitle-custom-font-weight-body);
+    margin-bottom: 20px;
+  }
+  .my-account-page .address-form ul.cust-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+  @media (max-width: 767px) {
+    .my-account-page .address-form ul.cust-form {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  /* adress form checkbox css */
+  .my-account-page .address-form ul.cust-form li label {
+    display: block;
+    cursor: auto;
+    margin-bottom: 11px;
+  }
+  .my-account-page .address-form ul.cust-form li input,
+  .my-account-page .address-form ul.cust-form li select {
+    width: 100%;
+  }
+  .my-account-page .address-form p.my-account-checkbox {
+    margin-top: 30px;
+    line-height: normal;
+  }
+  .my-account-page .address-form p.my-account-checkbox label {
+    color: var(--font-color-body);
+    font-size: var(--font-size-body);
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .my-account-page .address-form p.my-account-checkbox label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .my-account-page .address-form p.my-account-checkbox label .checkmark {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 19px;
+    height: 19px;
+    background-color: var(--background-color-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--theme-border-color);
+    border-radius: 0px;
+    overflow: hidden;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .my-account-page .address-form p.my-account-checkbox label:hover input ~ .checkmark {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .my-account-page .address-form p.my-account-checkbox label .checkmark::after {
+    display: none;
+    content: "\e92b";
+    font-family: 'feather' !important;
+    color: var(--font-color-header);
+    font-size: 16px;
+  }
+
+  /* Show the checkmark when checked */
+  .my-account-page .address-form p.my-account-checkbox label input:checked ~ .checkmark::after {
+    display: block;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.15);
+  }
+
+  /* adress form update cancel button css */
+  .my-account-page .address-form p.update-cancel-btn {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    line-height: normal;
+  }
+  .my-account-page .address-form p.update-cancel-btn input {
+    padding: 0;
+    border: none;
+    font-weight: 400;
+    border-radius: 0;
+    background-color: transparent;
+  }
+  .my-account-page .address-form p.update-cancel-btn input,
+  .my-account-page .address-form p.update-cancel-btn a {
+    color: var(--font-color-body);
+    text-decoration: underline;
+    -webkit-transition: all 0s ease-in-out 0s;
+    -o-transition: all 0s ease-in-out 0s;
+    transition: all 0s ease-in-out 0s;
+  }
+  .my-account-page .address-form p.update-cancel-btn a {
+    padding-inline-start: 30px;
+  }
+  .my-account-page .address-form p.update-cancel-btn input:hover,
+  .my-account-page .address-form p.update-cancel-btn a:hover {
+    color: var(--font-color-header);
+  }
+  @media (max-width: 767px) {
+    .my-account-page .address-form p.update-cancel-btn a {
+      padding-inline-start: 15px;
+    }
+  }
+
+  /* error css */
+  .my-account-page .address-form .errors {
+    padding: 10px 15px;
+    margin: 30px 0 -15px;
+    text-align: start;
+  }
+  .my-account-page .address-form .errors ul {
+    margin-inline-start: 15px;
+    list-style: square;
+    border-radius: 0;
+  }
+  .my-account-page .address-form .errors ul li {
+    margin-top: 5px;
+  }
+  .my-account-page .address-form .errors ul li:first-child {
+    margin-top: 0px;
+  }
+  @media (max-width: 767px) {
+    .my-account-page .address-form .errors {
+      margin: 20px 0 -5px;
+    }
+  }

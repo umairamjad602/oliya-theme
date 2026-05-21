@@ -1,0 +1,292 @@
+<section
+  class="logo-list">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div
+      class="brand-logo swiper"
+      id="brand-logo-{{ section.id }}"
+      data-slides-per-view="{{ section.settings.slide_view }}"
+    >
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <a href="{{ block.settings.brand_url }}" aria-label="{{ block.settings.brand_image }}">
+              {%- if block.settings.brand_image != blank -%}
+                {{
+                  block.settings.brand_image
+                  | image_url: width: 500
+                  | image_tag:
+                    loading: 'lazy',
+                    width: block.settings.brand_image.width,
+                    height: block.settings.brand_image.height,
+                    class: 'lazyload',
+                    loading: 'lazy'
+                }}
+              {%- else -%}
+                {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+              {%- endif -%}
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+  addEventListener('DOMContentLoaded', (event) => {
+    var swiper = new Swiper('#brand-logo-{{ section.id }}', {
+      {%- if request.locale.iso_code == 'ar' -%}
+      rtl: true,
+      {%- endif -%}
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
+      navigation: {
+        nextEl: '.arrow-next-{{ section.id }}',
+        prevEl: '.arrow-prev-{{ section.id }}',
+      },
+      speed: 1000,
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          spaceBetween: 12
+        },
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 12
+        },
+        360: {
+          slidesPerView: 2,
+          spaceBetween: 12
+        },
+        540: {
+          slidesPerView: 2,
+          spaceBetween: 12
+        },
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 12
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        },
+        1199: {
+          slidesPerView: {{ section.settings.slide_view }},
+          spaceBetween: 30,
+        },
+        1499: {
+          slidesPerView: {{ section.settings.slide_view }},
+          spaceBetween: 30,
+        }
+      }
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "Logo list",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop / Laptop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad pro / Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_lg",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_lg",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "slide_view",
+      "label": "Grid view",
+      "options": [
+        {
+          "label": "4 grid",
+          "value": "4"
+        },
+        {
+          "label": "5 grid",
+          "value": "5"
+        },
+        {
+          "label": "6 grid",
+          "value": "6"
+        }
+      ],
+      "default": "6"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "single_brand",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "brand_image",
+          "label": "Image",
+          "info": "Recommended size: 154x29px"
+        },
+        {
+          "type": "url",
+          "id": "brand_url",
+          "label": "Url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo list",
+      "blocks": [
+        {
+          "type": "single_brand"
+        },
+        {
+          "type": "single_brand"
+        },
+        {
+          "type": "single_brand"
+        },
+        {
+          "type": "single_brand"
+        },
+        {
+          "type": "single_brand"
+        },
+        {
+          "type": "single_brand"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .logo-list {
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  }
+  @media(max-width: 1199px) {
+    .logo-list {
+      padding-top: {{ section.settings.section_padding_top_lg }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom_lg }}px;
+    }
+  }
+  @media(max-width: 767px) {
+    .logo-list {
+      padding-top: {{ section.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom_xs }}px;
+    }
+}
+  .logo-list .brand-logo a {
+    display: block;
+    text-align: center;
+    max-width: 60%;
+    margin: 0 auto;
+  }
+  .logo-list .brand-logo a img {
+    opacity: .5;
+    -webkit-transition: all .3s ease-in-out 0s;
+    -o-transition: all .3s ease-in-out 0s;
+    transition: all .3s ease-in-out 0s;
+  }
+  .logo-list .brand-logo a:hover img {
+    opacity: 1;
+  }
+</style>

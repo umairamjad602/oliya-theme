@@ -1,0 +1,557 @@
+<li class="menu-link" {{ block.shopify_attributes }}>
+  <a
+    href="{{ block.settings.menu_product_url }}"
+    class="link-title"
+    style="--font-size: {{ section.settings.menu_font_size }}px; --font-size-lg: {{ section.settings.menu_font_size_lg }}px;  --text-transform: {{ section.settings.menu_text_transform }};  --font-weight: {{ section.settings.menu_font_weight }};"
+  >
+    <span class="sp-link-title">
+      {{- block.settings.menu_product_title -}}
+      {%- if block.settings.menu_product_label != '' -%}
+        <span class="{{ section.id }}-{{ block.id }}-label">{{ block.settings.menu_product_label }}</span>
+      {%- endif -%}
+    </span>
+    <span class="menu-arrow"><i class="feather-chevron-down"></i></span>
+  </a>
+  <div class="link-title-lg">
+    <a href="{{ block.settings.menu_product_url }}" class="sp-link-title">{{ block.settings.menu_product_title }}</a>
+    <button
+      type="button" data-bs-toggle="collapse"
+      data-bs-target="#single-collapse-{{ block.settings.menu_product_title | handleize }}"
+      class="menu-arrow dropdown-btn"
+      aria-label="{{ block.settings.menu_product_title | handleize }}"
+    >
+      <i class="feather-plus"></i>
+    </button>
+  </div>
+  <ul
+    class="list-unstyled menu-dropdown menu-category dropdown-content collapse"
+    id="single-collapse-{{ block.settings.menu_product_title | handleize }}"
+  >
+    <div class="container-fluid">
+      <div class="ul">
+        
+          {% assign menu_product_select = block.settings.menu_product_select %}
+          {% if menu_product_select != '' %}
+              <li class="productlink-li">
+          {% for link in linklists[menu_product_select].links %}
+            {% assign sublink = link.title | handle %}
+            
+                <a href="{{ link.url }}" class="productlink-title">
+                  <span class="sp-link-title">{{ link.title }}</span>
+                </a>
+                <div class="productlink-title productlink-title-lg">
+                  <a href="{{ link.url }}" class="sp-link-title">{{ link.title }}</a>
+                  {% if linklists[sublink].links != '' %}
+                  <button
+                    type="button" data-bs-toggle="collapse"
+                    data-bs-target="#productsup-collapse-{{ link.title | handleize }}"
+                    class="menu-arrow dropdown-btn"
+                    aria-label="{{ link.title | handleize }}"
+                  >
+                    <i class="feather-plus"></i>
+                  </button>
+                  {% endif %}
+                </div>
+                {% if linklists[sublink].links != '' %}
+                <ul
+                  class="list-unstyled productsupmenu-dropdown dropdown-content collapse"
+                  id="productsup-collapse-{{ link.title | handleize }}"
+                >
+                  {% for sublink in linklists[sublink].links %}
+                    <li class="productsupmenu-li">
+                      <a href="{{ sublink.url }}" class="productsuplink-title">
+                        <span class="sp-link-title">{{ sublink.title }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+            {% endif %}
+          {% endfor %}
+              </li>
+            {% endif %}
+        
+          {% assign menu_product_select2 = block.settings.menu_product_select2 %}
+          {% if menu_product_select2 != '' %}
+              <li class="productlink-li">
+          {% for link in linklists[menu_product_select2].links %}
+            {% assign sublink = link.title | handle %}
+            
+                <a href="{{ link.url }}" class="productlink-title">
+                  <span class="sp-link-title">{{ link.title }}</span>
+                </a>
+                <div class="productlink-title productlink-title-lg">
+                  <a href="{{ link.url }}" class="sp-link-title">{{ link.title }}</a>
+                  {% if linklists[sublink].links != '' %}
+                  <button
+                    type="button" data-bs-toggle="collapse"
+                    href="#productsup-collapse-{{ link.title | handleize }}"
+                    class="menu-arrow dropdown-btn"
+                    aria-label="{{ link.title | handleize }}"
+                  >
+                    <i class="feather-plus"></i>
+                  </button>
+                  {% endif %}
+                </div>
+                {% if linklists[sublink].links != '' %}
+                <ul
+                  class="list-unstyled productsupmenu-dropdown dropdown-content collapse"
+                  id="productsup-collapse-{{ link.title | handleize }}"
+                >
+                  {% for sublink in linklists[sublink].links %}
+                    <li class="productsupmenu-li">
+                      <a href="{{ sublink.url }}" class="productsuplink-title">
+                        <span class="sp-link-title">{{ sublink.title }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+            {% endif %}
+          {% endfor %}
+              </li>
+            {% endif %}
+        
+          {% assign menu_product_select3 = block.settings.menu_product_select3 %}
+          {% if menu_product_select3 != '' %}
+              <li class="productlink-li">
+          {% for link in linklists[menu_product_select3].links %}
+            {% assign sublink = link.title | handle %}
+            
+                <a href="{{ link.url }}" class="productlink-title">
+                  <span class="sp-link-title">{{ link.title }}</span>
+                </a>
+                <div class="productlink-title productlink-title-lg">
+                  <a href="{{ link.url }}" class="sp-link-title">{{ link.title }}</a>
+                  {% if linklists[sublink].links != '' %}
+                  <button
+                    type="button" data-bs-toggle="collapse"
+                    href="#productsup-collapse-{{ link.title | handleize }}"
+                    class="menu-arrow dropdown-btn"
+                    aria-label="{{ link.title | handleize }}"
+                  >
+                    <i class="feather-plus"></i>
+                  </button>
+                  {% endif %}
+                </div>
+                {% if linklists[sublink].links != '' %}
+                <ul
+                  class="list-unstyled productsupmenu-dropdown dropdown-content collapse"
+                  id="productsup-collapse-{{ link.title | handleize }}"
+                >
+                  {% for sublink in linklists[sublink].links %}
+                    <li class="productsupmenu-li">
+                      <a href="{{ sublink.url }}" class="productsuplink-title">
+                        <span class="sp-link-title">{{ sublink.title }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+            {% endif %}
+          {% endfor %}
+              </li>
+            {% endif %}
+        
+          {% assign menu_product_select4 = block.settings.menu_product_select4 %}
+          {% if menu_product_select4 != '' %}
+              <li class="productlink-li">
+          {% for link in linklists[menu_product_select4].links %}
+            {% assign sublink = link.title | handle %}
+            
+                <a href="{{ link.url }}" class="productlink-title">
+                  <span class="sp-link-title">{{ link.title }}</span>
+                </a>
+                <div class="productlink-title productlink-title-lg">
+                  <a href="{{ link.url }}" class="sp-link-title">{{ link.title }}</a>
+                  {% if linklists[sublink].links != '' %}
+                  <buton type="button" data-bs-toggle="collapse" href="#productsup-collapse-{{ link.title | handleize }}" class="menu-arrow dropdown-btn"
+                    ><i class="feather-plus"></i
+                  ></buton>
+                  {% endif %}
+                </div>
+                {% if linklists[sublink].links != '' %}
+                <ul
+                  class="list-unstyled productsupmenu-dropdown dropdown-content collapse"
+                  id="productsup-collapse-{{ link.title | handleize }}"
+                >
+                  {% for sublink in linklists[sublink].links %}
+                    <li class="productsupmenu-li">
+                      <a href="{{ sublink.url }}" class="productsuplink-title">
+                        <span class="sp-link-title">{{ sublink.title }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+            {% endif %}
+          {% endfor %}
+              </li>
+            {% endif %}
+          
+        <li class="productlink-li menu-category">
+          <div class="product-title">
+            <h6 class="mr-0">{{ block.settings.product_title }}</h6>
+            <div class="swiper-buttons">
+              <button class="swiper-prev swiper-prev-{{ block.id }}" aria-label="arrow">
+                <i class=" feather-arrow-left"></i>
+              </button>
+              <button class="swiper-next swiper-next-{{ block.id }}" aria-label="arrow">
+                <i class=" feather-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="swiper" id="pro-{{ block.id }}" data-slides-per-view="2">
+            <div class="swiper-wrapper">
+              {%- if block.settings.menu_cat_banner_img1 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url1 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img1
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img1.width,
+                          height: block.settings.menu_cat_banner_img1.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img1.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title1 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title1 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img2 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url2 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img2
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img2.width,
+                          height: block.settings.menu_cat_banner_img2.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img2.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title2 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title2 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img3 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url3 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img3
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img3.width,
+                          height: block.settings.menu_cat_banner_img3.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img3.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title3 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title3 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img4 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url4 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img4
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img4.width,
+                          height: block.settings.menu_cat_banner_img4.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img4.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title4 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title4 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img5 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url5 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img5
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img5.width,
+                          height: block.settings.menu_cat_banner_img5.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img5.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title5 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title5 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img6 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url6 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img6
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img6.width,
+                          height: block.settings.menu_cat_banner_img6.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img6.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title6 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title6 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img7 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url7 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img7
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img7.width,
+                          height: block.settings.menu_cat_banner_img7.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img7.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title7 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title7 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img8 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url8 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img8
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img8.width,
+                          height: block.settings.menu_cat_banner_img8.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img8.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title8 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title8 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img9 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url9 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img9
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img9.width,
+                          height: block.settings.menu_cat_banner_img9.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img9.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title9 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title9 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img10 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url10 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img10
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img10.width,
+                          height: block.settings.menu_cat_banner_img10.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img10.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title10 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title10 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img11 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url11 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img11
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img11.width,
+                          height: block.settings.menu_cat_banner_img11.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img11.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title11 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title11 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.menu_cat_banner_img12 != blank -%}
+                <div class="swiper-slide">
+                  <div class="cat-block banner-hover">
+                    <a href="{{ block.settings.menu_cat_banner_url12 }}" class="banner-img">
+                      {{
+                        block.settings.menu_cat_banner_img12
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.menu_cat_banner_img12.width,
+                          height: block.settings.menu_cat_banner_img12.height,
+                          class: 'lazyload',
+                          alt: block.settings.menu_cat_banner_img12.alt
+                        | escape
+                      }}
+                      {%- if block.settings.menu_cat_banner_title12 != '' -%}
+                        <span>{{ block.settings.menu_cat_banner_title12 }}</span>
+                      {%- endif -%}
+                    </a>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </li>
+      </div>
+    </div>
+  </ul>
+</li>
+
+<script type="text/javascript">
+  addEventListener('DOMContentLoaded', (event) => {
+    var swiper = new Swiper('.swiper#pro-{{ block.id }}', {
+      slidesPerView: 2,
+      grid: {
+        rows: 1,
+        fill: 'row' | 'column',
+      },
+      spaceBetween: 30,
+      observer: true,
+      observeParents: true,
+      watchSlidesProgress: true,
+      {%- if request.locale.iso_code == 'ar' -%}
+      rtl: true,
+      {%- endif -%}
+      navigation: {
+        nextEl: '.swiper-next-{{ block.id }}',
+        prevEl: '.swiper-prev-{{ block.id }}',
+      },
+      pagination: {
+        el: ".swiper-pagination-{{ block.id }}",
+        clickable: true
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
+      speed: 1000,
+      breakpoints: {
+        1199: {
+          slidesPerView: 2,
+          grid: {
+            rows: 1,
+            fill: 'row' | 'column',
+          },
+          spaceBetween: 30,
+        },
+        1499: {
+          slidesPerView: 2,
+          grid: {
+            rows: 1,
+            fill: 'row' | 'column',
+          },
+          spaceBetween: 30,
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  /*=====================================
+    header label css
+  ======================================*/
+  a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label {
+    color: {{ block.settings.menu_product_label_color }};
+    font-size: {{ block.settings.menu_product_label_font_size }}px;
+    padding: 2px 5px;
+    position: absolute;
+    top: -{{ block.settings.menu_product_label_top_position }}px;
+    right: 0;
+    transform: translateX(100%);
+    background-color: {{ block.settings.menu_product_label_bgcolor }};
+    text-transform: {{ block.settings.menu_product_label_text_transform }};
+    font-weight: {{ block.settings.menu_product_label_font-weight }};
+    border-radius: {{ block.settings.menu_product_label_border_radius }}px;
+    line-height: {{ block.settings.menu_product_label_line_height }};
+  }
+  a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label::before {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid {{ block.settings.menu_product_label_bgcolor }};
+  }
+  @media (max-width: 1199px) {
+    a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label {
+      top: -8px;
+    }
+  }
+</style>

@@ -1,0 +1,39 @@
+.image-with-text .about-area {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  align-items: center;
+}
+.image-with-text .about-area .about-content span.subtitle {
+  font-size: 16px;
+  margin: 0;
+  padding-top: 15px;
+  display: block;
+}
+.image-with-text .about-area .about-content h2.title {
+  font-size: 36px;
+  margin: 0;
+  padding-top: 15px;
+}
+.image-with-text .about-area .about-content p {
+  margin: 0;
+  padding-top: 15px;
+}
+.image-with-text .about-area .about-content a {
+  margin: 0;
+  margin-top: 25px;
+}
+@media (max-width: 1199px) {
+  .image-with-text .about-area .about-content span.subtitle {
+      font-size: 16px;
+  }
+  .image-with-text .about-area .about-content h2.title {
+      font-size: 28px;
+  }
+}
+@media (max-width: 991px) {
+  .image-with-text .about-area {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+  }
+}

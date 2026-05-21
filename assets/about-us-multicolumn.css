@@ -1,0 +1,39 @@
+.multicolumn ul.about-service-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.multicolumn ul.about-service-wrap li.about-service-wrapper .service-block {
+  width: 83.33%;
+  margin: 0 auto;
+  text-align: center;
+}
+.multicolumn ul.about-service-wrap li.about-service-wrapper .service-block h6 {
+  color: var(--font-color-header);
+  font-size: var(--subtitle-font-size-body);
+  font-weight: var(--subtitle-custom-font-weight-body);
+  text-transform: uppercase;
+}
+.multicolumn ul.about-service-wrap li.about-service-wrapper .service-block p {
+  margin-top: 17px;
+}
+@media (max-width: 1499px) {
+  .multicolumn ul.about-service-wrap li.about-service-wrapper .service-block {
+    width: 100%;
+  }
+}
+@media (max-width: 991px) {
+  .multicolumn ul.about-service-wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .multicolumn ul.about-service-wrap {
+    gap: 15px;
+  }
+}
+@media (max-width: 600px) {
+  .multicolumn ul.about-service-wrap {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -1,0 +1,302 @@
+{{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
+<section
+  class="top-bar"
+  style="--background-color: {{ section.settings.notification_bg_color }}; --color: {{ section.settings.notification_txt_color }};"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="offer-text-wrap" style="--animation-time: 15.35s;">
+      <ul class="list-unstyled grid-wrap text1">
+        {% if section.settings.topbar_notification_text1 != '' %}
+          <li class="grid-wrapper">
+            <div class="ser-block">
+                <a href="{{ section.settings.icon_url1 }}" class="ser-icon">
+                  {% if section.settings.text_icon1 != '' %}
+                    <span class="icon">
+                      {{ section.settings.text_icon1 }}
+                    </span>
+                  {% endif %}
+                  <div class="ser-content">
+                    {% if section.settings.service_desc1 != '' %}
+                    <span>{{ section.settings.service_desc1 }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          </li>
+          <li class="grid-wrapper">
+            <div class="ser-block">
+                <a href="{{ section.settings.icon_url2 }}" class="ser-icon">
+                  {% if section.settings.text_icon2 != '' %}
+                    <span class="icon">
+                      {{ section.settings.text_icon2 }}
+                    </span>
+                  {% endif %}
+                  <div class="ser-content">
+                    {% if section.settings.service_desc2 != '' %}
+                    <span>{{ section.settings.service_desc2 }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          </li>
+          <li class="grid-wrapper">
+            <div class="ser-block">
+                <a href="{{ section.settings.icon_url3 }}" class="ser-icon">
+                  {% if section.settings.text_icon3 != '' %}
+                    <span class="icon">
+                      {{ section.settings.text_icon3 }}
+                    </span>
+                  {% endif %}
+                  <div class="ser-content">
+                    {% if section.settings.service_desc3 != '' %}
+                    <span>{{ section.settings.service_desc3 }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          </li>
+          <li class="grid-wrapper">
+            <div class="ser-block">
+                <a href="{{ section.settings.icon_url4 }}" class="ser-icon">
+                  {% if section.settings.text_icon4 != '' %}
+                    <span class="icon">
+                      {{ section.settings.text_icon4 }}
+                    </span>
+                  {% endif %}
+                  <div class="ser-content">
+                    {% if section.settings.service_desc4 != '' %}
+                    <span>{{ section.settings.service_desc4 }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          </li>
+        {% endif %}
+      </ul>
+      <ul class="list-unstyled grid-wrap text2">
+        {% if section.settings.topbar_notification_text1 != '' %}
+          <li class="grid-wrapper">
+            <div class="ser-block">
+                <a href="{{ section.settings.icon_url1 }}" class="ser-icon">
+                  {% if section.settings.text_icon1 != '' %}
+                    <span class="icon">
+                      {{ section.settings.text_icon1 }}
+                    </span>
+                  {% endif %}
+                  <div class="ser-content">
+                    {% if section.settings.service_desc1 != '' %}
+                    <span>{{ section.settings.service_desc1 }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          </li>
+          <li class="grid-wrapper">
+            <div class="ser-block">
+                <a href="{{ section.settings.icon_url2 }}" class="ser-icon">
+                  {% if section.settings.text_icon2 != '' %}
+                    <span class="icon">
+                      {{ section.settings.text_icon2 }}
+                    </span>
+                  {% endif %}
+                  <div class="ser-content">
+                    {% if section.settings.service_desc2 != '' %}
+                    <span>{{ section.settings.service_desc2 }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          </li>
+          <li class="grid-wrapper">
+            <div class="ser-block">
+                <a href="{{ section.settings.icon_url3 }}" class="ser-icon">
+                  {% if section.settings.text_icon3 != '' %}
+                    <span class="icon">
+                      {{ section.settings.text_icon3 }}
+                    </span>
+                  {% endif %}
+                  <div class="ser-content">
+                    {% if section.settings.service_desc3 != '' %}
+                    <span>{{ section.settings.service_desc3 }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          </li>
+          <li class="grid-wrapper">
+            <div class="ser-block">
+                <a href="{{ section.settings.icon_url4 }}" class="ser-icon">
+                  {% if section.settings.text_icon4 != '' %}
+                    <span class="icon">
+                      {{ section.settings.text_icon4 }}
+                    </span>
+                  {% endif %}
+                  <div class="ser-content">
+                    {% if section.settings.service_desc4 != '' %}
+                    <span>{{ section.settings.service_desc4 }}</span>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "notification_bg_color",
+      "label": "Background color",
+      "default": "#232323"
+    },
+    {
+      "type": "header",
+      "content": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "notification_txt_color",
+      "label": "Color",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Country/region selector",
+      "info": "To add a country\/region, go to your [market settings.](\/admin\/settings\/markets)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "label": "Show country/region selector",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Language selector",
+      "info": "To add a language, go to your [language settings.](\/admin\/settings\/languages)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "label": "Show language selector",
+      "default": false
+    },
+    {
+      "type": "paragraph",
+      "content": "For icon "
+    },
+    {
+      "type": "textarea",
+      "id": "text_icon1",
+      "label": "Icon",
+      "info": "https://feathericons.com"
+    },
+    {
+      "type": "url",
+      "id": "icon_url1",
+      "label": "Icon url"
+    },
+    {
+      "type": "textarea",
+      "id": "service_desc1",
+      "label": "Service description",
+      "default": "Lorem Ipsum"
+    },
+    {
+      "type": "color",
+      "id": "service_bg_color",
+      "label": "Service background color",
+      "default": "#fff"
+    },
+    {
+      "type": "textarea",
+      "id": "text_icon2",
+      "label": "Icon",
+      "info": "https://feathericons.com"
+    },
+    {
+      "type": "url",
+      "id": "icon_url2",
+      "label": "Icon url"
+    },
+    {
+      "type": "textarea",
+      "id": "service_desc2",
+      "label": "Service description",
+      "default": "Lorem Ipsum"
+    },
+    {
+      "type": "textarea",
+      "id": "text_icon3",
+      "label": "Icon",
+      "info": "https://feathericons.com"
+    },
+    {
+      "type": "url",
+      "id": "icon_url3",
+      "label": "Icon url"
+    },
+    {
+      "type": "textarea",
+      "id": "service_desc3",
+      "label": "Service description",
+      "default": "Lorem Ipsum"
+    },
+    {
+      "type": "textarea",
+      "id": "text_icon4",
+      "label": "Icon",
+      "info": "https://feathericons.com"
+    },
+    {
+      "type": "url",
+      "id": "icon_url4",
+      "label": "Icon url"
+    },
+    {
+      "type": "textarea",
+      "id": "service_desc4",
+      "label": "Service description",
+      "default": "Lorem Ipsum"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "featured_collection_mf3nWV": {
+      "type": "featured-collection",
+      "settings": {
+        "container": "fluid",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_bg_color": "#F8F7F3",
+        "section_subheading": "subheading",
+        "section_heading": "heading",
+        "countdown_enable": false,
+        "product_month": "January",
+        "product_year": 2025,
+        "product_date": 30,
+        "featured_tab_enable": true,
+        "slider_crop": false,
+        "category_special_product_view": "grid",
+        "product_limit": 12,
+        "category_special_product_col": "2",
+        "product_view": "5",
+        "product_view_lg": "4",
+        "product_view_sm": "2",
+        "view_btn": "View collection"
+      }
+    }
+  },
+  "order": [
+    "featured_collection_mf3nWV"
+  ]
+}

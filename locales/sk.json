@@ -1,0 +1,449 @@
+{
+  "general": {
+    "accessibility": {
+      "error": "Chyba",
+      "skip_to_text": "Preskočiť na obsah"
+    },
+    "breadcrumbs": {
+      "home": "Domov",
+      "home_link_title": "Späť na domovskú stránku"
+    },
+    "newsletter_form": {
+      "newsletter_email": "Zadajte svoj email",
+      "submit": "Prihlásiť sa na odber",
+      "confirmation": "Ďakujeme za predplatné, zľavový kód: WC5"
+    },
+    "password_page": {
+      "opening_soon": "Otvárame čoskoro",
+      "login_form_heading": "Vstúpte do obchodu pomocou hesla",
+      "login_form_password_label": "heslo",
+      "login_form_password_placeholder": "Vaše heslo",
+      "login_form_submit": "Zadajte",
+      "signup_form_email_label": "E-mailová adresa",
+      "signup_form_success": "Hneď pred otvorením vám pošleme e-mail!",
+      "admin_link_html": "Ste majiteľ obchodu? <a href=\"\/admin\" class=\"text-link\">Prihláste sa tu<\/a>",
+      "password_link": "Zadajte pomocou hesla",
+      "powered_by_shopify_html": "Tento obchod bude poháňaný {{ shopify }}"
+    }
+  },
+  "accessibility": {
+    "unit_price_separator": "za"
+  },
+  "blogs": {
+    "article": {
+      "author_by": "Autor:",
+      "name": "Name",
+      "message": "Message",
+      "email": "Email address"
+    },
+    "comments": {
+      "title": "Zanechajte komentár",
+      "name": "Meno",
+      "email": "E-mailová adresa",
+      "message": "Správa",
+      "post": "Uverejniť komentár",
+      "moderated": "Upozorňujeme, že komentáre musia byť pred zverejnením schválené",
+      "success_moderated": "Váš komentár bol úspešne odoslaný. ",
+      "success": "Váš komentár bol úspešne odoslaný! ",
+      "with_count": {
+        "one": "{{ count }} komentovať",
+        "other": "{{ count }} komentáre"
+      }
+    }
+  },
+  "sections": {
+    "cart_count": {
+      "one": "{{ count }} položka",
+      "other": "{{ count }} položky"
+    },
+    "cart": {
+      "title": "Môj nákupný košík",
+      "caption": "Položky košíka",
+      "remove_title": "Odstrániť {{ title }}",
+      "subtotal": "Medzisúčet",
+      "new_subtotal": "Nový medzisúčet",
+      "note": "Objednajte si špeciálne pokyny",
+      "checkout": "Pokladňa",
+      "view_cart": "Zobraziť košík",
+      "empty": "Váš košík je prázdny",
+      "continue_shopping": "Pokračujte v nákupe",
+      "cart_error": "Pri aktualizácii košíka sa vyskytla chyba. ",
+      "cart_quantity_error_html": "Môžete len pridať {{ quantity }} tejto položky do košíka.",
+      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "Vrátane ciel a daní.  <a href=\"{{ link }}\">preprava<\/a> vypočítané pri pokladni.",
+      "duties_and_taxes_included_shipping_at_checkout_without_policy": "Vrátane ciel a daní. ",
+      "taxes_included_shipping_at_checkout_with_policy_html": "Vrátane daní.  <a href=\"{{ link }}\">preprava<\/a> vypočítané pri pokladni.",
+      "taxes_included_shipping_at_checkout_without_policy": "Vrátane daní. ",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "Vrátane povinností.  <a href=\"{{ link }}\">preprava<\/a> vypočítané pri pokladni.",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Vrátane povinností. ",
+      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Dane, zľavy a <a href=\"{{ link }}\">preprava<\/a> vypočítané pri pokladni.",
+      "taxes_at_checkout_shipping_at_checkout_without_policy": "Dane, zľavy a doprava vypočítané pri pokladni.",
+      "headings": {
+        "product": "Produkt",
+        "price": "Cena",
+        "total": "Celkom",
+        "quantity": "Množstvo",
+        "image": "Obrázok produktu"
+      },
+      "update": "Aktualizovať",
+      "login": {
+        "title": "Máte účet?",
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Prihláste sa<\/a> aby ste platili rýchlejšie."
+      }
+    },
+    "quick_order_list": {
+      "product_total": "Product subtotal",
+      "view_cart": "View cart",
+      "each": "{{ money }}\/ea",
+      "product": "Product",
+      "variant": "Variant",
+      "variant_total": "Variant total",
+      "items_added": {
+        "one": "{{ quantity }} item added",
+        "other": "{{ quantity }} items added"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} item removed",
+        "other": "{{ quantity }} items removed"
+      },
+      "product_variants": "Product variants",
+      "total_items": "Total items",
+      "remove_all_single_item_confirmation": "Remove 1 item from your cart?",
+      "remove_all_items_confirmation": "Remove all {{ quantity }} items from your cart?",
+      "remove_all": "Remove all",
+      "cancel": "Cancel",
+      "min_error": "This item has a minimum of {{ min }}",
+      "max_error": "This item has a maximum of {{ max }}",
+      "step_error": "You can only add this item in increments of {{ step }}"
+    }
+  },
+  "collections": {
+    "general": {
+      "empty_product_title": "Nenašli sa žiadne produkty",
+      "empty_product_desc": "Neexistujú žiadne produkty zodpovedajúce výberu",
+      "empty_product_use_fewer_filters": "Vyberte menej filtrov",
+      "empty_product_text_or": "alebo",
+      "empty_product_html_link": "vymazať všetko"
+    },
+    "sorting": {
+      "title": "Zoradiť podľa",
+      "featured": "Odporúčané",
+      "best_selling": "Najpredávanejšie",
+      "az": "Abecedne, A-Z",
+      "za": "Abecedne Z-A",
+      "price_ascending": "Cena, nízka až vysoká",
+      "price_descending": "Cena, od najvyššej po najnižšiu",
+      "date_descending": "Dátum, od nového k starému",
+      "date_ascending": "Dátum, od starého k novému"
+    },
+    "facets": {
+      "filter_by_label": "Filter",
+      "results_with_count": {
+        "one": "{{ count }} nájdený výsledok pre „{{ terms }}“",
+        "other": "{{ count }} nájdené výsledky pre „{{ terms }}“"
+      },
+      "product_count_simple": {
+        "one": "{{ count }} produktu",
+        "other": "{{ count }} produktov"
+      },
+      "product_count": {
+        "one": "{{ product_count }} z {{ count }} produktu",
+        "other": "{{ product_count }} z {{ count }} produktov"
+      },
+      "clear_all": "Vymazať všetko",
+      "filters_selected": {
+        "one": "{{ count }} vybrané",
+        "other": "{{ count }} vybrané"
+      },
+      "max_price": "Najvyššia cena je {{ price }}",
+      "filter_reset": "Resetovať",
+      "price_filter_from": "Od",
+      "price_filter_to": "Komu",
+      "filter_button": "Filter"
+    }
+  },
+  "contact": {
+    "form": {
+      "post_success": "Ďakujeme, že ste nás kontaktovali. "
+    },
+    "ask-form": {
+      "heading": "položiť otázku",
+      "name": "Vaše meno",
+      "email": "Váš email",
+      "phone": "Vaše telefónne číslo",
+      "message": "Vaša správa",
+      "required-fields": "Povinné polia",
+      "send": "Odoslať teraz",
+      "post_success": "ďakujem za opýtanie. "
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Môj účet",
+      "details": "Podrobnosti účtu",
+      "logout": "Odhlásiť sa",
+      "view_addresses": "Zobraziť adresy",
+      "return": "Vráťte sa na podrobnosti účtu",
+      "note": "Poznámka"
+    },
+    "activate_account": {
+      "title": "Aktivovať účet",
+      "subtext": "Vytvorte si heslo na aktiváciu účtu.",
+      "password": "heslo",
+      "password_confirm": "Potvrďte heslo",
+      "submit": "Aktivovať účet",
+      "cancel": "Odmietnuť pozvanie"
+    },
+    "addresses": {
+      "title": "Vaše adresy",
+      "default": "Predvolené",
+      "add_new": "Pridajte novú adresu",
+      "edit_address": "Upraviť adresu",
+      "first_name": "Krstné meno",
+      "last_name": "Priezvisko",
+      "company": "Spoločnosť",
+      "address1": "Adresa1",
+      "address2": "Adresa2",
+      "city": "Mesto",
+      "country": "Krajina",
+      "province": "provincia",
+      "zip": "PSČ",
+      "phone": "Telefón",
+      "set_default": "Nastaviť ako predvolenú adresu",
+      "add": "Pridať adresu",
+      "update": "Aktualizovať adresu",
+      "cancel": "Zrušiť",
+      "edit": "Upraviť",
+      "delete": "Odstrániť"
+    },
+    "login": {
+      "title": "Prihlasovacie konto",
+      "email": "E-mailová adresa",
+      "password": "heslo",
+      "forgot_password": "Zabudli ste heslo?",
+      "sign_in": "Prihláste sa",
+      "cancel": "Vráťte sa do obchodu",
+      "guest_title": "Pokračujte ako hosť",
+      "guest_continue": "Pokračovať",
+      "alternate_provider_separator": "alebo"
+    },
+    "orders": {
+      "title": "História objednávok",
+      "order_number": "Objednať",
+      "date": "Dátum",
+      "payment_status": "Stav platby",
+      "fulfillment_status": "Stav plnenia",
+      "total": "Celkom",
+      "none": "Zatiaľ ste nezadali žiadne objednávky."
+    },
+    "order": {
+      "title": "Objednať {{ name }}",
+      "date": "Umiestnené na {{ date }}",
+      "cancelled": "Objednávka zrušená dňa {{ date }}",
+      "cancelled_reason": "dôvod: {{ reason }}",
+      "order_summery": "Zhrnutie objednávky",
+      "payment_summery": "Súhrn platieb",
+      "billing_address": "Fakturačná adresa",
+      "payment_status": "Stav platby",
+      "shipping_address": "Dodacia adresa",
+      "fulfillment_status": "Stav plnenia",
+      "discount": "Zľava",
+      "shipping": "Doprava",
+      "tax": "daň",
+      "product": "Produkt",
+      "sku": "SKU",
+      "price": "Cena",
+      "quantity": "Množstvo",
+      "total": "Celkom",
+      "fulfilled_at": "Splnené {{ date }}",
+      "subtotal": "Medzisúčet"
+    },
+    "recover_password": {
+      "title": "Obnovte svoje heslo",
+      "email": "E-mailová adresa",
+      "submit": "Odoslať",
+      "cancel": "Zrušiť",
+      "subtext": "Pošleme vám e-mail na obnovenie hesla.",
+      "success": "Poslali sme vám e-mail s odkazom na aktualizáciu hesla."
+    },
+    "reset_password": {
+      "title": "Obnoviť heslo účtu",
+      "subtext": "Zadajte nové heslo pre {{ email }}",
+      "password": "heslo",
+      "password_confirm": "Potvrďte heslo",
+      "submit": "Obnoviť heslo"
+    },
+    "register": {
+      "title": "Vytvoriť účet",
+      "first_name": "Krstné meno",
+      "last_name": "Priezvisko",
+      "email": "E-mailová adresa",
+      "password": "heslo",
+      "submit": "Vytvorte",
+      "cancel": "Vráťte sa do obchodu"
+    }
+  },
+  "homepage": {
+    "sections": {
+      "product_title": "Príklad produktu",
+      "product_price": "19,00 dolárov"
+    }
+  },
+  "layout": {
+    "customer": {
+      "create_account": "Vytvoriť účet"
+    }
+  },
+  "products": {
+    "general": {
+      "vendor": "Predajca",
+      "type": "Typ",
+      "sku": "Sku",
+      "barcode": "Čiarový kód",
+      "weight": "Hmotnosť",
+      "from_text_html": "Od {{ price }}",
+      "sale_price": "Predajná cena",
+      "regular_price": "Bežná cena",
+      "availability": "Dostupnosť:",
+      "in_stock": "Skladom",
+      "out_of_stock": "Vypredané",
+      "share": "Zdieľať:"
+    },
+    "product": {
+      "sale": "Predaj",
+      "sold_out": "Vypredané",
+      "add_to_cart": "Pridať do košíka",
+      "unavailable": "nedostupné",
+      "value_unavailable": "nedostupné",
+      "choose_options": "Vyberte možnosti",
+      "choose_product_options": "Vyberte možnosti pre {{ product_name }}",
+      "description": "Popis",
+      "inventory_in_stock": "Skladom",
+      "inventory_in_stock_show_count": "{{ quantity }} na sklade",
+      "inventory_low_stock": "Nízke zásoby",
+      "inventory_low_stock_show_count": "Nízke zásoby: {{ quantity }} vľavo",
+      "inventory_out_of_stock": "Vypredané",
+      "inventory_out_of_stock_continue_selling": "Skladom",
+      "qty_title": "množstvo:",
+      "product_sku_title": "Sku:",
+      "social_share_title": "Zdieľať:",
+      "product_variants": "Varianty produktu",
+      "price": {
+        "from_price_html": "Od {{ price }}",
+        "regular_price": "Bežná cena",
+        "sale_price": "Predajná cena",
+        "unit_price": "Jednotková cena"
+      },
+      "quantity": {
+        "label": "množstvo:",
+        "input_label": "Množstvo za {{ product }}",
+        "increase": "Zvýšte množstvo pre {{ product }}",
+        "decrease": "Znížiť množstvo pre {{ product }}",
+        "minimum_of": "Minimálne {{ quantity }}",
+        "maximum_of": "Maximálne {{ quantity }}",
+        "multiples_of": "Prírastky o {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}<\/span> v košíku"
+      },
+      "pickup_availability": {
+        "view_store_info": "Zobraziť informácie o obchode",
+        "check_other_stores": "Overte si dostupnosť v iných predajniach",
+        "pick_up_available": "Odber možný",
+        "pick_up_available_at_html": "Odber možný na <span class=\"color-foreground\">{{ location_name }}<\/span>",
+        "pick_up_unavailable_at_html": "Vyzdvihnutie momentálne nie je k dispozícii na <span class=\"color-foreground\">{{ location_name }}<\/span>",
+        "pick_up_unavailable": "Pickup currently unavailable at <span class=\"color-foreground\">{{ location_name }}<\/span>",
+        "unavailable": "Nepodarilo sa načítať dostupnosť vyzdvihnutia",
+        "refresh": "Obnoviť"
+      },
+      "volume_pricing": {
+        "title": "Objemové ceny",
+        "note": "Množstvo dostupné ceny",
+        "minimum": "{{ quantity }}+",
+        "price_at_each": "pri {{ price }}\/ea",
+        "price_range": "{{ minimum }} - {{ maximum }}"
+      },
+      "xr_button": "View in your space",
+      "xr_button_label": "View in your space, loads item in augmented reality window",
+      "taxes_included": "Vrátane daní.",
+      "duties_included": "Vrátane povinností.",
+      "duties_and_taxes_included": "Vrátane ciel a daní.",
+      "shipping_policy_html": "<a href=\"{{ link }}\">Doprava<\/a> vypočítané pri pokladni."
+    },
+    "facets": {
+      "show_more": "Show more",
+      "product_count_simple": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      },
+      "product_count": {
+        "one": "{{ product_count }} of {{ count }} product",
+        "other": "{{ product_count }} of {{ count }} products"
+      }
+    }
+  },
+  "templates": {
+    "search": {
+      "no_results": "Nenašli sa žiadne výsledky pre „{{ terms }}“. ",
+      "page": "Stránka",
+      "products": "Produkty",
+      "placeholder": "Vyhľadajte náš obchod",
+      "submit": "Search",
+      "results_pages_with_count": {
+        "one": "{{ count }} stránku",
+        "other": "{{ count }} stránky"
+      },
+      "results_suggestions_with_count": {
+        "one": "{{ count }} návrh",
+        "other": "{{ count }} návrhy"
+      },
+      "results_products_with_count": {
+        "one": "{{ count }} produktu",
+        "other": "{{ count }} produktov"
+      },
+      "results_with_count": {
+        "one": "{{ count }} výsledok",
+        "other": "{{ count }} výsledky"
+      },
+      "suggestions": "Návrhy",
+      "pages": "Stránky"
+    },
+    "contact": {
+      "form": {
+        "error_heading": "Please adjust the following:"
+      }
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "how_to_use_gift_card": "Použite kód darčekovej karty online alebo QR kód v obchode",
+      "title": "Tu je váš {{ value }} zostatok na darčekovej karte pre {{ shop }}!",
+      "subtext": "Vaša darčeková karta",
+      "gift_card_code": "Kód darčekovej karty",
+      "shop_link": "Navštívte internetový obchod",
+      "add_to_apple_wallet": "Pridať do Apple Wallet",
+      "qr_image_alt": "QR kód – naskenujte darčekovú kartu",
+      "copy_code": "Skopírujte kód darčekovej karty",
+      "expiration_date": "Platnosť vyprší {{ expires_on }}",
+      "copy_code_success": "Kód bol úspešne skopírovaný",
+      "expired": "Platnosť vypršala"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "Chcem to poslať ako darček",
+      "expanded": "Rozbalený formulár príjemcu darčekovej poukážky",
+      "collapsed": "Formulár príjemcu darčekovej karty je zbalený",
+      "email_label": "E-mail príjemcu",
+      "email_label_optional_for_no_js_behavior": "E-mail príjemcu (voliteľné)",
+      "email": "Email",
+      "name_label": "Meno príjemcu (voliteľné)",
+      "name": "Meno",
+      "message_label": "Správa (voliteľné)",
+      "message": "Správa",
+      "max_characters": "{{ max_chars }} znakov max",
+      "send_on": "RRRR-MM-DD",
+      "send_on_label": "Odoslať ďalej (voliteľné)"
+    }
+  },
+  "date_formats": {
+    "month_day_year": "%B %d, %Y"
+  }
+}

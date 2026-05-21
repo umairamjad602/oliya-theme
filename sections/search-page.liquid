@@ -1,0 +1,307 @@
+{{ 'collection-sidebar.css' | asset_url | stylesheet_tag }}
+{{ 'search-page.css' | asset_url | stylesheet_tag }}
+<section class="search-page main-content-wrap shop-page section-ptb">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search">
+      <div class="field">
+        <label for="search" class="hidden">{{ 'templates.search.placeholder' | t }}</label>
+        <input
+          id="search"
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ 'templates.search.placeholder' | t }}"
+          {%- if settings.ajax_search_enabled -%}
+            role="combobox"
+            aria-owns="search-ajax-results"
+            aria-controls="search-ajax-results"
+            aria-haspopup="listbox"
+            aria-autocomplete="list"
+            autocorrect="off"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+          {%- endif -%}
+          required
+        >
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="reset" class="reset-input hidden" aria-label="reset"></button>
+        <button class="search-btn" aria-label="search">
+          <i class="ri-search-line"></i>
+        </button>
+      </div>
+    </form>
+    {%- if search.performed -%}
+      <div class="pro-grli-wrapper full-side-wrap">
+        <div class="pro-grli-wrap product-grid">
+          
+            <div class="shop-top-bar">
+              {% if section.settings.tab_bar_enable and search.results.size > 0 %}
+              <div class="product-filter">
+                <button class="filter-button" type="button" aria-label="{{ 'collections.facets.filter_button' | t }}">
+                  <i class="feather-filter"></i>
+                  <span>{{ 'collections.facets.filter_button' | t }}</span>
+                </button>
+              </div>
+              {% endif %}
+              <stfilter-ele class="facets">
+                <form id="stFacetFiltersForm">
+                  {%- if search.terms -%}
+                    <input type="hidden" name="q" value="{{ search.terms | escape }}">
+                    <input name="options[prefix]" type="hidden" value="last">
+                  {%- endif -%}
+                  <span id="pro-count" class="product-count-text">
+                    {%- if search.results_count -%}
+                      {{ 'templates.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+                    {%- elsif search.products_count == search.all_products_count -%}
+                      {{ 'products.facets.product_count_simple' | t: count: search.products_count }}
+                    {%- else -%}
+                      {{
+                        'products.facets.product_count'
+                        | t: product_count: search.products_count, count: search.all_products_count
+                      }}
+                    {%- endif -%}
+                  </span>
+                </form>
+              </stfilter-ele>
+            </div>
+          
+          <div class="get-data-products">
+            <div id="ProductGridContainer">
+              {%- assign products_limit = section.settings.products_limit_handle -%}
+              {%- paginate search.results by products_limit -%}
+                {%- if search.results.size > 0 -%}
+                    <div class="shop-product-wrap grid-3 collection">
+                      <ul class="product-view list-unstyled {{ section.settings.product_view }} {{ section.settings.product_view_lg }} {{ section.settings.product_view_sm }}" id="product-grid" data-id="{{ section.id }}">
+                        {% for item in search.results %}
+                          <li class="st-col-item">
+                            {%- case item.object_type -%}
+                              {%- when 'product' -%}
+                                {% render 'product-grid-item', product: item %}
+                              {%- when 'article' -%}
+                                {% render 'blog-grid-item', article: item %}
+                              {%- when 'page' -%}
+                                <div class="page-wrapper">
+                                  <a href="{{ item.url }}">
+                                    {{ item.title | escape }}
+                                  </a>
+                                  <span class="label">
+                                    {{- 'templates.search.page' | t -}}
+                                  </span>
+                                </div>
+                            {%- endcase -%}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                    {% if paginate.pages > 1 %}
+                      <div class="paginatoin-area">
+                        {%- render 'pagination', paginate: paginate -%}
+                      </div>
+                    {% endif %}
+                {%- else -%}
+                  <div class="empty-product collection" id="product-grid" data-id="{{ section.id }}">
+                    <div class="product-icon-title">
+                      <h2 class="mr-0">{{ 'collections.general.empty_product_title' | t }}</h2>
+                    </div>
+                    <div class="product-desc">
+                      <flt-clear>
+                        <p class="mr-0 text-danger">
+                          {{ 'collections.general.empty_product_desc' | t | append: ',' }}
+                          {{ 'collections.general.empty_product_use_fewer_filters' | t }}
+                        </p>
+                      </flt-clear>
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endpaginate -%}
+            </div>
+          </div>
+        </div>
+        <div class="pro-grli-wrap product-sidebar">
+          <div id="main-collection-filters" data-id="{{ section.id }}">
+            {% render 'search-filter', results: search %}
+            <script src="{{ 'collection-sidebar.js' | asset_url }}" defer="defer"></script>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+<script type="text/javascript">
+  addEventListener('DOMContentLoaded', (event) => {
+    var swiper = new Swiper('#pro-{{ section.id }}', {
+      slidesPerView: 1,
+      grid: {
+        rows: 2,
+        fill: 'row' | 'column',
+      },
+      spaceBetween: 30,
+      observer: true,
+      observeParents: true,
+      watchSlidesProgress: true,
+      {%- if request.locale.iso_code == 'ar' -%}
+      rtl: true,
+      {%- endif -%}
+      navigation: {
+        nextEl: '.swiper-next-{{ section.id }}',
+        prevEl: '.swiper-prev-{{ section.id }}',
+      },
+      pagination: {
+        el: ".swiper-pagination-{{ section.id }}",
+        clickable: true
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true
+      },
+      speed: 1000,
+      breakpoints: {
+        1199: {
+          slidesPerView: 1,
+          grid: {
+            rows: 2,
+            fill: 'row' | 'column',
+          },
+          spaceBetween: 30,
+        },
+        1499: {
+          slidesPerView: 1,
+          grid: {
+            rows: 2,
+            fill: 'row' | 'column',
+          },
+          spaceBetween: 30,
+        }
+      }
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "Search results",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Product options"
+    },
+    {
+      "type": "number",
+      "id": "products_limit_handle",
+      "label": "Product limit",
+      "default": 24,
+      "info": "How many posts will appear on each page"
+    },
+    {
+      "type": "select",
+      "id": "product_view",
+      "label": "Grid view",
+      "options": [
+        {
+          "label": "2 grid",
+          "value": "grid-2"
+        },
+        {
+          "label": "3 grid",
+          "value": "grid-3"
+        },
+        {
+          "label": "4 grid",
+          "value": "grid-4"
+        },
+        {
+          "label": "5 grid",
+          "value": "grid-5"
+        },
+        {
+          "label": "6 grid",
+          "value": "grid-6"
+        }
+      ],
+      "default": "grid-5"
+    },
+    {
+      "type": "select",
+      "id": "product_view_lg",
+      "label": "Grid view ipad",
+      "options": [
+        {
+          "label": "2 grid",
+          "value": "grid-lg-2"
+        },
+        {
+          "label": "2 grid",
+          "value": "grid-lg-3"
+        },
+        {
+          "label": "4 grid",
+          "value": "grid-lg-4"
+        }
+      ],
+      "default": "grid-lg-4"
+    },
+    {
+      "type": "select",
+      "id": "product_view_sm",
+      "label": "Grid view mobile",
+      "options": [
+        {
+          "label": "1 grid",
+          "value": "grid-sm-1"
+        },
+        {
+          "label": "2 grid",
+          "value": "grid-sm-2"
+        }
+      ],
+      "default": "grid-sm-2"
+    },
+    {
+      "type": "header",
+      "content": "Search filter"
+    },
+    {
+      "type": "checkbox",
+      "id": "tab_bar_enable",
+      "label": "Show button",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+<style>
+.shop-page {
+  background: {{ section.settings.section_background_color }};
+}
+</style>

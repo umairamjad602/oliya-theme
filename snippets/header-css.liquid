@@ -1,0 +1,11 @@
+<link href="{{ 'bootstrap.min.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<link href="{{ 'swiper-bundle.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<link href="{{ 'feather.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<link href="{{ 'remixicon.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<link href="{{ 'magnific-popup.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+{%- if request.locale.iso_code == 'ar' -%}
+<link href="{{ 'style-rtl.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+{%- else -%}
+<link href="{{ 'style.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+{%- endif -%}
+<link href="{{ 'skin-theme.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">

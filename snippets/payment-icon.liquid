@@ -1,0 +1,18 @@
+<a href="{{ settings.payment_url }}" class="payment-icon">
+  {% assign enabled_payment_types = settings.payment_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' %}
+  {% for type in enabled_payment_types %}
+    {{ type | payment_type_svg_tag }}
+  {% endfor %}
+  {{ settings.payment_svg }}
+</a>
+<style>
+  .payment-icon {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .payment-icon svg {
+    width: {{ settings.payment_svg_width }}px;
+    height: {{ settings.payment_svg_height }}px;
+  }
+</style>

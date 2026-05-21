@@ -1,0 +1,41 @@
+<div class="section-ptb default-page">
+  <div class="container">
+    <div class="section-capture">
+      <div class="section-title">
+        <h2 class="mr-0">
+          {{ page.title | escape | default: 'Page heading' }}
+        </h2>
+      </div>
+    </div>
+    {%- if page.content != blank -%}
+      {{ page.content }}
+    {%- else -%}
+      {{ 'page' | placeholder_svg_tag: 'page-placeholder' }}
+    {%- endif -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+  ],
+  "presets": [
+  {
+    "name": "Page"
+  }
+  ]
+}
+{% endschema %}
+<style>
+  .default-page ul {
+    list-style: disc;
+    padding-left: 20px;
+  }
+  .default-page span {
+    display: unset;
+  }
+  .default-page a {
+    color: var(--font-color-primary);
+    text-decoration: underline;
+  }
+</style>

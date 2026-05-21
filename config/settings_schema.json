@@ -1,0 +1,1921 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Jelwo",
+    "theme_version": "1.0",
+    "theme_author": "Spacingtech_webify",
+    "theme_documentation_url": "https:\/\/doc.spacingtech.com\/jelwo",
+    "theme_support_url": "https:\/\/doc.spacingtech.com\/jelwo"
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_header_max_width",
+        "min": 10,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 120
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_header",
+        "label": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_other",
+        "label": "Logo dark"
+      },
+      {
+        "type": "header",
+        "content": "Footer logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_footer_max_width",
+        "min": 10,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 120
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_footer",
+        "label": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32x32px"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Color primary",
+        "default": "#FFD90C"
+      },
+      {
+        "type": "header",
+        "content": "Body color"
+      },
+      {
+        "type": "color",
+        "id": "body_text_color",
+        "label": "Text color",
+        "default": "#6F6F6F"
+      },
+      {
+        "type": "color",
+        "id": "body_bgcolor",
+        "label": "Body background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "extra_bgcolor",
+        "label": "Body extra background color",
+        "default": "#f3f2ee"
+      },
+      {
+        "type": "header",
+        "content": "Heading color h1 to h6"
+      },
+      {
+        "type": "color",
+        "id": "heading_text_color",
+        "label": "Color",
+        "default": "#222"
+      },
+      {
+        "type": "header",
+        "content": "Link text color"
+      },
+      {
+        "type": "color",
+        "id": "link_text_color",
+        "label": "Color",
+        "default": "#222"
+      },
+      {
+        "type": "color",
+        "id": "theme_border_color",
+        "label": "Theme border color",
+        "default": "#C19D60"
+      },
+      {
+        "type": "range",
+        "id": "theme_border_color_opacity",
+        "label": "Color opacity",
+        "min": 0,
+        "max": 1,
+        "step": 0.1,
+        "default": 0.3
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Body Font Family"
+      },
+      {
+        "type": "font_picker",
+        "id": "body_font_handle",
+        "label": "Font Family",
+        "default": "open_sans_n4"
+      },
+      {
+        "type": "header",
+        "content": "Body Custom Font Family"
+      },
+      {
+        "type": "checkbox",
+        "id": "body_custom_font_handle_enable",
+        "label": "Use Custom Font",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "id": "body_custom_font_handle",
+        "label": "Custom Font",
+        "info": "[Find more Google fonts](https:\/\/fonts.google.com)",
+        "default": "Open Sans"
+      },
+      {
+        "type": "range",
+        "id": "body_custom_font_weight",
+        "label": "Font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 400
+      },
+      {
+        "type": "range",
+        "id": "body_custom_font_weight_subtitle",
+        "label": "Subtitle font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 600
+      },
+      {
+        "type": "select",
+        "id": "body_custom_font_style",
+        "label": "Font Style",
+        "options": [
+          {
+            "label": "Italic",
+            "value": "italic"
+          },
+          {
+            "label": "Normal",
+            "value": "normal"
+          },
+          {
+            "label": "Oblique",
+            "value": "oblique"
+          },
+          {
+            "label": "Unset",
+            "value": "unset"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "header",
+        "content": "Body Common Propoerty"
+      },
+      {
+        "type": "range",
+        "id": "body_font_size",
+        "label": "Font size",
+        "min": 13,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "subtitle_body_font_size",
+        "label": "Subtitle font size",
+        "min": 13,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 18
+      },
+      {
+        "type": "range",
+        "id": "body_letter_spacing",
+        "label": "Letter Spacing",
+        "min": 0.0,
+        "max": 1.0,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0.5
+      },
+      {
+        "type": "header",
+        "content": "Heading Font Family"
+      },
+      {
+        "type": "font_picker",
+        "id": "header_font_handle",
+        "label": "Font Family",
+        "default": "open_sans_n6"
+      },
+      {
+        "type": "header",
+        "content": "Heading Custom Font Family"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_custom_font_handle_enable",
+        "label": "Use Custom Font",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "id": "header_custom_font_handle",
+        "label": "Custom Font",
+        "info": "[Find more Google fonts](https:\/\/fonts.google.com)",
+        "default": "Open Sans"
+      },
+      {
+        "type": "range",
+        "id": "header_custom_font_weight",
+        "label": "Font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 600
+      },
+      {
+        "type": "select",
+        "id": "header_custom_font_style",
+        "label": "Font Style",
+        "options": [
+          {
+            "label": "Italic",
+            "value": "italic"
+          },
+          {
+            "label": "Normal",
+            "value": "normal"
+          },
+          {
+            "label": "Oblique",
+            "value": "oblique"
+          },
+          {
+            "label": "Unset",
+            "value": "unset"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "header",
+        "content": "Section Heading Font Family"
+      },
+      {
+        "type": "font_picker",
+        "id": "section_header_font_handle",
+        "label": "Font Family",
+        "default": "open_sans_n6"
+      },
+      {
+        "type": "header",
+        "content": "Section Heading Custom Font Family"
+      },
+      {
+        "type": "checkbox",
+        "id": "section_header_custom_font_handle_enable",
+        "label": "Use Custom Font",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "id": "section_header_custom_font_handle",
+        "label": "Custom Font",
+        "info": "[Find more Google fonts](https:\/\/fonts.google.com)",
+        "default": "Open Sans"
+      },
+      {
+        "type": "range",
+        "id": "section_header_custom_font_weight",
+        "label": "Font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 600
+      },
+      {
+        "type": "select",
+        "id": "section_header_custom_font_style",
+        "label": "Font Style",
+        "options": [
+          {
+            "label": "Italic",
+            "value": "italic"
+          },
+          {
+            "label": "Normal",
+            "value": "normal"
+          },
+          {
+            "label": "Oblique",
+            "value": "oblique"
+          },
+          {
+            "label": "Unset",
+            "value": "unset"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "header",
+        "content": "Section Heading Common Propoerty"
+      },
+      {
+        "type": "select",
+        "id": "section_header_text_transform",
+        "label": "Text property",
+        "options": [
+          {
+            "label": "Capitalize",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "id": "section_header_letter_spacing",
+        "label": "Letter Spacing",
+        "min": 0.0,
+        "max": 1.0,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0.5
+      },
+      {
+        "type": "header",
+        "content": "Paragraph Font Family"
+      },
+      {
+        "type": "font_picker",
+        "id": "paragraph_font_handle",
+        "label": "Font Family",
+        "default": "open_sans_n4"
+      },
+      {
+        "type": "header",
+        "content": "Paragraph Custom Font Family"
+      },
+      {
+        "type": "checkbox",
+        "id": "paragraph_custom_font_handle_enable",
+        "label": "Use Custom Font",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "id": "paragraph_custom_font_handle",
+        "label": "Custom Font",
+        "info": "[Find more Google fonts](https:\/\/fonts.google.com)",
+        "default": "Open Sans"
+      },
+      {
+        "type": "range",
+        "id": "paragraph_custom_font_weight",
+        "label": "Font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 400
+      },
+      {
+        "type": "select",
+        "id": "paragraph_custom_font_style",
+        "label": "Font Style",
+        "options": [
+          {
+            "label": "Italic",
+            "value": "italic"
+          },
+          {
+            "label": "Normal",
+            "value": "normal"
+          },
+          {
+            "label": "Oblique",
+            "value": "oblique"
+          },
+          {
+            "label": "Unset",
+            "value": "unset"
+          }
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "header",
+        "content": "Paragraph Common Propoerty"
+      },
+      {
+        "type": "range",
+        "id": "paragraph_font_line_height",
+        "label": "Font Line Height",
+        "min": 20,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 30
+      },
+      {
+        "type": "header",
+        "content": "Other Font Family"
+      },
+      {
+        "type": "font_picker",
+        "id": "other_font_handle",
+        "label": "Font Family",
+        "default": "open_sans_n4"
+      },
+      {
+        "type": "header",
+        "content": "Other Custom Font Family"
+      },
+      {
+        "type": "checkbox",
+        "id": "other_custom_font_handle_enable",
+        "label": "Use Custom Font",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "id": "other_custom_font_handle",
+        "label": "Custom Font",
+        "info": "[Find more Google fonts](https:\/\/fonts.google.com)",
+        "default": "Open Sans"
+      }
+    ]
+  },
+  {
+    "name": "Input, select, textarea type",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Tag propoerty"
+      },
+      {
+        "type": "color",
+        "id": "tag_color",
+        "label": "Text color",
+        "default": "#6F6F6F"
+      },
+      {
+        "type": "range",
+        "id": "tag_font_size",
+        "label": "Font size",
+        "min": 12,
+        "max": 16,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "color",
+        "id": "tag_bgcolor",
+        "label": "Background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "radio",
+        "id": "tag_text_transform",
+        "label": "Text property",
+        "options": [
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Capitalize",
+            "value": "capitalize"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "range",
+        "id": "tag_font_weight",
+        "label": "Font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 400
+      },
+      {
+        "type": "color",
+        "id": "tag_border_color",
+        "label": "Border color",
+        "default": "#C19D60"
+      },
+      {
+        "type": "range",
+        "id": "tag_border_color_opacity",
+        "label": "Border color opacity",
+        "min": 0,
+        "max": 1,
+        "step": 0.1,
+        "default": 0.5
+      },
+      {
+        "type": "range",
+        "id": "tag_border_radius",
+        "label": "Border radius",
+        "min": 0,
+        "max": 25,
+        "step": 1,
+        "unit": "px",
+        "default": 5
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Normal container"
+      },
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width container",
+        "min": 1000,
+        "max": 1600,
+        "step": 10,
+        "unit": "px",
+        "default": 1200
+      },
+      {
+        "type": "header",
+        "content": "Fluid container"
+      },
+      {
+        "type": "range",
+        "id": "cont_fluid_p",
+        "label": "Fluid container space left-right",
+        "min": 0,
+        "max": 400,
+        "step": 5,
+        "unit": "px",
+        "default": 160
+      },
+      {
+        "type": "header",
+        "content": "Section space top-bottom"
+      },
+      {
+        "type": "paragraph",
+        "content": "Desktop"
+      },
+      {
+        "type": "range",
+        "id": "section_padding_top",
+        "label": "Space top",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "section_padding_bottom",
+        "label": "Space bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 100
+      },
+      {
+        "type": "paragraph",
+        "content": "Ipad"
+      },
+      {
+        "type": "range",
+        "id": "section_padding_top_ipad",
+        "label": "Space top",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 80
+      },
+      {
+        "type": "range",
+        "id": "section_padding_bottom_ipad",
+        "label": "Space bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 80
+      },
+      {
+        "type": "paragraph",
+        "content": "Mobile"
+      },
+      {
+        "type": "range",
+        "id": "section_padding_top_xs",
+        "label": "Space top",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 60
+      },
+      {
+        "type": "range",
+        "id": "section_padding_bottom_xs",
+        "label": "Space bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "default": 60
+      }
+    ]
+  },
+  {
+    "name": "Button type",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Button primary"
+      },
+      {
+        "type": "color",
+        "id": "btn1_color",
+        "label": "Button label color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "btn1_hvr_color",
+        "label": "Button hover text color",
+        "default": "#333333"
+      },
+      {
+        "type": "range",
+        "id": "btn1_font_size",
+        "label": "Button font size",
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "btn1_font_size_lg",
+        "label": "Button font size mobile",
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "btn1_padding_top_bottom",
+        "label": "Button space top-bottom",
+        "min": 8,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "btn1_padding_top_bottom_lg",
+        "label": "Button space top-bottom mobile",
+        "min": 8,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "btn1_padding_left_right",
+        "label": "Button space left-right",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "btn1_padding_left_right_lg",
+        "label": "Button space left-right mobile",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "color",
+        "id": "btn1_bgcolor",
+        "label": "Button background color",
+        "default": "#FFD90C"
+      },
+      {
+        "type": "color",
+        "id": "btn1_hvr_bgcolor",
+        "label": "Button hover background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "select",
+        "id": "btn1_text_transform",
+        "label": "Button label property",
+        "options": [
+          {
+            "label": "Capitalize",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          }
+        ],
+        "default": "uppercase"
+      },
+      {
+        "type": "range",
+        "id": "btn1_font_weight",
+        "label": "Button font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 600
+      },
+      {
+        "type": "range",
+        "id": "btn1_border",
+        "label": "Button border",
+        "min": 0,
+        "max": 2,
+        "step": 1,
+        "unit": "px",
+        "default": 1
+      },
+      {
+        "type": "select",
+        "id": "btn1_border_property",
+        "label": "Button border_property",
+        "options": [
+          {
+            "label": "dotted",
+            "value": "dotted"
+          },
+          {
+            "label": "dashed",
+            "value": "dashed"
+          },
+          {
+            "label": "solid",
+            "value": "solid"
+          },
+          {
+            "label": "double",
+            "value": "double"
+          },
+          {
+            "label": "groove",
+            "value": "groove"
+          },
+          {
+            "label": "ridge",
+            "value": "ridge"
+          },
+          {
+            "label": "inset",
+            "value": "inset"
+          },
+          {
+            "label": "outset",
+            "value": "outset"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "hidden",
+            "value": "hidden"
+          }
+        ],
+        "default": "solid"
+      },
+      {
+        "type": "color",
+        "id": "btn1_border_color",
+        "label": "Button border color",
+        "default": "#FFD90C"
+      },
+      {
+        "type": "color",
+        "id": "btn1_border_hvr_color",
+        "label": "Button border hover color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "range",
+        "id": "btn1_border_radius",
+        "label": "Button border radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "btn1_letter_spacing",
+        "label": "Button letter spacing",
+        "min": 0,
+        "max": 1,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0.5
+      },
+      {
+        "type": "header",
+        "content": "Button secondary"
+      },
+      {
+        "type": "color",
+        "id": "btn2_color",
+        "label": "Button label color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "btn2_hvr_color",
+        "label": "Button hover text color",
+        "default": "#333333"
+      },
+      {
+        "type": "range",
+        "id": "btn2_font_size",
+        "label": "Button font size",
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "btn2_font_size_lg",
+        "label": "Button font size mobile",
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "btn2_padding_top_bottom",
+        "label": "Button space top-bottom",
+        "min": 8,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "btn2_padding_top_bottom_lg",
+        "label": "Button space top-bottom mobile",
+        "min": 8,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "btn2_padding_left_right",
+        "label": "Button space left-right",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "btn2_padding_left_right_lg",
+        "label": "Button space left-right mobile",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "color",
+        "id": "btn2_bgcolor",
+        "label": "Button background color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "btn2_hvr_bgcolor",
+        "label": "Button hover background color",
+        "default": "#FFD90C"
+      },
+      {
+        "type": "select",
+        "id": "btn2_text_transform",
+        "label": "Button label property",
+        "options": [
+          {
+            "label": "Capitalize",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          }
+        ],
+        "default": "uppercase"
+      },
+      {
+        "type": "range",
+        "id": "btn2_font_weight",
+        "label": "Button font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 600
+      },
+      {
+        "type": "range",
+        "id": "btn2_border",
+        "label": "Button border",
+        "min": 0,
+        "max": 2,
+        "step": 1,
+        "unit": "px",
+        "default": 2
+      },
+      {
+        "type": "select",
+        "id": "btn2_border_property",
+        "label": "Button border_property",
+        "options": [
+          {
+            "label": "dotted",
+            "value": "dotted"
+          },
+          {
+            "label": "dashed",
+            "value": "dashed"
+          },
+          {
+            "label": "solid",
+            "value": "solid"
+          },
+          {
+            "label": "double",
+            "value": "double"
+          },
+          {
+            "label": "groove",
+            "value": "groove"
+          },
+          {
+            "label": "ridge",
+            "value": "ridge"
+          },
+          {
+            "label": "inset",
+            "value": "inset"
+          },
+          {
+            "label": "outset",
+            "value": "outset"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "hidden",
+            "value": "hidden"
+          }
+        ],
+        "default": "solid"
+      },
+      {
+        "type": "color",
+        "id": "btn2_border_color",
+        "label": "Button border color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "btn2_border_hvr_color",
+        "label": "Button border hover color",
+        "default": "#FFD90C"
+      },
+      {
+        "type": "range",
+        "id": "btn2_border_radius",
+        "label": "Button border radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "btn2_letter_spacing",
+        "label": "Button letter spacing",
+        "min": 0,
+        "max": 1,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0.5
+      },
+      {
+        "type": "header",
+        "content": "Button third"
+      },
+      {
+        "type": "color",
+        "id": "btn3_color",
+        "label": "Button label color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "btn3_hvr_color",
+        "label": "Button hover text color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "range",
+        "id": "btn3_font_size",
+        "label": "Button font size",
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "btn3_font_size_lg",
+        "label": "Button font size mobile",
+        "min": 12,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "range",
+        "id": "btn3_padding_top_bottom",
+        "label": "Button space top-bottom",
+        "min": 8,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "btn3_padding_top_bottom_lg",
+        "label": "Button space top-bottom mobile",
+        "min": 8,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "btn3_padding_left_right",
+        "label": "Button space left-right",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "btn3_padding_left_right_lg",
+        "label": "Button space left-right mobile",
+        "min": 10,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "color",
+        "id": "btn3_bgcolor",
+        "label": "Button background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "btn3_hvr_bgcolor",
+        "label": "Button hover background color",
+        "default": "#333333"
+      },
+      {
+        "type": "select",
+        "id": "btn3_text_transform",
+        "label": "Button label property",
+        "options": [
+          {
+            "label": "Capitalize",
+            "value": "capitalize"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          }
+        ],
+        "default": "uppercase"
+      },
+      {
+        "type": "range",
+        "id": "btn3_font_weight",
+        "label": "Button font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 600
+      },
+      {
+        "type": "range",
+        "id": "btn3_border",
+        "label": "Button border",
+        "min": 0,
+        "max": 2,
+        "step": 1,
+        "unit": "px",
+        "default": 2
+      },
+      {
+        "type": "select",
+        "id": "btn3_border_property",
+        "label": "Button border_property",
+        "options": [
+          {
+            "label": "dotted",
+            "value": "dotted"
+          },
+          {
+            "label": "dashed",
+            "value": "dashed"
+          },
+          {
+            "label": "solid",
+            "value": "solid"
+          },
+          {
+            "label": "double",
+            "value": "double"
+          },
+          {
+            "label": "groove",
+            "value": "groove"
+          },
+          {
+            "label": "ridge",
+            "value": "ridge"
+          },
+          {
+            "label": "inset",
+            "value": "inset"
+          },
+          {
+            "label": "outset",
+            "value": "outset"
+          },
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "hidden",
+            "value": "hidden"
+          }
+        ],
+        "default": "solid"
+      },
+      {
+        "type": "color",
+        "id": "btn3_border_color",
+        "label": "Button border color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "btn3_border_hvr_color",
+        "label": "Button border hover color",
+        "default": "#333333"
+      },
+      {
+        "type": "range",
+        "id": "btn3_border_radius",
+        "label": "Button border radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "px",
+        "default": 5
+      },
+      {
+        "type": "range",
+        "id": "btn3_letter_spacing",
+        "label": "Button letter spacing",
+        "min": 0,
+        "max": 1,
+        "step": 0.1,
+        "unit": "px",
+        "default": 0.5
+      }
+    ]
+  },
+  {
+    "name": "Cart type",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cart_enable",
+        "default": true,
+        "label": "Show add to cart Button"
+      },
+      {
+        "type": "select",
+        "id": "cart_type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "drawer"
+          },
+          {
+            "value": "page",
+            "label": "page"
+          }
+        ],
+        "default": "drawer",
+        "label": "Cart type"
+      },
+      {
+        "type": "textarea",
+        "id": "cart_discount_header",
+        "label": "Cartdrawer discount header",
+        "default": "New customers save 10% with code WELCOME10"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_note",
+        "label": "Show cart note",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Free shipping bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "is_free_shipping_bar",
+        "label": "Show free shipping progress bar",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "promote_free_shipping_txt",
+        "label": "Free shipping promotion text",
+        "default": "Spend [value] more and get free shipping!",
+        "info": "Spend [value] more and get free shipping!"
+      },
+      {
+        "type": "text",
+        "id": "unlocked_free_shipping_txt",
+        "label": "Free shipping success message",
+        "default": "Congratulations , you've got free shipping!"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping success threshold",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Collection product"
+      },
+      {
+        "type": "text",
+        "id": "product_heading",
+        "label": "Product title",
+        "default": "You might also like"
+      },
+      {
+        "type": "collection",
+        "id": "drawer_product",
+        "label": "Collection"
+      },
+      {
+        "type": "number",
+        "id": "product_limit",
+        "label": "Product limit",
+        "default": 12
+      }
+    ]
+  },
+  {
+    "name": "Product grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Image ratio"
+      },
+      {
+        "type": "select",
+        "id": "image_ratio",
+        "options": [
+          {
+            "value": "adapt",
+            "label": "Adapt to image"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          },
+          {
+            "value": "square",
+            "label": "Square"
+          }
+        ],
+        "default": "adapt",
+        "label": "Image shape"
+      },
+      {
+        "type": "checkbox",
+        "id": "pro_hover_enable",
+        "label": "Show product second image on hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "quickview_enable",
+        "label": "Show quickview",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_rating",
+        "default": true,
+        "label": "Show product rating",
+        "info": "To display a rating, add a product rating app."
+      },
+      {
+        "type": "header",
+        "content": "Color swatch option"
+      },
+      {
+        "type": "checkbox",
+        "id": "pro_gr_option_enable",
+        "label": "Show swatch option",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show vendor",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Product label",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Label property"
+      },
+      {
+        "type": "range",
+        "id": "label_font_size",
+        "label": "Font size",
+        "min": 0,
+        "max": 16,
+        "step": 1,
+        "unit": "px",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "label_top_pos",
+        "label": "Top position",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "label_font_weight",
+        "label": "Font weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 400
+      },
+      {
+        "type": "range",
+        "id": "label_border_radius",
+        "label": "Border radius",
+        "min": 0,
+        "max": 25,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Discount label"
+      },
+      {
+        "type": "color",
+        "id": "discount_label_color",
+        "label": "Color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "discount_label_bgcolor",
+        "label": "Background color",
+        "default": "#FFD90C"
+      },
+      {
+        "type": "checkbox",
+        "id": "sale_percent_enable",
+        "label": "Show discount percent",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Soldout label"
+      },
+      {
+        "type": "text",
+        "id": "soldout_title",
+        "label": "Label",
+        "default": "Sold out"
+      },
+      {
+        "type": "color",
+        "id": "solout_label_color",
+        "label": "Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "solout_label_bgcolor",
+        "label": "Background color",
+        "default": "#A00000"
+      }
+    ]
+  },
+  {
+    "name": "Search behavior",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "search_enable",
+        "default": true,
+        "label": "Show header search"
+      },
+      {
+        "type": "header",
+        "content": "Search suggestions"
+      },
+      {
+        "type": "checkbox",
+        "id": "ajax_search_enabled",
+        "default": true,
+        "label": "Show suggestions"
+      },
+      {
+        "type": "text",
+        "id": "search_modal_title",
+        "default": "What are you looking for",
+        "label": "Heading"
+      }
+    ]
+  },
+  {
+    "name": "Wishlist",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Wishlist"
+      },
+      {
+        "type": "url",
+        "id": "wishlist_page_url",
+        "label": "Header wishlist page url"
+      },
+      {
+        "type": "checkbox",
+        "id": "wishlist_enable",
+        "label": "Show Wishlist",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "wishlist_title",
+        "label": "Header Wishlist title",
+        "default": "Wishlist"
+      }
+    ]
+  },
+  {
+    "name": "Page heading",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "breadcrumb_banner_enable",
+        "label": "Show heading",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "breadcrumb_bgimg_enable",
+        "label": "Show image",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Background image"
+      },
+      {
+        "type": "image_picker",
+        "id": "breadcrumb_bgimg",
+        "label": "Background image",
+        "info": "Recommended image size: 1920x300px"
+      },
+      {
+        "type": "header",
+        "content": "Background image overlay color"
+      },
+      {
+        "type": "color",
+        "id": "breadcrumb_bgimg_overlay_color",
+        "label": "Background image overlay color",
+        "default": "#333333"
+      },
+      {
+        "type": "range",
+        "id": "breadcrumb_bgimg_overlay_color_opacity",
+        "label": "Image overlay color opacity",
+        "min": 0,
+        "max": 1,
+        "step": 0.1,
+        "default": 0.5
+      },
+      {
+        "type": "checkbox",
+        "id": "breadcrumb_bgimg_overlay_color_enable",
+        "label": "Show image overlay color",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Background color"
+      },
+      {
+        "type": "color",
+        "id": "breadcrumb_bgcolor",
+        "label": "Background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "Heading color"
+      },
+      {
+        "type": "color",
+        "id": "breadcrumb_title_color",
+        "label": "Heading color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "breadcrumb_main_title_color",
+        "label": "Sub heading color",
+        "default": "#fff"
+      }
+    ]
+  },
+  {
+    "name": "Blog grid",
+    "settings": [
+      {
+        "type": "text",
+        "id": "blog_read",
+        "label": "Read Button label",
+        "default": "Read article"
+      },
+      {
+        "type": "checkbox",
+        "id": "article_author_enable",
+        "label": "Author enable",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Image ratio"
+      },
+      {
+        "type": "select",
+        "id": "blog_image_ratio",
+        "options": [
+          {
+            "value": "adapt",
+            "label": "Adapt to image"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          },
+          {
+            "value": "square",
+            "label": "Square"
+          }
+        ],
+        "default": "adapt",
+        "label": "Image shape"
+      },
+      {
+        "type": "text",
+        "id": "view_btn",
+        "label": "View collection",
+        "default": "View collection"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social accounts"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "placeholder": "https:\/\/facebook.com"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "placeholder": "https:\/\/instagram.com\/"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube",
+        "placeholder": "https:\/\/youtube.com\/"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok",
+        "placeholder": "https:\/\/tiktok.com\/@shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "X \/ Twitter",
+        "placeholder": "https:\/\/x.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "Snapchat",
+        "placeholder": "https:\/\/www.snapchat.com\/add\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pinterest",
+        "placeholder": "https:\/\/pinterest.com\/shopify"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "Tumblr",
+        "placeholder": "https:\/\/shopify.tumblr.com"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "Vimeo",
+        "placeholder": "https:\/\/vimeo.com\/shopify"
+      }
+    ]
+  },
+  {
+    "name": "Payment icon",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "payment_picker",
+        "label": "Providers name",
+        "default": "visa, master, american_express, paypal, diners_club, discover",
+        "info": "Ex: afterpay, american_express, apple_pay, bitcoin, dankort, diners_club, discover, dogecoin, dwolla, forbrugsforeningen, google_pay, ideal, jcb, klarna, klarna-pay-later, litecoin, maestro, master, paypal, shopify_pay, sofort, visa, paytm"
+      },
+      {
+        "type": "textarea",
+        "id": "payment_svg",
+        "label": "Svg icon"
+      },
+      {
+        "type": "url",
+        "id": "payment_url",
+        "label": "Url"
+      },
+      {
+        "type": "header",
+        "content": "Icon settings"
+      },
+      {
+        "type": "range",
+        "id": "payment_svg_width",
+        "label": "Icon Width",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 38,
+        "info": "Set 'SVG' icon 'Width' from here"
+      },
+      {
+        "type": "range",
+        "id": "payment_svg_height",
+        "label": "Icon Height",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "default": 24,
+        "info": "Set 'SVG' icon 'Height' from here"
+      }
+    ]
+  },
+  {
+    "name": "Currency format",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Currency codes"
+      },
+      {
+        "type": "paragraph",
+        "content": "Cart and checkout prices always show currency codes. Example: $1.00 USD."
+      },
+      {
+        "type": "checkbox",
+        "id": "currency_code_enabled",
+        "label": "Show currency codes",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Header icon",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Icon title"
+      },
+      {
+        "type": "text",
+        "id": "user_title",
+        "label": "User title",
+        "default": "User"
+      },
+      {
+        "type": "text",
+        "id": "search_title",
+        "label": "Search title",
+        "default": "Search"
+      },
+      {
+        "type": "text",
+        "id": "wl_title",
+        "label": "Wishlist title",
+        "default": "Wishlist"
+      },
+      {
+        "type": "text",
+        "id": "cart_title",
+        "label": "Cart title",
+        "default": "Cart"
+      }
+    ]
+  }
+]

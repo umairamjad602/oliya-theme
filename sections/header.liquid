@@ -1,0 +1,2756 @@
+{%- if settings.cart_type == 'drawer' -%}
+  {%- if template.name != 'cart' -%}
+    <script src="{{ 'ajax-cart.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+{%- endif -%}
+<link href="{{ 'header.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<header class="header header1">
+  <div class="header-area">
+    <div class="header-main-area">
+      <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+        <div class="header-main {% if section.settings.logo_alignment == 'center' %}logo-center{% else %}logo-left{% endif %}">
+          <div class="header-element toggle-content">
+            <button class="navbar-toggle" aria-label="Navbar icon" type="button" aria-label="menu">
+              <i class="feather-menu"></i>
+            </button>
+          </div>
+          <div class="header-element megamenu-content">
+            <nav class="mainwrap">
+              <ul class="list-unstyled main-menu {% if section.settings.menu_alignment == 'center' %}menu-center{% elsif section.settings.menu_alignment == 'left' %}menu-left{% else %}menu-right{% endif %}">
+                {%- liquid
+                  for block in section.blocks
+                    case block.type
+                      when 'menu_link'
+                        render 'menu-link', block: block
+                      when 'menu_home'
+                        render 'menu-home', block: block
+                      when 'menu_single'
+                        render 'menu-single', block: block
+                      when 'menu_sub'
+                        render 'menu-sub', block: block
+                      when 'menu_shop'
+                        render 'menu-shop', block: block
+                      when 'menu_collection'
+                        render 'menu-collection', block: block
+                      when 'menu_product'
+                        render 'menu-product', block: block
+                      when 'menu_product2'
+                        render 'menu-product2', block: block
+                      when 'menu_category'
+                        render 'menu-category', block: block
+                      when 'company_logo'
+                        render 'company-logo', block: block
+                      when 'menu_shop_banner'
+                        render 'menu-shop-banner', block: block
+                    endcase
+                  endfor
+                -%}
+              </ul>
+            </nav>
+          </div>
+          <div class="header-element logo">
+            {%- render 'company-logo' -%}
+          </div>
+          <div class="header-element right-block-box">
+            <div class="offer-link">
+              {% if section.settings.offer_text != blank %}
+                <a
+                  href="{{ section.settings.offer_text_url }}"
+                >
+                  <span class="icon">{{ section.settings.offer_text_icon }}</span>
+                  <span class="txt">{{ section.settings.offer_text }}</span>
+                </a>
+              {% endif %}
+              {% if section.settings.offer_text2 != blank %}
+                <a
+                  href="{{ section.settings.offer_text2_url }}"
+                >
+                  <span class="icon">{{ section.settings.offer_text2_icon }}</span>
+                  <span class="txt">{{ section.settings.offer_text2 }}</span>
+                </a>
+              {% endif %}
+            </div>
+            {%- render 'header-icon', section: section -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- headert-top end -->
+  <!-- headert-bottom start -->
+  <div class="header-bottom-area">
+    <div class="container header-bottom-container">
+      <div class="main-menu-area">
+        <div class="box-header">
+          <button class="close-box" type="button" aria-label="close"><i class="feather-x"></i></button>
+        </div>
+        <div class="main-menu-wrap">
+          <div class="megamenu-content">
+            <a href="#" class="browse-cat">
+              <span class="menu-title">{{ section.settings.header_main_menu_title }}</span>
+            </a>
+            <nav class="mainwrap">
+              <ul class="list-unstyled main-menu">
+                {%- liquid
+                  for block in section.blocks
+                    case block.type
+                      when 'menu_link'
+                        render 'menu-link', block: block
+                      when 'menu_home'
+                        render 'menu-home', block: block
+                      when 'menu_single'
+                        render 'menu-single', block: block
+                      when 'menu_sub'
+                        render 'menu-sub', block: block
+                      when 'menu_shop'
+                        render 'menu-shop', block: block
+                      when 'menu_collection'
+                        render 'menu-collection', block: block
+                      when 'menu_product'
+                        render 'menu-product', block: block
+                      when 'menu_product2'
+                        render 'menu-product2', block: block
+                      when 'menu_category'
+                        render 'menu-category', block: block
+                      when 'company_logo'
+                        render 'company-logo', block: block
+                      when 'menu_shop_banner'
+                        render 'menu-shop-banner', block: block
+                    endcase
+                  endfor
+                -%}
+              </ul>
+            </nav>
+            <div class="locali-block">
+              {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+                <div class="locali-box">
+                  <noscript>
+                    {%- form 'localization', id: 'HeaderCountryMobileFormNoScript', class: 'localization-form' -%}
+                      <select name="country_code" aria-labelledby="HeaderCountryMobileLabelNoScript">
+                        {%- for country in localization.available_countries -%}
+                          <option
+                            value="{{ country.iso_code }}"
+                            {%- if country.iso_code == localization.country.iso_code %}
+                              selected
+                            {% endif %}
+                          >
+                            {{ country.name }} ({{ country.currency.iso_code }}
+                            {{ country.currency.symbol }})
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                    {%- endform -%}
+                  </noscript>
+                  <localization-form>
+                    {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form' -%}
+                      {%- render 'country-localization', localPosition: 'HeaderCountry' -%}
+                    {%- endform -%}
+                  </localization-form>
+                </div>
+              {% endif %}
+              {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+                <div class="locali-box">
+                  <noscript>
+                    {%- form 'localization', id: 'HeaderLanguageMobileFormNoScript', class: 'localization-form' -%}
+                      <select name="locale_code" aria-labelledby="HeaderLanguageMobileLabelNoScript">
+                        {%- for language in localization.available_languages -%}
+                          <option
+                            value="{{ language.iso_code }}"
+                            lang="{{ language.iso_code }}"
+                            {%- if language.iso_code == localization.language.iso_code %}
+                              selected
+                            {% endif %}
+                          >
+                            {{ language.endonym_name | capitalize }}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                    {%- endform -%}
+                  </noscript>
+                  <localization-form>
+                    {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
+                      {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
+                    {%- endform -%}
+                  </localization-form>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{%- render 'search-popup' -%}
+<script type="text/javascript">
+  addEventListener('DOMContentLoaded', (event) => {
+    var lastScrollTop = 0;
+    $(window).scroll(function() {
+      var scroll = $(this).scrollTop();
+      if (scroll > lastScrollTop) {
+        if (scroll > 500) {
+          $('.header-area').addClass('sticky-down');
+        }
+        $('.header-area').removeClass('sticky-up');
+      } else {
+        if (lastScrollTop <= 500) {
+          $('.header-area').removeClass('sticky');
+          $('.header-area').removeClass('sticky-down');
+          $('.header-area').removeClass('sticky-up');
+        } else {
+          $('.header-area').addClass('sticky');
+          $('.header-area').removeClass('sticky-down');
+          $('.header-area').addClass('sticky-up');
+        }
+      }
+      lastScrollTop = scroll;
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "Header",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Logo alignment"
+    },
+    {
+      "type": "select",
+      "id": "logo_alignment",
+      "label": "Alignment",
+      "info": "Edit your logo in [theme settings](\/editor?context=theme&category=logo).",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "label": "Center",
+          "value": "center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Navigation alignment"
+    },
+    {
+      "type": "select",
+      "id": "menu_alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "label": "Left",
+          "value": "left"
+        },
+        {
+          "label": "Center",
+          "value": "center"
+        },
+        {
+          "label": "Right",
+          "value": "right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Transparent option"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_transparent_enable",
+      "label": "Show transparent",
+      "default": false,
+      "info": "This option only work for main 'Home' page"
+    },
+    {
+      "type": "header",
+      "content": "Sticky option"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_sticky_enable",
+      "label": "Show sticky",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "header_bgcolor",
+      "label": "Color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Main navigation"
+    },
+    {
+      "type": "text",
+      "id": "header_main_menu_title",
+      "label": "Navigation heading for mobile",
+      "default": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Navigation text"
+    },
+    {
+      "type": "color",
+      "id": "header_menutext_color",
+      "label": "Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "header_menutext_hvr_color",
+      "label": "Hover color",
+      "default": "#6F6F6F"
+    },
+    {
+      "type": "range",
+      "id": "menu_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "menu_font_size_lg",
+      "label": "Font size laptop",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "menu_font_weight",
+      "label": "Font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "select",
+      "id": "menu_text_transform",
+      "label": "Navigation text property",
+      "options": [
+        {
+          "label": "Capitalize",
+          "value": "capitalize"
+        },
+        {
+          "label": "Lowercase",
+          "value": "lowercase"
+        },
+        {
+          "label": "Uppercase",
+          "value": "uppercase"
+        },
+        {
+          "label": "None",
+          "value": "none"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Navigation icon color"
+    },
+    {
+      "type": "color",
+      "id": "header_menuicon_color",
+      "label": "Color",
+      "default": "#222"
+    },
+    {
+      "type": "color",
+      "id": "header_menuicon_hvr_color",
+      "label": "Hover color",
+      "default": "#222"
+    },
+    {
+      "type": "header",
+      "content": "Offer label"
+    },
+    {
+      "type": "checkbox",
+      "id": "offer_text_enable",
+      "label": "Show offer text",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "offer_text",
+      "label": "Offer label",
+      "default": "Offer zone"
+    },
+    {
+      "type": "textarea",
+      "id": "offer_text_icon",
+      "label": "Label icon",
+      "default": "<i class=\"feather-zap\"></i>",
+      "info": "More icon[Learn more](https://dropways.github.io/feathericons)"
+    },
+    {
+      "type": "url",
+      "id": "offer_text_url",
+      "label": "Label url"
+    },
+    {
+      "type": "text",
+      "id": "offer_text2",
+      "label": "Offer text icon",
+      "default": "Offer label"
+    },
+    {
+      "type": "textarea",
+      "id": "offer_text2_icon",
+      "label": "Label icon",
+      "default": "<i class=\"feather-zap\"></i>",
+      "info": "More icon[Learn more](https://dropways.github.io/feathericons)"
+    },
+    {
+      "type": "url",
+      "id": "offer_text2_url",
+      "label": "Label url"
+    },
+    {
+      "type": "header",
+      "content": "Mobile navigation country/region selector",
+      "info": "To add a country\/region, go to your [market settings.](\/admin\/settings\/markets)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "default": false,
+      "label": "Show country/region selector"
+    },
+    {
+      "type": "header",
+      "content": "Mobile navigation language selector",
+      "info": "To add a language, go to your [language settings.](\/admin\/settings\/languages)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_language_selector",
+      "label": "Show language selector",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_link",
+      "name": "Navigation link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_link_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "url",
+          "id": "menu_link_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_link_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_link_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_link_label_bgcolor",
+          "label": "Background color",
+          "default": "#05D14B"
+        },
+        {
+          "type": "select",
+          "id": "menu_link_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        }
+      ]
+    },
+    {
+      "type": "menu_home",
+      "name": "Navigation home",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_link_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_link_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_link_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_link_label_bgcolor",
+          "label": "Background color",
+          "default": "#05D14B"
+        },
+        {
+          "type": "select",
+          "id": "menu_link_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_link_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        }
+      ]
+    },
+    {
+      "type": "menu_single",
+      "name": "Navigation single",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_single_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "url",
+          "id": "menu_single_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_single_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_single_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_single_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_single_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_single_label_bgcolor",
+          "label": "Background color",
+          "default": "#05D14B"
+        },
+        {
+          "type": "select",
+          "id": "menu_single_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_single_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_single_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_single_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "header",
+          "content": "Navigation single"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_single_select",
+          "label": "Select navigation",
+          "default": "main-menu"
+        }
+      ]
+    },
+    {
+      "type": "menu_shop",
+      "name": "Navigation shop",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_shop_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "url",
+          "id": "menu_shop_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_shop_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_shop_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_shop_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_shop_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_shop_label_bgcolor",
+          "label": "Background color",
+          "default": "#FF0C32"
+        },
+        {
+          "type": "select",
+          "id": "menu_shop_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_shop_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_shop_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_shop_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "header",
+          "content": "Navigation shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_shop_select1",
+          "label": "Select navigation shop",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_shop_select2",
+          "label": "Select navigation shop",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_shop_select3",
+          "label": "Select navigation shop",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_shop_select4",
+          "label": "Select navigation shop",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation shop banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_shop_banner_img1",
+          "label": "Banner image",
+          "info": "Recommended size: 600x600px"
+        },
+        {
+          "type": "url",
+          "id": "menu_shop_banner_url1",
+          "label": "Banner url"
+        }
+      ]
+    },
+    {
+      "type": "menu_product",
+      "name": "Navigation product",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_product_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "url",
+          "id": "menu_product_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_product_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_product_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_product_label_bgcolor",
+          "label": "Background color",
+          "default": "#0C32FF"
+        },
+        {
+          "type": "select",
+          "id": "menu_product_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select2",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select3",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select4",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation shop banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_product_banner_img1",
+          "label": "Banner image",
+          "info": "Recommended size: 600x600px"
+        },
+        {
+          "type": "url",
+          "id": "menu_product_banner_url1",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Collection product"
+        },
+        {
+          "type": "collection",
+          "id": "menu_product_collection1",
+          "label": "Select collection"
+        },
+        {
+          "type": "number",
+          "id": "menu_product_collection1_limit",
+          "label": "Product limit",
+          "default": 12
+        },
+        {
+          "type": "select",
+          "id": "menu_product_collection1_view",
+          "label": "Grid view",
+          "options": [
+            {
+              "label": "3 grid",
+              "value": "3"
+            },
+            {
+              "label": "4 grid",
+              "value": "4"
+            }
+          ],
+          "default": "4"
+        }
+      ]
+    },
+    {
+      "type": "menu_product2",
+      "name": "Navigation product list",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_product_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "url",
+          "id": "menu_product_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_product_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_product_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_product_label_bgcolor",
+          "label": "Background color",
+          "default": "#0C32FF"
+        },
+        {
+          "type": "select",
+          "id": "menu_product_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select2",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select3",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select4",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Collection product"
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product heading",
+          "default": "Popular collection"
+        },
+        {
+          "type": "collection",
+          "id": "menu_product_collection1",
+          "label": "Select collection"
+        },
+        {
+          "type": "number",
+          "id": "menu_product_collection1_limit",
+          "label": "Product limit",
+          "default": 12
+        }
+      ]
+    },
+    {
+      "type": "menu_collection",
+      "name": "Navigation banner grid",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_collection_title",
+          "label": "Navigation heading",
+          "default": "navigation"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_collection_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_collection_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_label_bgcolor",
+          "label": "Background color",
+          "default": "#0C32FF"
+        },
+        {
+          "type": "select",
+          "id": "menu_collection_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_collection_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_collection_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_collection_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "header",
+          "content": "Navigation banner collection"
+        },
+        {
+          "type": "checkbox",
+          "id": "banner_title_mobile_enable",
+          "label": "Banner heading only mobile visible",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img1",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title1",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label1",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label1_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label1_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url1",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img2",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title2",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label2",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label2_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label2_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url2",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img3",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title3",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label3",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label3_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label3_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url3",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img4",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title4",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label4",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label4_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label4_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url4",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img5",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title5",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label5",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label5_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label5_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url5",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img6",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title6",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label6",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label6_color",
+          "label": "Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label6_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url6",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img7",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title7",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label7",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label7_color",
+          "label": "Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label7_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url7",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img8",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title8",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label8",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label8_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label8_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url8",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img9",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title9",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label9",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label9_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label9_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url9",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img10",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title10",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label10",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label10_color",
+          "label": "Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label10_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url10",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img11",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title11",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label11",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label11_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label11_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url11",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "Banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_collection_banner_img12",
+          "label": "Image",
+          "info": "Recommended size: 600x550px"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_title12",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_banner_label12",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label12_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "menu_collection_banner_label12_bg_color",
+          "label": "Background color",
+          "default": "#05ad01"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_banner_url12",
+          "label": "Banner url"
+        },
+        {
+          "type": "header",
+          "content": "View all button"
+        },
+        {
+          "type": "url",
+          "id": "menu_collection_all_url",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_collection_all_button",
+          "label": "Label"
+        }
+      ]
+    },
+    {
+      "type": "menu_sub",
+      "name": "Navigation sub",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_sub_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "url",
+          "id": "menu_sub_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_sub_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_sub_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_sub_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_sub_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_sub_label_bgcolor",
+          "label": "Background color",
+          "default": "#0C32FF"
+        },
+        {
+          "type": "select",
+          "id": "menu_sub_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_sub_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_sub_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_sub_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "header",
+          "content": "Navigation sub"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_sub_select",
+          "label": "Select navigation",
+          "default": "main-menu"
+        }
+      ]
+    },
+    {
+      "type": "menu_category",
+      "name": "Navigation collection",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_product_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "url",
+          "id": "menu_product_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_product_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_product_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_product_label_bgcolor",
+          "label": "Background color",
+          "default": "#0C32FF"
+        },
+        {
+          "type": "select",
+          "id": "menu_product_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select2",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select3",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select4",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Collection product"
+        },
+        {
+          "type": "text",
+          "id": "product_title",
+          "label": "Product heading",
+          "default": "Popular collection"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img1",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url1",
+          "label": "Url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title1",
+          "label": "Banner title",
+          "default": "One pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img2",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url2",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title2",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img3",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url3",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title3",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img4",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url4",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title4",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img5",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url5",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title5",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img6",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url6",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title6",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img7",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url7",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title7",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img8",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url8",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title8",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img9",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url9",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title9",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img10",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url10",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title10",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img11",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url11",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title11",
+          "label": "Heading",
+          "default": "one pieces"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img12",
+          "label": "Image",
+          "info": "Recommended size: 600x700px"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url12",
+          "label": "url"
+        },
+        {
+          "type": "text",
+          "id": "menu_cat_banner_title12",
+          "label": "Heading",
+          "default": "one pieces"
+        }
+      ]
+    },
+    {
+      "type": "menu_shop_banner",
+      "name": "Navigation shop banner",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_product_title",
+          "label": "Navigation heading",
+          "default": "nav"
+        },
+        {
+          "type": "url",
+          "id": "menu_product_url",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Navigation label"
+        },
+        {
+          "type": "text",
+          "id": "menu_product_label",
+          "label": "Label"
+        },
+        {
+          "type": "color",
+          "id": "menu_product_label_color",
+          "label": "Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_font_size",
+          "label": "Font size",
+          "min": 8,
+          "max": 12,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_top_position",
+          "label": "Top position",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "color",
+          "id": "menu_product_label_bgcolor",
+          "label": "Background color",
+          "default": "#0C32FF"
+        },
+        {
+          "type": "select",
+          "id": "menu_product_label_text_transform",
+          "label": "Text property",
+          "options": [
+            {
+              "label": "Capitalize",
+              "value": "capitalize"
+            },
+            {
+              "label": "Lowercase",
+              "value": "lowercase"
+            },
+            {
+              "label": "Uppercase",
+              "value": "uppercase"
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "default": "uppercase"
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_font-weight",
+          "label": "Font weight",
+          "min": 400,
+          "max": 600,
+          "step": 100,
+          "default": 400
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_border_radius",
+          "label": "Border radius",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "unit": "px",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "menu_product_label_line_height",
+          "label": "Line height",
+          "min": 1,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select2",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select3",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Navigation product"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_product_select4",
+          "label": "Select navigation product",
+          "default": "main-menu"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img1",
+          "label": "Image",
+          "info": "Recommended size: 600x700px_new"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url1",
+          "label": "url"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "menu_cat_banner_img2",
+          "label": "Image",
+          "info": "Recommended size: 600x700px_new"
+        },
+        {
+          "type": "url",
+          "id": "menu_cat_banner_url2",
+          "label": "url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header",
+      "blocks": [
+        {
+          "type": "menu_home"
+        },
+        {
+          "type": "menu_single"
+        },
+        {
+          "type": "menu_product"
+        },
+        {
+          "type": "menu_collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+
+  .header-main-area {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+  }
+ .header1 .header-area{
+    {% if template == 'index' and section.settings.header_transparent_enable %}
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    z-index: 2;
+    {% else %}
+      background-color: {{ section.settings.header_bgcolor }};
+    {% endif %}
+  }
+  {% if template == 'index' %}
+  @media (max-width: 1199px) {
+    .header1 .header-area{
+      {% if section.settings.header_transparent_enable %}
+      position: unset;
+        background-color: {{ section.settings.header_bgcolor }};
+      {% endif %}
+      {% unless section.settings.header_transparent_enable %}
+      {% endunless %}
+    }
+  }
+  {% endif %}
+  /* sticky menu css */
+  {% if section.settings.header_sticky_enable %}
+  .header1 .header-area.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 3;
+    box-shadow: 0px 0px 15px rgba(51, 51, 51, 0.15);
+  }
+  .header1 .header-area.sticky-down {
+    transform: translateY(-100%);
+  }
+  .header1 .header-area.sticky-up {
+    transform: translateY(0);
+  }
+  .header1 .header-area.sticky,
+  .header1 .header-area.sticky-down,
+  .header1 .header-area.sticky-up {
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -o-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+  }
+  {% endif %}
+
+  @media (max-width: 1199px) {
+    .header-main-area {
+      border-bottom: none;
+    }
+  }
+
+  /*=====================================
+    menu-text color css
+  ======================================*/
+
+  {% if template == 'index' %}
+  .header1 .megamenu-content .mainwrap ul.main-menu li.menu-link a.link-title {
+    color: {{ section.settings.header_menutext_color }};
+  }
+  .header1 .megamenu-content .mainwrap ul.main-menu li.menu-link a.link-title span.sp-link-title::after {
+    background-color: {{ section.settings.header_menutext_hvr_color }};
+  }
+  .header1 .header-area .megamenu-content .mainwrap ul.main-menu li.menu-link:hover a.link-title {
+    color: {{ section.settings.header_menutext_hvr_color }};
+  }
+{% endif %}
+
+  .header1 .sticky-up .header-icon,
+  .header1 .sticky-up .megamenu-content .mainwrap ul.main-menu li.menu-link a.link-title {
+    color: #333333;
+  }
+  /*=====================================
+    menu-icon color css
+  ======================================*/
+
+  {% if template == 'index' %}
+  .header1 .header-icon {
+    color: {{ section.settings.header_menuicon_color }};
+  }
+  .header1 .header-icon:hover {
+    color: {{ section.settings.header_menuicon_hvr_color }};
+  }
+  {% endif %}
+
+  @media (max-width: 1199px) {
+    .header1 .header-icon {
+      color: #333;
+    }
+    .header1 .header-icon:hover {
+      color: {{ section.settings.header_menuicon_hvr_color }};
+    }
+  }
+
+</style>

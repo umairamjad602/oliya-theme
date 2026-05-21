@@ -1,0 +1,52 @@
+.instagram-warp {
+  background-color: var(--background-color);
+}
+.instagram-warp .insta-slider a{
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--sti-border-radius);
+}
+.instagram-warp .insta-slider a svg {
+  width: 100%;
+}
+.instagram-warp .insta-slider a:after{
+  content: "\e97d";
+  position: absolute;
+  z-index: 1;
+  color: #fff;
+  font-size: 25px;
+  font-family: feather!important;
+  opacity: 0;
+  visibility: hidden;
+  webkit-transition: all .3s ease-in-out 0s;
+  -o-transition: all .3s ease-in-out 0s;
+  transition: all .3s ease-in-out 0s;
+}
+.instagram-warp .insta-slider a:before{
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(0,0,0,20%);
+  webkit-transition: all .3s ease-in-out 0s;
+  -o-transition: all .3s ease-in-out 0s;
+  transition: all .3s ease-in-out 0s;
+}
+.instagram-warp .insta-slider a:hover:before,
+.instagram-warp .insta-slider a:hover:after{
+  opacity: 1;
+  visibility: visible;
+}
+.instagram-warp .insta-slider a img{
+  -webkit-transition: all .3s ease-in-out 0s;
+  -o-transition: all .3s ease-in-out 0s;
+  transition: all .3s ease-in-out 0s;
+}
+.instagram-warp .insta-slider a:hover img{
+  transform: scale(1.1);
+}

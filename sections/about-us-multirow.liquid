@@ -1,0 +1,294 @@
+{{ 'about-us-multirow.css' | asset_url | stylesheet_tag }}
+<section
+  class="about-section6"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px; --background-color: {{ section.settings.section_background_color }};"
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    {% if section.settings.section_subheading != '' or section.settings.section_description != '' %}
+      <div class="section-title">
+        {% if section.settings.section_subheading != '' %}
+          <span class="sub-title" data-fade-in>{{ section.settings.section_subheading }}</span>
+        {% endif %}
+        {% if section.settings.section_description != '' %}
+          <p class="mr-0" data-fade-in>{{ section.settings.section_description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if section.settings.circle_enable %}
+      <div class="rotate-image">
+        <a class="play-button popup-youtube" href="{{ section.settings.video_url }}">
+          <i class="ri-play-large-fill"></i>
+          <svg viewBox="0 0 100 100" width="150" height="150">
+            <defs>
+              <path id="circle"
+                d="
+                  M 50, 50
+                  m -37, 0
+                  a 37,37 0 1,1 74,0
+                  a 37,37 0 1,1 -74,0"/>
+            </defs>
+            <text>
+              <textPath xlink:href="#circle">
+                {{ section.settings.circle_text }}
+              </textPath>
+            </text>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+    <div
+      class="about-content"
+    >
+      {% for block in section.blocks %}
+        <div class="about-banner-area" {{ block.shopify_attributes }}>
+          <div class="single-banner">
+            <a href="{{ block.settings.abt_banner_button_url }}" class="banner-img banner-hover">
+              {%- if block.settings.about_banner_img != blank -%}
+                {{
+                  block.settings.about_banner_img
+                  | image_url: width: 1024
+                  | image_tag:
+                    loading: 'lazy',
+                    width: block.settings.about_banner_img.width,
+                    height: block.settings.about_banner_img.height,
+                    class: 'lazyload',
+                    alt: block.settings.about_banner_img.alt
+                  | escape
+                }}
+              {%- else -%}
+                {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+              {%- endif -%}
+            </a>
+          </div>
+          <div class="abt-banner-desc">
+            <div class="banner-desk">
+              {% if block.settings.heading != '' %}
+                <h6 class="mr-0" data-fade-in>{{ block.settings.heading }}</h6>
+              {% endif %}
+              {% if block.settings.description != '' %}
+                <p class="mr-0" data-fade-in>{{ block.settings.description }}</p>
+              {% endif %}
+              {% if block.settings.banner_button != '' %}
+                <a href="{{ block.settings.abt_banner_button_url }}" class="btn-style" data-fade-in>
+                  {{- block.settings.banner_button -}}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% if block.settings.abt_banner_video_button_enable %}
+          <script type="text/javascript">
+            addEventListener('DOMContentLoaded', (event) => {
+            $('.play-button, .popup-vimeo, .popup-gmaps').magnificPopup({
+                tClose: 'Close (Esc)',
+                type: 'iframe',
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                preloader: false,
+                fixedContentPos: false
+              });
+            });
+          </script>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "About us multirow",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading",
+      "default": "subheading"
+    },
+    {
+      "type": "text",
+      "id": "section_description",
+      "label": "Description",
+      "default": "description"
+    },
+    {
+      "type": "checkbox",
+      "id": "circle_enable",
+      "label": "Show circle text",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "circle_text",
+      "label": "text",
+      "default": "ESTD 1982 • our collections • "
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video url"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "about_description",
+      "name": "About description",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "about_banner_img",
+          "label": "Image",
+          "info": "Recommended size: 675x550px"
+        },
+        {
+          "type": "url",
+          "id": "abt_banner_button_url",
+          "label": "URL"
+        },
+        {
+          "type": "header",
+          "content": "Section heading"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Story about us"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "As part of our mission create space for women to express their sensuality without shame fear or the patriarchal gaze we’re asking women to invite us into their most intimate space."
+        },
+        {
+          "type": "text",
+          "id": "banner_button",
+          "label": "button",
+          "default": "Shop now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us multirow",
+      "blocks": [
+        {
+          "type": "about_description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

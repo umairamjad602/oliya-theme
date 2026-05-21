@@ -1,0 +1,183 @@
+  /* address css */
+  .my-account-page .account-history {
+    padding: 30px;
+    background-color: var(--extra-color-body);
+  }
+  .my-account-page .account-history ul {
+    display: flex;
+
+    flex-wrap: wrap;
+  }
+  .my-account-page .account-history ul li {
+    width: 50%;
+  }
+  .my-account-page .account-history ul li .acc-info-wrap h6 {
+    font-size: var(--subtitle-font-size-body);
+    font-weight: var(--subtitle-custom-font-weight-body);
+  }
+  .my-account-page .account-history ul li .acc-info-wrap span:first-of-type {
+    margin-top: 20px;
+  }
+  .my-account-page .account-history ul li .acc-info-wrap span {
+    display: block;
+    margin-top: 6px;
+  }
+  .my-account-page .account-history ul li .acc-info-wrap span.acc-info-link a {
+    color: var(--font-color-body);
+    display: flex;
+    margin-top: 8px;
+    text-decoration: underline;
+    -webkit-transition: all 0s ease-in-out 0s;
+    -o-transition: all 0s ease-in-out 0s;
+    transition: all 0s ease-in-out 0s;
+  }
+  .my-account-page .account-history ul li .acc-info-wrap span.acc-info-link a:first-child {
+    margin-top: 0;
+  }
+  .my-account-page .account-history ul li .acc-info-wrap span.acc-info-link a:hover {
+    color: var(--font-color-header);
+  }
+  .my-account-page .account-history ul li .acc-info-wrap span.acc-info-link a span {
+    margin-top: 0;
+  }
+  .my-account-page .account-history ul li .acc-info-wrap .customer-address {
+    margin-top: 15px;
+  }
+  @media (max-width: 767px) {
+    .my-account-page .account-history {
+      padding: 30px 12px;
+    }
+  }
+  @media (max-width: 479px) {
+    .my-account-page .account-history ul li {
+      width: 100%;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--theme-border-color);
+    }
+    .my-account-page .account-history ul li:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+  }
+
+  /* order content css */
+  .my-account-page .order-history-wrap {
+    padding-top: var(--padding-top);
+  }
+  @media (max-width: 767px) {
+    .my-account-page .order-history-wrap {
+      padding-top: var(--padding-top-xs);
+    }
+  }
+
+  /* order css */
+  .my-account-page .order-history-wrap .order-wrap ul li {
+    margin-top: 30px;
+    background-color: var(--extra-color-body);
+    border-radius: 0px;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li:first-child {
+    margin-top: 0px;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li label {
+    display: block;
+    padding: 30px;
+    margin-bottom: 0;
+    line-height: 1;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li label span a {
+    color: var(--font-color-body);
+    text-decoration: underline;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li label span a:hover {
+    color: var(--font-color-header);
+  }
+  .my-account-page .order-history-wrap .order-wrap .order-info-wrap,
+  .my-account-page .order-history-wrap .order-wrap .order-info-wrap-empty {
+    padding: 30px;
+    line-height: 1;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li span.order-detail-title {
+    color: var(--font-color-header);
+    font-weight: 600;
+    width: 200px;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li .order-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li .order-detail:first-child {
+    margin-top: 0;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li .order-detail .order-info-check {
+    width: 50%;
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li .order-detail .order-info-check.order-total span.order-detail-status {
+    color: var(--font-color-header);
+    font-weight: 600;
+  }
+  @media (max-width: 991px) {
+    .my-account-page .order-history-wrap .order-wrap ul li .order-detail {
+      flex-direction: column;
+      margin-top: 14px;
+    }
+    .my-account-page .order-history-wrap .order-wrap ul li .order-detail .order-info-check {
+      width: 100%;
+      margin-top: 14px;
+    }
+    .my-account-page .order-history-wrap .order-wrap ul li .order-detail .order-info-check:first-child {
+      margin-top: 0;
+    }
+  }
+  @media (max-width: 767px) {
+    .my-account-page .order-history-wrap .order-wrap ul li label {
+      padding: 30px 12px;
+    }
+    .my-account-page .order-history-wrap .order-wrap .order-info-wrap {
+      padding: 30px 12px;
+    }
+  }
+  @media (max-width: 479px) {
+    .my-account-page .order-history-wrap .order-wrap ul li span.order-detail-title,
+    .my-account-page .order-history-wrap .order-wrap ul li span.order-detail-status {
+      display: block;
+    }
+    .my-account-page .order-history-wrap .order-wrap ul li span.order-detail-title {
+      width: 100%;
+    }
+    .my-account-page .order-history-wrap .order-wrap ul li span.order-detail-status {
+      margin-top: 11px;
+    }
+  }
+
+  /* order note css */
+  .order-info-note {
+    padding: 30px;
+  }
+  @media (max-width: 767px) {
+    .order-info-note {
+      padding: 30px 12px;
+    }
+  }
+
+  /* order cancel css */
+  .my-account-page .order-history-wrap .order-wrap .errors {
+    padding: 25px 30px;
+    margin-bottom: 0;
+  }
+  .my-account-page .order-history-wrap .order-wrap .errors p {
+    font-size: var(--font-size-body);
+  }
+  .my-account-page .order-history-wrap .order-wrap ul li.error label,
+  .my-account-page .order-history-wrap .order-wrap ul li.error .order-info-wrap,
+  .my-account-page .order-history-wrap .order-wrap ul li.error .order-info-note {
+    background-color: #fff6f6;
+  }
+  @media (max-width: 767px) {
+    .my-account-page .order-history-wrap .order-wrap .errors {
+      padding: 25px 15px;
+    }
+  }

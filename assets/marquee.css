@@ -1,0 +1,99 @@
+.marquee-section ul.grid-wrap {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+  }
+  .marquee-section ul.grid-wrap li.grid-wrapper{
+    position: relative;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+  }
+  .marquee-section ul.grid-wrap li.grid-wrapper:before {
+    color: var(--font-color-primary);
+    content: "★";
+    position: absolute;
+    left: -55px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .marquee-section ul li.grid-wrapper .richtext span{
+    padding-inline-start: 5px;
+  }
+  .marquee-section ul li.grid-wrapper .richtext a,
+  .marquee-section ul li.grid-wrapper .richtext p{
+    color: var(--color);
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 400;
+    margin: 0;
+  }
+  .marquee-section .offer-text-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    direction: ltr;
+  }
+  .marquee-section .offer-text-wrap .grid-wrap {
+    width: auto;
+  }
+  .marquee-section .offer-text-wrap:hover .grid-wrap,
+  .marquee-section .offer-text-wrap:focus-within .grid-wrap {
+    -webkit-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    animation-play-state: paused;
+  }
+  .marquee-section .offer-text-wrap .text1 {
+    -webkit-animation: slide1 50s linear infinite;
+    animation: slide1 50s linear infinite;
+    -webkit-animation-delay: -50s;
+    animation-delay: -50s;
+    display: flex;
+  }
+  .marquee-section .offer-text-wrap .text2 {
+    -webkit-animation: slide2 50s linear infinite;
+    animation: slide2 50s linear infinite;
+    -webkit-animation-delay: -25s;
+    animation-delay: -25s;
+    display: flex;
+  }
+  @media(max-width: 1199px) {
+    .marquee-section ul.grid-wrap {
+      gap: 60px;
+    }
+    .marquee-section ul.grid-wrap li.grid-wrapper:before {
+      left: -35px;
+    }
+    .marquee-section ul li.grid-wrapper .richtext a,
+    .marquee-section ul li.grid-wrapper .richtext p {
+      font-size: 20px;
+    }
+  }
+  @media(max-width: 479px) {
+    .marquee-section ul li.grid-wrapper .richtext a,
+    .marquee-section ul li.grid-wrapper .richtext p {
+      font-size: 16px;
+    }
+  }
+
+  @-webkit-keyframes slide1{
+    0%{transform: translateX(100%);} 100%{transform: translateX(-100%);}
+  }
+  @-moz-keyframes slide1{
+    0%{transform: translateX(100%);} 100%{transform: translateX(-100%);}
+  }
+  @keyframes slide1{
+    0%{transform: translateX(100%);} 100%{transform: translateX(-100%);}
+  }
+  @-webkit-keyframes slide2{
+    0%{transform: translateX(0%);} 100%{transform: translateX(-200%);}
+  }
+  @-moz-keyframes slide2{
+    0%{transform: translateX(0%);} 100%{transform: translateX(-200%);}
+  }
+  @keyframes slide2{
+    0%{transform: translateX(0%);} 100%{transform: translateX(-200%);}
+  }

@@ -1,0 +1,31 @@
+<div class="product-info" {{ block.shopify_attributes }}>
+  <div class="product-payment-image">
+    {% if block.settings.payment_title != blank %}
+    <h6 class="mr-0">{{ block.settings.payment_title }}</h6>
+    {% endif %}
+    {% render 'payment-icon' %}
+    {% if block.settings.payment_desc != blank %}
+    <p class="mr-0">{{ block.settings.payment_desc }}</p>
+    {% endif %}
+  </div>
+</div>
+<style type="text/css">
+.product-payment-image {
+  padding: 30px;
+  background-color: var(--extra-color-body);
+  border-radius: var(--sti-border-radius);
+}
+.product-payment-image h6 {
+  font-size: var(--subtitle-font-size-body);
+  font-weight: var(--subtitle-custom-font-weight-body);
+  margin-bottom: 15px;
+}
+.product-payment-image p {
+  margin-top: 15px;
+}
+@media(max-width: 767px){
+  .product-payment-image {
+    padding: 30px 15px;
+  }
+}
+</style>

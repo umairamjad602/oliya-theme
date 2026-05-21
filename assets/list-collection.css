@@ -1,0 +1,71 @@
+/* collection grid css */
+.list-collection ul.grid-wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+.list-collection ul.grid-wrap li.grid-wrapper {
+  position: relative;
+}
+@media (max-width: 1199px) {
+  .list-collection ul.grid-wrap {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 991px) {
+  .list-collection ul.grid-wrap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .list-collection ul.grid-wrap {
+    gap: 15px;
+  }
+}
+
+/* collection img css */
+.list-collection .collection-img {
+  width: 100%;
+}
+.list-collection .collection-img:before {
+  content: "";
+  width: 0;
+  height: 0;
+  padding-bottom: var(--ratio-percent);
+}
+.list-collection .collection-img img {
+  display: block;
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.list-collection .collection-img span {
+  color: var(--font-color-header);
+  font-size: 16px;
+  position: absolute;
+  font-weight: 600;
+  top: 15px;
+  inset-inline-start: 15px;
+  background-color: var(--background-color-body);
+  z-index: 1;
+  padding: 10px 15px;
+}
+.list-collection ul.grid-wrap li.grid-wrapper .coll-block{
+  display: block;
+}
+.list-collection ul.grid-wrap li.grid-wrapper .collection-content {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+.list-collection ul.grid-wrap li.grid-wrapper .collection-content .content {
+  padding: 15px;
+}
+.list-collection ul.grid-wrap li.grid-wrapper .collection-content .content h6 {
+  font-size: var(--font-size-body);
+}

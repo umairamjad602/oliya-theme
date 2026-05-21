@@ -1,0 +1,178 @@
+{% if section.settings.menu_enable %}
+  <ul class="list-unstyled grid-wrap">
+    {% for block in section.blocks %}
+      {%- case block.type -%}
+        {%- when 'icon_custom' -%}
+          <li class="grid-wrapper" {{ block.shopify_attributes }}>
+            <a class="icon-block" href="{{ block.settings.custom_url }}">
+              <span class="icon">{{ block.settings.custom_icon }}</span>
+              <span class="title">{{ block.settings.custom_title }}</span>
+            </a>
+          </li>
+        {%- when 'icon_user' -%}
+          {% if shop.customer_accounts_enabled %}
+            <li class="grid-wrapper" {{ block.shopify_attributes }}>
+              <a
+                class="icon-block"
+                href="{{ routes.account_url }}"
+                class="acc-ti"
+              >
+                <span class="icon">
+                  {%- if customer %}<i class="ri-user-follow-line"></i>{% else %}<i class="ri-user-add-line"></i>{% endif -%}
+                </span>
+                <span class="title">{{ block.settings.user_title }}</span>
+              </a>
+            </li>
+          {% endif %}
+          {%- when 'icon_wishlist' -%}
+          <li class="grid-wrapper">
+            <a class="icon-block" href="{{ settings.wishlist_page_url }}">
+              <span class="icon"><i class="ri-heart-line"></i><span class="wishlist-counter"></span></span>
+              <span class="title">{{ block.settings.wishlist_title }}</span>
+            </a>
+          </li>
+        {%- when 'icon_search' -%}
+          <li class="grid-wrapper" {{ block.shopify_attributes }}>
+            <a class="icon-block modal-button" type="button" href="#modal-search" data-bs-toggle="modal" role="button">
+              <span class="icon"><i class="ri-search-line"></i></span>
+              <span class="title">{{ block.settings.search_title }}</span>
+            </a>
+          </li>
+      {%- endcase -%}
+    {% endfor %}
+  </ul>
+{% endif %}
+{% schema %}
+{
+  "name": "Mobile bottom navigation",
+  "class": "mobile-sticky-menu",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "menu_enable",
+      "label": "Show navigation",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_custom",
+      "limit": 3,
+      "name": "Icon custom",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "custom_icon",
+          "label": "Icon",
+          "info": "[See Icon Name](https:\/\/dropways.github.io\/feathericons)",
+          "default": "<i class=\"feather-home\"></i>"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "url",
+          "id": "custom_url",
+          "label": "Url"
+        }
+      ]
+    },
+    {
+      "type": "icon_wishlist",
+      "name": "Icon Wishlist",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "wishlist_title",
+          "label": "Wishlist title",
+          "default": "Wishlist"
+        }
+      ]
+    },
+    {
+      "type": "icon_search",
+      "name": "Search",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "search_title",
+          "label": "Heading",
+          "default": "Search"
+        }
+      ]
+    },
+    {
+      "type": "icon_user",
+      "name": "User",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "user_title",
+          "label": "Label",
+          "default": "Account"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .mobile-sticky-menu {
+    display: none;
+    position: sticky;
+    bottom: 0;
+    z-index: 8;
+    background-color: var(--background-color-body);
+    box-shadow: 0 0 30px 0 rgba(0,0,0,10%);
+  }
+  .mobile-sticky-menu ul.grid-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mobile-sticky-menu ul.grid-wrap li.grid-wrapper {
+    width: 25%;
+    padding: 10px 0;
+    border-right: 1px solid rgba(0,0,0,10%);
+  }
+  .mobile-sticky-menu a.icon-block {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .mobile-sticky-menu a.icon-block span.icon {
+    font-size: 20px;
+    position: relative;
+  }
+  .mobile-sticky-menu a.icon-block span.title {
+    font-size: 12px;
+    padding-top: 5px;
+  }
+  .mobile-sticky-menu a.icon-block span.icon .wishlist-counter {
+    font-size: 12px;
+    color: #fff;
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    margin: 0;
+    display: flex;
+    background-color: var(--font-color-header);
+    align-items: center;
+    justify-content: center;
+  }
+  @media(max-width: 600px){
+    .mobile-sticky-menu {
+      display: block;
+    }
+  }
+</style>

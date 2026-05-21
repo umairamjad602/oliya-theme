@@ -1,0 +1,302 @@
+<div class="sticky-btn-atc">
+  <div class="container">
+    <div class="grid-wrap">
+      <div class="grid-wrapper">
+        <div class="product-img">
+          <a
+            class="pro-img ratio"
+            href="{{ product.url | within: collection }}"
+            style="--ratio-percent: {{ 1 | divided_by: 1 | times: 100 }}%;"
+          >
+            {% assign image_height = product.featured_image.src.width
+              | divided_by: product.featured_image.src.aspect_ratio
+            %}
+            {{
+              product.featured_image.src
+              | image_url: width: 300
+              | image_tag:
+                width: product.featured_image.src.width,
+                height: image_height,
+                class: 'lazyload',
+                id: 'imageSelect',
+                loading: 'lazy'
+            }}
+          </a>
+          <h6 class="mr-0">
+            <a href="{{ product.url | within: collection }}" title="{{ product.title }}">{{ product.title }}</a>
+          </h6>
+        </div>
+      </div>
+      <div class="grid-wrapper">
+        <cart-action class="product-form">
+          {%- form 'product',
+            product,
+            id: product_form_id,
+            section: section,
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ product.selected_or_first_available_variant.id }}"
+              id="var-{{ product.id }}"
+              disabled
+              class="product-variant-id"
+            >
+            <input type="hidden" name="quantity" id="quantity-{{ product.id }}" value="1">
+            {%- unless product.has_only_default_variant -%}
+              <div class="pro-form-noscript-{{ section.id }}">
+                <div class="variant-option-block {% if product.has_only_default_variant %} hidden{% endif %}">
+                  <div class="select">
+                    <select
+                      name="id"
+                      id="Variants-{{ section.id }}"
+                      class="select__select"
+                      form="{{ product_form_id }}"
+                    >
+                      {%- for variant in product.variants -%}
+                        <option
+                          {% if variant == product.selected_or_first_available_variant %}
+                            selected="selected"
+                          {% endif %}
+                          {% if variant.available == false %}
+                            disabled
+                          {% endif %}
+                          value="{{ variant.id }}"
+                        >
+                          {%- liquid
+                            echo variant.title
+                            echo variant.price | money | strip_html | prepend: ' - '
+                            if variant.available == false
+                              echo 'products.product.sold_out' | t | prepend: ' - '
+                            endif
+                            if variant.quantity_rule.increment > 1
+                              echo 'products.product.quantity.multiples_of' | t: quantity: variant.quantity_rule.increment | prepend: ' - '
+                            endif
+                            if variant.quantity_rule.min > 1
+                              echo 'products.product.quantity.minimum_of' | t: quantity: variant.quantity_rule.min | prepend: ' - '
+                            endif
+                            if variant.quantity_rule.max != null
+                              echo 'products.product.quantity.maximum_of' | t: quantity: variant.quantity_rule.max | prepend: ' - '
+                            endif
+                            assign cart_quantity = cart | item_count_for_variant: variant.id
+                            if cart_quantity > 0
+                              echo 'products.product.quantity.in_cart_html' | t: quantity: cart_quantity | prepend: ' - '
+                            endif
+                          -%}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            {%- endunless -%}
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                $('#Variants-{{ section.id }}').change(function(){
+                   var value = $('#Variants-{{ section.id }} :selected').val();
+                   $(".product-variant-id").attr("value",value);
+                });
+              });
+               var imageSelect = document.getElementById('Variants-{{ section.id }}');
+                var displayedImage = document.getElementById('imageSelect');
+                var imageMap = {
+                  {%- for variant in product.variants -%}
+                    '{{ variant.id }}': '{{ variant.image.src | image_url: width: 720 }}'{% unless forloop.last %},{% endunless %}
+                  {%- endfor -%}
+                };
+                imageSelect.addEventListener('change', function() {
+                    var selectedValue = imageSelect.value;
+                    if (imageMap[selectedValue]) {
+                        displayedImage.src = imageMap[selectedValue];
+                    }
+                });
+            </script>
+            <div class="pr-form-button">
+              <div id="Quantity-Form-{{ product.id }}" class="product-qty" {{ block.shopify_attributes }}>
+                {%- assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id -%}
+                <qty-box class="quantity qty-box">
+                  <button class="qty-bt" name="minus" type="button" aria-label="minus">
+                    <i class="feather-minus"></i>
+                  </button>
+                  <input
+                    class="qty-box-input"
+                    type="number"
+                    name="quantity"
+                    id="Quantity-{{ product.id }}"
+                    data-cart-quantity="{{ cart_qty }}"
+                    data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                      data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                      max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                    {% endif %}
+                    step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                    value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    form="{{ product_form_id }}"
+                    aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                  >
+                  <button class="qty-bt" name="plus" type="button" aria-label="plus">
+                    <i class="feather-plus"></i>
+                  </button>
+                </qty-box>
+                <div class="caption">
+                  {%- if product.selected_or_first_available_variant.quantity_rule.increment > 1 -%}
+                    <span class="divider">
+                      {{-
+                        'products.product.quantity.multiples_of'
+                        | t: quantity: product.selected_or_first_available_variant.quantity_rule.increment
+                      -}}
+                    </span>
+                  {%- endif -%}
+                  {%- if product.selected_or_first_available_variant.quantity_rule.min > 1 -%}
+                    <span class="divider">
+                      {{-
+                        'products.product.quantity.minimum_of'
+                        | t: quantity: product.selected_or_first_available_variant.quantity_rule.min
+                      -}}
+                    </span>
+                  {%- endif -%}
+                  {%- if product.selected_or_first_available_variant.quantity_rule.max != null -%}
+                    <span class="divider">
+                      {{-
+                        'products.product.quantity.maximum_of'
+                        | t: quantity: product.selected_or_first_available_variant.quantity_rule.max
+                      -}}
+                    </span>
+                  {%- endif -%}
+                </div>
+              </div>
+
+              {%- if product != blank -%}
+                <div class="pr-form-error" role="alert" hidden>
+                  <span class="pr-form-error-text"></span>
+                </div>
+                {%- liquid
+                  assign check_against_inventory = true
+                  if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
+                    assign check_against_inventory = false
+                  endif
+                  if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory
+                    assign quantity_rule_soldout = true
+                  endif
+                -%}
+                <a
+                  id="pro-add-{{ product.id }}"
+                  class="ajax-cart-btn"
+                  {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+                    disabled
+                  {% endif %}
+                >
+                  <span class="cart-title">
+                    {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                      {{ 'products.product.sold_out' | t }}
+                    {%- else -%}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {%- endif -%}
+                  </span>
+                  <div class="ajax-loader hidden">
+                    <span class="spinner-border"></span>
+                  </div>
+                </a>
+              {%- else -%}
+                <div class="product-form">
+                  <div class="pr-form-button form">
+                    <button type="submit" name="add" disabled aria-label="{{ 'products.product.sold_out' | t }}">
+                      {{ 'products.product.sold_out' | t }}
+                    </button>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endform -%}
+        </cart-action>
+        <script>
+          document.getElementById('Quantity-{{ product.id }}').onchange = function() {
+            var qty_val = $(this).val();
+            $('#quantity-{{ product.id }}').val(qty_val);
+          };
+          document.getElementById('pro-add-{{ product.id }}').addEventListener("click", function() {
+            var productId = $('#var-{{ product.id }}').val();
+            var quantity = $('#quantity-{{ product.id }}').val();
+            var url = window.Shopify.routes.root + 'cart/add.js';
+            let sectionsToUpdate = 'ajax-cart';
+            let sectionsToCount = 'ajax-cart-icon';
+            $(this).addClass("loading");
+            $(this).find(".ajax-loader").removeClass("hidden");
+            let requestBody = {
+              'items': [{
+                'id': productId,
+                'quantity': quantity
+              }],
+              'sections': sectionsToUpdate,
+            };
+            let requestBodyCount = {
+              'items': [{
+                'id': productId,
+                'quantity': quantity
+              }],
+              'sections': sectionsToCount,
+            };
+            fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(requestBody)
+            }).then(response => {
+              return response.json();
+            }).then(data => {
+              var parsed = $.parseHTML(data.sections['ajax-cart']);
+              var result = $(parsed).find("#ajaxcart").html();
+              $('#ajaxcart').html('');
+              $('#ajaxcart').html(result);
+              if($('.mini-cart').hasClass('is-empty')){
+                document.querySelector('.mini-cart').classList.remove('is-empty');
+              }
+            }).catch((error) => {
+              console.error('Error:', error);
+            });
+            fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(requestBodyCount)
+            }).then(response => {
+              return response.json();
+            }).then(data => {
+              var parsedCount = $.parseHTML(data.sections['ajax-cart-icon']);
+              var resultCount = $(parsedCount).find(".bigcounter").html();
+              $('.bigcounter').html('');
+              $('.bigcounter').html(resultCount);
+            }).catch((error) => {
+              console.error('Error:', error);
+            });
+            setTimeout(function() {
+              $('#pro-add-{{ product.id }}').removeClass("loading");
+              $('#pro-add-{{ product.id }}').find(".ajax-loader").addClass("hidden");
+            }, 500);
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    $(window).scroll(function() {
+        var scrollBottom = $(window).scrollTop() + $(window).height();
+        if ($(this).scrollTop() > 1000) {
+            $('.sticky-btn-atc').addClass('active');
+        } else {
+            $('.sticky-btn-atc').removeClass('active');
+        }
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+          $('.sticky-btn-atc').removeClass('active');
+        }
+    });
+  });
+</script>

@@ -1,0 +1,107 @@
+.contact-location-list {
+  background-color: var(--background-color);
+}
+/* get touch css */
+.contact-location-list .location-block {
+  position: relative;
+  background-color: var(--background-color-body);
+  padding: 100px;
+  margin-top: -16.66%;
+}
+.contact-location-list .location-block .add-block {
+  text-align: center;
+}
+.contact-location-list .location-block .add-block .flag-img {
+  max-width: 70px;
+  margin: 0 auto;
+}
+.contact-location-list .location-block .add-block p {
+  max-width: 75%;
+  margin: 30px auto 0;
+}
+.contact-location-list .location-block .add-block .url-content {
+  margin-top: 30px;
+}
+.contact-location-list .location-block .add-block .url-content .mobile {
+  display: block;
+}
+.contact-location-list .location-block .add-block .url-content .mail {
+  display: block;
+  padding-top: 5px;
+}
+.contact-location-list .location-block .add-block .url-content a:hover {
+  color: var(--font-color-header);
+}
+.contact-location-list .location-block .add-block .cnt-title {
+  font-size: 22px;
+  color: var(--font-color-primary);
+  line-height: 1;
+  margin-top: 30px;
+  padding-bottom: 5px;
+  border-bottom: 3px solid transparent;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+.contact-location-list .location-block .add-block:hover .cnt-title {
+  border-color: var(--font-color-primary);
+}
+@media (max-width: 1499px) {
+  .contact-location-list .location-block .add-block p {
+    max-width: 100%;
+  }
+}
+@media (max-width: 1199px) {
+  .contact-location-list .location-block {
+    padding: 50px;
+  }
+}
+@media (max-width: 767px) {
+  .contact-location-list .location-block {
+    padding: 30px;
+    margin: 30px 0 0;
+  }
+}
+@media (max-width: 479px) {
+  .contact-location-list .location-block .add-block p {
+    max-width: 100%;
+    margin: 15px auto 0;
+  }
+  .contact-location-list .location-block .add-block .url-content {
+    margin-top: 15px;
+  }
+  .contact-location-list .location-block .add-block .url-content .mail {
+    font-size: 16px;
+  }
+  .contact-location-list .location-block .add-block .cnt-title {
+    font-size: 18px;
+    margin-top: 15px;
+  }
+}
+
+.contact-location-list .location-slider {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.contact-location-list .location-slider .swiper-arrow span {
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  position: absolute;
+  z-index: 1;
+}
+.contact-location-list .location-slider .swiper-arrow span.arrow-prev {
+  left: -30px;
+}
+.contact-location-list .location-slider .swiper-arrow span.arrow-next {
+  right: -30px;
+}
+@media (max-width: 767px) {
+  .contact-location-list .location-slider .swiper-arrow span.arrow-prev {
+    left: -15px;
+  }
+  .contact-location-list .location-slider .swiper-arrow span.arrow-next {
+    right: -15px;
+  }
+}

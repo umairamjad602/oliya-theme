@@ -1,0 +1,708 @@
+{{ 'footer.css' | asset_url | stylesheet_tag }}
+<section class="footer" style="{% if section.settings.section_background_image_enable %}background-image: url('{% if section.settings.section_background_image != blank %}{{ section.settings.section_background_image | image_url }}{% else %}https://dummyimage.com/1920x450/f7f7f7/999999{% endif %}');{% endif %}">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid{% else %}container{% endif %}">
+    <div class="footer-list-wrap">
+      <!-- Main Footer Content -->
+      <ul class="list-unstyled footer-list" id="collapse-tab" style="--padding-top: {{ section.settings.section_padding_top }}px;--padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;--padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;">
+        {% for block in section.blocks %}
+          {%- case block.type -%}
+            {%- when 'logo_info' -%}
+              {% assign footer_menu = block.settings.footer_menu_handle %}
+                {%- if block.settings.show_nav_title -%}
+                  <h2 class="ft-title mr-0">{{ linklists[footer_menu].title }}</h2>
+                  <button type="button" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#collapse-{{ block.id }}" class="ft-title accordian-btn" aria-label="{{ linklists[footer_menu].title }}">
+                    <span>{{ linklists[footer_menu].title }}</span>
+                    <i class="feather-plus"></i>
+                  </button>
+                {%- endif -%}
+              <li class="ftlink-li logo-info" data-fade-in {{ block.shopify_attributes }}>
+                <div class="footer-info">
+                  {% if block.settings.logo_enable %}
+                    {%- render 'company-logo-footer' -%}
+                  {% endif %}
+                  {%- if block.settings.logo_desc != '' -%}
+                    <p class="mr-0">{{ block.settings.logo_desc }}</p>
+                  {%- endif -%}
+                  {% if block.settings.social_enable %}
+                    {%- render 'social-media' -%}
+                  {% endif %}
+                </div>
+              </li>
+              
+            {%- when 'footer_menu' -%}
+              <li class="ftlink-li link-list" data-fade-in {{ block.shopify_attributes }}>
+                {% assign footer_menu = block.settings.footer_menu_handle %}
+                {%- if block.settings.show_nav_title -%}
+                  <h2 class="ft-title mr-0">{{ linklists[footer_menu].title }}</h2>
+                  <button type="button" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#collapse-{{ block.id }}" class="ft-title accordian-btn" aria-label="{{ linklists[footer_menu].title }}">
+                    <span>{{ linklists[footer_menu].title }}</span>
+                    <i class="feather-plus"></i>
+                  </button>
+                {%- endif -%}
+                <ul class="list-unstyled {% if block.settings.show_nav_title %}accordian-content collapse{% endif %} footer-sublist link" {% if block.settings.show_nav_title %}id="collapse-{{ block.id }}" data-bs-parent="#collapse-tab"{% endif %}>
+                  {% for link in linklists[footer_menu].links %}
+                    {% if linklists[footer_menu].links != '' %}
+                      <li class="ftsublink-li">
+                        <a href="{{ link.url }}" class="ft-sublink">{{ link.title }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </li>
+              
+            {%- when 'custom_menu' -%}
+              <li class="ftlink-li link-list" data-fade-in {{ block.shopify_attributes }}>
+                {%- if block.settings.nav_title != '' -%}
+                  <h2 class="ft-title mr-0">{{ block.settings.nav_title }}</h2>
+                  <button type="button" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#collapse-{{ block.id }}" class="ft-title accordian-btn" aria-label="{{ block.settings.nav_title }}">
+                    <span>{{ block.settings.nav_title }}</span>
+                    <i class="feather-plus"></i>
+                  </button>
+                {%- endif -%}
+                <ul class="list-unstyled accordian-content footer-sublist link collapse" id="collapse-{{ block.id }}" data-bs-parent="#collapse-tab">
+                  {%- if block.settings.link_title1 != '' -%}<li class="ftsublink-li"><a href="{{ block.settings.link_url1 }}" class="ft-sublink">{{ block.settings.link_title1 }}</a></li>{%- endif -%}
+                  {%- if block.settings.link_title2 != '' -%}<li class="ftsublink-li"><a href="{{ block.settings.link_url2 }}" class="ft-sublink">{{ block.settings.link_title2 }}</a></li>{%- endif -%}
+                  {%- if block.settings.link_title3 != '' -%}<li class="ftsublink-li"><a href="{{ block.settings.link_url3 }}" class="ft-sublink">{{ block.settings.link_title3 }}</a></li>{%- endif -%}
+                  {%- if block.settings.link_title4 != '' -%}<li class="ftsublink-li"><a href="{{ block.settings.link_url4 }}" class="ft-sublink">{{ block.settings.link_title4 }}</a></li>{%- endif -%}
+                  {%- if block.settings.link_title5 != '' -%}<li class="ftsublink-li"><a href="{{ block.settings.link_url5 }}" class="ft-sublink">{{ block.settings.link_title5 }}</a></li>{%- endif -%}
+                </ul>
+              </li>
+              
+            {%- when 'instagram' -%}
+              <li class="ftlink-li" data-fade-in {{ block.shopify_attributes }}>
+                <div class="insta-content">
+                  {% if block.settings.insta_title != '' %}
+                    <h2 class="ft-title mr-0">{{ block.settings.insta_title }}</h2>
+                  {% endif %}
+                  <div class="insta-block">
+                    {% for i in (1..6) %}
+                      {% assign insta_url = 'insta_url' | append: i %}
+                      {% assign insta_img = 'insta_img' | append: i %}
+                      {% if block.settings[insta_url] != blank or block.settings[insta_img] != blank %}
+                        <a class="img-content" href="{{ block.settings[insta_url] }}" aria-label="Instagram image {{ i }}">
+                          {%- if block.settings[insta_img] != blank -%}
+                            {{ block.settings[insta_img] | image_url: width: 500 | image_tag: loading: 'lazy', class: 'lazyload', alt: block.settings[insta_img].alt | escape }}
+                          {%- else -%}
+                            {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                          {%- endif -%}
+                        </a>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+              </li>
+          {%- endcase -%}
+        {%- endfor -%}
+      </ul>
+      
+      <!-- Footer Bottom Section -->
+      <div class="footer-bottom">
+        {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
+          <div class="footer__follow-on-shop">
+            {{ shop | login_button: action: 'follow' }}
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.show_policy -%}
+          <ul class="list-unstyled policies">
+            {%- for policy in shop.policies -%}
+              {%- if policy != blank -%}
+                <li>
+                  <a href="{{ policy.url }}">{{ policy.title | escape }}</a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Footer",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "fluid"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop / Laptop / tablet"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad pro / Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Backgorund image"
+    },
+    {
+      "type": "image_picker",
+      "id": "section_background_image",
+      "label": "Image",
+      "info": "Recommended size: 1920x700px"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_background_image_enable",
+      "label": "image_enable",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "#f4f2f0"
+    },
+    {
+      "type": "header",
+      "content": "Navigation heading"
+    },
+    {
+      "type": "range",
+      "id": "menu_title_font_size",
+      "label": "Heading font size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "menu_title_font_size_lg",
+      "label": "Heading size laptop",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "menu_title_font_weight",
+      "label": "Heading font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "select",
+      "id": "menu_title_text_transform",
+      "label": "Heading property",
+      "options": [
+        {
+          "label": "Capitalize",
+          "value": "capitalize"
+        },
+        {
+          "label": "Lowercase",
+          "value": "lowercase"
+        },
+        {
+          "label": "Uppercase",
+          "value": "uppercase"
+        },
+        {
+          "label": "None",
+          "value": "none"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "color",
+      "id": "menu_title_color",
+      "label": "Heading color",
+      "default": "#222222"
+    },
+    {
+      "type": "header",
+      "content": "Navigation link"
+    },
+    {
+      "type": "range",
+      "id": "menu_text_font_size",
+      "label": "Link font size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "menu_text_font_size_lg",
+      "label": "Link font size laptop",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "menu_text_font_weight",
+      "label": "Link font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "select",
+      "id": "menu_text_text_transform",
+      "label": "Link property",
+      "options": [
+        {
+          "label": "Capitalize",
+          "value": "capitalize"
+        },
+        {
+          "label": "Lowercase",
+          "value": "lowercase"
+        },
+        {
+          "label": "Uppercase",
+          "value": "uppercase"
+        },
+        {
+          "label": "None",
+          "value": "none"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "menu_text_color",
+      "label": "Link color",
+      "default": "#636363"
+    },
+    {
+      "type": "color",
+      "id": "menu_text_hv_color",
+      "label": "Link hover color",
+      "default": "#EBAB99"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Heading",
+      "default": "Sign up for our newsletter"
+    },
+    {
+      "type": "header",
+      "content": "Address"
+    },
+    {
+      "type": "text",
+      "id": "nav_title",
+      "label": "Heading",
+      "default": "Address"
+    },
+    {
+      "type": "text",
+      "id": "link_title1",
+      "label": "Link text",
+      "default": "55 East 10th street, new york, ny 10003, united states"
+    },
+    {
+      "type": "url",
+      "id": "link_url1",
+      "label": "Link url"
+    },
+    {
+      "type": "header",
+      "content": "Social media"
+    },
+    {
+      "type": "text",
+      "id": "nav_title2",
+      "label": "Heading",
+      "default": "Follow up"
+    },
+    {
+      "type": "checkbox",
+      "id": "social_enable",
+      "label": "Show social media",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Follow on shop",
+      "info": "To allow customers to follow your store on the Shop app from your storefront, Shop Pay must be enabled. [Learn more](https:\/\/help.shopify.com\/manual\/online-store\/themes\/customizing-themes\/follow-on-shop)"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_follow_on_shop",
+      "label": "Show follow on shop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Policy links",
+      "info": "To add store policies, go to your [policy settings](\/admin\/settings\/legal)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policy",
+      "label": "Show policy links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "logo_enable2",
+      "label": "Show logo",
+      "default": true
+    }
+    
+  ],
+  "blocks": [
+    {
+      "type": "logo_info",
+      "name": "Logo information",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "logo_enable",
+          "label": "Show logo",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "logo_desc",
+          "label": "Logo description",
+          "default": "As part of our mission create space for women to express their sensuality without shame fear or the patriarchal"
+        },
+        {
+          "type": "checkbox",
+          "id": "social_enable",
+          "label": "Show social media",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "footer_menu",
+      "name": "Navigation",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_nav_title",
+          "label": "Show heading",
+          "default": true
+        },
+        {
+          "type": "link_list",
+          "id": "footer_menu_handle",
+          "label": "Select navigation",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "custom_menu",
+      "name": "Custom navigation",
+      "settings": [
+        {
+          "type": "text",
+          "id": "nav_title",
+          "label": "Nav text",
+          "default": "Contact us"
+        },
+        {
+          "type": "text",
+          "id": "link_title1",
+          "label": "Link text",
+          "default": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url1",
+          "label": "Link url"
+        },
+        {
+          "type": "text",
+          "id": "link_title2",
+          "label": "Link text",
+          "default": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url2",
+          "label": "Link url"
+        },
+        {
+          "type": "text",
+          "id": "link_title3",
+          "label": "Link text",
+          "default": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url3",
+          "label": "Link url"
+        },
+        {
+          "type": "text",
+          "id": "link_title4",
+          "label": "Link text",
+          "default": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url4",
+          "label": "Link url"
+        },
+        {
+          "type": "text",
+          "id": "link_title5",
+          "label": "Link text",
+          "default": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url5",
+          "label": "Link url"
+        }
+      ]
+    },
+    {
+      "type": "instagram",
+      "name": "Instagram",
+      "settings": [
+        {
+          "type": "text",
+          "id": "insta_title",
+          "label": "Heading",
+          "default": "Our instagram"
+        },
+        {
+          "type": "url",
+          "id": "insta_url1",
+          "label": "Url"
+        },
+        {
+          "type": "image_picker",
+          "id": "insta_img1",
+          "label": "Image",
+          "info": "Recommended size: 500x500px"
+        },
+        {
+          "type": "url",
+          "id": "insta_url2",
+          "label": "url"
+        },
+        {
+          "type": "image_picker",
+          "id": "insta_img2",
+          "label": "Image",
+          "info": "Recommended size: 500x500px"
+        },
+        {
+          "type": "url",
+          "id": "insta_url3",
+          "label": "url"
+        },
+        {
+          "type": "image_picker",
+          "id": "insta_img3",
+          "label": "Image",
+          "info": "Recommended size: 500x500px"
+        },
+        {
+          "type": "url",
+          "id": "insta_url4",
+          "label": "url"
+        },
+        {
+          "type": "image_picker",
+          "id": "insta_img4",
+          "label": "Image",
+          "info": "Recommended size: 500x500px"
+        },
+        {
+          "type": "url",
+          "id": "insta_url5",
+          "label": "url"
+        },
+        {
+          "type": "image_picker",
+          "id": "insta_img5",
+          "label": "Image",
+          "info": "Recommended size: 500x500px"
+        },
+        {
+          "type": "url",
+          "id": "insta_url6",
+          "label": "url"
+        },
+        {
+          "type": "image_picker",
+          "id": "insta_img6",
+          "label": "Image",
+          "info": "Recommended size: 500x500px"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        {
+          "type": "footer_menu"
+        },
+        {
+          "type": "footer_menu"
+        },
+        {
+          "type": "footer_menu"
+        },
+        {
+          "type": "footer_menu"
+        },
+        {
+          "type": "instagram"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  :root {
+    --footer-menu-title-font-size: {{ section.settings.menu_title_font_size }}px;
+    --footer-menu-title-font-size-lg: {{ section.settings.menu_title_font_size_lg }}px;
+    --footer-menu-title-font-weight: {{ section.settings.menu_title_font_weight }};
+    --footer-menu-title-text-transform: {{ section.settings.menu_title_text_transform }};
+    --footer-menu-title-color: {{ section.settings.menu_title_color }};
+    --footer-menu-text-font-size: {{ section.settings.menu_text_font_size }}px;
+    --footer-menu-text-font-size-lg: {{ section.settings.menu_text_font_size_lg }}px;
+    --footer-menu-text-font-weight: {{ section.settings.menu_text_font_weight }};
+    --footer-menu-text-transform: {{ section.settings.menu_text_text_transform }};
+    --footer-menu-text-color: {{ section.settings.menu_text_color }};
+    --footer-menu-text-hover-color: {{ section.settings.menu_text_hv_color }};
+  }
+  .footer {
+    position: relative;
+    {% if section.settings.section_background_image_enable %}
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    {% endif %}
+    background-color: {{ section.settings.section_background_color }};
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  }
+  @media (max-width: 1199px) {
+    .footer {
+      padding-top: {{ section.settings.section_padding_top_ipad }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom_ipad }}px;
+    }
+  }
+  @media (max-width: 767px) {
+    .footer {
+      padding-top: {{ section.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom_xs }}px;
+    }
+  }
+</style>

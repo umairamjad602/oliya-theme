@@ -1,0 +1,903 @@
+<section class="video-deal-{{ section.id }}">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div class="row">
+      <div class="col"> 
+        <div class="video-deal">
+        <div class="video-banner banner-first">
+            <div class="deal-main">
+              <span class="video-image">
+                {%- if section.settings.deal_image1 -%}
+                {{ section.settings.deal_image1 | image_url: width: 1024 | image_tag: 
+                  loading: 'lazy',
+                  width: section.settings.deal_image1.width,
+                  height: section.settings.deal_image1.height,
+                  class: "img-fluid lazyload",
+                  alt: section.settings.deal_image1.alt | escape }}
+                {%- else -%}
+                {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                {%- endif -%}
+              </span>
+              <div class="deal-content">
+                {% if section.settings.deal_subtitle1 != '' or section.settings.deal_title1 != '' %}
+                <div class="deal-title">
+                  {% if section.settings.deal_subtitle1 != '' %}
+                  <span class="subtitle" style="color: {{ section.settings.deal_subtitle_color1 }};">{{ section.settings.deal_subtitle1 }}</span>
+                  {% endif %}
+                  {% if section.settings.deal_title1 != '' %}
+                  <h2 class="title" style="color: {{ section.settings.deal_title_color1 }};">{{ section.settings.deal_title1 }}</h2>
+                  {% endif %}
+                </div>
+                {% endif %} 
+                {% if section.settings.deal_btn_text1 != '' %}
+                <div class="deal-button">
+                  <a href="section.settings.deal_btn_url1" class="deal-btn {% if section.settings.deal_button_style1 == 'btn-style1' %}btn-style{% elsif section.settings.deal_button_style1 == 'btn-style2' %}btn-style2{% else %}btn-style3{% endif %}">{{ section.settings.deal_btn_text1 }}</a>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+
+          <div class="video-banner">
+            <div class="video-main">
+              <span class="video-image">
+                {%- if section.settings.video_image -%}
+                {{ section.settings.video_image | image_url: width: 1024 | image_tag: 
+                  loading: 'lazy',
+                  width: section.settings.video_image.width,
+                  height: section.settings.video_image.height,
+                  class: "img-fluid lazyload",
+                  alt: section.settings.video_image.alt | escape }}
+                {%- else -%}
+                {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                {%- endif -%}
+              </span>
+              <div class="video-content">
+                <a href="{{ section.settings.video_url }}" class="video-btn play-button popup-youtube">
+                  <span class="icon"><i class="ri-play-large-fill"></i></span>
+                </a>
+                {% if section.settings.video_title != '' %}
+                <h2 class="title" style="color: {{ section.settings.video_title_color }};">{{ section.settings.video_title }}</h2>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="video-banner banner-last">
+            <div class="deal-main">
+              <span class="video-image">
+                {%- if section.settings.deal_image -%}
+                {{ section.settings.deal_image | image_url: width: 1024 | image_tag: 
+                  loading: 'lazy',
+                  width: section.settings.deal_image.width,
+                  height: section.settings.deal_image.height,
+                  class: "img-fluid lazyload",
+                  alt: section.settings.deal_image.alt | escape }}
+                {%- else -%}
+                {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                {%- endif -%}
+              </span>
+              <div class="deal-content">
+                {% if section.settings.deal_subtitle != '' or section.settings.deal_title != '' %}
+                <div class="deal-title">
+                  {% if section.settings.deal_subtitle != '' %}
+                  <span class="subtitle" style="color: {{ section.settings.deal_subtitle_color }};">{{ section.settings.deal_subtitle }}</span>
+                  {% endif %}
+                  {% if section.settings.deal_title != '' %}
+                  <h2 class="title" style="color: {{ section.settings.deal_title_color }};">{{ section.settings.deal_title }}</h2>
+                  {% endif %}
+                </div>
+                {% endif %}
+                <div class="deal-timer">
+                  <div class="content-timer">
+                    <div class="timer-item">
+                      <div class="timer-block">
+                        <div class="timer-info">
+                          <span id="deal_banner_days" class="banner-countdown-timer"></span>
+                          <span class="banner-countdown-title">{{ section.settings.deal_banner_day_title }}</span>
+                        </div>
+                      </div>
+                    </div>
+                     <div class="timer-item">
+                      <div class="timer-block">
+                        <div class="timer-info">
+                          <span id="deal_banner_hours" class="banner-countdown-timer"></span>
+                          <span class="banner-countdown-title">{{ section.settings.deal_banner_hour_title }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="timer-item">
+                      <div class="timer-block">
+                        <div class="timer-info">
+                          <span id="deal_banner_minutes" class="banner-countdown-timer"></span>
+                          <span class="banner-countdown-title">{{ section.settings.deal_banner_minute_title }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="timer-item">
+                      <div class="timer-block">
+                        <div class="timer-info">
+                          <span id="deal_banner_seconds" class="banner-countdown-timer"></span>
+                          <span class="banner-countdown-title">{{ section.settings.deal_banner_second_title }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% if section.settings.deal_btn_text != '' %}
+                <div class="deal-button">
+                  <a href="{{ section.settings.deal_btn_url }}" class="deal-btn {% if section.settings.deal_button_style == 'btn-style1' %}btn-style{% elsif section.settings.deal_button_style == 'btn-style2' %}btn-style2{% else %}btn-style3{% endif %}">{{ section.settings.deal_btn_text }}</a>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  addEventListener('DOMContentLoaded', (event) => {
+    const second = 1000,
+    minute = second * 60,
+    hour = minute * 60,
+    day = hour * 24;
+    let countDown = new Date('{{ section.settings.deal_banner_month }} {{ section.settings.deal_banner_date }}, {{ section.settings.deal_banner_year }} 00:00:00').getTime(),
+    x = setInterval(function() {
+      let now = new Date().getTime(),
+      distance = countDown - now;
+      document.getElementById('deal_banner_days').innerText = Math.floor(distance / (day)),
+      document.getElementById('deal_banner_hours').innerText = Math.floor((distance % (day)) / (hour)),
+      document.getElementById('deal_banner_minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+      document.getElementById('deal_banner_seconds').innerText = Math.floor((distance % (minute)) / second);
+    }, second)
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Video & deal",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Container"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop / Laptop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad pro / Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ip",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ip",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Section padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Section padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+
+
+
+    {
+      "type": "header",
+      "content": "banner first block"
+    },
+    {
+      "type": "image_picker",
+      "id": "deal_image1",
+      "label": "Image",
+      "info": "Recommended size: 860px x 1095px"
+    },
+    {
+      "type": "text",
+      "id": "deal_subtitle1",
+      "label": "Subtitle",
+      "default": "Sale up to 50% off"
+    },
+    {
+      "type": "color",
+      "id": "deal_subtitle_color1",
+      "label": "Subtitle color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "deal_title1",
+      "label": "Subtitle",
+      "default": "Deal of the day!"
+    },
+    {
+      "type": "color",
+      "id": "deal_title_color1",
+      "label": "Title color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Deal Button"
+    },
+    {
+      "type": "text",
+      "id": "deal_btn_text1",
+      "label": "Button Text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "deal_btn_url1",
+      "label": "Button url"
+    },
+    {
+      "type": "select",
+      "id": "deal_button_style1",
+      "label": "Button style",
+      "options": [
+        {
+          "label": "Button style1",
+          "value": "btn-style1"
+        },
+        {
+          "label": "Button style2",
+          "value": "btn-style2"
+        },
+        {
+          "label": "Button style3",
+          "value": "btn-style3"
+        }
+      ],
+      "default": "btn-style1"
+    },
+
+
+
+    {
+      "type": "header",
+      "content": "Video block"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_image",
+      "label": "Image",
+      "info": "Recommended size: 860px x 1095px"
+    },
+    {
+      "type": "text",
+      "id": "video_title",
+      "label": "Title",
+      "default": "Plant care"
+    },
+    {
+      "type": "color",
+      "id": "video_title_color",
+      "label": "Title color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video url"
+    },
+    {
+      "type": "header",
+      "content": "Deal block"
+    },
+    {
+      "type": "image_picker",
+      "id": "deal_image",
+      "label": "Image",
+      "info": "Recommended size: 860px x 1095px"
+    },
+    {
+      "type": "text",
+      "id": "deal_subtitle",
+      "label": "Subtitle",
+      "default": "Sale up to 50% off"
+    },
+    {
+      "type": "color",
+      "id": "deal_subtitle_color",
+      "label": "Subtitle color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "deal_title",
+      "label": "Subtitle",
+      "default": "Deal of the day!"
+    },
+    {
+      "type": "color",
+      "id": "deal_title_color",
+      "label": "Title color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Deal Timer"
+    },
+    {
+      "type": "text",
+      "id": "deal_banner_date",
+      "label": "Timer Date",
+      "default": "15"
+    },
+    {
+      "type": "select",
+      "id": "deal_banner_month",
+      "label": "Timer Month",
+      "options": [
+        {
+          "label": "Jan",
+          "value": "jan"
+        },
+        {
+          "label": "Feb",
+          "value": "feb"
+        },
+        {
+          "label": "Mar",
+          "value": "mar"
+        },
+        {
+          "label": "Apr",
+          "value": "apr"
+        },
+        {
+          "label": "May",
+          "value": "may"
+        },
+        {
+          "label": "Jun",
+          "value": "jun"
+        },
+        {
+          "label": "Jul",
+          "value": "jul"
+        },
+        {
+          "label": "Aug",
+          "value": "aug"
+        },
+        {
+          "label": "Sep",
+          "value": "sep"
+        },
+        {
+          "label": "Oct",
+          "value": "oct"
+        },
+        {
+          "label": "Nov",
+          "value": "nov"
+        },
+        {
+          "label": "Dec",
+          "value": "dec"
+        }
+      ],
+      "default": "dec"
+    },
+    {
+      "type": "text",
+      "id": "deal_banner_year",
+      "label": "Timer Year",
+      "default": "2025"
+    },
+    {
+      "type": "header",
+      "content": "Timer Title"
+    },
+    {
+      "type": "text",
+      "id": "deal_banner_day_title",
+      "label": "Day Title",
+      "default": "Dys"
+    },
+    {
+      "type": "text",
+      "id": "deal_banner_hour_title",
+      "label": "Hour Title",
+      "default": "Hrs"
+    },
+    {
+      "type": "text",
+      "id": "deal_banner_minute_title",
+      "label": "Minute Title",
+      "default": "Min"
+    },
+    {
+      "type": "text",
+      "id": "deal_banner_second_title",
+      "label": "Second Title",
+      "default": "Sec"
+    },
+    {
+      "type": "header",
+      "content": "Deal Button"
+    },
+    {
+      "type": "text",
+      "id": "deal_btn_text",
+      "label": "Button Text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "deal_btn_url",
+      "label": "Button url"
+    },
+    {
+      "type": "select",
+      "id": "deal_button_style",
+      "label": "Button style",
+      "options": [
+        {
+          "label": "Button style1",
+          "value": "btn-style1"
+        },
+        {
+          "label": "Button style2",
+          "value": "btn-style2"
+        },
+        {
+          "label": "Button style3",
+          "value": "btn-style3"
+        }
+      ],
+      "default": "btn-style1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video & deal"
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .video-deal-{{ section.id }} {
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  }
+  @media (max-width: 1199px) {
+    .video-deal-{{ section.id }} {
+      padding-top: {{ section.settings.section_padding_top_ip }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom_ip }}px;
+    }
+  }
+  @media (max-width: 767px) {
+    .video-deal-{{ section.id }} {
+      padding-top: {{ section.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ section.settings.section_padding_bottom_xs }}px;
+    }
+  }
+  .video-deal-{{ section.id }} .video-deal {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -30px;
+    margin-inline-start: -30px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner {
+    width: calc(33.33% - 30px);
+    margin-top: 30px;
+    margin-inline-start: 30px;
+  }
+  @media (max-width: 1199px) {
+    .video-deal-{{ section.id }} .video-deal .video-banner,
+    .video-deal-{{ section.id }} .video-deal .video-banner {
+      width: calc(50% - 30px);
+    }
+    .video-deal-{{ section.id }} .video-deal {
+      justify-content: center;
+    }
+  }
+  @media (max-width: 767px) {
+    .video-deal-{{ section.id }} .video-deal {
+      margin-top: -12px;
+      margin-inline-start: -12px;
+    }
+    .video-deal-{{ section.id }} .video-deal .video-banner,
+    .video-deal-{{ section.id }} .video-deal .video-banner {
+      width: calc(50% - 12px);
+      margin-top: 12px;
+      margin-inline-start: 12px;
+    }
+  }
+  @media (max-width: 600px) {
+    .video-deal-{{ section.id }} .video-deal .video-banner,
+    .video-deal-{{ section.id }} .video-deal .video-banner {
+      width: calc(100% - 12px);
+    }
+  }
+
+  /* video banner css */
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main {
+    position: relative;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main span.video-image {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    border-radius: var(--sti-border-radius);
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main,
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main span.video-image,
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main span.video-image img {
+    height: 100%;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main span.video-image img {
+    object-fit: cover;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content {
+    position: absolute;
+    top: 80px;
+    left: 60px;
+    right: 60px;
+    text-align: center;
+  } 
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content a.video-btn span.icon {
+    position: relative;
+    background-color: #fff;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content a.video-btn span.icon::before {
+    -webkit-animation: hovereffect 2s linear infinite;
+    -moz-animation: hovereffect 2s linear infinite;
+    animation: hovereffect 2s linear infinite;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content a.video-btn span.icon::after {
+    -webkit-animation: hovereffect 4s linear infinite;
+    -moz-animation: hovereffect 4s linear infinite;
+    animation: hovereffect 4s linear infinite;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content a.video-btn span.icon::before,
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content a.video-btn span.icon::after {
+    background-color: var(--font-color-primary);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+  @keyframes hovereffect {
+    0%{
+      opacity: 1;
+    }
+    40%{
+      opacity: 1;
+    }
+    100%{
+      opacity: 0;
+      -webkit-transform: scale(1.3);
+      -moz-transform: scale(1.3);
+      -ms-transform: scale(1.3);
+      transform: scale(1.3);
+    }
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content a.video-btn span.icon i {
+    color: var(--background-color-body);
+    font-size: 18px;
+    z-index: 2;
+    line-height: 1;
+    display: flex;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content h2.title {
+    font-size: 50px;
+    font-family: var(--font-custom-stack-other);
+    font-weight: var(--font-custom-weight-body);
+    margin-top: 34px;
+    line-height: 1;
+  }
+  @media (max-width: 1499px) {
+    .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content h2.title {
+      font-size: 40px;
+    }
+  }
+  @media (max-width: 991px) {
+    .video-deal-{{ section.id }} .video-deal .video-banner .video-main .video-content h2.title {
+      font-size: 32px;
+      margin-top: 27px;
+    }
+  }
+  @media (max-width: 600px) {
+    .video-deal-{{ section.id }} .video-deal .video-banner .video-main,
+    .video-deal-{{ section.id }} .video-deal .video-banner .video-main span.video-image,
+    .video-deal-{{ section.id }} .video-deal .video-banner .video-main span.video-image img {
+      height: unset;
+    }
+    .video-deal-{{ section.id }} .video-deal .video-banner .video-main span.video-image img {
+      object-fit: unset;
+    }
+  }
+
+  /* deal banner css */
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main {
+    position: relative;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main span.video-image {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    border-radius: var(--sti-border-radius);
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main,
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main span.video-image,
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main span.video-image img {
+    height: 100%;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main span.video-image img {
+    object-fit: cover;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner.banner-first .deal-main .deal-content {
+    position: absolute;
+    top: 60px;
+    left: 30px;
+    right: 30px;
+    text-align: center;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  padding: 0 30px;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-timer .content-timer {
+  justify-content: center;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-button {
+  display: flex;
+  justify-content: center;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-title {
+  margin-bottom: 47px;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-title span.subtitle {
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-title h2.title {
+  font-size:  40px;
+  font-family: var(--font-custom-stack-section-header);
+  font-weight: var(--font-custom-weight-header);
+  line-height: 1.2;
+  margin: 0px;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -15px;
+  margin-inline-start: -15px;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item {
+  width: calc(25% - 15px);
+  margin-top: 15px;
+  margin-inline-start: 15px;
+  text-align: center;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: inline-block;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info span.banner-countdown-timer {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 80px;
+  border-radius: 5px;
+  height: 80px;
+  border-radius: var(--sti-border-radius);
+}
+.video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info span.banner-countdown-timer {
+  font-size: 24px;
+  font-weight: var(--font-custom-weight-header);
+  color: var(--font-color-primary);
+  line-height: 1;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info span.banner-countdown-title {
+  margin-top: 11px;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner.banner-first .deal-main .deal-content .deal-button {
+  margin-top: 17px;
+}
+.video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-button {
+  margin-top: 57px;
+}
+@media (max-width: 1499px) {
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content {
+    left: 30px;
+    right: 30px;
+  }
+}
+@media (max-width: 1399px) {
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info span.banner-countdown-timer {
+    width: 70px;
+    height: 70px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-title h2.title {
+    font-size:  32px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-title {
+    margin-bottom: 42px;
+  }
+}
+@media (max-width: 1199px) {
+  .video-deal-{{ section.id }} .video-deal .video-banner.banner-first .deal-main .deal-content {
+    top: 30px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-title {
+    margin-bottom: 33px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-button {
+    margin-top: 40px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item {
+    width: calc(25% - 0px);
+    margin-top: 15px;
+    margin-inline-start: 0px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info span.banner-countdown-timer {
+    font-size: 20px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-title {
+    margin-bottom: 32px;
+  }
+}
+@media (max-width: 991px) {
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-title {
+    margin-bottom: 24px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-title span.subtitle {
+    margin-bottom: 12px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer {
+    margin-top: -10px;
+    margin-inline-start: -10px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item {
+    width: calc(25% - 10px);
+    margin-top: 10px;
+    margin-inline-start: 10px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-button {
+    margin-top: 37px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-button {
+    margin-top: 31px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info span.banner-countdown-timer {
+    width: 60px;
+    height: 60px;
+  }
+}
+@media (max-width: 767px) {
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content {
+    left: 12px;
+    right: 12px;
+  }
+}
+@media (max-width: 600px) {
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main,
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main span.video-image,
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main span.video-image img {
+    height: unset;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main span.video-image img {
+    object-fit: unset;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info span.banner-countdown-timer {
+    width: 50px;
+    height: 50px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-timer .content-timer .timer-item .timer-block .timer-info span.banner-countdown-timer {
+    font-size: 16px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-title {
+    margin-bottom: 22px;
+  }
+  .video-deal-{{ section.id }} .video-deal .video-banner.banner-last .deal-main .deal-content .deal-button {
+    margin-top: 25px;
+  }
+}
+@media (max-width: 479px) {
+  .video-deal-{{ section.id }} .video-deal .video-banner .deal-main .deal-content .deal-title h2.title {
+    font-size:  24px;
+  }
+}
+</style>

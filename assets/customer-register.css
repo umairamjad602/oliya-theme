@@ -1,0 +1,110 @@
+.customer-page .acc-form .log-acc-page .acc-page {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+  @media (max-width: 1199px) {
+    .customer-page .acc-form .log-acc-page .acc-page {
+      max-width: 60%;
+    }
+  }
+  @media (max-width: 991px) {
+    .customer-page .acc-form .log-acc-page .acc-page {
+      max-width: 70%;
+    }
+  }
+  @media (max-width: 767px) {
+    .customer-page .acc-form .log-acc-page .acc-page {
+      max-width: 100%;
+    }
+  }
+
+  /* form css */
+  .customer-page .log-acc-page .login-form-container ul.fill-form li {
+    margin-top: 25px;
+  }
+  .customer-page .log-acc-page .login-form-container ul.fill-form li:first-child {
+    margin-top: 0px;
+  }
+  .customer-page .log-acc-page .login-form-container ul.fill-form li label {
+    display: block;
+    margin-bottom: 11px;
+    cursor: auto;
+  }
+  .customer-page .log-acc-page .login-form-container input {
+    width: 100%;
+    background-color: var(--background-color-body);
+  }
+  .customer-page .log-acc-page .login-form-container .form-action-button {
+    margin-top: 30px;
+  }
+
+  /* create account checkbox css */
+  .customer-page .log-acc-page .login-form-container .form-action-button .read-agree {
+    margin: -2px 0 18px;
+  }
+  .customer-page .log-acc-page .login-form-container .form-action-button .read-agree label {
+    position: relative;
+    padding-inline-start: 35px;
+    margin-bottom: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+  }
+  .customer-page .log-acc-page .login-form-container .form-action-button .read-agree label span {
+    font-size: var(--font-size-body);
+  }
+  .customer-page .log-acc-page .login-form-container .form-action-button .read-agree label span a {
+    display: inline-block;
+    margin: 0;
+  }
+  .customer-page .log-acc-page .login-form-container .form-action-button .read-agree label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .customer-page .log-acc-page .login-form-container .form-action-button .read-agree label .cust-check {
+    position: absolute;
+    left: 0;
+    width: 17px;
+    height: 17px;
+    background-color: var(--background-color-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    border: var(--sti-border);
+    overflow: hidden;
+  }
+  .customer-page .log-acc-page .login-form-container .form-action-button .read-agree label .cust-check:after {
+    display: none;
+    content: "\e92b";
+    font-family: feather !important;
+    color: #666;
+    font-size: 16px;
+  }
+  .customer-page .log-acc-page .login-form-container .form-action-button .read-agree label input.cust-checkbox:checked ~ span.cust-check::after {
+    display: block;
+  }
+
+  /* acc-link css */
+  .customer-page .log-acc-page .acc-wrapper {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  /* error css */
+  .customer-page .log-acc-page .errors {
+    color: #bd2130;
+  }
+  .customer-page .log-acc-page .errors ul li {
+    margin-top: 5px;
+  }
+  .customer-page .log-acc-page .errors ul li:first-child {
+    margin-top: 0px;
+  }

@@ -1,0 +1,214 @@
+{{ 'customer-login.css' | asset_url | stylesheet_tag }}
+{%- if section.settings.enable_shop_login_button == false -%}
+  {%- assign hide_shop_login_button = true -%}
+{%- endif -%}
+<section class="customer-page section-ptb">
+  <div class="container">
+    <div class="acc-form">
+      <div class="log-acc-page" id="CustomerLoginForm1">
+        <div class="section-capture">
+          <div class="section-title">
+            <h2 class="mr-0">{{ 'customer.login.title' | t }}</h2>
+          </div>
+          {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
+            <section name="sign-in-with-shop-provider">
+              {{ shop | login_button: hide_button: hide_shop_login_button }}
+              {%- unless hide_shop_login_button -%}
+                <p class="mr-0">
+                  {{ 'customer.login.alternate_provider_separator' | t }}
+                </p>
+              {%- endunless -%}
+            </section>
+          {%- endif -%}
+        </div>
+        <div class="acc-page">
+          <div class="login">
+            {% form 'customer_login' %}
+              <div class="login-form-container">
+                {{ form.errors | default_errors }}
+                <ul class="list-unstyled fill-form">
+                  <li class="log-email">
+                    <label for="CustomerEmail">{{ 'customer.login.email' | t }}</label>
+                    <input
+                      type="email"
+                      name="customer[email]"
+                      id="CustomerEmail"
+                      class="input-full{% if form.errors contains 'email' %} error{% endif %}"
+                      placeholder="{{ 'customer.login.email' | t }}"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      autofocus
+                      required
+                    >
+                  </li>
+                  {% if form.password_needed %}
+                    <li class="log-pwd">
+                      <label for="CustomerPassword">{{ 'customer.login.password' | t }}</label>
+                      <input
+                        type="password"
+                        value=""
+                        name="customer[password]"
+                        id="CustomerPassword"
+                        class="input-full{% if form.errors contains 'password' %} error{% endif %}"
+                        placeholder="{{ 'customer.login.password' | t }}"
+                        required
+                      >
+                    </li>
+                  {% endif %}
+                </ul>
+                <div class="form-action-button">
+                  <button type="submit" class="btn btn-style" aria-label="{{ 'customer.login.sign_in' | t }}">
+                    {{ 'customer.login.sign_in' | t }}
+                  </button>
+                  {% if form.password_needed %}
+                    <a id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endform %}
+          </div>
+          <div class="acc-wrapper">
+            <div class="account-optional-action">
+              <a href="{{ routes.account_register_url }}" class="btn-style">
+                {{ 'layout.customer.create_account' | t }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="log-acc-page" id="RecoverPasswordForm" style="display: none;">
+        <div class="section-capture">
+          <div class="section-title">
+            <h2 class="mr-0">
+              <span class="title-main">{{ 'customer.recover_password.title' | t }}</span>
+            </h2>
+            <p class="desc">{{ 'customer.recover_password.subtext' | t }}</p>
+          </div>
+        </div>
+        <div class="acc-page">
+          {% form 'recover_customer_password' %}
+            <div class="login-form-container">
+              {{ form.errors | default_errors }}
+              <ul class="list-unstyled fill-form">
+                <li class="log-email">
+                  <label for="RecoverEmail">{{ 'customer.login.email' | t }}</label>
+                  <input
+                    type="email"
+                    value=""
+                    name="email"
+                    id="RecoverEmail"
+                    class="input-full"
+                    placeholder="{{ 'customer.recover_password.email' | t }}"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    required
+                  >
+                </li>
+                <li class="form-toggle-btn">
+                  <div class="form-action-button">
+                    <button
+                      class="btn btn-style"
+                      type="submit"
+                      aria-label="{{ 'customer.recover_password.submit' | t }}"
+                    >
+                      {{ 'customer.recover_password.submit' | t }}
+                    </button>
+                    <a id="HideRecoverPasswordLink">{{ 'customer.recover_password.cancel' | t }}</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% if shop.checkout.guest_login %}
+  <section class="customer-page customer-guest-page">
+    <div class="container">
+      <div class="acc-form">
+        <div class="log-acc-page" id="guest-login">
+          <div class="section-capture">
+            <h2 class="mr-0">
+              <span>{{ 'customer.login.guest_title' | t }}</span>
+            </h2>
+          </div>
+          <div class="acc-page">
+            <div class="login-form-container">
+              {% form 'guest_login' %}
+                <input type="submit" value="{{ 'customer.login.guest_continue' | t }}">
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+<script type="text/javascript">
+  addEventListener('DOMContentLoaded', (event) => {
+    $('.read-agree').on('click', function () {
+      if($('.create-checkbox').is(':checked')) {
+        $('.create').removeAttr('disabled');
+      }
+      else {
+        $('.create').attr('disabled', 'disabled');
+      }
+    });
+    $('#RecoverPassword').on('click', function () {
+      $('#RecoverPasswordForm').show();
+      $("#CustomerLoginForm1").hide();
+    });
+    $('#HideRecoverPasswordLink').on('click', function () {
+      $('#RecoverPasswordForm').hide();
+      $('#CustomerLoginForm1').show();
+    });
+  });
+</script>
+{% schema %}
+{
+  "name": "Login",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_shop_login_button",
+      "label": "Show sign in with shop",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .customer-guest-page {
+    padding-bottom: {{ settings.section_padding_bottom }}px;
+  }
+  .customer-page.customer-guest-page .log-acc-page .login-form-container {
+    text-align: center;
+  }
+  .customer-page.customer-guest-page .log-acc-page .login-form-container input {
+    cursor: pointer;
+    color: {{ settings.btn1_color }};
+    font-size: {{ settings.btn1_font_size }}px;
+    padding: {{ settings.btn1_padding_top_bottom }}px {{ settings.btn1_padding_left_right }}px;
+    background-color: {{ settings.btn1_bgcolor }};
+    text-transform: {{ settings.btn1_text_transform }};
+    font-weight: {{ settings.btn1_font_weight }};
+    border: {{ settings.btn1_border }}px {{ settings.btn1_border_property }} {{ settings.btn1_border_color }};
+    border-radius: {{ settings.btn1_border_radius }}px;
+    letter-spacing: {{ settings.btn1_letter_spacing }}px;
+    text-align: center;
+    line-height: 1;
+    width: auto;
+  }
+  .customer-page.customer-guest-page .log-acc-page .login-form-container input:hover {
+    color: {{ settings.btn1_hvr_color }};
+    background-color: {{ settings.btn1_hvr_bgcolor }};
+    border: {{ settings.btn1_border }}px {{ settings.btn1_border_property }} {{ settings.btn1_border_hvr_color }};
+  }
+  @media (max-width: 767px) {
+    .customer-guest-page {
+      padding-bottom: {{ settings.section_padding_bottom_xs }}px;
+    }
+  }
+</style>

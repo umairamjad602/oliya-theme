@@ -1,0 +1,169 @@
+{{ 'marquee.css' | asset_url | stylesheet_tag }}
+<section
+  class="marquee-section"
+  style="--padding-top: {{ section.settings.section_padding_top }}px;--padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;--padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="container-fluid">
+    <div class="offer-text-wrap">
+      <ul class="list-unstyled grid-wrap text1">
+        {% for block in section.blocks %}
+          <li class="grid-wrapper" {{ block.shopify_attributes }}>
+            <div class="richtext" style="--color: {{ section.settings.notification_txt_color }};">
+              {{ block.settings.offer_text }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+      <ul class="list-unstyled grid-wrap text2">
+        {% for block in section.blocks %}
+          <li class="grid-wrapper" {{ block.shopify_attributes }}>
+            <div class="richtext" style="--color: {{ section.settings.notification_txt_color }};">
+              {{ block.settings.offer_text }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Backgorund image"
+    },
+    {
+      "type": "image_picker",
+      "id": "section_background_image",
+      "label": "Image",
+      "info": "Recommended size: 1920x700px"
+    },
+    {
+      "type": "checkbox",
+      "id": "section_background_image_enable",
+      "label": "Show backgorund images",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section background color"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "header",
+      "content": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "notification_txt_color",
+      "label": "Color",
+      "default": "#222"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "offer_text",
+          "label": "Text",
+          "default": "<p>Summer sale discount 40% off all products</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+<style>
+  .marquee-section{
+    position: relative;
+    overflow: hidden;
+    background-color: {{ section.settings.section_background_color }};
+    {% if section.settings.section_background_image_enable %}
+    background-image: url('{% if section.settings.section_background_image != blank %}{{ section.settings.section_background_image | image_url }}{% else %}https://dummyimage.com/1920x200/f7f7f7/999999{% endif %}');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    {% endif %}
+  }
+</style>

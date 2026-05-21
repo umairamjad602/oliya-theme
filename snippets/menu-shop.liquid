@@ -1,0 +1,181 @@
+<li class="menu-link" {{ block.shopify_attributes }}>
+  <a href="{{ block.settings.menu_shop_url }}" class="link-title" style="--font-size: {{ section.settings.menu_font_size }}px; --font-size-lg: {{ section.settings.menu_font_size_lg }}px;  --text-transform: {{ section.settings.menu_text_transform }};  --font-weight: {{ section.settings.menu_font_weight }};">
+    <span class="sp-link-title">{{ block.settings.menu_shop_title }}{% if block.settings.menu_shop_label != '' %}<span class="{{ section.id }}-{{ block.id }}-label">{{ block.settings.menu_shop_label }}</span>{% endif %}</span>
+    <span class="menu-arrow"><i class="feather-chevron-down"></i></span>
+  </a>
+  <div class="link-title-lg">
+    <a href="{{ block.settings.menu_shop_url }}" class="sp-link-title">{{ block.settings.menu_shop_title }}</a>
+    <button type="button" data-bs-toggle="collapse" data-bs-target="#single-collapse-{{ block.settings.menu_shop_title | handleize }}" class="menu-arrow dropdown-btn" aria-label="{{ block.settings.menu_shop_title | handleize }}"><i class="feather-plus"></i></button>
+  </div>
+  <ul class="list-unstyled menu-dropdown shop-menu dropdown-content collapse" id="single-collapse-{{ block.settings.menu_shop_title | handleize }}">
+    <div class="container-fluid">
+      <div class="ul">
+        {%- assign menu_shop_select1 = block.settings.menu_shop_select1 -%}
+        {% if menu_shop_select1 != '' %}
+        <li class="shoplink-li">
+        {% for link in linklists[menu_shop_select1].links %}
+        {% assign sublink = link.title | handle %}
+          <a href="{{ link.url }}" class="shoplink-title">
+            <span class="sp-link-title">{{ link.title }}</span>
+          </a>
+          <div class="shoplink-title shoplink-title-lg">
+            <a href="{{ link.url }}" class="sp-link-title">{{ link.title }}</a>
+            {% if linklists[sublink].links != '' %}
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#shopsup-collapse-{{ link.title | handleize }}" class="menu-arrow dropdown-btn" aria-label="{{ link.title | handleize }}"><i class="feather-plus"></i></button>
+            {% endif %}
+          </div>
+          {% if linklists[sublink].links != '' %}
+          <ul class="list-unstyled shopsupmenu-dropdown dropdown-content collapse" id="shopsup-collapse-{{ link.title | handleize }}">
+            {% for sublink in linklists[sublink].links %}
+            <li class="shopsupmenu-li">
+              <a href="{{ sublink.url }}" class="shopsuplink-title">
+                <span class="sp-link-title">{{ sublink.title }}</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% endfor %}
+        </li>
+        {% endif %}
+
+        {%- assign menu_shop_select2 = block.settings.menu_shop_select2 -%}
+        {% if menu_shop_select2 != '' %}
+        <li class="shoplink-li">
+        {% for link in linklists[menu_shop_select2].links %}
+        {% assign sublink = link.title | handle %}
+          <a href="{{ link.url }}" class="shoplink-title">
+            <span class="sp-link-title">{{ link.title }}</span>
+          </a>
+          <div class="shoplink-title shoplink-title-lg">
+            <a href="{{ link.url }}" class="sp-link-title">{{ link.title }}</a>
+            {% if linklists[sublink].links != '' %}
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#shopsup-collapse-{{ link.title | handleize }}" class="menu-arrow dropdown-btn" aria-label="{{ link.title | handleize }}"><i class="feather-plus"></i></button>
+            {% endif %}
+          </div>
+          {% if linklists[sublink].links != '' %}
+          <ul class="list-unstyled shopsupmenu-dropdown dropdown-content collapse" id="shopsup-collapse-{{ link.title | handleize }}">
+            {% for sublink in linklists[sublink].links %}
+            <li class="shopsupmenu-li">
+              <a href="{{ sublink.url }}" class="shopsuplink-title">
+                <span class="sp-link-title">{{ sublink.title }}</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% endfor %}
+        </li>
+        {% endif %}
+
+        {%- assign menu_shop_select3 = block.settings.menu_shop_select3 -%}
+        {% if menu_shop_select3 != '' %}
+        <li class="shoplink-li">
+        {% for link in linklists[menu_shop_select3].links %}
+        {% assign sublink = link.title | handle %}
+        
+          <a href="{{ link.url }}" class="shoplink-title">
+            <span class="sp-link-title">{{ link.title }}</span>
+          </a>
+          <div class="shoplink-title shoplink-title-lg">
+            <a href="{{ link.url }}" class="sp-link-title">{{ link.title }}</a>
+            {% if linklists[sublink].links != '' %}
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#shopsup-collapse-{{ link.title | handleize }}" class="menu-arrow dropdown-btn" aria-label="{{ link.title | handleize }}"><i class="feather-plus"></i></button>
+            {% endif %}
+          </div>
+          {% if linklists[sublink].links != '' %}
+          <ul class="list-unstyled shopsupmenu-dropdown dropdown-content collapse" id="shopsup-collapse-{{ link.title | handleize }}">
+            {% for sublink in linklists[sublink].links %}
+            <li class="shopsupmenu-li">
+              <a href="{{ sublink.url }}" class="shopsuplink-title">
+                <span class="sp-link-title">{{ sublink.title }}</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% endfor %}
+        </li>
+        {% endif %}
+
+        {%- assign menu_shop_select4 = block.settings.menu_shop_select4 -%}
+        {% if menu_shop_select4 != '' %}
+        <li class="shoplink-li">
+        {% for link in linklists[menu_shop_select4].links %}
+        {% assign sublink = link.title | handle %}
+        
+          <a href="{{ link.url }}" class="shoplink-title">
+            <span class="sp-link-title">{{ link.title }}</span>
+          </a>
+          <div class="shoplink-title shoplink-title-lg">
+            <a href="{{ link.url }}" class="sp-link-title">{{ link.title }}</a>
+            {% if linklists[sublink].links != '' %}
+            <button type="button" data-bs-toggle="collapse" data-bs-target="#shopsup-collapse-{{ link.title | handleize }}" class="menu-arrow dropdown-btn" aria-label="{{ link.title | handleize }}"><i class="feather-plus"></i></button>
+            {% endif %}
+          </div>
+          {% if linklists[sublink].links != '' %}
+          <ul class="list-unstyled shopsupmenu-dropdown dropdown-content collapse" id="shopsup-collapse-{{ link.title | handleize }}">
+            {% for sublink in linklists[sublink].links %}
+            <li class="shopsupmenu-li">
+              <a href="{{ sublink.url }}" class="shopsuplink-title">
+                <span class="sp-link-title">{{ sublink.title }}</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% endfor %}
+        </li>
+        {% endif %}
+
+        {%- if block.settings.menu_shop_banner_img1 != blank -%}
+        <li class="shoplink-li shoplink-br">
+          <div class="shop-banner banner-hover">
+            <a href="{{ block.settings.menu_shop_banner_url1 }}" class="banner-img">
+              {{ block.settings.menu_shop_banner_img1 | image_url: width: 500 | image_tag:
+                loading: 'lazy',
+                width: block.settings.menu_shop_banner_img1.width,
+                height: block.settings.menu_shop_banner_img1.height,
+                class: "lazyload",
+                alt: block.settings.menu_shop_banner_img1.alt | escape }}
+            </a>
+          </div>
+        </li>
+        {%- endif -%}
+      </div>
+    </div>
+  </ul>
+</li>
+<style>
+  /*=====================================
+    header label css
+  ======================================*/
+  a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label {
+    color: {{ block.settings.menu_shop_label_color }};
+    font-size: {{ block.settings.menu_shop_label_font_size }}px;
+    padding: 2px 5px;
+    position: absolute;
+    top: -{{ block.settings.menu_shop_label_top_position }}px;
+    right: 0;
+    transform: translateX(100%);
+    background-color: {{ block.settings.menu_shop_label_bgcolor }};
+    text-transform: {{ block.settings.menu_shop_label_text_transform }};
+    font-weight: {{ block.settings.menu_shop_label_font-weight }};
+    border-radius: {{ block.settings.menu_shop_label_border_radius }}px;
+    line-height: {{ block.settings.menu_shop_label_line_height }};
+  }
+  a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label::before {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid {{ block.settings.menu_shop_label_bgcolor }};
+  }
+  @media (max-width: 1199px) {
+    a.link-title span.sp-link-title span.{{ section.id }}-{{ block.id }}-label {
+      top: -8px;
+    }
+  }
+</style>

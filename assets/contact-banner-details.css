@@ -1,0 +1,83 @@
+.contact-details .store-info .section-title {
+  align-items: flex-start;
+}
+.contact-details .contact-content {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+.contact-details .store-info {
+  width: 66.67%;
+  margin: 0 auto;
+}
+.contact-details .store-info ul.info_wrap {
+  margin-top: 60px;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper {
+  margin-top: 40px;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper:first-child {
+  margin-top: 0px;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block {
+  display: flex;
+  align-items: center;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block .text-block {
+  margin-inline-start: 30px;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block .icon {
+  color: var(--font-color-header);
+  font-size: 28px;
+  line-height: 1;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block .text-block span {
+  color: var(--font-color-header);
+  font-size: var(--subtitle-font-size-body);
+  font-weight: var(--subtitle-custom-font-weight-body); 
+  text-transform: uppercase;
+  line-height: 1;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper ul.social-icon li a span {
+  color: var(--font-color-header);
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper ul.social-icon li a:hover span {
+  color: var(--font-color-primary);
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block .text-block a,
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block .text-block p {
+  padding-top: 5px;
+  display: block;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block .text-block a:hover {
+  color: var(--font-color-primary);
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block .text-block .social-wrap {
+  margin-top: 30px;
+}
+.contact-details .store-info ul.info_wrap li.info_wrapper .info-block .text-block .social-wrap a {
+  display: flex;
+  line-height: 1;
+  padding: 0;
+}
+
+@media (max-width: 1199px) {
+  .contact-details .store-info {
+    width: 100%;
+  }
+  .contact-details .store-info ul.info_wrap {
+    margin-top: 30px;
+  }
+  .contact-details .store-info ul.info_wrap li.info_wrapper {
+    margin-top: 20px;
+  }
+  .contact-details .store-info ul.info_wrap li.info_wrapper .info-block .text-block .social-wrap {
+    margin-top: 15px;
+  }
+}
+@media (max-width: 991px) {
+  .contact-details .contact-content {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

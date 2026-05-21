@@ -1,0 +1,200 @@
+{{ 'about-us-text-column.css' | asset_url | stylesheet_tag }}
+<section
+  class="banner-with-text-columns"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+>
+  <div class="banner-content">
+    <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+      <div class="about-banner">
+        <a href="{{ section.settings.banner_url }}" class="banner-hover">
+          {%- if section.settings.about_company_img != blank -%}
+            {% assign image_height = section.settings.about_company_img.width
+              | divided_by: section.settings.about_company_img.aspect_ratio
+            %}
+            {{
+              section.settings.about_company_img
+              | image_url: width: 2000
+              | image_tag:
+                width: section.settings.about_company_img.width,
+                height: image_height,
+                class: 'lazyload',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          {%- endif -%}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+    <div
+      class="about-service-text"
+      style="--padding-top: {{ section.settings.section_padding_top }}px;--padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;--padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
+    >
+      <ul class="list-unstyled about-service-text">
+        {% for block in section.blocks %}
+          <li class="about-service-wrapper" {{ block.shopify_attributes }}>
+            <div class="service-block">
+              <div class="service-text">
+                {% if block.settings.service_title != '' %}
+                  <h6 class="mr-0" data-fade-in>{{ block.settings.service_title }}</h6>
+                {% endif %}
+                {% if block.settings.service_desc != '' %}
+                  <p class="mr-0" data-fade-in>{{ block.settings.service_desc }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "About us text columns",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        {
+          "label": "Fluid",
+          "value": "fluid"
+        },
+        {
+          "label": "Normal",
+          "value": "normal"
+        }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "header",
+      "content": "Section space top bottom"
+    },
+    {
+      "type": "paragraph",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "paragraph",
+      "content": "Ipad"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_ipad",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_ipad",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "paragraph",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_xs",
+      "label": "Space top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_xs",
+      "label": "Space bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "image_picker",
+      "id": "about_company_img",
+      "label": "Image",
+      "info": "Recommended size: 1400x640px"
+    },
+    {
+      "type": "url",
+      "id": "banner_url",
+      "label": "url"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "about_text",
+      "name": "Textcolumn",
+      "settings": [
+        {
+          "type": "text",
+          "id": "service_title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "service_desc",
+          "label": "Description",
+          "default": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About us text columns",
+      "blocks": [
+        {
+          "type": "about_text"
+        },
+        {
+          "type": "about_text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

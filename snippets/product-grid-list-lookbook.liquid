@@ -1,0 +1,65 @@
+{%- liquid
+  assign ratio = 1
+  if product.featured_media and settings.image_ratio == 'portrait'
+    assign ratio = 0.773
+  elsif product.featured_media and settings.image_ratio == 'adapt'
+    assign ratio = product.featured_media.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+-%}
+
+<div class="single-product-wrap">
+  <div class="product-image" id="pro-img-{{ section.id }}-{{ product.id }}" data-prod="{{ product.id }}">
+    <a
+      class="pro-img ratio"
+      href="{{ product.url | within: collection }}"
+      style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+    >
+    {%- if product.featured_media -%}
+      <div class="{%- if product.media[1] != blank -%} img1{%- endif -%}">
+        {% assign image_height = product.featured_media.width
+          | divided_by: product.featured_media.aspect_ratio
+        %}
+        {{
+          product.featured_media
+          | image_url: width: 720
+          | image_tag: width: product.featured_media.width, height: image_height, class: 'lazyload', loading: 'lazy'
+        }}
+      </div>
+      {%- if settings.pro_hover_enable and product.media[1] != blank -%}
+        <div class="img2">
+          {% assign image_height = product.media[1].width | divided_by: product.media[1].aspect_ratio %}
+          {{
+            product.media[1]
+            | image_url: width: 720
+            | image_tag: width: product.media[1].width, height: image_height, class: 'lazyload', loading: 'lazy'
+          }}
+        </div>
+      {%- endif -%}
+      {%- else -%}
+      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
+      {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </a>
+  </div>
+  <div class="product-content">
+    <div class="title-wrap">
+      <div class="title-block">
+        {%- if settings.show_vendor -%}
+        <div class="product-vendor">{{ product.vendor }}</div>
+        {%- endif -%}
+        <h6 class="mr-0">
+          <a href="{{ product.url | within: collection }}" title="{{ product.title }}">{{ product.title }}</a>
+        </h6>
+        {% render 'price', product: product %}
+      </div>      
+      {%- liquid
+        if settings.cart_enable
+          render 'cart-button', product: product, section_id: section.id
+        endif
+      -%}
+    </div>
+  </div>
+</div>
