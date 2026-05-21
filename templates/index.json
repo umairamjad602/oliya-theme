@@ -145,45 +145,6 @@
         "hover_bg": "#ffffff"
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
-      "blocks": {
-        "product_tab_k7yVWy": {
-          "type": "product_tab",
-          "settings": {
-            "tab_product": "shorts"
-          }
-        }
-      },
-      "block_order": [
-        "product_tab_k7yVWy"
-      ],
-      "settings": {
-        "container": "normal",
-        "section_padding_top": 80,
-        "section_padding_bottom": 80,
-        "section_padding_top_lg": 80,
-        "section_padding_bottom_lg": 80,
-        "section_padding_top_xs": 60,
-        "section_padding_bottom_xs": 60,
-        "section_bg_color": "#f9f5f0",
-        "section_subheading": "",
-        "section_heading": "BEST SELLERS",
-        "countdown_enable": false,
-        "product_month": "January",
-        "product_year": 2026,
-        "product_date": 30,
-        "featured_tab_enable": false,
-        "slider_crop": false,
-        "category_special_product_view": "grid",
-        "product_limit": 4,
-        "category_special_product_col": "1",
-        "product_view": "4",
-        "product_view_lg": "4",
-        "product_view_sm": "2",
-        "view_btn": ""
-      }
-    },
     "image_with_text_QmhPBQ": {
       "type": "Image-with-text",
       "blocks": {
@@ -221,6 +182,45 @@
         "container": "fluid",
         "show_row_reverse": false,
         "home_about_image": "shopify://shop_images/ChatGPT_Image_May_20_2026_01_32_44_AM.png"
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "blocks": {
+        "product_tab_k7yVWy": {
+          "type": "product_tab",
+          "settings": {
+            "tab_product": "shorts"
+          }
+        }
+      },
+      "block_order": [
+        "product_tab_k7yVWy"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_lg": 80,
+        "section_padding_bottom_lg": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_bg_color": "#f9f5f0",
+        "section_subheading": "",
+        "section_heading": "BEST SELLERS",
+        "countdown_enable": false,
+        "product_month": "January",
+        "product_year": 2026,
+        "product_date": 30,
+        "featured_tab_enable": false,
+        "slider_crop": false,
+        "category_special_product_view": "grid",
+        "product_limit": 4,
+        "category_special_product_col": "1",
+        "product_view": "4",
+        "product_view_lg": "4",
+        "product_view_sm": "2",
+        "view_btn": ""
       }
     },
     "featured_collection_zUMdyw": {
@@ -752,10 +752,10 @@
   "order": [
     "slideshow",
     "collection_list_ye7dng",
-    "featured-collection",
     "image_with_text_QmhPBQ",
-    "featured_collection_zUMdyw",
+    "featured-collection",
     "image_with_text_hAM8k7",
+    "featured_collection_zUMdyw",
     "section_border_b46N3q",
     "logo_list_thF4Kg",
     "about_us_banner_TR6GhR",
