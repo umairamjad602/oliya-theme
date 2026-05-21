@@ -39,7 +39,6 @@
       "blocks": {
         "menu_link_hYMi8W": {
           "type": "menu_link",
-          "disabled": true,
           "settings": {
             "menu_link_title": "HOME",
             "menu_link_url": "/",
@@ -56,7 +55,6 @@
         },
         "73dbee9f-c33c-42e0-b47e-a461774a6d37": {
           "type": "menu_shop",
-          "disabled": true,
           "settings": {
             "menu_shop_title": "SHOP ALL",
             "menu_shop_url": "shopify://collections/all",
@@ -78,7 +76,6 @@
         },
         "d8c14ef8-1cc1-4e85-987c-43ddaea91fc4": {
           "type": "menu_link",
-          "disabled": true,
           "settings": {
             "menu_link_title": "NEW ARRIVALS",
             "menu_link_url": "shopify://collections/new-arrivals",
@@ -95,7 +92,6 @@
         },
         "menu_link_6RWYrE": {
           "type": "menu_link",
-          "disabled": true,
           "settings": {
             "menu_link_title": "COLLECTIONS",
             "menu_link_url": "shopify://collections/all",
@@ -112,7 +108,6 @@
         },
         "menu_link_ABT001": {
           "type": "menu_link",
-          "disabled": true,
           "settings": {
             "menu_link_title": "ABOUT US",
             "menu_link_url": "shopify://pages/about-us",
@@ -129,7 +124,6 @@
         },
         "menu_link_BLG001": {
           "type": "menu_link",
-          "disabled": true,
           "settings": {
             "menu_link_title": "BLOG",
             "menu_link_url": "/blogs/news",

@@ -18,19 +18,30 @@
           <div class="header-element megamenu-content">
             <nav class="mainwrap">
               <ul class="list-unstyled main-menu {% if section.settings.menu_alignment == 'center' %}menu-center{% elsif section.settings.menu_alignment == 'left' %}menu-left{% else %}menu-right{% endif %}">
-                {%- assign nav_style = '--font-size: ' | append: section.settings.menu_font_size | append: 'px; --font-size-lg: ' | append: section.settings.menu_font_size_lg | append: 'px; --text-transform: ' | append: section.settings.menu_text_transform | append: '; --font-weight: ' | append: section.settings.menu_font_weight | append: ';' -%}
-              <li class="menu-link">
-                <a href="{{ routes.root_url }}" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">Home</span></a>
-                <a href="{{ routes.root_url }}" class="link-title-lg"><span class="sp-link-title">Home</span></a>
-              </li>
-              <li class="menu-link">
-                <a href="/pages/about-us" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">About Us</span></a>
-                <a href="/pages/about-us" class="link-title-lg"><span class="sp-link-title">About Us</span></a>
-              </li>
-              <li class="menu-link">
-                <a href="/pages/contact-us" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">Contact Us</span></a>
-                <a href="/pages/contact-us" class="link-title-lg"><span class="sp-link-title">Contact Us</span></a>
-              </li>
+              {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                  {%- when 'menu_link' -%}
+                    {%- render 'menu-link', block: block, section: section -%}
+                  {%- when 'menu_home' -%}
+                    {%- render 'menu-home', block: block, section: section -%}
+                  {%- when 'menu_single' -%}
+                    {%- render 'menu-single', block: block, section: section -%}
+                  {%- when 'menu_shop' -%}
+                    {%- render 'menu-shop', block: block, section: section -%}
+                  {%- when 'menu_product' -%}
+                    {%- render 'menu-product', block: block, section: section -%}
+                  {%- when 'menu_product2' -%}
+                    {%- render 'menu-product2', block: block, section: section -%}
+                  {%- when 'menu_collection' -%}
+                    {%- render 'menu-collection', block: block, section: section -%}
+                  {%- when 'menu_sub' -%}
+                    {%- render 'menu-sub', block: block, section: section -%}
+                  {%- when 'menu_category' -%}
+                    {%- render 'menu-category', block: block, section: section -%}
+                  {%- when 'menu_shop_banner' -%}
+                    {%- render 'menu-shop-banner', block: block, section: section -%}
+                {%- endcase -%}
+              {%- endfor -%}
               </ul>
             </nav>
           </div>
@@ -77,19 +88,30 @@
             </a>
             <nav class="mainwrap">
               <ul class="list-unstyled main-menu">
-                {%- assign nav_style = '--font-size: ' | append: section.settings.menu_font_size | append: 'px; --font-size-lg: ' | append: section.settings.menu_font_size_lg | append: 'px; --text-transform: ' | append: section.settings.menu_text_transform | append: '; --font-weight: ' | append: section.settings.menu_font_weight | append: ';' -%}
-              <li class="menu-link">
-                <a href="{{ routes.root_url }}" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">Home</span></a>
-                <a href="{{ routes.root_url }}" class="link-title-lg"><span class="sp-link-title">Home</span></a>
-              </li>
-              <li class="menu-link">
-                <a href="/pages/about-us" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">About Us</span></a>
-                <a href="/pages/about-us" class="link-title-lg"><span class="sp-link-title">About Us</span></a>
-              </li>
-              <li class="menu-link">
-                <a href="/pages/contact-us" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">Contact Us</span></a>
-                <a href="/pages/contact-us" class="link-title-lg"><span class="sp-link-title">Contact Us</span></a>
-              </li>
+              {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                  {%- when 'menu_link' -%}
+                    {%- render 'menu-link', block: block, section: section -%}
+                  {%- when 'menu_home' -%}
+                    {%- render 'menu-home', block: block, section: section -%}
+                  {%- when 'menu_single' -%}
+                    {%- render 'menu-single', block: block, section: section -%}
+                  {%- when 'menu_shop' -%}
+                    {%- render 'menu-shop', block: block, section: section -%}
+                  {%- when 'menu_product' -%}
+                    {%- render 'menu-product', block: block, section: section -%}
+                  {%- when 'menu_product2' -%}
+                    {%- render 'menu-product2', block: block, section: section -%}
+                  {%- when 'menu_collection' -%}
+                    {%- render 'menu-collection', block: block, section: section -%}
+                  {%- when 'menu_sub' -%}
+                    {%- render 'menu-sub', block: block, section: section -%}
+                  {%- when 'menu_category' -%}
+                    {%- render 'menu-category', block: block, section: section -%}
+                  {%- when 'menu_shop_banner' -%}
+                    {%- render 'menu-shop-banner', block: block, section: section -%}
+                {%- endcase -%}
+              {%- endfor -%}
               </ul>
             </nav>
             <div class="locali-block">
