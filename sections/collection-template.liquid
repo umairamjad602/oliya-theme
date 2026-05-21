@@ -6,72 +6,6 @@
   <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
     <div class="pro-grli-wrapper{% if section.settings.sidebar_handle == 'left_sidebar_handle' %} left-side-wrap{% elsif section.settings.sidebar_handle == 'right_sidebar_handle' %} right-side-wrap{% else %} full-side-wrap{% endif %}">
       <div class="pro-grli-wrap product-grid">
-        <div class="collection-img-wrap">
-          <h1 class="st-title mr-0">{{ collection.title }}</h1>
-          <div class="collection-info">
-            {%- if section.settings.collection_image_enable -%}
-              <div class="collection-image">
-                {% unless request.path == '/collections/all' %}
-                  {% if collection.image %}
-                    {{
-                      collection.image
-                      | image_url: width: 1920
-                      | image_tag:
-                        loading: 'lazy',
-                        width: collection.image.width,
-                        height: collection.image.height,
-                        class: 'lazyload',
-                        alt: collection.image.alt
-                      | escape
-                    }}
-                  {% else %}
-                    {%- if section.settings.collection_image != blank -%}
-                      {{
-                        section.settings.collection_image
-                        | image_url: width: 1920
-                        | image_tag:
-                          loading: 'lazy',
-                          width: section.settings.collection_image.width,
-                          height: section.settings.collection_image.height,
-                          class: 'lazyload',
-                          alt: section.settings.collection_image.alt
-                        | escape
-                      }}
-                    {%- else -%}
-                      {{ 'hero-apparel-1' | placeholder_svg_tag }}
-                    {%- endif -%}
-                  {% endif %}
-                {% endunless %}
-                {% if request.path == '/collections/all' %}
-                  {%- if section.settings.collection_image != blank -%}
-                    {{
-                      section.settings.collection_image
-                      | image_url: width: 1920
-                      | image_tag:
-                        loading: 'lazy',
-                        width: section.settings.collection_image.width,
-                        height: section.settings.collection_image.height,
-                        class: 'lazyload',
-                        alt: section.settings.collection_image.alt
-                      | escape
-                    }}
-                  {%- else -%}
-                    {{ 'hero-apparel-1' | placeholder_svg_tag }}
-                  {%- endif -%}
-                {%- endif -%}
-              </div>
-            {%- endif -%}
-            {%- if section.settings.collection_desc_enable -%}
-              <div class="collection-description">
-                {% if collection.description != blank %}
-                  {{ collection.description }}
-                {% else %}
-                  <p class="mr-0">{{ section.settings.collection_desc }}</p>
-                {% endif %}
-              </div>
-            {%- endif -%}
-          </div>
-        </div>
         {%- if section.settings.tab_bar_enable or section.settings.short_by_enable -%}
           {%- render 'collection-sorting', results: collection -%}
         {%- endif -%}
@@ -121,103 +55,11 @@
         <div id="main-collection-filters" data-id="{{ section.id }}">
           {% render 'collection-sidebar', results: collection %}
           <script src="{{ 'collection-sidebar.js' | asset_url }}" defer="defer"></script>
-          {% assign special_pro = collections[section.settings.special_pro] %}
-          {% if section.settings.special_pro != '' %}
-            <div class="shop-sidebar sidebar-pro {% if section.settings.sidebar_handle == 'without_sidebar' %} sidebar-without{% endif %}">
-              {%- if section.settings.special_pro_title -%}
-                <h6 class="title mr-0">{{ section.settings.special_pro_title }}</h6>
-              {%- endif -%}
-              <div class="swiper spe-slider" id="pro-{{ section.id }}">
-                <div class="swiper-wrapper">
-                  {% for product in special_pro.products limit: section.settings.special_pro_limit %}
-                    
-                    <div class="swiper-slide">
-                      {% render 'product-grid-list', product: product, color_label: color_label %}
-                    </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-          {% endif %}
-          {% if section.settings.sidebar_banner_enable %}
-            <div class="sidebar-banner banner-hover{% if section.settings.sidebar_handle == 'without_sidebar' %} sidebar-without-banner{% endif %}">
-              <a href="{{ section.settings.sidebar_banner_url }}" class="sidebar-img banner-img">
-                <span class="sidebar-banner-image">
-                  {%- if section.settings.sidebar_banner_img != blank -%}
-                    {{
-                      section.settings.sidebar_banner_img
-                      | image_url: width: 500
-                      | image_tag:
-                        loading: 'lazy',
-                        width: section.settings.sidebar_banner_img.width,
-                        height: section.settings.sidebar_banner_img.height,
-                        class: 'lazyload',
-                        alt: section.settings.sidebar_banner_img.alt
-                      | escape
-                    }}
-                  {%- else -%}
-                    {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
-                    {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
-                  {%- endif -%}
-                </span>
-              </a>
-            </div>
-          {% endif %}
         </div>
       </div>
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  addEventListener('DOMContentLoaded', (event) => {
-    var swiper = new Swiper('#pro-{{ section.id }}', {
-      slidesPerView: 1,
-      grid: {
-        rows: 2,
-        fill: 'row' | 'column',
-      },
-      spaceBetween: 30,
-      observer: true,
-      observeParents: true,
-      watchSlidesProgress: true,
-      {%- if request.locale.iso_code == 'ar' -%}
-      rtl: true,
-      {%- endif -%}
-      navigation: {
-        nextEl: '.swiper-next-{{ section.id }}',
-        prevEl: '.swiper-prev-{{ section.id }}',
-      },
-      pagination: {
-        el: ".swiper-pagination-{{ section.id }}",
-        clickable: true
-      },
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true
-      },
-      speed: 1000,
-      breakpoints: {
-        1199: {
-          slidesPerView: 1,
-          grid: {
-            rows: 2,
-            fill: 'row' | 'column',
-          },
-          spaceBetween: 30,
-        },
-        1499: {
-          slidesPerView: 1,
-          grid: {
-            rows: 2,
-            fill: 'row' | 'column',
-          },
-          spaceBetween: 30,
-        }
-      }
-    });
-  });
-</script>
 {% schema %}
 {
   "name": "Product grid",
@@ -411,48 +253,6 @@
       "label": "Show collection",
       "default": false
     },
-    {
-      "type": "header",
-      "content": "Sidebar banner"
-    },
-    {
-      "type": "image_picker",
-      "id": "sidebar_banner_img",
-      "label": "Image",
-      "info": "Recommended size: 350x470px"
-    },
-    {
-      "type": "url",
-      "id": "sidebar_banner_url",
-      "label": "url"
-    },
-    {
-      "type": "checkbox",
-      "id": "sidebar_banner_enable",
-      "label": "Show banner",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "Product"
-    },
-    {
-      "type": "text",
-      "id": "special_pro_title",
-      "label": "Heading",
-      "default": "Special product"
-    },
-    {
-      "type": "collection",
-      "id": "special_pro",
-      "label": "Select collection"
-    },
-    {
-      "type": "number",
-      "id": "special_pro_limit",
-      "label": "Product limit",
-      "default": 12
-    }
   ]
 }
 {% endschema %}

@@ -18,37 +18,6 @@
     >
       <i class="feather-x"></i>
     </button>
-    {%- if section.settings.collection_categories_enable -%}
-      <div class="shop-sidebar shop-collection">
-        {%- if section.settings.collection_categories_title != '' -%}
-          <h6 class="mr-0 title">{{ section.settings.collection_categories_title }}</h6>
-        {%- endif -%}
-        <div class="flt-ele">
-          <ul class="scrollbar list-unstyled">
-            {% for c in collections %}
-              {%- if c.products_count >= 1 -%}
-                <li
-                  {% if collection and collection.handle == c.handle %}
-                    class="active"
-                  {% endif %}
-                >
-                  <a href="{{ c.url }}" class="cust-checkbox-label" title="{{ c.title }}">
-                    {%- if collection and collection.handle == c.handle -%}
-                      <input type="checkbox" checked="checked" name="{{ c.title }}" class="cust-checkbox">
-                    {%- else -%}
-                      <input type="checkbox" class="cust-checkbox" name="{{ c.title }}">
-                    {%- endif -%}
-                    <span class="filter-name">{{ c.title }}</span>
-                    <span class="count-check">({{ c.products_count }})</span>
-                    <span class="cust-check"></span>
-                  </a>
-                </li>
-              {%- endif -%}
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    {%- endif -%}
     <stfilter-ele class="facets">
       <form id="stFacetFiltersForm">
         {%- if results.terms -%}
@@ -107,6 +76,37 @@
               </div>
             </div>
           {%- endunless -%}
+          {%- if section.settings.collection_categories_enable -%}
+            <div class="shop-sidebar shop-collection">
+              {%- if section.settings.collection_categories_title != '' -%}
+                <h6 class="mr-0 title">{{ section.settings.collection_categories_title }}</h6>
+              {%- endif -%}
+              <div class="flt-ele">
+                <ul class="scrollbar list-unstyled">
+                  {% for c in collections %}
+                    {%- if c.products_count >= 1 -%}
+                      <li
+                        {% if collection and collection.handle == c.handle %}
+                          class="active"
+                        {% endif %}
+                      >
+                        <a href="{{ c.url }}" class="cust-checkbox-label" title="{{ c.title }}">
+                          {%- if collection and collection.handle == c.handle -%}
+                            <input type="checkbox" checked="checked" name="{{ c.title }}" class="cust-checkbox">
+                          {%- else -%}
+                            <input type="checkbox" class="cust-checkbox" name="{{ c.title }}">
+                          {%- endif -%}
+                          <span class="filter-name">{{ c.title }}</span>
+                          <span class="count-check">({{ c.products_count }})</span>
+                          <span class="cust-check"></span>
+                        </a>
+                      </li>
+                    {%- endif -%}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          {%- endif -%}
           {%- liquid
             assign i = 0
           -%}
