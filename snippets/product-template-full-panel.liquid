@@ -276,7 +276,7 @@
       {%- if block.settings.size_guide_url != blank -%}
         <a href="{{ block.settings.size_guide_url }}" class="pdp-size-guide-trigger">
       {%- else -%}
-        <button type="button" class="pdp-size-guide-trigger">
+        <button type="button" class="pdp-size-guide-trigger" data-bs-toggle="modal" data-bs-target="#size-chart-modal-{{ block.id }}">
       {%- endif -%}
           <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
           {{ block.settings.size_guide_text | default: 'SIZE GUIDE' }}
@@ -443,4 +443,116 @@
 
   </div>
 
+  {%- if block.settings.size_guide_enable and block.settings.size_guide_url == blank -%}
+    <div class="modal fade" id="size-chart-modal-{{ block.id }}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content size-chart-modal-content">
+          <div class="size-chart-modal-header">
+            <h5 class="size-chart-modal-title">{{ block.settings.size_guide_text | default: 'SIZE GUIDE' }}</h5>
+            <button type="button" class="size-chart-close" data-bs-dismiss="modal" aria-label="Close">
+              <i class="feather-x"></i>
+            </button>
+          </div>
+          <div class="size-chart-modal-body">
+            {%- if block.settings.size_chart_page != blank -%}
+              {{ block.settings.size_chart_page.content }}
+            {%- elsif block.settings.size_chart_html != blank -%}
+              {{ block.settings.size_chart_html }}
+            {%- else -%}
+              <p class="size-chart-note">Measurements are in inches. For the best fit, measure your body and compare to the chart below.</p>
+              <div class="size-chart-scroll">
+                <table class="size-chart-table">
+                  <thead>
+                    <tr>
+                      <th>SIZE</th>
+                      <th>US</th>
+                      <th>UK</th>
+                      <th>EU</th>
+                      <th>BUST</th>
+                      <th>WAIST</th>
+                      <th>HIPS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>XS</td><td>0–2</td><td>4–6</td><td>32–34</td><td>31–32"</td><td>23–24"</td><td>33–34"</td></tr>
+                    <tr><td>S</td><td>4–6</td><td>8–10</td><td>36–38</td><td>33–34"</td><td>25–26"</td><td>35–36"</td></tr>
+                    <tr><td>M</td><td>8–10</td><td>12–14</td><td>40–42</td><td>35–36"</td><td>27–28"</td><td>37–38"</td></tr>
+                    <tr><td>L</td><td>12–14</td><td>16–18</td><td>44–46</td><td>37–38"</td><td>29–30"</td><td>39–40"</td></tr>
+                    <tr><td>XL</td><td>16–18</td><td>20–22</td><td>48–50</td><td>39–40"</td><td>31–32"</td><td>41–42"</td></tr>
+                    <tr><td>XXL</td><td>20–22</td><td>24–26</td><td>52–54</td><td>41–42"</td><td>33–34"</td><td>43–44"</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
 </div>
+
+<style>
+  .size-chart-modal-content {
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .size-chart-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .size-chart-modal-title {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    margin: 0;
+    text-transform: uppercase;
+  }
+  .size-chart-close {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #555;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .size-chart-close:hover { color: #000; }
+  .size-chart-modal-body {
+    padding: 24px;
+  }
+  .size-chart-note {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  .size-chart-scroll {
+    overflow-x: auto;
+  }
+  .size-chart-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .size-chart-table th,
+  .size-chart-table td {
+    padding: 10px 14px;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+  }
+  .size-chart-table thead th {
+    background: #f5f5f5;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-size: 12px;
+  }
+  .size-chart-table tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+  .size-chart-table tbody tr:hover {
+    background: #f0f0f0;
+  }
+</style>
