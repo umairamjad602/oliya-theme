@@ -1,1 +1,236 @@
-{"current":{"logo_header_max_width":150,"logo_header":"shopify:\/\/shop_images\/WhatsApp_Image_2026-05-14_at_11.35.13_PM.jpg","logo_other":"shopify:\/\/shop_images\/jewelry-5-logo-2.png","logo_footer_max_width":210,"logo_footer":"shopify:\/\/shop_images\/WhatsApp_Image_2026-05-14_at_11.35.13_PM.jpg","favicon":"shopify:\/\/shop_images\/favicon.png","color_primary":"#222222","body_text_color":"#808080","body_bgcolor":"#ffffff","extra_bgcolor":"#f5f5f5","heading_text_color":"#222","link_text_color":"#222","theme_border_color":"#222222","theme_border_color_opacity":0.1,"body_font_handle":"poppins_n4","body_custom_font_handle_enable":true,"body_custom_font_handle":"Outfit","body_custom_font_weight":400,"body_font_size":16,"body_letter_spacing":0,"header_font_handle":"poppins_n6","header_custom_font_handle_enable":true,"header_custom_font_handle":"Outfit","section_header_font_handle":"americana_n4","section_header_custom_font_handle_enable":true,"section_header_custom_font_handle":"Spectral","section_header_custom_font_weight":600,"section_header_text_transform":"none","paragraph_font_handle":"poppins_n4","paragraph_custom_font_handle_enable":true,"paragraph_custom_font_handle":"Outfit","paragraph_font_line_height":26,"other_font_handle":"poppins_n5","other_custom_font_handle_enable":true,"other_custom_font_handle":"Spectral","tag_color":"#666666","tag_font_size":15,"tag_bgcolor":"#ffffff","tag_font_weight":500,"tag_border_color":"#222222","tag_border_color_opacity":0.1,"tag_border_radius":10,"page_width":1410,"cont_fluid_p":90,"section_padding_top":80,"section_padding_bottom":80,"section_padding_top_ipad":80,"section_padding_bottom_ipad":80,"section_padding_top_xs":60,"section_padding_bottom_xs":60,"btn1_color":"#ffffff","btn1_hvr_color":"#ffffff","btn1_font_size":16,"btn1_font_size_lg":16,"btn1_padding_top_bottom":19,"btn1_padding_top_bottom_lg":15,"btn1_padding_left_right":38,"btn1_padding_left_right_lg":25,"btn1_bgcolor":"#000000","btn1_hvr_bgcolor":"#222222","btn1_text_transform":"uppercase","btn1_font_weight":600,"btn1_border":2,"btn1_border_property":"none","btn1_border_color":"#222222","btn1_border_hvr_color":"#222222","btn1_border_radius":8,"btn1_letter_spacing":0,"btn2_color":"#ffffff","btn2_hvr_color":"#ffffff","btn2_font_size":16,"btn2_font_size_lg":16,"btn2_padding_top_bottom":19,"btn2_padding_top_bottom_lg":15,"btn2_padding_left_right":38,"btn2_padding_left_right_lg":25,"btn2_bgcolor":"#222222","btn2_hvr_bgcolor":"#000000","btn2_text_transform":"uppercase","btn2_font_weight":600,"btn2_border":1,"btn2_border_property":"none","btn2_border_color":"#222222","btn2_border_hvr_color":"#000000","btn2_border_radius":8,"btn2_letter_spacing":0,"btn3_color":"#808080","btn3_hvr_color":"#ffffff","btn3_font_size":16,"btn3_font_size_lg":16,"btn3_padding_top_bottom":19,"btn3_padding_top_bottom_lg":15,"btn3_padding_left_right":38,"btn3_padding_left_right_lg":25,"btn3_bgcolor":"#ffffff","btn3_hvr_bgcolor":"#000000","btn3_text_transform":"uppercase","btn3_font_weight":600,"btn3_border":2,"btn3_border_property":"none","btn3_border_color":"#ffffff","btn3_border_hvr_color":"#000000","btn3_border_radius":8,"btn3_letter_spacing":0,"cart_enable":true,"cart_discount_header":"New customers save 10% with code <b>WELCOME10<\/b>","show_cart_note":true,"is_free_shipping_bar":true,"drawer_product":"frontpage","image_ratio":"adapt","pro_hover_enable":true,"show_rating":true,"pro_gr_option_enable":false,"show_vendor":true,"label_font_size":13,"label_top_pos":15,"label_font_weight":500,"label_border_radius":10,"discount_label_color":"#ffffff","discount_label_bgcolor":"#222222","sale_percent_enable":false,"soldout_title":"Sold out","search_enable":true,"wishlist_page_url":"shopify:\/\/pages\/wishlist","breadcrumb_banner_enable":true,"breadcrumb_bgimg_enable":true,"breadcrumb_bgimg":"shopify:\/\/shop_images\/jewelry-1-breadcrumb.jpg","breadcrumb_bgimg_overlay_color":"#333333","breadcrumb_bgimg_overlay_color_opacity":0.2,"breadcrumb_bgimg_overlay_color_enable":true,"breadcrumb_bgcolor":"#f5f5f5","breadcrumb_title_color":"#ffffff","breadcrumb_main_title_color":"#ffffff","blog_image_ratio":"adapt","social_facebook_link":"https:\/\/facebook.com\/","social_instagram_link":"https:\/\/instagram.com\/","social_youtube_link":"","social_tiktok_link":"","social_twitter_link":"https:\/\/twitter.com\/","social_snapchat_link":"","social_pinterest_link":"","social_tumblr_link":"","social_vimeo_link":"","currency_code_enabled":false,"wl_title":"","cart_title":"Bag","reels_product_image":10,"title_padding_bottom":60,"title_padding_bottom_xs":30,"blog_read_btn":"Read article","pro_gr_color_picker_type":"color_swatch","color_swatch_config":"Black:#000000\nWhite:#ffffff\nNavy:#001f5b\nNavy blue:#001f5b\nCream:#fffdd0\nOff white:#f8f8f4\nIvory:#fffff0\nEcru:#c8b89a\nBeige:#f5f5dc\nCamel:#c19a6b\nTan:#d2b48c\nSand:#c2b280\nStone:#928e85\nTaupe:#483c32\nKhaki:#c3b091\nChino:#d4c49a\nOlive:#808000\nArmy green:#4b5320\nForest green:#228b22\nBottle green:#006a4e\nCharcoal:#36454f\nSlate:#708090\nGrey:#808080\nGray:#808080\nLight grey:#d3d3d3\nLight gray:#d3d3d3\nDark grey:#404040\nDark gray:#404040\nMid grey:#7a7a7a\nBurgundy:#800020\nWine:#722f37\nMaroon:#800000\nSky blue:#87ceeb\nLight blue:#add8e6\nBaby blue:#89cff0\nRoyal blue:#4169e1\nCobalt:#0047ab\nBrown:#795548\nChocolate:#7b3f00\nMustard:#ffdb58\nCamel brown:#c19a6b\nAliceblue:#f0f8ff\nBali hai:#86aab0\nBrandy rose:#ba957d\nBrown rust:#b87145\nCeleste:#cdd1c6\nChestnut rose:#c66\nDanube:#72a6d8\nEquator:#e0b756\nFlint:#6f6963\nGull gray:#93a6b0\nJuniper:#719297\nMediumaquamarine:#66cdaa\nMercury:#e8e8e8\nMuddy waters:#b58555\nNebula:#cedbd8\nNeptune:#6ca6b7\nOlivedrab:#6b8e23\nPalegoldenrod:#eee8aa\nPigeon post:#a2c4d4\nQuicksand:#bb9290\nSand dune:#877666\nOrganic cotton:cotton.jpg\nLeather:leather.jpg\nRubber:rubber.jpg\nRecycled:recycled.jpg","bg_color_primary":"#222222","section_heading_text_color":"#222222","para_text_color":"#666666","breadcrumb_bgcolor_enable":true,"register_terms_text_link":"shopify:\/\/pages\/terms-condition","day_title":"Day","hour_title":"Hrs","minute_title":"Min","second_title":"Sec","breadcrumb_padding_top":40,"breadcrumb_padding_bottom":40,"breadcrumb_padding_top_xs":40,"breadcrumb_padding_bottom_xs":40,"sections":{"mobile-sticky-menu":{"type":"mobile-sticky-menu","blocks":{"401521eb-cef1-44cf-98a0-555f4c76fc05":{"type":"icon_custom","settings":{"custom_icon":"<i class=\"feather-home\"><\/i>","custom_title":"Home","custom_url":"\/"}},"06b5ccb7-5684-49e4-a126-5bfed2e77869":{"type":"icon_search","settings":{"search_title":"Search"}},"7cf748f0-9f4a-4dd4-a26b-d5ab6ac47f58":{"type":"icon_custom","settings":{"custom_icon":"<i class=\"feather-grid\"><\/i>","custom_title":"Shop","custom_url":"shopify:\/\/collections\/all"}},"icon_wishlist_3FXjhi":{"type":"icon_wishlist","settings":{"wishlist_title":"Wishlist"}},"8a0d36a2-baed-4dac-83b6-1cb034ca3069":{"type":"icon_user","settings":{"user_title":"Account"}}},"block_order":["401521eb-cef1-44cf-98a0-555f4c76fc05","06b5ccb7-5684-49e4-a126-5bfed2e77869","7cf748f0-9f4a-4dd4-a26b-d5ab6ac47f58","icon_wishlist_3FXjhi","8a0d36a2-baed-4dac-83b6-1cb034ca3069"],"settings":{"menu_enable":true}}},"content_for_index":[]},"presets":{"Default":{}},"platform_customizations":{"custom_css":[]}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "logo_header_max_width": 150,
+    "logo_header": "shopify://shop_images/WhatsApp_Image_2026-05-14_at_11.35.13_PM.jpg",
+    "logo_other": "shopify://shop_images/jewelry-5-logo-2.png",
+    "logo_footer_max_width": 210,
+    "logo_footer": "shopify://shop_images/WhatsApp_Image_2026-05-14_at_11.35.13_PM.jpg",
+    "favicon": "shopify://shop_images/favicon.png",
+    "color_primary": "#222222",
+    "body_text_color": "#808080",
+    "body_bgcolor": "#ffffff",
+    "extra_bgcolor": "#f5f5f5",
+    "heading_text_color": "#222",
+    "link_text_color": "#222",
+    "theme_border_color": "#222222",
+    "theme_border_color_opacity": 0.1,
+    "body_font_handle": "poppins_n4",
+    "body_custom_font_handle_enable": true,
+    "body_custom_font_handle": "Outfit",
+    "body_custom_font_weight": 400,
+    "body_font_size": 16,
+    "body_letter_spacing": 0,
+    "header_font_handle": "poppins_n6",
+    "header_custom_font_handle_enable": true,
+    "header_custom_font_handle": "Outfit",
+    "section_header_font_handle": "americana_n4",
+    "section_header_custom_font_handle_enable": true,
+    "section_header_custom_font_handle": "Spectral",
+    "section_header_custom_font_weight": 600,
+    "section_header_text_transform": "none",
+    "paragraph_font_handle": "poppins_n4",
+    "paragraph_custom_font_handle_enable": true,
+    "paragraph_custom_font_handle": "Outfit",
+    "paragraph_font_line_height": 26,
+    "other_font_handle": "poppins_n5",
+    "other_custom_font_handle_enable": true,
+    "other_custom_font_handle": "Spectral",
+    "tag_color": "#666666",
+    "tag_font_size": 15,
+    "tag_bgcolor": "#ffffff",
+    "tag_font_weight": 500,
+    "tag_border_color": "#222222",
+    "tag_border_color_opacity": 0.1,
+    "tag_border_radius": 10,
+    "page_width": 1410,
+    "cont_fluid_p": 90,
+    "section_padding_top": 80,
+    "section_padding_bottom": 80,
+    "section_padding_top_ipad": 80,
+    "section_padding_bottom_ipad": 80,
+    "section_padding_top_xs": 60,
+    "section_padding_bottom_xs": 60,
+    "btn1_color": "#ffffff",
+    "btn1_hvr_color": "#ffffff",
+    "btn1_font_size": 16,
+    "btn1_font_size_lg": 16,
+    "btn1_padding_top_bottom": 19,
+    "btn1_padding_top_bottom_lg": 15,
+    "btn1_padding_left_right": 38,
+    "btn1_padding_left_right_lg": 25,
+    "btn1_bgcolor": "#000000",
+    "btn1_hvr_bgcolor": "#222222",
+    "btn1_text_transform": "uppercase",
+    "btn1_font_weight": 600,
+    "btn1_border": 2,
+    "btn1_border_property": "none",
+    "btn1_border_color": "#222222",
+    "btn1_border_hvr_color": "#222222",
+    "btn1_border_radius": 8,
+    "btn1_letter_spacing": 0,
+    "btn2_color": "#ffffff",
+    "btn2_hvr_color": "#ffffff",
+    "btn2_font_size": 16,
+    "btn2_font_size_lg": 16,
+    "btn2_padding_top_bottom": 19,
+    "btn2_padding_top_bottom_lg": 15,
+    "btn2_padding_left_right": 38,
+    "btn2_padding_left_right_lg": 25,
+    "btn2_bgcolor": "#222222",
+    "btn2_hvr_bgcolor": "#000000",
+    "btn2_text_transform": "uppercase",
+    "btn2_font_weight": 600,
+    "btn2_border": 1,
+    "btn2_border_property": "none",
+    "btn2_border_color": "#222222",
+    "btn2_border_hvr_color": "#000000",
+    "btn2_border_radius": 8,
+    "btn2_letter_spacing": 0,
+    "btn3_color": "#808080",
+    "btn3_hvr_color": "#ffffff",
+    "btn3_font_size": 16,
+    "btn3_font_size_lg": 16,
+    "btn3_padding_top_bottom": 19,
+    "btn3_padding_top_bottom_lg": 15,
+    "btn3_padding_left_right": 38,
+    "btn3_padding_left_right_lg": 25,
+    "btn3_bgcolor": "#ffffff",
+    "btn3_hvr_bgcolor": "#000000",
+    "btn3_text_transform": "uppercase",
+    "btn3_font_weight": 600,
+    "btn3_border": 2,
+    "btn3_border_property": "none",
+    "btn3_border_color": "#ffffff",
+    "btn3_border_hvr_color": "#000000",
+    "btn3_border_radius": 8,
+    "btn3_letter_spacing": 0,
+    "cart_enable": true,
+    "cart_discount_header": "New customers save 10% with code <b>WELCOME10</b>",
+    "show_cart_note": true,
+    "is_free_shipping_bar": true,
+    "drawer_product": "frontpage",
+    "image_ratio": "adapt",
+    "pro_hover_enable": true,
+    "show_rating": true,
+    "pro_gr_option_enable": false,
+    "show_vendor": true,
+    "label_font_size": 13,
+    "label_top_pos": 15,
+    "label_font_weight": 500,
+    "label_border_radius": 10,
+    "discount_label_color": "#ffffff",
+    "discount_label_bgcolor": "#222222",
+    "sale_percent_enable": false,
+    "soldout_title": "Sold out",
+    "search_enable": true,
+    "wishlist_page_url": "shopify://pages/wishlist",
+    "breadcrumb_banner_enable": true,
+    "breadcrumb_bgimg_enable": true,
+    "breadcrumb_bgimg": "shopify://shop_images/jewelry-1-breadcrumb.jpg",
+    "breadcrumb_bgimg_overlay_color": "#333333",
+    "breadcrumb_bgimg_overlay_color_opacity": 0.2,
+    "breadcrumb_bgimg_overlay_color_enable": true,
+    "breadcrumb_bgcolor": "#f5f5f5",
+    "breadcrumb_title_color": "#ffffff",
+    "breadcrumb_main_title_color": "#ffffff",
+    "blog_image_ratio": "adapt",
+    "social_facebook_link": "https://facebook.com/",
+    "social_instagram_link": "https://instagram.com/",
+    "social_youtube_link": "",
+    "social_tiktok_link": "",
+    "social_twitter_link": "https://twitter.com/",
+    "social_snapchat_link": "",
+    "social_pinterest_link": "",
+    "social_tumblr_link": "",
+    "social_vimeo_link": "",
+    "currency_code_enabled": false,
+    "wl_title": "",
+    "cart_title": "Bag",
+    "reels_product_image": 10,
+    "title_padding_bottom": 60,
+    "title_padding_bottom_xs": 30,
+    "blog_read_btn": "Read article",
+    "pro_gr_color_picker_type": "color_swatch",
+    "color_swatch_config": "Black:#000000\nWhite:#ffffff\nNavy:#001f5b\nNavy blue:#001f5b\nCream:#fffdd0\nOff white:#f8f8f4\nIvory:#fffff0\nEcru:#c8b89a\nBeige:#f5f5dc\nCamel:#c19a6b\nTan:#d2b48c\nSand:#c2b280\nStone:#928e85\nTaupe:#483c32\nKhaki:#c3b091\nChino:#d4c49a\nOlive:#808000\nArmy green:#4b5320\nForest green:#228b22\nBottle green:#006a4e\nCharcoal:#36454f\nSlate:#708090\nGrey:#808080\nGray:#808080\nLight grey:#d3d3d3\nLight gray:#d3d3d3\nDark grey:#404040\nDark gray:#404040\nMid grey:#7a7a7a\nBurgundy:#800020\nWine:#722f37\nMaroon:#800000\nSky blue:#87ceeb\nLight blue:#add8e6\nBaby blue:#89cff0\nRoyal blue:#4169e1\nCobalt:#0047ab\nBrown:#795548\nChocolate:#7b3f00\nMustard:#ffdb58\nCamel brown:#c19a6b\nAliceblue:#f0f8ff\nBali hai:#86aab0\nBrandy rose:#ba957d\nBrown rust:#b87145\nCeleste:#cdd1c6\nChestnut rose:#c66\nDanube:#72a6d8\nEquator:#e0b756\nFlint:#6f6963\nGull gray:#93a6b0\nJuniper:#719297\nMediumaquamarine:#66cdaa\nMercury:#e8e8e8\nMuddy waters:#b58555\nNebula:#cedbd8\nNeptune:#6ca6b7\nOlivedrab:#6b8e23\nPalegoldenrod:#eee8aa\nPigeon post:#a2c4d4\nQuicksand:#bb9290\nSand dune:#877666\nOrganic cotton:cotton.jpg\nLeather:leather.jpg\nRubber:rubber.jpg\nRecycled:recycled.jpg",
+    "bg_color_primary": "#222222",
+    "section_heading_text_color": "#222222",
+    "para_text_color": "#666666",
+    "breadcrumb_bgcolor_enable": true,
+    "register_terms_text_link": "shopify://pages/terms-condition",
+    "day_title": "Day",
+    "hour_title": "Hrs",
+    "minute_title": "Min",
+    "second_title": "Sec",
+    "breadcrumb_padding_top": 40,
+    "breadcrumb_padding_bottom": 40,
+    "breadcrumb_padding_top_xs": 40,
+    "breadcrumb_padding_bottom_xs": 40,
+    "sections": {
+      "mobile-sticky-menu": {
+        "type": "mobile-sticky-menu",
+        "blocks": {
+          "401521eb-cef1-44cf-98a0-555f4c76fc05": {
+            "type": "icon_custom",
+            "settings": {
+              "custom_icon": "<i class=\"feather-home\"></i>",
+              "custom_title": "Home",
+              "custom_url": "/"
+            }
+          },
+          "06b5ccb7-5684-49e4-a126-5bfed2e77869": {
+            "type": "icon_search",
+            "settings": {
+              "search_title": "Search"
+            }
+          },
+          "7cf748f0-9f4a-4dd4-a26b-d5ab6ac47f58": {
+            "type": "icon_custom",
+            "settings": {
+              "custom_icon": "<i class=\"feather-grid\"></i>",
+              "custom_title": "Shop",
+              "custom_url": "shopify://collections/all"
+            }
+          },
+          "icon_wishlist_3FXjhi": {
+            "type": "icon_wishlist",
+            "settings": {
+              "wishlist_title": "Wishlist"
+            }
+          },
+          "8a0d36a2-baed-4dac-83b6-1cb034ca3069": {
+            "type": "icon_user",
+            "settings": {
+              "user_title": "Account"
+            }
+          }
+        },
+        "block_order": [
+          "401521eb-cef1-44cf-98a0-555f4c76fc05",
+          "06b5ccb7-5684-49e4-a126-5bfed2e77869",
+          "7cf748f0-9f4a-4dd4-a26b-d5ab6ac47f58",
+          "icon_wishlist_3FXjhi",
+          "8a0d36a2-baed-4dac-83b6-1cb034ca3069"
+        ],
+        "settings": {
+          "menu_enable": true
+        }
+      }
+    },
+    "content_for_index": []
+  },
+  "presets": {
+    "Default": {}
+  },
+  "platform_customizations": {
+    "custom_css": []
+  }
+}
