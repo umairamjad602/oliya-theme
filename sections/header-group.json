@@ -89,7 +89,7 @@
           "type": "menu_link",
           "settings": {
             "menu_link_title": "Contact Us",
-            "menu_link_url": "",
+            "menu_link_url": "shopify://pages/contact",
             "menu_link_label": "",
             "menu_link_label_color": "#ffffff",
             "menu_link_label_font_size": 10,
