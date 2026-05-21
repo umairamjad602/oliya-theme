@@ -151,7 +151,7 @@
         "product_tab_k7yVWy": {
           "type": "product_tab",
           "settings": {
-            "tab_product": "shorts"
+            "tab_product": "best-seller"
           }
         }
       },
@@ -246,7 +246,7 @@
         "section_padding_bottom_xs": 60,
         "section_bg_color": "#f9f5f0",
         "section_subheading": "",
-        "section_heading": "BEST SELLERS",
+        "section_heading": "NEW ARRIVALS",
         "countdown_enable": false,
         "product_month": "January",
         "product_year": 2026,
