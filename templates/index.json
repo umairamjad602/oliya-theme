@@ -87,7 +87,7 @@
         "slider_cat_HRCHfq": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "jackets",
+            "slider_category_handle": "men-shoes",
             "cat_img": "shopify://shop_images/b0793af4-d5b6-4d75-a8f3-b9d49fd5d3bf.webp",
             "cat_custom_title": "Shoes",
             "cat_description": "From lightweight layers to heavy outerwear — built for every season."
@@ -96,7 +96,7 @@
         "slider_cat_xn3bKY": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "shirts",
+            "slider_category_handle": "men-tops",
             "cat_img": "shopify://shop_images/7858277100_1.jpg",
             "cat_custom_title": "",
             "cat_description": "Clean cuts and quality fabrics for everyday wear and beyond."
@@ -105,7 +105,7 @@
         "slider_cat_nqtxzq": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "pants",
+            "slider_category_handle": "shorts",
             "cat_img": "shopify://shop_images/9485518505.jpg",
             "cat_custom_title": "",
             "cat_description": "Tailored fits that move with you, from morning to evening."
@@ -114,7 +114,7 @@
         "slider_cat_njGBkC": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "accessories",
+            "slider_category_handle": "shorts-1",
             "cat_img": "shopify://shop_images/61F1LgyxydL._AC_UF1000_1000_QL80.jpg",
             "cat_custom_title": "",
             "cat_description": "The finishing touches that complete every look."
@@ -184,45 +184,6 @@
         "view_btn": ""
       }
     },
-    "featured_collection_zUMdyw": {
-      "type": "featured-collection",
-      "blocks": {
-        "product_tab_9gA4EW": {
-          "type": "product_tab",
-          "settings": {
-            "tab_product": "shorts"
-          }
-        }
-      },
-      "block_order": [
-        "product_tab_9gA4EW"
-      ],
-      "settings": {
-        "container": "normal",
-        "section_padding_top": 80,
-        "section_padding_bottom": 80,
-        "section_padding_top_lg": 80,
-        "section_padding_bottom_lg": 80,
-        "section_padding_top_xs": 60,
-        "section_padding_bottom_xs": 60,
-        "section_bg_color": "#f9f5f0",
-        "section_subheading": "",
-        "section_heading": "BEST SELLERS",
-        "countdown_enable": false,
-        "product_month": "January",
-        "product_year": 2026,
-        "product_date": 30,
-        "featured_tab_enable": false,
-        "slider_crop": false,
-        "category_special_product_view": "grid",
-        "product_limit": 4,
-        "category_special_product_col": "1",
-        "product_view": "4",
-        "product_view_lg": "4",
-        "product_view_sm": "2",
-        "view_btn": ""
-      }
-    },
     "image_with_text_QmhPBQ": {
       "type": "Image-with-text",
       "blocks": {
@@ -260,6 +221,45 @@
         "container": "fluid",
         "show_row_reverse": false,
         "home_about_image": "shopify://shop_images/ChatGPT_Image_May_20_2026_01_32_44_AM.png"
+      }
+    },
+    "featured_collection_zUMdyw": {
+      "type": "featured-collection",
+      "blocks": {
+        "product_tab_9gA4EW": {
+          "type": "product_tab",
+          "settings": {
+            "tab_product": "shorts"
+          }
+        }
+      },
+      "block_order": [
+        "product_tab_9gA4EW"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_lg": 80,
+        "section_padding_bottom_lg": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_bg_color": "#f9f5f0",
+        "section_subheading": "",
+        "section_heading": "BEST SELLERS",
+        "countdown_enable": false,
+        "product_month": "January",
+        "product_year": 2026,
+        "product_date": 30,
+        "featured_tab_enable": false,
+        "slider_crop": false,
+        "category_special_product_view": "grid",
+        "product_limit": 4,
+        "category_special_product_col": "1",
+        "product_view": "4",
+        "product_view_lg": "4",
+        "product_view_sm": "2",
+        "view_btn": ""
       }
     },
     "image_with_text_hAM8k7": {
