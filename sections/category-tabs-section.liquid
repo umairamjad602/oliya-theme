@@ -1,0 +1,486 @@
+<section
+  class="category-tabs-section cts-{{ section.id }}"
+  style="
+    background-color: {{ section.settings.section_bg }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    --cts-banner-height: {{ section.settings.banner_height }}px;
+    --cts-cols: {{ section.settings.products_per_row }};
+  "
+>
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid{% else %}container{% endif %}">
+
+    {%- if section.settings.section_heading != blank or section.settings.section_subheading != blank -%}
+      <div class="cts-heading-wrap">
+        {%- if section.settings.section_subheading != blank -%}
+          <span class="cts-subheading">{{ section.settings.section_subheading }}</span>
+        {%- endif -%}
+        {%- if section.settings.section_heading != blank -%}
+          <h2 class="cts-heading mr-0">{{ section.settings.section_heading }}</h2>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <!-- TAB BAR -->
+    <div class="cts-tabs" role="tablist">
+      {%- for block in section.blocks -%}
+        {%- assign cat = collections[block.settings.category] -%}
+        <button
+          class="cts-tab-btn{% if forloop.first %} active{% endif %}"
+          role="tab"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          data-tab="cts-panel-{{ section.id }}-{{ forloop.index }}"
+          {{ block.shopify_attributes }}
+        >
+          {{ block.settings.tab_label | default: cat.title | default: 'Category' }}
+        </button>
+      {%- endfor -%}
+    </div>
+
+    <!-- PANELS (one per category) -->
+    {%- for block in section.blocks -%}
+      {%- assign cat = collections[block.settings.category] -%}
+      <div
+        class="cts-panel{% if forloop.first %} active{% endif %}"
+        id="cts-panel-{{ section.id }}-{{ forloop.index }}"
+        role="tabpanel"
+        {{ block.shopify_attributes }}
+      >
+
+        <!-- BANNER -->
+        {%- if section.settings.show_banner -%}
+          <div class="cts-banner">
+            <a href="{{ cat.url }}" class="cts-banner-link">
+              {%- if block.settings.banner_img != blank -%}
+                {{
+                  block.settings.banner_img
+                  | image_url: width: 1920
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'cts-banner-img',
+                    alt: block.settings.banner_img.alt
+                }}
+              {%- else -%}
+                {{ 'collection-apparel-1' | placeholder_svg_tag: 'cts-banner-placeholder' }}
+              {%- endif -%}
+              <div class="cts-banner-overlay"></div>
+              <div class="cts-banner-text">
+                {%- if block.settings.banner_subtitle != blank -%}
+                  <span class="cts-banner-subtitle">{{ block.settings.banner_subtitle }}</span>
+                {%- endif -%}
+                <h2 class="cts-banner-title mr-0">
+                  {{ block.settings.banner_title | default: cat.title | default: 'Collection' }}
+                </h2>
+                {%- if block.settings.banner_cta != blank -%}
+                  <span class="cts-banner-cta">{{ block.settings.banner_cta }}</span>
+                {%- endif -%}
+              </div>
+            </a>
+          </div>
+        {%- endif -%}
+
+        <!-- PRODUCTS -->
+        <div class="cts-products-grid">
+          {%- assign prod_limit = section.settings.products_per_row -%}
+          {%- for product in cat.products limit: prod_limit -%}
+            <div class="cts-product-item">
+              {%- render 'product-grid-item', product: product -%}
+            </div>
+          {%- else -%}
+            {%- for i in (1..prod_limit) -%}
+              <div class="cts-product-item">
+                <div class="single-product-wrap">
+                  <div class="product-image">
+                    {%- capture ph -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                    {{ ph | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                  </div>
+                  <div class="product-content">
+                    <div class="card-title-row">
+                      <h6 class="card-product-title mr-0"><a>Example product</a></h6>
+                    </div>
+                    <div class="price-box"><span class="new-price">$0.00</span></div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+
+        <!-- SEE ALL BUTTON -->
+        {%- if block.settings.see_all_text != blank -%}
+          <div class="cts-see-all">
+            <a href="{{ cat.url }}" class="cts-see-all-btn">{{ block.settings.see_all_text }}</a>
+          </div>
+        {%- endif -%}
+
+      </div>
+    {%- endfor -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  var section = document.querySelector('.cts-{{ section.id }}');
+  if (!section) return;
+  section.querySelectorAll('.cts-tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      section.querySelectorAll('.cts-tab-btn').forEach(function (b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      section.querySelectorAll('.cts-panel').forEach(function (p) {
+        p.classList.remove('active');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      var panel = document.getElementById(btn.getAttribute('data-tab'));
+      if (panel) panel.classList.add('active');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Category Tabs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Width",
+      "options": [
+        { "label": "Normal", "value": "normal" },
+        { "label": "Fluid", "value": "fluid" }
+      ],
+      "default": "normal"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Background colour",
+      "default": "#f9f5f0"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0, "max": 120, "step": 4, "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0, "max": 120, "step": 4, "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "section_subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show banner",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Banner height",
+      "min": 200, "max": 700, "step": 20, "unit": "px",
+      "default": 420
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "label": "Products to show",
+      "min": 2, "max": 6, "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "category",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "info": "Leave blank to use collection name"
+        },
+        {
+          "type": "header",
+          "content": "Banner"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_img",
+          "label": "Banner image",
+          "info": "Recommended: 1920×420px"
+        },
+        {
+          "type": "text",
+          "id": "banner_subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "type": "text",
+          "id": "banner_title",
+          "label": "Title",
+          "info": "Leave blank to use collection name"
+        },
+        {
+          "type": "text",
+          "id": "banner_cta",
+          "label": "CTA label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "header",
+          "content": "Products"
+        },
+        {
+          "type": "text",
+          "id": "see_all_text",
+          "label": "See all button text",
+          "default": "See All"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Tabs",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+/* ── SECTION HEADING ──────────────────────────────── */
+.category-tabs-section .cts-heading-wrap {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.category-tabs-section .cts-subheading {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 8px;
+}
+.category-tabs-section .cts-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #222222;
+  margin: 0;
+  font-family: var(--font-custom-stack-section-header);
+}
+
+/* ── TAB BAR ──────────────────────────────────────── */
+.category-tabs-section .cts-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+.category-tabs-section .cts-tab-btn {
+  background: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  color: #555555;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 28px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  line-height: 1;
+}
+.category-tabs-section .cts-tab-btn:hover {
+  border-color: #222222;
+  color: #222222;
+}
+.category-tabs-section .cts-tab-btn.active {
+  background: #222222;
+  border-color: #222222;
+  color: #ffffff;
+}
+
+/* ── PANELS ───────────────────────────────────────── */
+.category-tabs-section .cts-panel {
+  display: none;
+}
+.category-tabs-section .cts-panel.active {
+  display: block;
+}
+
+/* ── BANNER ───────────────────────────────────────── */
+.category-tabs-section .cts-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--sti-border-radius, 12px);
+  margin-bottom: 30px;
+}
+.category-tabs-section .cts-banner-link {
+  display: block;
+  position: relative;
+}
+.category-tabs-section .cts-banner-img {
+  width: 100%;
+  height: var(--cts-banner-height);
+  object-fit: cover;
+  display: block;
+}
+.category-tabs-section .cts-banner-placeholder {
+  width: 100%;
+  height: var(--cts-banner-height);
+  display: block;
+  background: #e0dbd4;
+}
+.category-tabs-section .cts-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.18) 55%, transparent 100%);
+  pointer-events: none;
+}
+.category-tabs-section .cts-banner-text {
+  position: absolute;
+  top: 50%;
+  left: 56px;
+  transform: translateY(-50%);
+  color: #ffffff;
+  max-width: 500px;
+}
+.category-tabs-section .cts-banner-subtitle {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+.category-tabs-section .cts-banner-title {
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff !important;
+  font-family: var(--font-custom-stack-section-header);
+  margin: 0 0 14px;
+}
+.category-tabs-section .cts-banner-cta {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 1.5px solid rgba(255,255,255,0.7);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.category-tabs-section .cts-banner-link:hover .cts-banner-cta {
+  border-color: #ffffff;
+}
+
+/* ── PRODUCTS GRID ────────────────────────────────── */
+.category-tabs-section .cts-products-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cts-cols, 4), 1fr);
+  gap: 24px;
+}
+.category-tabs-section .cts-product-item {
+  height: 100%;
+}
+
+/* ── SEE ALL ──────────────────────────────────────── */
+.category-tabs-section .cts-see-all {
+  margin-top: 36px;
+  text-align: center;
+}
+.category-tabs-section .cts-see-all-btn {
+  display: inline-block;
+  padding: 13px 40px;
+  border: 1.5px solid #222222;
+  color: #222222;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  transition: background 0.2s, color 0.2s;
+}
+.category-tabs-section .cts-see-all-btn:hover {
+  background: #222222;
+  color: #ffffff;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 1199px) {
+  .category-tabs-section .cts-banner-title { font-size: 34px; }
+  .category-tabs-section .cts-banner-text  { left: 40px; }
+}
+@media (max-width: 991px) {
+  .category-tabs-section .cts-products-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .category-tabs-section .cts-banner-title  { font-size: 26px; }
+  .category-tabs-section .cts-banner-text   { left: 28px; max-width: 70%; }
+}
+@media (max-width: 767px) {
+  .category-tabs-section .cts-heading       { font-size: 24px; }
+  .category-tabs-section .cts-banner-img    { height: 280px; }
+  .category-tabs-section .cts-banner-placeholder { height: 280px; }
+  .category-tabs-section .cts-banner-title  { font-size: 22px; }
+  .category-tabs-section .cts-banner-text   { left: 20px; max-width: 75%; }
+  .category-tabs-section .cts-banner-subtitle { display: none; }
+}
+@media (max-width: 479px) {
+  .category-tabs-section .cts-products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .category-tabs-section .cts-tab-btn       { padding: 8px 18px; font-size: 11px; }
+  .category-tabs-section .cts-banner-img    { height: 220px; }
+  .category-tabs-section .cts-banner-placeholder { height: 220px; }
+  .category-tabs-section .cts-banner-title  { font-size: 18px; }
+}
+</style>

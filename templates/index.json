@@ -145,6 +145,72 @@
         "hover_bg": "#ffffff"
       }
     },
+    "category_tabs_main": {
+      "type": "category-tabs-section",
+      "blocks": {
+        "cat_tab_jackets": {
+          "type": "category",
+          "settings": {
+            "category": "jackets",
+            "tab_label": "Jackets",
+            "banner_subtitle": "New Arrivals",
+            "banner_title": "Jackets",
+            "banner_cta": "Shop Now",
+            "see_all_text": "See All Jackets"
+          }
+        },
+        "cat_tab_shirts": {
+          "type": "category",
+          "settings": {
+            "category": "shirts",
+            "tab_label": "Shirts",
+            "banner_subtitle": "Essentials",
+            "banner_title": "Shirts",
+            "banner_cta": "Shop Now",
+            "see_all_text": "See All Shirts"
+          }
+        },
+        "cat_tab_pants": {
+          "type": "category",
+          "settings": {
+            "category": "pants",
+            "tab_label": "Pants",
+            "banner_subtitle": "Tailored Fits",
+            "banner_title": "Pants",
+            "banner_cta": "Shop Now",
+            "see_all_text": "See All Pants"
+          }
+        },
+        "cat_tab_accessories": {
+          "type": "category",
+          "settings": {
+            "category": "accessories",
+            "tab_label": "Accessories",
+            "banner_subtitle": "Finishing Touches",
+            "banner_title": "Accessories",
+            "banner_cta": "Shop Now",
+            "see_all_text": "See All Accessories"
+          }
+        }
+      },
+      "block_order": [
+        "cat_tab_jackets",
+        "cat_tab_shirts",
+        "cat_tab_pants",
+        "cat_tab_accessories"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_bg": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "section_subheading": "Browse By",
+        "section_heading": "Shop by Category",
+        "show_banner": true,
+        "banner_height": 420,
+        "products_per_row": 4
+      }
+    },
     "featured-collection": {
       "type": "featured-collection",
       "blocks": {
@@ -674,6 +740,7 @@
   "order": [
     "slideshow",
     "collection_list_ye7dng",
+    "category_tabs_main",
     "featured-collection",
     "image_with_text_QmhPBQ",
     "section_border_b46N3q",

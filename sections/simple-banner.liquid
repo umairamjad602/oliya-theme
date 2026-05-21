@@ -1,0 +1,155 @@
+<section
+  class="simple-banner-section"
+  style="--sb-height: {{ section.settings.banner_height }}px; --sb-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+>
+  <div class="sb-banner">
+    {%- if section.settings.banner_image != blank -%}
+      {{
+        section.settings.banner_image
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'lazy',
+          class: 'sb-img',
+          alt: section.settings.banner_image.alt
+      }}
+    {%- else -%}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'sb-placeholder' }}
+    {%- endif -%}
+    <div class="sb-overlay"></div>
+    <div class="container">
+      <div class="sb-text">
+        {%- if section.settings.title != blank -%}
+          <h2 class="sb-title mr-0">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <p class="sb-desc mr-0">{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Simple Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner image",
+      "info": "Recommended: 1920×500px"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Banner height",
+      "min": 200, "max": 700, "step": 20, "unit": "px",
+      "default": 440
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay darkness",
+      "min": 0, "max": 80, "step": 5, "unit": "%",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Timeless style, naturally inspired."
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "label": "Left",   "value": "left"   },
+        { "label": "Center", "value": "center" },
+        { "label": "Right",  "value": "right"  }
+      ],
+      "default": "center"
+    }
+  ],
+  "presets": [
+    { "name": "Simple Banner" }
+  ]
+}
+{% endschema %}
+
+<style>
+.simple-banner-section .sb-banner {
+  position: relative;
+  width: 100%;
+  height: var(--sb-height);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.simple-banner-section .sb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.simple-banner-section .sb-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.simple-banner-section .sb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--sb-overlay));
+  pointer-events: none;
+}
+.simple-banner-section .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.simple-banner-section .sb-text {
+  text-align: {{ section.settings.text_align }};
+  max-width: 640px;
+  {% if section.settings.text_align == 'center' %}margin: 0 auto;{% elsif section.settings.text_align == 'right' %}margin-left: auto;{% endif %}
+}
+.simple-banner-section .sb-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  font-family: var(--font-custom-stack-section-header);
+  margin-bottom: 14px;
+}
+.simple-banner-section .sb-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 400;
+}
+
+@media (max-width: 991px) {
+  .simple-banner-section .sb-title { font-size: 36px; }
+}
+@media (max-width: 767px) {
+  .simple-banner-section .sb-title { font-size: 28px; margin-bottom: 10px; }
+  .simple-banner-section .sb-desc  { font-size: 14px; }
+}
+@media (max-width: 479px) {
+  .simple-banner-section .sb-title { font-size: 22px; }
+}
+</style>
