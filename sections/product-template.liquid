@@ -31,7 +31,11 @@
               data-slides-per-view="5"
             >
               <div class="swiper-wrapper">
+                {%- assign seen_thumb_ids = '' -%}
                 {% for media in product.media %}
+                  {%- assign check_thumb = media.id | append: ',' -%}
+                  {%- unless seen_thumb_ids contains check_thumb -%}
+                  {%- assign seen_thumb_ids = seen_thumb_ids | append: check_thumb -%}
                   {% assign i = forloop.index %}
                   {%- liquid
                     assign img_url = media | image_url
@@ -78,6 +82,7 @@
                       {%- endif -%}
                     </span>
                   </div>
+                  {%- endunless -%}
                 {% endfor %}
               </div>
             </div>
@@ -89,7 +94,11 @@
               data-slides-per-view="1"
             >
               <div class="swiper-wrapper">
+                {%- assign seen_big_ids = '' -%}
                 {%- for media in product.media -%}
+                  {%- assign check_big = media.id | append: ',' -%}
+                  {%- unless seen_big_ids contains check_big -%}
+                  {%- assign seen_big_ids = seen_big_ids | append: check_big -%}
                   {% assign i = forloop.index %}
                   <div
                     class="swiper-slide"
@@ -100,6 +109,7 @@
                   >
                     {% render 'media', media: media, section: section %}
                   </div>
+                  {%- endunless -%}
                 {%- endfor -%}
               </div>
               <div class="big-button button-next"><i class="feather-arrow-right"></i></div>
@@ -193,7 +203,9 @@
         function setheight(){
           var element = document.getElementById('slider-big-{{ section.id }}-{{ product.id }}');
           var height = element.offsetHeight;
-          document.getElementById('slider-small-{{ section.id }}-{{ product.id }}').style.maxHeight = height+"px";
+          var smallSlider = document.getElementById('slider-small-{{ section.id }}-{{ product.id }}');
+          smallSlider.style.height = height+"px";
+          smallSlider.style.maxHeight = height+"px";
         };
         const observer = new MutationObserver(list => {
           setheight();
@@ -211,7 +223,7 @@
         mousewheel: true,
         slideToClickedSlide: true,
         loopedSlides: 0,
-        autoHeight: true,
+        autoHeight: false,
         {% endif %}
           breakpoints: {
             0: {

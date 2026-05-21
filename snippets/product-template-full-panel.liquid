@@ -24,12 +24,13 @@
   </div>
 
   <!-- Price + Review Stars -->
+  <!-- id="price-{section.id}" is required by the theme JS (includeProInf) to update price on variant change -->
   <div class="pdp-price-stars-row">
-    <div class="pdp-price-box" id="pdp-price-{{ section.id }}">
-      <span class="pdp-price-current">{{ price | money }}</span>
-      {%- if compare_at_price > price -%}
-        <span class="pdp-price-was">{{ compare_at_price | money }}</span>
-      {%- endif -%}
+    <div class="pdp-price-box price-box{% if compare_at_price > price %} price--on-sale{% endif %}" id="price-{{ section.id }}">
+      <span class="pdp-price-current new-price" id="ProductPrice">{{ price | money }}</span>
+      <span class="pdp-price-was old-price" id="ComparePrice">
+        {%- if compare_at_price > price -%}{{ compare_at_price | money }}{%- endif -%}
+      </span>
     </div>
     {%- assign reviews_rating = product.metafields.reviews.rating.value -%}
     {%- assign reviews_count = product.metafields.reviews.rating_count.value -%}
@@ -38,10 +39,11 @@
         <div class="pdp-stars-wrap" title="{{ reviews_rating | round: 1 }} out of 5 stars">
           {%- assign rating_floor = reviews_rating | floor -%}
           {%- assign rating_decimal = reviews_rating | minus: rating_floor -%}
+          {%- assign half_star_pos = rating_floor | plus: 1 -%}
           {%- for i in (1..5) -%}
             {%- if i <= rating_floor -%}
               <span class="pdp-star pdp-star--full">&#9733;</span>
-            {%- elsif rating_decimal >= 0.5 and i == rating_floor | plus: 1 -%}
+            {%- elsif rating_decimal >= 0.5 and i == half_star_pos -%}
               <span class="pdp-star pdp-star--half">&#9733;</span>
             {%- else -%}
               <span class="pdp-star pdp-star--empty">&#9733;</span>
@@ -63,6 +65,7 @@
   {%- endif -%}
 
   <!-- Variant Picker -->
+  <!-- SwatchCheck (pr-option) requires <varitem> wrappers and radio inputs to detect selections -->
   {%- unless product.has_only_default_variant -%}
     <pr-option
       id="variant-radios-{{ section.id }}"
@@ -80,23 +83,151 @@
         -%}
 
         {%- if is_color -%}
-          <div class="pdp-option pdp-option--color js variant-option-block">
+          <varitem class="pdp-option pdp-option--color js variant-option-block">
             <div class="pdp-option-label">
               <span class="pdp-option-name">{{ option.name | upcase }}</span>
               <span class="pdp-option-sep"> / SIZE</span>
             </div>
             <div class="pdp-swatches option-block">
-              {% render 'product-variant-options',
-                product: product,
-                option: option,
-                block: block,
-                picker_type: 'swatch'
-              %}
+              {%- liquid
+                assign variants_available_arr = product.variants | map: 'available'
+                assign variants_option1_arr   = product.variants | map: 'option1'
+                assign variants_option2_arr   = product.variants | map: 'option2'
+                assign variants_option3_arr   = product.variants | map: 'option3'
+              -%}
+              {%- for value in option.values -%}
+                {%- liquid
+                  assign option_disabled = true
+                  for option1_name in variants_option1_arr
+                    case option.position
+                      when 1
+                        if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                          assign option_disabled = false
+                        endif
+                      when 2
+                        if option1_name == current_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                          assign option_disabled = false
+                        endif
+                      when 3
+                        if option1_name == current_variant.option1 and variants_option2_arr[forloop.index0] == current_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                          assign option_disabled = false
+                        endif
+                    endcase
+                  endfor
+
+                  assign swatch_bg = ''
+                  if value.swatch.image
+                    assign swatch_img_url = value.swatch.image | image_url: width: 60
+                    assign swatch_bg = 'url(' | append: swatch_img_url | append: ') center/cover'
+                  elsif value.swatch.color
+                    assign swatch_bg = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                  else
+                    assign value_key = value | downcase | replace: ' ', '-'
+                    case value_key
+                      when 'black', 'jet-black', 'jet', 'off-black', 'onyx'
+                        assign swatch_bg = '#111111'
+                      when 'white', 'off-white', 'ivory', 'cream', 'snow'
+                        assign swatch_bg = '#FFFFFF'
+                      when 'red', 'bright-red', 'cherry-red', 'scarlet', 'cherry', 'tomato'
+                        assign swatch_bg = '#D32F2F'
+                      when 'dark-red', 'wine', 'maroon', 'burgundy', 'oxblood'
+                        assign swatch_bg = '#7B1A1A'
+                      when 'pink', 'hot-pink', 'fuchsia', 'magenta'
+                        assign swatch_bg = '#E91E8C'
+                      when 'light-pink', 'baby-pink', 'powder-pink', 'pastel-pink', 'soft-pink'
+                        assign swatch_bg = '#FFCDD2'
+                      when 'blush', 'blush-pink', 'blush-rose'
+                        assign swatch_bg = '#F4B8C1'
+                      when 'rose', 'dusty-rose', 'vintage-rose'
+                        assign swatch_bg = '#C48B9F'
+                      when 'mauve', 'dusty-mauve', 'dusty-pink'
+                        assign swatch_bg = '#B5737B'
+                      when 'coral', 'peach-coral'
+                        assign swatch_bg = '#FF6B6B'
+                      when 'peach', 'apricot'
+                        assign swatch_bg = '#FFCC99'
+                      when 'salmon'
+                        assign swatch_bg = '#FA8072'
+                      when 'orange', 'tangerine', 'burnt-orange', 'amber'
+                        assign swatch_bg = '#F57C00'
+                      when 'yellow', 'lemon', 'bright-yellow', 'sunshine'
+                        assign swatch_bg = '#FDD835'
+                      when 'gold', 'mustard', 'mustard-yellow', 'golden', 'honey'
+                        assign swatch_bg = '#F9A825'
+                      when 'green', 'forest-green', 'dark-green', 'bottle-green'
+                        assign swatch_bg = '#2E7D32'
+                      when 'light-green', 'lime', 'lime-green', 'apple-green'
+                        assign swatch_bg = '#8BC34A'
+                      when 'mint', 'mint-green', 'spearmint'
+                        assign swatch_bg = '#A5D6A7'
+                      when 'sage', 'sage-green', 'eucalyptus'
+                        assign swatch_bg = '#87A878'
+                      when 'olive', 'army-green', 'military-green', 'khaki-green'
+                        assign swatch_bg = '#6D6928'
+                      when 'teal', 'dark-teal'
+                        assign swatch_bg = '#00796B'
+                      when 'emerald', 'emerald-green'
+                        assign swatch_bg = '#00695C'
+                      when 'blue', 'royal-blue', 'cobalt', 'bright-blue'
+                        assign swatch_bg = '#1976D2'
+                      when 'light-blue', 'sky-blue', 'baby-blue', 'powder-blue', 'pale-blue'
+                        assign swatch_bg = '#90CAF9'
+                      when 'navy', 'navy-blue', 'dark-navy', 'midnight-blue', 'midnight', 'midnight-navy'
+                        assign swatch_bg = '#0D1B3E'
+                      when 'denim', 'chambray', 'steel-blue'
+                        assign swatch_bg = '#5C7EA8'
+                      when 'turquoise', 'aqua', 'cyan', 'aqua-blue'
+                        assign swatch_bg = '#00BCD4'
+                      when 'purple', 'violet', 'plum', 'grape'
+                        assign swatch_bg = '#7B1FA2'
+                      when 'dark-purple', 'deep-purple', 'eggplant'
+                        assign swatch_bg = '#4A148C'
+                      when 'lavender', 'lilac', 'wisteria'
+                        assign swatch_bg = '#CE93D8'
+                      when 'gray', 'grey', 'charcoal', 'dark-gray', 'dark-grey', 'slate'
+                        assign swatch_bg = '#616161'
+                      when 'light-gray', 'light-grey', 'silver', 'ash', 'heather', 'stone'
+                        assign swatch_bg = '#BDBDBD'
+                      when 'brown', 'chocolate', 'coffee', 'mocha', 'espresso', 'cocoa'
+                        assign swatch_bg = '#5D4037'
+                      when 'tan', 'camel', 'sand', 'desert', 'latte'
+                        assign swatch_bg = '#C8A882'
+                      when 'beige', 'natural', 'nude', 'khaki', 'wheat'
+                        assign swatch_bg = '#D7CCC8'
+                      when 'leopard', 'animal', 'animal-print', 'cheetah'
+                        assign swatch_bg = 'repeating-linear-gradient(45deg,#C9A84C,#C9A84C 4px,#3B2A00 4px,#3B2A00 8px)'
+                      when 'stripe', 'stripes', 'striped'
+                        assign swatch_bg = 'repeating-linear-gradient(90deg,#444 0,#444 4px,#fff 4px,#fff 8px)'
+                      else
+                        assign swatch_bg = value | downcase | replace: ' ', ''
+                    endcase
+                  endif
+
+                  assign color_input_id = section.id | append: '-opt' | append: option.position | append: '-' | append: forloop.index0
+                -%}
+                <input
+                  type="radio"
+                  id="{{ color_input_id }}"
+                  name="{{ option.name }}"
+                  value="{{ value | escape }}"
+                  form="{{ product_form_id }}"
+                  {% if option.selected_value == value %}checked{% endif %}
+                  {% if option_disabled %}class="disabled"{% endif %}
+                >
+                <label
+                  for="{{ color_input_id }}"
+                  class="op-lb color pdp-swatch-label{% if option_disabled %} disabled{% endif %}"
+                  title="{{ value }}"
+                >
+                  <span class="pdp-color-dot" style="background: {{ swatch_bg }};"></span>
+                  <span class="visually-hidden">{{ value }}</span>
+                </label>
+              {%- endfor -%}
             </div>
-          </div>
+          </varitem>
 
         {%- else -%}
-          <div class="pdp-option pdp-option--size js variant-option-block">
+          <varitem class="pdp-option pdp-option--size js variant-option-block">
             <div class="pdp-size-header-row">
               <div class="pdp-size-chart-wrap">
                 <select class="pdp-size-chart-select" aria-label="Size chart type">
@@ -128,10 +259,11 @@
                 picker_type: 'button'
               %}
             </div>
-          </div>
+          </varitem>
         {%- endif -%}
 
       {%- endfor -%}
+
       <script type="application/json">
         {{ product.variants | json }}
       </script>
@@ -158,6 +290,7 @@
   {%- endif -%}
 
   <!-- Add to Bag -->
+  <!-- cart-action web component handles ajax cart; form id must match product-form-{section.id} -->
   <cart-action class="pdp-atb-section" data-hide-errors="false">
     <div class="pr-form-error" role="alert" hidden>
       <span class="pr-form-error-text"></span>
@@ -184,7 +317,7 @@
               {%- if current_variant.available -%}
                 ADD TO BAG
               {%- else -%}
-                SOLD OUT
+                {{ 'products.product.sold_out' | t }}
               {%- endif -%}
             </span>
             <div class="ajax-loader hidden"><span class="spinner-border"></span></div>
@@ -199,7 +332,7 @@
   <!-- Accordions -->
   <div class="pdp-accordions">
 
-    <!-- Shipping Accordion -->
+    <!-- Shipping -->
     <div class="pdp-accordion">
       <button
         class="pdp-accordion-header"
@@ -261,7 +394,7 @@
       </div>
     </div>
 
-    <!-- Product Description Accordion -->
+    <!-- Product Description -->
     <div class="pdp-accordion">
       <button
         class="pdp-accordion-header"
@@ -275,12 +408,17 @@
       </button>
       <div class="collapse" id="pdp-desc-{{ section.id }}">
         <div class="pdp-accordion-body pdp-desc-body">
-          {{ product.description }}
+          {%- assign desc_text = product.description | strip_html | strip -%}
+          {%- if desc_text != blank -%}
+            {{ product.description }}
+          {%- else -%}
+            <p>No description available for this product.</p>
+          {%- endif -%}
         </div>
       </div>
     </div>
 
-    <!-- Care Instruction Accordion -->
+    <!-- Care Instruction -->
     <div class="pdp-accordion">
       <button
         class="pdp-accordion-header"

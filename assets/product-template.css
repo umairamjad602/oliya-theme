@@ -1132,6 +1132,10 @@ Full Product Panel (pdp-panel) CSS
 /* Layout */
 .pdp-panel {
   margin-top: 0;
+  padding-bottom: 40px;
+}
+@media (max-width: 767px) {
+  .pdp-panel { padding-bottom: 24px; }
 }
 
 /* Title Row */
@@ -1171,21 +1175,34 @@ Full Product Panel (pdp-panel) CSS
   margin-bottom: 10px;
   flex-wrap: wrap;
 }
+/* varitem is a custom element — make it behave like a block */
+varitem.pdp-option {
+  display: block;
+  margin-bottom: 14px;
+}
+
 .pdp-price-box {
   display: flex;
   align-items: baseline;
   gap: 10px;
 }
-.pdp-price-current {
+/* Both our init classes and the JS-injected classes after variant change */
+.pdp-price-current,
+.pdp-price-box .new-price {
   font-size: 22px;
   font-weight: 700;
   color: var(--font-color-primary);
 }
-.pdp-price-was {
+.pdp-price-was,
+.pdp-price-box .old-price {
   font-size: 15px;
   color: #999;
   text-decoration: line-through;
+  margin-left: 8px;
 }
+/* Hide compare price when not on sale */
+.pdp-price-box .old-price:empty { display: none; }
+.pdp-price-box .pdp-price-was:empty { display: none; }
 .pdp-reviews-box {
   display: flex;
   align-items: center;
@@ -1256,44 +1273,63 @@ Full Product Panel (pdp-panel) CSS
   flex-wrap: wrap;
   gap: 8px;
 }
-.pdp-swatches .swatch-input__input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  clip: rect(0,0,0,0);
-  pointer-events: none;
+/* Hide radio inputs inside swatch list */
+.pdp-swatches input[type="radio"] {
+  display: none !important;
 }
-.pdp-swatches .op-lb.color {
-  display: flex;
+
+/* Swatch label wrapper — uses box-shadow ring trick for selected state */
+.pdp-swatches .pdp-swatch-label {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 0;
   border-radius: 50%;
-  padding: 2px;
-  border: 2px solid transparent;
-  transition: border-color 0.15s;
+  border: none;
+  margin: 4px;
+  transition: transform 0.15s;
 }
-.pdp-swatches .op-lb.color:hover {
-  border-color: #999;
+.pdp-swatches .pdp-swatch-label:hover {
+  transform: scale(1.1);
 }
-.pdp-swatches .swatch-input__input:checked + .op-lb.color {
-  border-color: #222;
-}
-.pdp-swatches .cust-check {
-  width: 34px;
-  height: 34px;
+
+/* The colored circle */
+.pdp-color-dot {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: block;
-  background-color: var(--swatch--background);
-  background-image: var(--swatch--background);
-  background-size: cover;
-  background-position: var(--swatch-focal-point, center);
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
+  transition: box-shadow 0.15s;
 }
-.pdp-swatches .swatch--unavailable {
-  background: linear-gradient(to bottom right, #fff calc(50% - 1px), #999 50%, #fff calc(50% + 1px));
-  border: 1px solid #ddd;
+
+/* Selected state: white inner ring + dark outer ring clearly shows which is active */
+.pdp-swatches input[type="radio"]:checked + .pdp-swatch-label .pdp-color-dot {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #111;
+}
+
+/* Unavailable: show full color but overlay a diagonal strikethrough */
+.pdp-swatches .pdp-swatch-label.disabled {
+  cursor: not-allowed;
+}
+.pdp-swatches .pdp-swatch-label.disabled .pdp-color-dot {
+  position: relative;
+  opacity: 0.75;
+}
+.pdp-swatches .pdp-swatch-label.disabled .pdp-color-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 1px),
+    rgba(180, 180, 180, 0.9) calc(50% - 1px),
+    rgba(180, 180, 180, 0.9) calc(50% + 1px),
+    transparent calc(50% + 1px)
+  );
 }
 
 /* Size option */
@@ -1343,13 +1379,9 @@ Full Product Panel (pdp-panel) CSS
   flex-wrap: wrap;
   gap: 8px;
 }
+/* Input hidden by theme rule; ensure it here too */
 .pdp-size-pills input[type="radio"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  clip: rect(0,0,0,0);
-  pointer-events: none;
+  display: none !important;
 }
 .pdp-size-pills .op-lb.ot-size {
   display: inline-flex;
@@ -1357,7 +1389,7 @@ Full Product Panel (pdp-panel) CSS
   justify-content: center;
   min-width: 48px;
   height: 38px;
-  padding: 0 10px;
+  padding: 0 12px;
   border: 1.5px solid #ccc;
   border-radius: 4px;
   font-size: 13px;
@@ -1367,19 +1399,25 @@ Full Product Panel (pdp-panel) CSS
   background: #fff;
   color: var(--font-color-primary);
   position: relative;
+  margin: 0;
 }
 .pdp-size-pills .op-lb.ot-size:hover {
   border-color: #444;
 }
-.pdp-size-pills input[type="radio"]:checked + .op-lb.ot-size {
-  background: var(--font-color-primary);
-  color: #fff;
-  border-color: var(--font-color-primary);
+/* Selected — higher specificity (.pdp-panel adds 1 extra class) to beat the theme's
+   .product_details_info .pr-option .option-block input:checked+.op-lb.ot-size rule */
+.pdp-panel .pdp-size-pills input[type="radio"]:checked + .op-lb.ot-size,
+.pdp-panel .pdp-size-pills .op-lb.ot-size.selected {
+  background: #111 !important;
+  color: #fff !important;
+  border-color: #111 !important;
 }
+/* Disabled/unavailable */
 .pdp-size-pills input[type="radio"].disabled + .op-lb.ot-size {
-  opacity: 0.4;
+  opacity: 0.38;
   cursor: not-allowed;
   text-decoration: line-through;
+  pointer-events: none;
 }
 
 /* Size Guide Bar */
@@ -1479,7 +1517,13 @@ Full Product Panel (pdp-panel) CSS
   color: #444;
   line-height: 1.7;
 }
-.pdp-desc-body img { max-width: 100%; }
+/* Hide images inside description accordion — show text only */
+.pdp-desc-body img,
+.pdp-desc-body figure,
+.pdp-desc-body iframe,
+.pdp-desc-body video {
+  display: none !important;
+}
 
 /* Shipping sub-rows */
 .pdp-shipping-row {
@@ -1530,4 +1574,24 @@ Full Product Panel (pdp-panel) CSS
   .pdp-title { font-size: 18px; }
   .pdp-price-current { font-size: 20px; }
   .pdp-size-pills .op-lb.ot-size { min-width: 42px; height: 36px; font-size: 12px; }
+}
+
+/*=====================================
+Thumbnail sidebar vertical slider fix
+======================================*/
+/* Allow Swiper to scroll all slides in vertical mode (autoHeight:false) */
+.product_detail_img.product_detail_img_left .pro-slider .slider-small,
+.product_detail_img.product_detail_img_right .pro-slider .slider-small {
+  overflow: hidden;
+}
+.product_detail_img.product_detail_img_left .pro-slider .slider-small .swiper-wrapper,
+.product_detail_img.product_detail_img_right .pro-slider .slider-small .swiper-wrapper {
+  height: auto !important;
+  flex-direction: column;
+}
+/* Each thumb slide fills width of the 20% rail */
+.product_detail_img.product_detail_img_left .pro-slider .slider-small .swiper-slide,
+.product_detail_img.product_detail_img_right .pro-slider .slider-small .swiper-slide {
+  width: 100% !important;
+  height: auto !important;
 }
