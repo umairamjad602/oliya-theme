@@ -24,11 +24,11 @@
 }
 .pro_details_pos.pro_details_left_pos .product_detail_slider.product_details_tb,
 .pro_details_pos.pro_details_right_pos .product_detail_slider.product_details_tb {
-  width: 50%;
+  width: 58%;
 }
 .pro_details_pos.pro_details_left_pos .product_detail_slider.product_details_lr,
 .pro_details_pos.pro_details_right_pos .product_detail_slider.product_details_lr {
-  width: 50%;
+  width: 58%;
 }
 .pro_details_pos.pro_details_left_pos .product_details_wrap,
 .pro_details_pos.pro_details_right_pos .product_details_wrap {
@@ -36,24 +36,24 @@
 }
 .pro_details_pos.pro_details_left_pos .product_details_wrap.product_details_tb,
 .pro_details_pos.pro_details_right_pos .product_details_wrap.product_details_tb {
-  width: 50%;
+  width: 42%;
 }
 .pro_details_pos.pro_details_left_pos .product_details_wrap.product_details_lr,
 .pro_details_pos.pro_details_right_pos .product_details_wrap.product_details_lr {
-  width: 50%;
+  width: 42%;
 }
 @media (max-width: 1199px) {
   .pro_details_pos.pro_details_left_pos .product_detail_slider.product_details_tb,
   .pro_details_pos.pro_details_right_pos .product_detail_slider.product_details_tb,
   .pro_details_pos.pro_details_left_pos .product_detail_slider.product_details_lr,
   .pro_details_pos.pro_details_right_pos .product_detail_slider.product_details_lr {
-    width: 50%;
+    width: 55%;
   }
   .pro_details_pos.pro_details_left_pos .product_details_wrap.product_details_tb,
   .pro_details_pos.pro_details_right_pos .product_details_wrap.product_details_tb,
   .pro_details_pos.pro_details_left_pos .product_details_wrap.product_details_lr,
   .pro_details_pos.pro_details_right_pos .product_details_wrap.product_details_lr {
-    width: 50%;
+    width: 45%;
   }
 }
 @media (max-width: 991px) {

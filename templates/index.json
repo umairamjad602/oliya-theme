@@ -26,8 +26,8 @@
             "slider_title_color": "#ffffff",
             "slider_button": "SHOP NEW ARRIVALS",
             "slider_button_url": "shopify://collections/all",
-            "slider_content_position": "left",
-            "slider_text_position": "left"
+            "slider_content_position": "right",
+            "slider_text_position": "right"
           }
         },
         "slide_C63wQ8": {

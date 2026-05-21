@@ -68,22 +68,57 @@
       preloader: false,
       fixedContentPos: false
     });
-    $('.item-data').on("click", function() {
-      $(this).parents('.option-block').find(".variant-option").removeClass('active-variant');
+    function cardSwapImage($card, newSrc) {
+      var $img = $card.find('.product-image .img1 img');
+      $img.off('load.swap error.swap');
+      $img.css('opacity', 0);
+      $img.one('load.swap error.swap', function() {
+        $(this).css('opacity', 1);
+      });
+      $img[0].src = newSrc;
+      $img[0].srcset = newSrc;
+      // If image was already cached the load event fired synchronously before .one()
+      if ($img[0].complete) {
+        $img.off('load.swap error.swap');
+        $img.css('opacity', 1);
+      }
+    }
+
+    $(document).on('click', '.item-data', function(e) {
+      e.stopPropagation();
+      $(this).closest('.card-inline-swatches, .option-block').find('.variant-option').removeClass('active-variant');
       $(this).closest('form-wrap').addClass('active-variant');
       var it_img = $(this).attr('dataimg');
-      $(this).parents('.single-product-wrap').find('.product-image .img1 img').attr('src',it_img);
-      $(this).parents('.single-product-wrap').find('.product-image .img1 img').attr('srcset',it_img);
+      var $card = $(this).closest('.single-product-wrap');
+      if (it_img) {
+        cardSwapImage($card, it_img);
+        $card.find('.pro-img').data('slideIndex', 0);
+      }
       var price = $(this).attr('dataprice');
       var compareprice = $(this).attr('datacompare');
-      var stocks = $(this).attr('dataavailable');
-      $(this).parents('.single-product-wrap').find('.price-box .new-price').text(Shopify.formatMoney(price, window.money_format));
+      $card.find('.price-box .new-price').text(Shopify.formatMoney(price, window.money_format));
       if (compareprice > price) {
-        $(this).parents('.single-product-wrap').find('.price-box .old-price').show();
-        $(this).parents('.single-product-wrap').find('.price-box .old-price').html(Shopify.formatMoney(compareprice, window.money_format));
-      }else{
-        $(this).parents('.single-product-wrap').find('.price-box .old-price').hide();
+        $card.find('.price-box .old-price').show().html(Shopify.formatMoney(compareprice, window.money_format));
+      } else {
+        $card.find('.price-box .old-price').hide();
       }
+    });
+
+    $(document).on('click', '.card-img-arrow', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var $card = $(this).closest('.single-product-wrap');
+      var $proImg = $card.find('.pro-img');
+      var urlStr = $proImg.attr('data-media-urls');
+      if (!urlStr) return;
+      var urls = urlStr.split('||');
+      var total = urls.length;
+      var current = parseInt($proImg.data('slideIndex') || 0, 10);
+      current = $(this).hasClass('card-img-next')
+        ? (current + 1) % total
+        : (current - 1 + total) % total;
+      $proImg.data('slideIndex', current);
+      cardSwapImage($card, urls[current]);
     });
     var swiper = new Swiper('.drawer-slider', {
       slidesPerView: 1,

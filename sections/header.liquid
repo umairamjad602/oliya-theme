@@ -4,6 +4,7 @@
   {%- endif -%}
 {%- endif -%}
 <link href="{{ 'header.css' | asset_url }}" rel="stylesheet" type="text/css" media="all">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
 <header class="header header1">
   <div class="header-area">
     <div class="header-main-area">
@@ -17,39 +18,24 @@
           <div class="header-element megamenu-content">
             <nav class="mainwrap">
               <ul class="list-unstyled main-menu {% if section.settings.menu_alignment == 'center' %}menu-center{% elsif section.settings.menu_alignment == 'left' %}menu-left{% else %}menu-right{% endif %}">
-                {%- liquid
-                  for block in section.blocks
-                    case block.type
-                      when 'menu_link'
-                        render 'menu-link', block: block
-                      when 'menu_home'
-                        render 'menu-home', block: block
-                      when 'menu_single'
-                        render 'menu-single', block: block
-                      when 'menu_sub'
-                        render 'menu-sub', block: block
-                      when 'menu_shop'
-                        render 'menu-shop', block: block
-                      when 'menu_collection'
-                        render 'menu-collection', block: block
-                      when 'menu_product'
-                        render 'menu-product', block: block
-                      when 'menu_product2'
-                        render 'menu-product2', block: block
-                      when 'menu_category'
-                        render 'menu-category', block: block
-                      when 'company_logo'
-                        render 'company-logo', block: block
-                      when 'menu_shop_banner'
-                        render 'menu-shop-banner', block: block
-                    endcase
-                  endfor
-                -%}
+                {%- assign nav_style = '--font-size: ' | append: section.settings.menu_font_size | append: 'px; --font-size-lg: ' | append: section.settings.menu_font_size_lg | append: 'px; --text-transform: ' | append: section.settings.menu_text_transform | append: '; --font-weight: ' | append: section.settings.menu_font_weight | append: ';' -%}
+              <li class="menu-link">
+                <a href="{{ routes.root_url }}" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">Home</span></a>
+                <a href="{{ routes.root_url }}" class="link-title-lg"><span class="sp-link-title">Home</span></a>
+              </li>
+              <li class="menu-link">
+                <a href="/pages/about-us" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">About Us</span></a>
+                <a href="/pages/about-us" class="link-title-lg"><span class="sp-link-title">About Us</span></a>
+              </li>
+              <li class="menu-link">
+                <a href="/pages/contact-us" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">Contact Us</span></a>
+                <a href="/pages/contact-us" class="link-title-lg"><span class="sp-link-title">Contact Us</span></a>
+              </li>
               </ul>
             </nav>
           </div>
           <div class="header-element logo">
-            {%- render 'company-logo' -%}
+            <a href="{{ routes.root_url }}" class="oliya-logo-text">OLIYA</a>
           </div>
           <div class="header-element right-block-box">
             <div class="offer-link">
@@ -91,34 +77,19 @@
             </a>
             <nav class="mainwrap">
               <ul class="list-unstyled main-menu">
-                {%- liquid
-                  for block in section.blocks
-                    case block.type
-                      when 'menu_link'
-                        render 'menu-link', block: block
-                      when 'menu_home'
-                        render 'menu-home', block: block
-                      when 'menu_single'
-                        render 'menu-single', block: block
-                      when 'menu_sub'
-                        render 'menu-sub', block: block
-                      when 'menu_shop'
-                        render 'menu-shop', block: block
-                      when 'menu_collection'
-                        render 'menu-collection', block: block
-                      when 'menu_product'
-                        render 'menu-product', block: block
-                      when 'menu_product2'
-                        render 'menu-product2', block: block
-                      when 'menu_category'
-                        render 'menu-category', block: block
-                      when 'company_logo'
-                        render 'company-logo', block: block
-                      when 'menu_shop_banner'
-                        render 'menu-shop-banner', block: block
-                    endcase
-                  endfor
-                -%}
+                {%- assign nav_style = '--font-size: ' | append: section.settings.menu_font_size | append: 'px; --font-size-lg: ' | append: section.settings.menu_font_size_lg | append: 'px; --text-transform: ' | append: section.settings.menu_text_transform | append: '; --font-weight: ' | append: section.settings.menu_font_weight | append: ';' -%}
+              <li class="menu-link">
+                <a href="{{ routes.root_url }}" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">Home</span></a>
+                <a href="{{ routes.root_url }}" class="link-title-lg"><span class="sp-link-title">Home</span></a>
+              </li>
+              <li class="menu-link">
+                <a href="/pages/about-us" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">About Us</span></a>
+                <a href="/pages/about-us" class="link-title-lg"><span class="sp-link-title">About Us</span></a>
+              </li>
+              <li class="menu-link">
+                <a href="/pages/contact-us" class="link-title" style="{{ nav_style }}"><span class="sp-link-title">Contact Us</span></a>
+                <a href="/pages/contact-us" class="link-title-lg"><span class="sp-link-title">Contact Us</span></a>
+              </li>
               </ul>
             </nav>
             <div class="locali-block">
@@ -2651,6 +2622,26 @@
 }
 {% endschema %}
 <style>
+
+  /* OLIYA text logo */
+  .oliya-logo-text {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: inherit;
+    line-height: 1;
+    display: inline-block;
+  }
+  .header1 .header-area.sticky .oliya-logo-text,
+  .header1 .header-area.sticky-up .oliya-logo-text {
+    color: #222222;
+  }
+  @media (max-width: 1199px) {
+    .oliya-logo-text { font-size: 24px; letter-spacing: 7px; }
+  }
 
   .header-main-area {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1)

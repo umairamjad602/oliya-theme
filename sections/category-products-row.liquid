@@ -1,0 +1,309 @@
+<section
+  class="category-products-row cpr-{{ section.id }}"
+  style="--section-bg: {{ section.settings.section_bg_color }}; --banner-height: {{ section.settings.banner_height }}px;"
+>
+  <div class="container-fluid">
+
+    {%- for block in section.blocks -%}
+      {%- assign cat = collections[block.settings.category] -%}
+      <div class="cpr-category-block" {{ block.shopify_attributes }}>
+
+        <!-- BANNER -->
+        <div class="cpr-banner">
+          <a href="{{ cat.url }}" class="cpr-banner-link">
+            {%- if block.settings.banner_img != blank -%}
+              {{
+                block.settings.banner_img
+                | image_url: width: 1920
+                | image_tag:
+                  loading: 'lazy',
+                  class: 'cpr-banner-img',
+                  alt: block.settings.banner_img.alt
+              }}
+            {%- else -%}
+              {{ 'collection-apparel-1' | placeholder_svg_tag: 'cpr-banner-placeholder' }}
+            {%- endif -%}
+            <div class="cpr-banner-overlay"></div>
+            <div class="cpr-banner-text">
+              {%- if block.settings.banner_subtitle != blank -%}
+                <span class="cpr-banner-subtitle">{{ block.settings.banner_subtitle }}</span>
+              {%- endif -%}
+              <h2 class="cpr-banner-title mr-0">
+                {{ block.settings.banner_title | default: cat.title | default: 'Collection' }}
+              </h2>
+              {%- if block.settings.banner_desc != blank -%}
+                <p class="cpr-banner-desc">{{ block.settings.banner_desc }}</p>
+              {%- endif -%}
+            </div>
+          </a>
+        </div>
+
+        <!-- PRODUCTS (4 per row) -->
+        <div class="cpr-products-grid">
+          {%- for product in cat.products limit: 4 -%}
+            <div class="cpr-product-item">
+              {%- render 'product-grid-item', product: product -%}
+            </div>
+          {%- else -%}
+            {%- for i in (1..4) -%}
+              <div class="cpr-product-item">
+                <div class="single-product-wrap">
+                  <div class="product-image">
+                    {%- capture ph -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                    {{ ph | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                  </div>
+                  <div class="product-content">
+                    <div class="card-title-row">
+                      <h6 class="card-product-title mr-0"><a>Example product</a></h6>
+                    </div>
+                    <div class="price-box"><span class="new-price">$19.00</span></div>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+
+        <!-- SEE MORE -->
+        {%- if block.settings.see_more_text != blank -%}
+          <div class="cpr-see-more">
+            <a href="{{ cat.url }}" class="cpr-see-more-btn">
+              {{ block.settings.see_more_text }}
+            </a>
+          </div>
+        {%- endif -%}
+
+      </div>
+    {%- endfor -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category + Products Row",
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Banner height",
+      "min": 200,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "block_gap",
+      "label": "Gap between categories",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_row",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "category",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_img",
+          "label": "Banner image",
+          "info": "Recommended: 1920×400px"
+        },
+        {
+          "type": "text",
+          "id": "banner_subtitle",
+          "label": "Banner subtitle"
+        },
+        {
+          "type": "text",
+          "id": "banner_title",
+          "label": "Banner title",
+          "info": "Leave blank to use collection name"
+        },
+        {
+          "type": "textarea",
+          "id": "banner_desc",
+          "label": "Banner description"
+        },
+        {
+          "type": "text",
+          "id": "see_more_text",
+          "label": "See more button text",
+          "default": "See More"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category + Products Row",
+      "blocks": [
+        { "type": "category_row" },
+        { "type": "category_row" },
+        { "type": "category_row" },
+        { "type": "category_row" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .category-products-row {
+    background-color: var(--section-bg);
+    padding-top: {{ section.settings.section_padding_top }}px;
+    padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  }
+
+  /* Space between each category block */
+  .category-products-row .cpr-category-block + .cpr-category-block {
+    margin-top: {{ section.settings.block_gap }}px;
+  }
+
+  /* ── BANNER ─────────────────────────────────── */
+  .category-products-row .cpr-banner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--sti-border-radius, 0);
+    margin-bottom: 30px;
+  }
+  .category-products-row .cpr-banner-link {
+    display: block;
+    position: relative;
+  }
+  .category-products-row .cpr-banner-img {
+    width: 100%;
+    height: var(--banner-height);
+    object-fit: cover;
+    display: block;
+  }
+  .category-products-row .cpr-banner-placeholder {
+    width: 100%;
+    height: var(--banner-height);
+    display: block;
+    background: #e8e8e8;
+  }
+  .category-products-row .cpr-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+    pointer-events: none;
+  }
+  .category-products-row .cpr-banner-text {
+    position: absolute;
+    top: 50%;
+    left: 48px;
+    transform: translateY(-50%);
+    color: #ffffff;
+    max-width: 480px;
+  }
+  .category-products-row .cpr-banner-subtitle {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.85;
+  }
+  .category-products-row .cpr-banner-title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 10px;
+    color: #ffffff !important;
+  }
+  .category-products-row .cpr-banner-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  /* ── PRODUCTS GRID ───────────────────────────── */
+  .category-products-row .cpr-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  /* ── SEE MORE ────────────────────────────────── */
+  .category-products-row .cpr-see-more {
+    margin-top: 28px;
+    text-align: center;
+  }
+  .category-products-row .cpr-see-more-btn {
+    display: inline-block;
+    padding: 12px 36px;
+    border: 1.5px solid #222222;
+    color: #222222;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .category-products-row .cpr-see-more-btn:hover {
+    background: #222222;
+    color: #ffffff;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 1199px) {
+    .category-products-row .cpr-banner-title { font-size: 28px; }
+    .category-products-row .cpr-banner-text  { left: 32px; }
+  }
+  @media (max-width: 991px) {
+    .category-products-row .cpr-products-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .category-products-row .cpr-banner-title  { font-size: 24px; }
+  }
+  @media (max-width: 767px) {
+    .category-products-row .cpr-banner-img    { height: 260px; }
+    .category-products-row .cpr-banner-text   { left: 20px; max-width: 75%; }
+    .category-products-row .cpr-banner-title  { font-size: 20px; }
+    .category-products-row .cpr-banner-desc   { display: none; }
+  }
+  @media (max-width: 479px) {
+    .category-products-row .cpr-products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .category-products-row .cpr-banner-img    { height: 200px; }
+  }
+</style>

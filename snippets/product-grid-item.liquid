@@ -22,12 +22,23 @@
 
   assign is_trending = false
   for tag in product.tags
-    if tag | downcase == 'trending'
+    assign tag_lower = tag | downcase
+    if tag_lower == 'trending'
       assign is_trending = true
     endif
   endfor
 
   assign swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />'
+
+  assign media_urls = ''
+  for media in product.media limit: 8
+    assign media_url = media | image_url: width: 720
+    if forloop.first
+      assign media_urls = media_url
+    else
+      assign media_urls = media_urls | append: '||' | append: media_url
+    endif
+  endfor
 -%}
 
 <div class="single-product-wrap">
@@ -37,9 +48,11 @@
       class="pro-img ratio"
       href="{{ product.url | within: collection }}"
       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      data-media-urls="{{ media_urls }}"
+      data-slide-index="0"
     >
       {%- if product.featured_media -%}
-        <div class="{%- if product.media[1] != blank -%}img1{%- endif -%}">
+        <div class="img1">
           {%- assign image_height = product.featured_media.width | divided_by: product.featured_media.aspect_ratio -%}
           {{
             product.featured_media
@@ -47,16 +60,6 @@
             | image_tag: width: product.featured_media.width, height: image_height, class: 'lazyload', loading: 'lazy'
           }}
         </div>
-        {%- if settings.pro_hover_enable and product.media[1] != blank -%}
-          <div class="img2">
-            {%- assign image_height = product.media[1].width | divided_by: product.media[1].aspect_ratio -%}
-            {{
-              product.media[1]
-              | image_url: width: 720
-              | image_tag: width: product.media[1].width, height: image_height, class: 'lazyload', loading: 'lazy'
-            }}
-          </div>
-        {%- endif -%}
       {%- else -%}
         {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
         {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
@@ -65,9 +68,79 @@
 
     {%- render 'product-label', product: product -%}
 
-    <!-- QUICKSHOP — appears on image hover -->
+    <!-- Prev / Next arrows (only if product has multiple images) -->
+    {%- if product.media.size > 1 -%}
+      <button class="card-img-arrow card-img-prev" aria-label="Previous image">&#8249;</button>
+      <button class="card-img-arrow card-img-next" aria-label="Next image">&#8250;</button>
+    {%- endif -%}
+
+    <!-- Bottom overlay row: colour swatches (left) + QUICKSHOP (right) -->
     {%- assign product_form_id = 'quick-add-' | append: section.id | append: product.id -%}
-    <div class="card-quickshop-overlay">
+    <div class="card-image-footer">
+      {%- if color_count > 1 -%}
+        <div class="card-inline-swatches">
+          {%- for option in product.options_with_values -%}
+            {%- liquid
+              assign downcase_option = option.name | downcase
+              assign is_color = false
+              if color_label contains downcase_option
+                assign is_color = true
+              endif
+              assign variant_option_key = 'option' | append: forloop.index
+            -%}
+            {%- if is_color -%}
+              {%- for value in option.values -%}
+                {%- liquid
+                  for variant in product.variants
+                    if variant[variant_option_key] == value
+                      assign variant_for_value = variant
+                      break
+                    endif
+                  endfor
+
+                  assign val_lower = value | downcase | strip
+                  assign swatch_style = 'background-color:' | append: val_lower
+
+                  for cfg_item in swatch_config
+                    assign cfg_parts = cfg_item | split: ':'
+                    assign cfg_name  = cfg_parts.first | downcase | strip
+                    assign cfg_val   = cfg_parts.last | strip
+                    if val_lower == cfg_name
+                      if cfg_val contains '#' or cfg_val contains 'rgb'
+                        assign swatch_style = 'background-color:' | append: cfg_val
+                      elsif cfg_val != blank
+                        assign cfg_img = images[cfg_val] | image_url: width: 30
+                        assign swatch_style = 'background-image:url(' | append: cfg_img | append: ')'
+                      endif
+                      break
+                    endif
+                  endfor
+
+                  if value.swatch.color
+                    assign swatch_style = 'background-color:rgb(' | append: value.swatch.color.rgb | append: ')'
+                  elsif value.swatch.image
+                    assign sw_img = value.swatch.image | image_url: width: 30
+                    assign swatch_style = 'background-image:url(' | append: sw_img | append: ')'
+                  endif
+                -%}
+                <form-wrap class="variant-option item-color{% if forloop.first %} active-variant{% endif %}">
+                  <div class="variant-item item-data"
+                       dataimg="{{ variant_for_value.featured_image | image_url: width: 720 }}"
+                       dataprice="{{ variant_for_value.price }}"
+                       datacompare="{{ variant_for_value.compare_at_price }}"
+                       dataavailable="{{ variant_for_value.available }}"
+                       dataurl="{{ variant_for_value.url }}">
+                    <span class="inline-swatch" style="{{ swatch_style }};" title="{{ value }}"></span>
+                  </div>
+                </form-wrap>
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div></div>
+      {%- endif -%}
+
       <qv-modal data-modal="#QuickAdd-{{ product.id }}" class="card-quickshop-wrap">
         <a
           class="card-quickshop-btn quick-add-btn"
@@ -120,67 +193,8 @@
       <span class="card-trending-label">Trending</span>
     {%- endif -%}
 
-    <!-- Colour swatches + "X colours available" -->
     {%- if color_count > 1 -%}
-      <div class="card-colours-row">
-        <div class="card-inline-swatches">
-          {%- for option in product.options_with_values -%}
-            {%- liquid
-              assign downcase_option = option.name | downcase
-              assign is_color = color_label contains downcase_option
-              assign variant_option_key = 'option' | append: forloop.index
-            -%}
-            {%- if is_color -%}
-              {%- for value in option.values -%}
-                {%- liquid
-                  for variant in product.variants
-                    if variant[variant_option_key] == value
-                      assign variant_for_value = variant
-                      break
-                    endif
-                  endfor
-
-                  assign val_lower = value | downcase | strip
-                  assign swatch_style = 'background-color:' | append: val_lower
-
-                  for cfg_item in swatch_config
-                    assign cfg_parts = cfg_item | split: ':'
-                    assign cfg_name  = cfg_parts.first | downcase | strip
-                    assign cfg_val   = cfg_parts.last | strip
-                    if val_lower == cfg_name
-                      if cfg_val contains '#' or cfg_val contains 'rgb'
-                        assign swatch_style = 'background-color:' | append: cfg_val
-                      elsif cfg_val != blank
-                        assign cfg_img = images[cfg_val] | image_url: width: 30
-                        assign swatch_style = 'background-image:url(' | append: cfg_img | append: ')'
-                      endif
-                      break
-                    endif
-                  endfor
-
-                  if value.swatch.color
-                    assign swatch_style = 'background-color:rgb(' | append: value.swatch.color.rgb | append: ')'
-                  elsif value.swatch.image
-                    assign sw_img = value.swatch.image | image_url: width: 30
-                    assign swatch_style = 'background-image:url(' | append: sw_img | append: ')'
-                  endif
-                -%}
-                <form-wrap class="variant-option item-color{% if forloop.first %} active-variant{% endif %}">
-                  <div class="variant-item item-data"
-                       dataimg="{{ variant_for_value.featured_image | image_url: width: 720 }}"
-                       dataprice="{{ variant_for_value.price }}"
-                       datacompare="{{ variant_for_value.compare_at_price }}"
-                       dataavailable="{{ variant_for_value.available }}"
-                       dataurl="{{ variant_for_value.url }}">
-                    <span class="inline-swatch" style="{{ swatch_style }};" title="{{ value }}"></span>
-                  </div>
-                </form-wrap>
-              {%- endfor -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-        <span class="card-colours-count">{{ color_count }} colours available</span>
-      </div>
+      <span class="card-colours-count">{{ color_count }} colours available</span>
     {%- endif -%}
   </div>
 </div>

@@ -190,7 +190,7 @@ Version: 1.0
   margin-top: 20px;
 }
 .image-with-text .about-content .about-text-link:hover {
-  color: var(--color-primary, #f2845c);
+  color: var(--color-primary, #222222);
   text-decoration: underline;
 }
 @media (max-width: 767px) {
@@ -204,7 +204,7 @@ Version: 1.0
    ---------------------------------------------------------- */
 .header .main-menu > li.active > a,
 .header .main-menu > li > a.active {
-  border-bottom: 2px solid var(--color-primary, #f2845c);
+  border-bottom: 2px solid var(--color-primary, #222222);
 }
 
 /* ============================================================ */
@@ -2642,10 +2642,17 @@ section{
 /*=====================================
     product css
 ======================================*/
+/* grid-wrapper is a grid cell — make it pass full height to the card */
+.grid-wrapper {
+  height: 100%;
+}
 .single-product-wrap {
   position: relative;
   overflow: hidden;
   border-radius: var(--sti-border-radius);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .single-product-wrap .product-image {
   position: relative;
@@ -2661,9 +2668,9 @@ section{
 }
 .single-product-wrap .product-image a.pro-img .img1 img,
 .single-product-wrap .product-image:hover a.pro-img .img1 img {
-    -webkit-transition: all .4s ease-in-out 0s;
-    -o-transition: all .4s ease-in-out 0s;
-    transition: all .4s ease-in-out 0s;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }
 .single-product-wrap .product-image a.pro-img .img2 img {
   opacity: 0;
@@ -2799,37 +2806,48 @@ section{
    PRODUCT CARD — screenshot-matched layout
    ---------------------------------------------------------- */
 
-/* No border-radius on card */
 .single-product-wrap {
-  border-radius: 0 !important;
-  overflow: visible !important;
+  border-radius: var(--sti-border-radius);
+  overflow: hidden;
 }
 .single-product-wrap .product-image {
   overflow: hidden;
   border-radius: 0;
 }
 
-/* QUICKSHOP — centered bottom, shows on image hover */
-.single-product-wrap .card-quickshop-overlay {
+/* Override the old img2-swap hover rule — we only use img1 now */
+.single-product-wrap .product-image a.pro-img:hover .img1 img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* IMAGE FOOTER — flex row pinned to bottom of image: swatches left, quickshop right */
+.single-product-wrap .card-image-footer {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;
-  padding-bottom: 16px;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 12px 14px;
   z-index: 3;
   pointer-events: none;
-}
-.single-product-wrap .card-quickshop-wrap {
-  pointer-events: all;
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(4px);
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
-.single-product-wrap:hover .card-quickshop-wrap {
+.single-product-wrap:hover .card-image-footer {
   opacity: 1;
   transform: translateY(0);
+}
+.single-product-wrap .card-image-footer > * {
+  pointer-events: all;
+}
+
+/* QUICKSHOP pill — bottom right of image */
+.single-product-wrap .card-quickshop-wrap {
+  flex-shrink: 0;
 }
 .single-product-wrap .card-quickshop-btn {
   display: inline-block;
@@ -2839,17 +2857,89 @@ section{
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 9px 22px;
+  padding: 8px 18px;
   border-radius: 50px;
   white-space: nowrap;
   line-height: 1;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.18);
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
 .single-product-wrap .card-quickshop-btn:hover {
   background: #222222;
   color: #ffffff !important;
+}
+
+/* COLOUR SWATCHES — bottom left of image (inside footer) */
+.single-product-wrap .card-inline-swatches {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  pointer-events: auto !important;
+}
+.single-product-wrap .card-inline-swatches .variant-option {
+  margin: 0 !important;
+  line-height: 1;
+  pointer-events: auto !important;
+}
+.single-product-wrap .card-inline-swatches .variant-item,
+.single-product-wrap .card-inline-swatches .item-data {
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+.single-product-wrap .card-inline-swatches .inline-swatch {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  outline: 1.5px solid rgba(255,255,255,0.8);
+  outline-offset: 1.5px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25);
+  transition: outline-color 0.2s, box-shadow 0.2s;
+  pointer-events: auto !important;
+}
+.single-product-wrap .card-inline-swatches .variant-option.active-variant .inline-swatch,
+.single-product-wrap .card-inline-swatches .inline-swatch:hover {
+  outline-color: #fff;
+  box-shadow: 0 0 0 2px #333;
+}
+
+/* IMAGE NAVIGATION ARROWS — centred on left / right edges */
+.single-product-wrap .card-img-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background: rgba(255,255,255,0.85);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+  color: #222222;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.22s ease, background 0.15s;
+  padding: 0;
+  pointer-events: auto !important;
+}
+.single-product-wrap:hover .card-img-arrow {
+  opacity: 1;
+}
+.single-product-wrap .card-img-arrow:hover {
+  background: #ffffff;
+}
+.single-product-wrap .card-img-prev {
+  left: 10px;
+}
+.single-product-wrap .card-img-next {
+  right: 10px;
 }
 
 /* Title row: title left, heart right */
@@ -2871,7 +2961,7 @@ section{
   color: #222222 !important;
 }
 .single-product-wrap .card-product-title a:hover {
-  color: var(--color-primary, #f2845c) !important;
+  color: var(--color-primary, #222222) !important;
 }
 
 /* Wishlist heart — right of title */
@@ -2891,8 +2981,8 @@ section{
 .single-product-wrap .card-vendor {
   font-size: 11px;
   font-weight: 500;
-  color: #4a90d9;
-  letter-spacing: 0.3px;
+  color: #888888;
+  letter-spacing: 0.5px;
   margin-bottom: 4px;
   text-transform: uppercase;
 }
@@ -2906,47 +2996,22 @@ section{
   margin: 2px 0;
 }
 
-/* Colours row: swatch dots + count text */
-.single-product-wrap .card-colours-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 4px;
-}
-.single-product-wrap .card-inline-swatches {
-  display: flex;
-  gap: 4px;
-}
-.single-product-wrap .card-inline-swatches .variant-option {
-  margin: 0 !important;
-  line-height: 1;
-}
-.single-product-wrap .card-inline-swatches .inline-swatch {
-  display: block;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1.5px solid transparent;
-  outline: 1px solid rgba(0,0,0,0.15);
-  outline-offset: 1px;
-  transition: outline-color 0.2s, border-color 0.2s;
-}
-.single-product-wrap .card-inline-swatches .variant-option.active-variant .inline-swatch,
-.single-product-wrap .card-inline-swatches .inline-swatch:hover {
-  outline-color: #333333;
-  border-color: #ffffff;
-}
+/* "X colours available" text — in content area below price */
 .single-product-wrap .card-colours-count {
+  display: block;
   font-size: 12px;
   color: #808080;
   line-height: 1.4;
+  margin-top: 4px;
 }
 
 /* product content css */
 .single-product-wrap .product-content {
   background-color: #fff;
-  padding: 12px 4px 16px;
+  padding: 14px 16px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 .single-product-wrap .product-content .title-block {
   display: flex;

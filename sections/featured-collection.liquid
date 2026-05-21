@@ -3,7 +3,7 @@
   class="featured-collection fe-coll-{{ section.id }}"
   style="--background-color: {{ section.settings.section_bg_color }};"
 >
-  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+  <div class="container-fluid">
     {% if section.settings.section_subheading != '' or section.settings.section_heading != '' %}
     <div class="section-capture {% if section.settings.countdown_enable %} deal-counter {% endif %}">
       <div class="section-title">
@@ -66,221 +66,74 @@
         {%- if featured_tab_enable -%}
         <div class="tab-pane fade{% if forloop.first == true %} active show{% endif %}" id="tab-{{ block.id }}" role="tabpanel">
         {%- endif -%}
-          <div class="special-slider swiper" id="pro-{{ block.id }}" data-slides-per-view="{{ section.settings.product_view }}">
-            <div class="swiper-wrapper">
-              {% assign product_limit = section.settings.product_limit %}
-              {% for product in category_product.products limit: product_limit %}
-              <div class="swiper-slide">
-                {%- liquid
-                  if section.settings.category_special_product_view == 'grid'
-                    render 'product-grid-item', product: product
-                  elsif section.settings.category_special_product_view == 'list'
-                    render 'product-grid-list', product: product
-                  endif
-                -%}
-              </div>
-              {% else %}
-              {% for i in (1..product_limit) %}
-              <div class="swiper-slide">
-                {% if section.settings.category_special_product_view == 'list' %}
-                <div class="product-grid-list">
-                {% endif %}
-                  <div class="single-product-wrap">
-                    <div class="product-image">
-                      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
-                      {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+          <div class="grid-wrap featured-products-grid"
+            style="--col-desktop: {{ section.settings.product_view }}; --col-tablet: {{ section.settings.product_view_lg }}; --col-mobile: {{ section.settings.product_view_sm }};">
+            {% assign product_limit = section.settings.product_limit %}
+            {% for product in category_product.products limit: product_limit %}
+            <div class="grid-wrapper">
+              {%- liquid
+                if section.settings.category_special_product_view == 'grid'
+                  render 'product-grid-item', product: product
+                elsif section.settings.category_special_product_view == 'list'
+                  render 'product-grid-list', product: product
+                endif
+              -%}
+            </div>
+            {% else %}
+            {% for i in (1..product_limit) %}
+            <div class="grid-wrapper">
+              {% if section.settings.category_special_product_view == 'list' %}
+              <div class="product-grid-list">
+              {% endif %}
+                <div class="single-product-wrap">
+                  <div class="product-image">
+                    {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                    {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                  </div>
+                  <div class="product-content">
+                    <div class="product-title">
+                      <h6 class="mr-0">
+                        <a>{{ 'homepage.sections.product_title' | t }}</a>
+                      </h6>
                     </div>
-                    <div class="product-content">
-                      <div class="product-title">
-                        <h6 class="mr-0">
-                          <a>{{ 'homepage.sections.product_title' | t }}</a>
-                        </h6>
-                      </div>
-                      <div class="price-box">
-                        <span class="new-price">{{ 'homepage.sections.product_price' | t }}</span>
-                      </div>
+                    <div class="price-box">
+                      <span class="new-price">{{ 'homepage.sections.product_price' | t }}</span>
                     </div>
                   </div>
-                  {% if section.settings.category_special_product_view == 'list' %}
                 </div>
-                {% endif %}
+              {% if section.settings.category_special_product_view == 'list' %}
               </div>
-              {% endfor %}
-              {% endfor %}
+              {% endif %}
             </div>
-            {% if section.settings.view_btn != blank %}
-            <div class="view-collection">
-              <a class="btn-style" href="{{ category_product.url }}">
-                {{ section.settings.view_btn }}
-              </a>
-            </div>
-            {% endif %}
+            {% endfor %}
+            {% endfor %}
           </div>
+          {% if section.settings.view_btn != blank %}
+          <div class="view-collection">
+            <a class="btn-style" href="{{ category_product.url }}">
+              {{ section.settings.view_btn }}
+            </a>
+          </div>
+          {% endif %}
         {%- if featured_tab_enable -%}
         </div>
         {% endif %}
         {% endcase %}
+        {% if section.settings.countdown_enable %}
         <script type="text/javascript">
-          addEventListener('DOMContentLoaded', (event) => {
-            var swiper = new Swiper('#pro-{{ block.id }}', {
-              slidesPerView: {{ section.settings.product_view }},
-              grid: {
-                rows: {{ section.settings.category_special_product_col }},
-                fill: 'row' | 'column',
-              },
-              {% if section.settings.category_special_product_view == 'grid' %}
-              spaceBetween: 30,
-              {% endif %}
-              observer: true,
-              observeParents: true,
-              watchSlidesProgress: true,
-              {%- if request.locale.iso_code == 'ar' -%}
-              rtl: true,
-              {%- endif -%}
-              navigation: {
-                nextEl: '.swiper-next-{{ section.id }}',
-                prevEl: '.swiper-prev-{{ section.id }}',
-              },
-              pagination: {
-                el: ".swiper-pagination-{{ section.id }}",
-                clickable: true
-              },
-              autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-              },
-              speed: 1000,
-              breakpoints: {
-                0: {
-                  slidesPerView: 1,
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 12
-                  {% endif %}
-                },
-                320: {
-                  slidesPerView: {{ section.settings.product_view_sm }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 12
-                  {% endif %}
-                },
-                360: {
-                  slidesPerView: {{ section.settings.product_view_sm }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 12
-                  {% endif %}
-                },
-                480: {
-                  slidesPerView: {{ section.settings.product_view_sm }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 12
-                  {% endif %}
-                },
-                540: {
-                  slidesPerView: {{ section.settings.product_view_sm }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 12
-                  {% endif %}
-                },
-                640: {
-                  slidesPerView: {{ section.settings.product_view_sm }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 12
-                  {% endif %}
-                },
-                768: {
-                  slidesPerView: {{ section.settings.product_view_lg }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 30,
-                  {% endif %}
-                },
-                1024: {
-                  slidesPerView: {{ section.settings.product_view_lg }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 30,
-                  {% endif %}
-                },
-                1199: {
-                  slidesPerView: {{ section.settings.product_view_lg }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 30,
-                  {% endif %}
-                },
-                1399: {
-                  slidesPerView: {{ section.settings.product_view }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 30,
-                  {% endif %}
-                },
-                1499: {
-                  slidesPerView: {{ section.settings.product_view }},
-                  grid: {
-                    rows: {{ section.settings.category_special_product_col }},
-                    fill: 'row' | 'column',
-                  },
-                  {% if section.settings.category_special_product_view == 'grid' %}
-                  spaceBetween: 30,
-                  {% endif %}
-                }
-              }
-            });
-            {% if section.settings.countdown_enable %}
-            const second = 1000,
-            minute = second * 60,
-            hour = minute * 60,
-            day = hour * 24;
-            let countDown = new Date('{{ section.settings.product_month }} {{ section.settings.product_date }}, {{ section.settings.product_year }} 00:00:00').getTime(),
-            x = setInterval(function() {
-              let now = new Date().getTime(),
-              distance = countDown - now;
-              document.getElementById('days-{{ section.id }}').innerText = Math.floor(distance / (day)),
-              document.getElementById('hours-{{ section.id }}').innerText = Math.floor((distance % (day)) / (hour)),
-              document.getElementById('minutes-{{ section.id }}').innerText = Math.floor((distance % (hour)) / (minute)),
-              document.getElementById('seconds-{{ section.id }}').innerText = Math.floor((distance % (minute)) / second);
-            }, second)
-            {% endif %}
+          addEventListener('DOMContentLoaded', function() {
+            const second = 1000, minute = second * 60, hour = minute * 60, day = hour * 24;
+            let countDown = new Date('{{ section.settings.product_month }} {{ section.settings.product_date }}, {{ section.settings.product_year }} 00:00:00').getTime();
+            setInterval(function() {
+              let distance = countDown - new Date().getTime();
+              document.getElementById('days-{{ section.id }}').innerText    = Math.floor(distance / day);
+              document.getElementById('hours-{{ section.id }}').innerText   = Math.floor((distance % day) / hour);
+              document.getElementById('minutes-{{ section.id }}').innerText = Math.floor((distance % hour) / minute);
+              document.getElementById('seconds-{{ section.id }}').innerText = Math.floor((distance % minute) / second);
+            }, second);
           });
         </script>
+        {% endif %}
         {% endfor %}
         {%- if featured_tab_enable -%}
         </div>
@@ -571,7 +424,7 @@
           "value": "6"
         }
       ],
-      "default": "6"
+      "default": "4"
     },
     {
       "type": "select",
@@ -638,10 +491,6 @@
 }
 {% endschema %}
 <style>
-
-  .special-slider.swiper {
-    margin: 0px calc(-25% - 7.5px) !important;
-  }
   .featured-collection {
     background-color: var(--background-color);
     overflow: hidden;
@@ -660,15 +509,30 @@
       padding-bottom: {{ section.settings.section_padding_bottom_xs }}px;
     }
   }
-  {% if section.settings.category_special_product_view == 'grid' %}
-  .featured-collection .collection-wrap {
-    /* margin-top: -15px; */
+
+  /* Product grid — same layout as category grid-wrap */
+  .featured-collection .featured-products-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--col-desktop, 4), 1fr);
+    gap: 30px;
+    margin-top: 30px;
   }
-  .featured-collection .collection-wrap .single-product-wrap {
-    /* margin-top: 15px; */
-    border-radius: var(--sti-border-radius);
+  @media(max-width: 1199px) {
+    .featured-collection .featured-products-grid {
+      grid-template-columns: repeat(var(--col-tablet, 3), 1fr);
+    }
   }
-  {% endif %}
+  @media(max-width: 767px) {
+    .featured-collection .featured-products-grid {
+      grid-template-columns: repeat(var(--col-mobile, 2), 1fr);
+      gap: 15px;
+    }
+  }
+  @media(max-width: 320px) {
+    .featured-collection .featured-products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 
   .featured-collection .section-capture.deal-counter {
     display: flex;
@@ -740,20 +604,10 @@
     color: var(--font-color-primary);
     border-color: var(--font-color-primary);
   }
-  {% if section.settings.slider_crop %}
-  .fe-coll-{{ section.id }} .collection-wrap .special-slider {
-    margin: 0 -8.33%;
-  }
-  {% endif %}
   .featured-collection .collection-wrap .view-collection {
     margin-top: {{ settings.title_padding_bottom }}px;
     display: block;
     text-align: center;
-  }
-  @media(max-width: 1399px){
-    .special-slider.swiper {
-      margin: 0px !important;
-    }
   }
   @media(max-width: 1199px){
     .featured-collection .collection-wrap .view-collection {
