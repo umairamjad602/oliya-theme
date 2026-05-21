@@ -297,7 +297,7 @@
         "section_padding_top_xs": 60,
         "section_padding_bottom_xs": 60,
         "container": "fluid",
-        "show_row_reverse": false,
+        "show_row_reverse": true,
         "home_about_image": "shopify://shop_images/ChatGPT_Image_May_20_2026_01_32_44_AM.png"
       }
     },
