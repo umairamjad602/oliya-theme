@@ -223,45 +223,6 @@
         "view_btn": ""
       }
     },
-    "featured_collection_zUMdyw": {
-      "type": "featured-collection",
-      "blocks": {
-        "product_tab_9gA4EW": {
-          "type": "product_tab",
-          "settings": {
-            "tab_product": "best-seller"
-          }
-        }
-      },
-      "block_order": [
-        "product_tab_9gA4EW"
-      ],
-      "settings": {
-        "container": "normal",
-        "section_padding_top": 80,
-        "section_padding_bottom": 80,
-        "section_padding_top_lg": 80,
-        "section_padding_bottom_lg": 80,
-        "section_padding_top_xs": 60,
-        "section_padding_bottom_xs": 60,
-        "section_bg_color": "#f9f5f0",
-        "section_subheading": "",
-        "section_heading": "NEW ARRIVALS",
-        "countdown_enable": false,
-        "product_month": "January",
-        "product_year": 2026,
-        "product_date": 30,
-        "featured_tab_enable": false,
-        "slider_crop": false,
-        "category_special_product_view": "grid",
-        "product_limit": 4,
-        "category_special_product_col": "1",
-        "product_view": "4",
-        "product_view_lg": "4",
-        "product_view_sm": "2",
-        "view_btn": ""
-      }
-    },
     "image_with_text_hAM8k7": {
       "type": "Image-with-text",
       "blocks": {
@@ -299,6 +260,45 @@
         "container": "fluid",
         "show_row_reverse": true,
         "home_about_image": "shopify://shop_images/dzhinsi-casual-muzhskie.jpg"
+      }
+    },
+    "featured_collection_zUMdyw": {
+      "type": "featured-collection",
+      "blocks": {
+        "product_tab_9gA4EW": {
+          "type": "product_tab",
+          "settings": {
+            "tab_product": "best-seller"
+          }
+        }
+      },
+      "block_order": [
+        "product_tab_9gA4EW"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_lg": 80,
+        "section_padding_bottom_lg": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_bg_color": "#f9f5f0",
+        "section_subheading": "",
+        "section_heading": "NEW ARRIVALS",
+        "countdown_enable": false,
+        "product_month": "January",
+        "product_year": 2026,
+        "product_date": 30,
+        "featured_tab_enable": false,
+        "slider_crop": false,
+        "category_special_product_view": "grid",
+        "product_limit": 4,
+        "category_special_product_col": "1",
+        "product_view": "4",
+        "product_view_lg": "4",
+        "product_view_sm": "2",
+        "view_btn": ""
       }
     },
     "section_border_b46N3q": {
@@ -637,7 +637,6 @@
     },
     "newsletter_77mjMN": {
       "type": "newsletter",
-      "disabled": true,
       "settings": {
         "container": "normal",
         "section_padding_top": 0,
@@ -663,7 +662,6 @@
     },
     "section_border_jADRhD": {
       "type": "section-border",
-      "disabled": true,
       "settings": {
         "border_width": "full",
         "border_bg_color": "rgba(0,0,0,0)",
