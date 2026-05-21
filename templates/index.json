@@ -20,7 +20,7 @@
             "slider_img": "shopify://shop_images/Bannerr.png",
             "slider_mobile_img": "shopify://shop_images/Bannerr.png",
             "mobile_text_enable": false,
-            "slider_desc": "TIMELESS STYLE,\nNATURALLY INSPIRED.",
+            "slider_desc": "TIMELESS STYLE,NATURALLY INSPIRED.",
             "slider_desc_color": "#ffffff",
             "slider_title": "Explore OLYIA Men's Apparel.",
             "slider_title_color": "#ffffff",
@@ -190,13 +190,13 @@
         "heading_8aAQTD": {
           "type": "heading",
           "settings": {
-            "heading": "OUR ROOTS"
+            "heading": "Relaxed Fit, Modern Style"
           }
         },
         "text_3XXUVt": {
           "type": "text",
           "settings": {
-            "text": "<p>Sustainable materials and crafted community connections to overarching handcrafted rolling and manufacturing content.</p><p>An artisanal craftsmanship leads us to present our brand philosophy. Ranged complex compositions and earthy, nature-inspired collections.</p>"
+            "text": "<p>Stay comfortable and stylish with lightweight men’s pants designed for relaxed everyday wear and effortless summer fashion.<br/><br/>Experience breathable comfort and modern style with versatile pants perfect for casual outings, vacations, and daily wear.</p>"
           }
         },
         "button_dkDM6V": {
