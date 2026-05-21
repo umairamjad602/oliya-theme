@@ -145,72 +145,6 @@
         "hover_bg": "#ffffff"
       }
     },
-    "category_tabs_main": {
-      "type": "category-tabs-section",
-      "blocks": {
-        "cat_tab_jackets": {
-          "type": "category",
-          "settings": {
-            "category": "jackets",
-            "tab_label": "Jackets",
-            "banner_subtitle": "New Arrivals",
-            "banner_title": "Jackets",
-            "banner_cta": "Shop Now",
-            "see_all_text": "See All Jackets"
-          }
-        },
-        "cat_tab_shirts": {
-          "type": "category",
-          "settings": {
-            "category": "shirts",
-            "tab_label": "Shirts",
-            "banner_subtitle": "Essentials",
-            "banner_title": "Shirts",
-            "banner_cta": "Shop Now",
-            "see_all_text": "See All Shirts"
-          }
-        },
-        "cat_tab_pants": {
-          "type": "category",
-          "settings": {
-            "category": "pants",
-            "tab_label": "Pants",
-            "banner_subtitle": "Tailored Fits",
-            "banner_title": "Pants",
-            "banner_cta": "Shop Now",
-            "see_all_text": "See All Pants"
-          }
-        },
-        "cat_tab_accessories": {
-          "type": "category",
-          "settings": {
-            "category": "accessories",
-            "tab_label": "Accessories",
-            "banner_subtitle": "Finishing Touches",
-            "banner_title": "Accessories",
-            "banner_cta": "Shop Now",
-            "see_all_text": "See All Accessories"
-          }
-        }
-      },
-      "block_order": [
-        "cat_tab_jackets",
-        "cat_tab_shirts",
-        "cat_tab_pants",
-        "cat_tab_accessories"
-      ],
-      "settings": {
-        "container": "normal",
-        "section_bg": "#ffffff",
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "section_subheading": "Browse By",
-        "section_heading": "Shop by Category",
-        "show_banner": true,
-        "banner_height": 420,
-        "products_per_row": 4
-      }
-    },
     "featured-collection": {
       "type": "featured-collection",
       "blocks": {
@@ -223,6 +157,45 @@
       },
       "block_order": [
         "product_tab_k7yVWy"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_lg": 80,
+        "section_padding_bottom_lg": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_bg_color": "#f9f5f0",
+        "section_subheading": "",
+        "section_heading": "BEST SELLERS",
+        "countdown_enable": false,
+        "product_month": "January",
+        "product_year": 2026,
+        "product_date": 30,
+        "featured_tab_enable": false,
+        "slider_crop": false,
+        "category_special_product_view": "grid",
+        "product_limit": 4,
+        "category_special_product_col": "1",
+        "product_view": "4",
+        "product_view_lg": "4",
+        "product_view_sm": "2",
+        "view_btn": ""
+      }
+    },
+    "featured_collection_zUMdyw": {
+      "type": "featured-collection",
+      "blocks": {
+        "product_tab_9gA4EW": {
+          "type": "product_tab",
+          "settings": {
+            "tab_product": "shorts"
+          }
+        }
+      },
+      "block_order": [
+        "product_tab_9gA4EW"
       ],
       "settings": {
         "container": "normal",
@@ -277,6 +250,45 @@
         "heading_8aAQTD",
         "text_3XXUVt",
         "button_dkDM6V"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "container": "fluid",
+        "show_row_reverse": false,
+        "home_about_image": "shopify://shop_images/ChatGPT_Image_May_20_2026_01_32_44_AM.png"
+      }
+    },
+    "image_with_text_hAM8k7": {
+      "type": "Image-with-text",
+      "blocks": {
+        "heading_9LjMzh": {
+          "type": "heading",
+          "settings": {
+            "heading": "OUR ROOTS"
+          }
+        },
+        "text_KFkg38": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Sustainable materials and crafted community connections to overarching handcrafted rolling and manufacturing content.</p><p>An artisanal craftsmanship leads us to present our brand philosophy. Ranged complex compositions and earthy, nature-inspired collections.</p>"
+          }
+        },
+        "button_N6qEjg": {
+          "type": "button",
+          "settings": {
+            "button": "Learn More",
+            "button_url": "shopify://pages/about-us"
+          }
+        }
+      },
+      "block_order": [
+        "heading_9LjMzh",
+        "text_KFkg38",
+        "button_N6qEjg"
       ],
       "name": "Image with text",
       "settings": {
@@ -740,9 +752,10 @@
   "order": [
     "slideshow",
     "collection_list_ye7dng",
-    "category_tabs_main",
     "featured-collection",
     "image_with_text_QmhPBQ",
+    "featured_collection_zUMdyw",
+    "image_with_text_hAM8k7",
     "section_border_b46N3q",
     "logo_list_thF4Kg",
     "about_us_banner_TR6GhR",
