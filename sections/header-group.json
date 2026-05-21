@@ -1,1 +1,207 @@
-{"type":"header","name":"Header group","sections":{"announcement-bar":{"type":"announcement-bar","settings":{"container":"normal","notification_bg_color":"#000000","notification_txt_color":"#ffffff","enable_country_selector":false,"enable_language_selector":false,"text_icon1":"","icon_url1":"","service_desc1":"","service_bg_color":"#ffffff","text_icon2":"","icon_url2":"","service_desc2":"FREE SHIPPING TO US, CA & UK ON ALL ORDERS | NEW COLLECTIONS ARRIVING","text_icon3":"","icon_url3":"","service_desc3":"","text_icon4":"","icon_url4":"","service_desc4":""}},"header":{"type":"header","blocks":{"menu_collection_AGiNxz":{"type":"menu_collection","disabled":true,"settings":{"menu_collection_title":"Home","menu_collection_url":"","menu_collection_label":"","menu_collection_label_color":"#ffffff","menu_collection_label_font_size":10,"menu_collection_label_top_position":10,"menu_collection_label_bgcolor":"#0c32ff","menu_collection_label_text_transform":"uppercase","menu_collection_label_font-weight":400,"menu_collection_label_border_radius":3,"menu_collection_label_line_height":1.1,"banner_title_mobile_enable":true,"menu_collection_banner_title1":"06 Classic jewelry","menu_collection_banner_label1":"New","menu_collection_banner_label1_color":"#ffffff","menu_collection_banner_label1_bg_color":"#05ad01","menu_collection_banner_url1":"https:\/\/jelwo.myshopify.com\/?preview_theme_id=144272425097","menu_collection_banner_title2":"01 Unique jewelry","menu_collection_banner_label2":"","menu_collection_banner_label2_color":"#ffffff","menu_collection_banner_label2_bg_color":"#05ad01","menu_collection_banner_url2":"https:\/\/jelwo.myshopify.com\/?preview_theme_id=141599932553","menu_collection_banner_title3":"02 Modern jewelry","menu_collection_banner_label3":"","menu_collection_banner_label3_color":"#ffffff","menu_collection_banner_label3_bg_color":"#05ad01","menu_collection_banner_url3":"https:\/\/jelwo.myshopify.com\/?preview_theme_id=139688116361","menu_collection_banner_title4":"03 Traditional jewelry","menu_collection_banner_label4":"","menu_collection_banner_label4_color":"#ffffff","menu_collection_banner_label4_bg_color":"#05ad01","menu_collection_banner_url4":"https:\/\/jelwo.myshopify.com\/?preview_theme_id=139174379657","menu_collection_banner_title5":"04 Luxury jewelry","menu_collection_banner_label5":"","menu_collection_banner_label5_color":"#ffffff","menu_collection_banner_label5_bg_color":"#05ad01","menu_collection_banner_url5":"https:\/\/jelwo.myshopify.com\/?preview_theme_id=139597742217","menu_collection_banner_title6":"05 Elegant jewelry","menu_collection_banner_label6":"","menu_collection_banner_label6_color":"#ffffff","menu_collection_banner_label6_bg_color":"#05ad01","menu_collection_banner_url6":"https:\/\/jelwo.myshopify.com\/?preview_theme_id=141136429193","menu_collection_banner_title7":"","menu_collection_banner_label7":"","menu_collection_banner_label7_color":"#ffffff","menu_collection_banner_label7_bg_color":"#05ad01","menu_collection_banner_url7":"","menu_collection_banner_title8":"","menu_collection_banner_label8":"","menu_collection_banner_label8_color":"#ffffff","menu_collection_banner_label8_bg_color":"#05ad01","menu_collection_banner_url8":"","menu_collection_banner_title9":"","menu_collection_banner_label9":"","menu_collection_banner_label9_color":"#ffffff","menu_collection_banner_label9_bg_color":"#05ad01","menu_collection_banner_url9":"","menu_collection_banner_title10":"","menu_collection_banner_label10":"","menu_collection_banner_label10_color":"#ffffff","menu_collection_banner_label10_bg_color":"#05ad01","menu_collection_banner_url10":"","menu_collection_banner_title11":"","menu_collection_banner_label11":"","menu_collection_banner_label11_color":"#ffffff","menu_collection_banner_label11_bg_color":"#05ad01","menu_collection_banner_url11":"","menu_collection_banner_title12":"","menu_collection_banner_label12":"","menu_collection_banner_label12_color":"#ffffff","menu_collection_banner_label12_bg_color":"#05ad01","menu_collection_banner_url12":"","menu_collection_all_url":"","menu_collection_all_button":""}},"menu_link_hYMi8W":{"type":"menu_link","settings":{"menu_link_title":"HOME","menu_link_url":"\/","menu_link_label":"","menu_link_label_color":"#ffffff","menu_link_label_font_size":10,"menu_link_label_top_position":10,"menu_link_label_bgcolor":"#05d14b","menu_link_label_text_transform":"uppercase","menu_link_label_font-weight":400,"menu_link_label_border_radius":3,"menu_link_label_line_height":1.1}},"73dbee9f-c33c-42e0-b47e-a461774a6d37":{"type":"menu_shop","settings":{"menu_shop_title":"SHOP ALL","menu_shop_url":"shopify:\/\/collections\/all","menu_shop_label":"","menu_shop_label_color":"#ffffff","menu_shop_label_font_size":11,"menu_shop_label_top_position":15,"menu_shop_label_bgcolor":"#222222","menu_shop_label_text_transform":"uppercase","menu_shop_label_font-weight":500,"menu_shop_label_border_radius":2,"menu_shop_label_line_height":1.1,"menu_shop_select1":"","menu_shop_select2":"","menu_shop_select3":"","menu_shop_select4":"","menu_shop_banner_url1":"shopify:\/\/collections\/all"}},"d8c14ef8-1cc1-4e85-987c-43ddaea91fc4":{"type":"menu_link","settings":{"menu_link_title":"NEW ARRIVALS","menu_link_url":"shopify:\/\/collections\/new-arrivals","menu_link_label":"","menu_link_label_color":"#ffffff","menu_link_label_font_size":10,"menu_link_label_top_position":10,"menu_link_label_bgcolor":"#05d14b","menu_link_label_text_transform":"uppercase","menu_link_label_font-weight":400,"menu_link_label_border_radius":3,"menu_link_label_line_height":1.1}},"menu_link_6RWYrE":{"type":"menu_link","settings":{"menu_link_title":"COLLECTIONS","menu_link_url":"shopify:\/\/collections\/all","menu_link_label":"","menu_link_label_color":"#ffffff","menu_link_label_font_size":10,"menu_link_label_top_position":10,"menu_link_label_bgcolor":"#05d14b","menu_link_label_text_transform":"uppercase","menu_link_label_font-weight":400,"menu_link_label_border_radius":3,"menu_link_label_line_height":1.1}},"menu_link_ABT001":{"type":"menu_link","settings":{"menu_link_title":"ABOUT US","menu_link_url":"shopify:\/\/pages\/about-us","menu_link_label":"","menu_link_label_color":"#ffffff","menu_link_label_font_size":10,"menu_link_label_top_position":10,"menu_link_label_bgcolor":"#05d14b","menu_link_label_text_transform":"uppercase","menu_link_label_font-weight":400,"menu_link_label_border_radius":3,"menu_link_label_line_height":1.1}},"menu_link_BLG001":{"type":"menu_link","settings":{"menu_link_title":"BLOG","menu_link_url":"\/blogs\/news","menu_link_label":"","menu_link_label_color":"#ffffff","menu_link_label_font_size":10,"menu_link_label_top_position":10,"menu_link_label_bgcolor":"#05d14b","menu_link_label_text_transform":"uppercase","menu_link_label_font-weight":400,"menu_link_label_border_radius":3,"menu_link_label_line_height":1.1}},"menu_product2_V3KTEr":{"type":"menu_product2","disabled":true,"settings":{"menu_product_title":"FAQs","menu_product_url":"shopify:\/\/pages\/faqs","menu_product_label":"","menu_product_label_color":"#ffffff","menu_product_label_font_size":10,"menu_product_label_top_position":10,"menu_product_label_bgcolor":"#0c32ff","menu_product_label_text_transform":"uppercase","menu_product_label_font-weight":400,"menu_product_label_border_radius":3,"menu_product_label_line_height":1.1,"menu_product_select":"","menu_product_select2":"","menu_product_select3":"","menu_product_select4":"","product_title":"Popular collection","menu_product_collection1":"frontpage","menu_product_collection1_limit":0}},"5037c259-47ec-480f-bb36-2ed33b54ddf2":{"type":"menu_sub","disabled":true,"settings":{"menu_sub_title":"Track Your Order","menu_sub_url":"shopify:\/\/pages\/track-your-order","menu_sub_label":"","menu_sub_label_color":"#ffffff","menu_sub_label_font_size":10,"menu_sub_label_top_position":10,"menu_sub_label_bgcolor":"#0c32ff","menu_sub_label_text_transform":"uppercase","menu_sub_label_font-weight":400,"menu_sub_label_border_radius":3,"menu_sub_label_line_height":1.1,"menu_sub_select":""}}},"block_order":["menu_link_hYMi8W","73dbee9f-c33c-42e0-b47e-a461774a6d37","d8c14ef8-1cc1-4e85-987c-43ddaea91fc4","menu_link_6RWYrE","menu_link_ABT001","menu_link_BLG001"],"settings":{"container":"fluid","logo_alignment":"center","menu_alignment":"left","header_transparent_enable":false,"header_sticky_enable":true,"header_bgcolor":"#ffffff","header_main_menu_title":"Menu","header_menutext_color":"#000000","header_menutext_hvr_color":"#f2845a","menu_font_size":16,"menu_font_size_lg":16,"menu_font_weight":400,"menu_text_transform":"none","header_menuicon_color":"#000000","header_menuicon_hvr_color":"#f2845a","offer_text_enable":true,"offer_text":"(210) 123 456 7890","offer_text_icon":"<i class=\"ri-customer-service-2-line\"><\/i>","offer_text_url":"tel:(210) 123 456 7890","offer_text2":"","offer_text2_icon":"","offer_text2_url":"shopify:\/\/collections\/shoes","enable_country_selector":true,"enable_language_selector":true}},"news-popup":{"type":"news-popup","disabled":true,"settings":{"timeout":3000,"modal_bg_color":"#ffffff","news_sub_title":"Don't miss a thing","news_sub_title_color":"#676767","news_title":"Join our newsletter and get 10% off your first order","news_title_color":"#2c2c32","dont_show_text":"Don’t show this popup again","product_limit":12,"special_label_product":"chain","button_text":"All products","button_style":"btn-style2","button_enable":true}}},"order":["announcement-bar","header","news-popup"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "container": "normal",
+        "notification_bg_color": "#000000",
+        "notification_txt_color": "#ffffff",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "text_icon1": "",
+        "icon_url1": "",
+        "service_desc1": "",
+        "service_bg_color": "#ffffff",
+        "text_icon2": "",
+        "icon_url2": "",
+        "service_desc2": "FREE SHIPPING TO US, CA & UK ON ALL ORDERS | NEW COLLECTIONS ARRIVING",
+        "text_icon3": "",
+        "icon_url3": "",
+        "service_desc3": "",
+        "text_icon4": "",
+        "icon_url4": "",
+        "service_desc4": ""
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "menu_link_hYMi8W": {
+          "type": "menu_link",
+          "disabled": true,
+          "settings": {
+            "menu_link_title": "HOME",
+            "menu_link_url": "/",
+            "menu_link_label": "",
+            "menu_link_label_color": "#ffffff",
+            "menu_link_label_font_size": 10,
+            "menu_link_label_top_position": 10,
+            "menu_link_label_bgcolor": "#05d14b",
+            "menu_link_label_text_transform": "uppercase",
+            "menu_link_label_font-weight": 400,
+            "menu_link_label_border_radius": 3,
+            "menu_link_label_line_height": 1.1
+          }
+        },
+        "73dbee9f-c33c-42e0-b47e-a461774a6d37": {
+          "type": "menu_shop",
+          "disabled": true,
+          "settings": {
+            "menu_shop_title": "SHOP ALL",
+            "menu_shop_url": "shopify://collections/all",
+            "menu_shop_label": "",
+            "menu_shop_label_color": "#ffffff",
+            "menu_shop_label_font_size": 11,
+            "menu_shop_label_top_position": 15,
+            "menu_shop_label_bgcolor": "#222222",
+            "menu_shop_label_text_transform": "uppercase",
+            "menu_shop_label_font-weight": 500,
+            "menu_shop_label_border_radius": 2,
+            "menu_shop_label_line_height": 1.1,
+            "menu_shop_select1": "",
+            "menu_shop_select2": "",
+            "menu_shop_select3": "",
+            "menu_shop_select4": "",
+            "menu_shop_banner_url1": "shopify://collections/all"
+          }
+        },
+        "d8c14ef8-1cc1-4e85-987c-43ddaea91fc4": {
+          "type": "menu_link",
+          "disabled": true,
+          "settings": {
+            "menu_link_title": "NEW ARRIVALS",
+            "menu_link_url": "shopify://collections/new-arrivals",
+            "menu_link_label": "",
+            "menu_link_label_color": "#ffffff",
+            "menu_link_label_font_size": 10,
+            "menu_link_label_top_position": 10,
+            "menu_link_label_bgcolor": "#05d14b",
+            "menu_link_label_text_transform": "uppercase",
+            "menu_link_label_font-weight": 400,
+            "menu_link_label_border_radius": 3,
+            "menu_link_label_line_height": 1.1
+          }
+        },
+        "menu_link_6RWYrE": {
+          "type": "menu_link",
+          "disabled": true,
+          "settings": {
+            "menu_link_title": "COLLECTIONS",
+            "menu_link_url": "shopify://collections/all",
+            "menu_link_label": "",
+            "menu_link_label_color": "#ffffff",
+            "menu_link_label_font_size": 10,
+            "menu_link_label_top_position": 10,
+            "menu_link_label_bgcolor": "#05d14b",
+            "menu_link_label_text_transform": "uppercase",
+            "menu_link_label_font-weight": 400,
+            "menu_link_label_border_radius": 3,
+            "menu_link_label_line_height": 1.1
+          }
+        },
+        "menu_link_ABT001": {
+          "type": "menu_link",
+          "disabled": true,
+          "settings": {
+            "menu_link_title": "ABOUT US",
+            "menu_link_url": "shopify://pages/about-us",
+            "menu_link_label": "",
+            "menu_link_label_color": "#ffffff",
+            "menu_link_label_font_size": 10,
+            "menu_link_label_top_position": 10,
+            "menu_link_label_bgcolor": "#05d14b",
+            "menu_link_label_text_transform": "uppercase",
+            "menu_link_label_font-weight": 400,
+            "menu_link_label_border_radius": 3,
+            "menu_link_label_line_height": 1.1
+          }
+        },
+        "menu_link_BLG001": {
+          "type": "menu_link",
+          "disabled": true,
+          "settings": {
+            "menu_link_title": "BLOG",
+            "menu_link_url": "/blogs/news",
+            "menu_link_label": "",
+            "menu_link_label_color": "#ffffff",
+            "menu_link_label_font_size": 10,
+            "menu_link_label_top_position": 10,
+            "menu_link_label_bgcolor": "#05d14b",
+            "menu_link_label_text_transform": "uppercase",
+            "menu_link_label_font-weight": 400,
+            "menu_link_label_border_radius": 3,
+            "menu_link_label_line_height": 1.1
+          }
+        }
+      },
+      "block_order": [
+        "menu_link_hYMi8W",
+        "73dbee9f-c33c-42e0-b47e-a461774a6d37",
+        "d8c14ef8-1cc1-4e85-987c-43ddaea91fc4",
+        "menu_link_6RWYrE",
+        "menu_link_ABT001",
+        "menu_link_BLG001"
+      ],
+      "settings": {
+        "container": "fluid",
+        "logo_alignment": "center",
+        "menu_alignment": "left",
+        "header_transparent_enable": false,
+        "header_sticky_enable": true,
+        "header_bgcolor": "#ffffff",
+        "header_main_menu_title": "Menu",
+        "header_menutext_color": "#000000",
+        "header_menutext_hvr_color": "#f2845a",
+        "menu_font_size": 16,
+        "menu_font_size_lg": 16,
+        "menu_font_weight": 400,
+        "menu_text_transform": "none",
+        "header_menuicon_color": "#000000",
+        "header_menuicon_hvr_color": "#f2845a",
+        "offer_text_enable": true,
+        "offer_text": "(210) 123 456 7890",
+        "offer_text_icon": "<i class=\"ri-customer-service-2-line\"></i>",
+        "offer_text_url": "tel:(210) 123 456 7890",
+        "offer_text2": "",
+        "offer_text2_icon": "",
+        "offer_text2_url": "shopify://collections/shoes",
+        "enable_country_selector": true,
+        "enable_language_selector": true
+      }
+    },
+    "news-popup": {
+      "type": "news-popup",
+      "disabled": true,
+      "settings": {
+        "timeout": 3000,
+        "modal_bg_color": "#ffffff",
+        "news_sub_title": "Don't miss a thing",
+        "news_sub_title_color": "#676767",
+        "news_title": "Join our newsletter and get 10% off your first order",
+        "news_title_color": "#2c2c32",
+        "dont_show_text": "Don’t show this popup again",
+        "product_limit": 12,
+        "special_label_product": "chain",
+        "button_text": "All products",
+        "button_style": "btn-style2",
+        "button_enable": true
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "news-popup"
+  ]
+}
