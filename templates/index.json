@@ -203,7 +203,7 @@
           "type": "button",
           "settings": {
             "button": "Learn More",
-            "button_url": "shopify://pages/about-us"
+            "button_url": "shopify://collections/shorts"
           }
         }
       },
@@ -281,7 +281,7 @@
           "type": "button",
           "settings": {
             "button": "Learn More",
-            "button_url": "shopify://pages/about-us"
+            "button_url": "shopify://collections/shorts"
           }
         }
       },
