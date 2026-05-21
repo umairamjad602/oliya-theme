@@ -1,1 +1,186 @@
-{"type":"footer","name":"Footer group","sections":{"footer":{"type":"footer","blocks":{"logo_info_kz6DRX":{"type":"logo_info","settings":{"logo_enable":true,"logo_desc":"","social_enable":true}},"d1540fe8-8772-4501-9ee7-01a83247a165":{"type":"footer_menu","settings":{"show_nav_title":true,"footer_menu_handle":"footer"}},"footer_menu_tdbaiQ":{"type":"footer_menu","settings":{"show_nav_title":true,"footer_menu_handle":"our-policies"}},"footer_menu_MNccdm":{"type":"footer_menu","settings":{"show_nav_title":true,"footer_menu_handle":""}},"custom_menu_QEQ6if":{"type":"custom_menu","disabled":true,"settings":{"nav_title":"Visit store","link_title1":"Mon - Thu : 10:30 to 11:30","link_url1":"","link_title2":"Fri : 10:30 to 10:00","link_url2":"","link_title3":"Sat - Sun: 10:30-04:00","link_url3":"","link_title4":"","link_url4":"","link_title5":"","link_url5":""}},"custom_menu_Ly8DBc":{"type":"custom_menu","disabled":true,"settings":{"nav_title":"Address :","link_title1":"55 East 10th street, new","link_url1":"","link_title2":"york, ny 10003, united states","link_url2":"","link_title3":"","link_url3":"","link_title4":"","link_url4":"","link_title5":"","link_url5":""}},"606f6a34-0f2c-4cbd-981b-3bad26764419":{"type":"custom_menu","disabled":true,"settings":{"nav_title":"Call:","link_title1":"+ (220) 123 456 7890","link_url1":"tel:+ (220) 123 456 7890","link_title2":"+ (220) 236 659 2873","link_url2":"tel:+ (220) 236 659 2873","link_title3":"","link_url3":"mailto:demo123546@gmail.com","link_title4":"","link_url4":"","link_title5":"","link_url5":""}},"custom_menu_f7pEN4":{"type":"custom_menu","settings":{"nav_title":"Contact Us","link_title1":"","link_url1":"","link_title2":"","link_url2":"","link_title3":"","link_url3":"","link_title4":"","link_url4":"","link_title5":"","link_url5":""}}},"block_order":["logo_info_kz6DRX","d1540fe8-8772-4501-9ee7-01a83247a165","footer_menu_tdbaiQ","footer_menu_MNccdm","custom_menu_QEQ6if","custom_menu_Ly8DBc","606f6a34-0f2c-4cbd-981b-3bad26764419","custom_menu_f7pEN4"],"settings":{"container":"normal","section_padding_top":80,"section_padding_bottom":80,"section_padding_top_ipad":80,"section_padding_bottom_ipad":80,"section_padding_top_xs":60,"section_padding_bottom_xs":60,"section_background_image_enable":false,"section_background_color":"rgba(0,0,0,0)","menu_title_font_size":18,"menu_title_font_size_lg":18,"menu_title_font_weight":500,"menu_title_text_transform":"none","menu_title_color":"#000000","menu_text_font_size":18,"menu_text_font_size_lg":16,"menu_text_font_weight":400,"menu_text_text_transform":"none","menu_text_color":"#808080","menu_text_hv_color":"#000000","newsletter_title":"STAY UPDATED | Sign up for news & offers","nav_title":"Address","link_title1":"55 East 10th street, new york, ny 10003, united states","link_url1":"","nav_title2":"Follow up","social_enable":true,"enable_follow_on_shop":false,"show_policy":false,"logo_enable2":true}},"section_border_HABDfe":{"type":"section-border","settings":{"border_width":"full","border_bg_color":"rgba(0,0,0,0)","border":1,"border_color":"#222222","border_color_opacity":0.1}},"copy-right":{"type":"copy-right","settings":{"container":"normal","section_background_color":"#ffffff","social_enable":false,"payment_enable":true,"text_font_size":16,"text_font_size_lg":16,"text_font_weight":400,"text_color":"#808080","copy_right_text":"Copyright © {{ 'now' | date: '%Y' }} by spacingtech"}}},"order":["footer","section_border_HABDfe","copy-right"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "logo_info_kz6DRX": {
+          "type": "logo_info",
+          "settings": {
+            "logo_enable": true,
+            "logo_desc": "",
+            "social_enable": true
+          }
+        },
+        "d1540fe8-8772-4501-9ee7-01a83247a165": {
+          "type": "footer_menu",
+          "settings": {
+            "show_nav_title": true,
+            "footer_menu_handle": "footer"
+          }
+        },
+        "footer_menu_tdbaiQ": {
+          "type": "footer_menu",
+          "settings": {
+            "show_nav_title": true,
+            "footer_menu_handle": "our-policies"
+          }
+        },
+        "footer_menu_MNccdm": {
+          "type": "footer_menu",
+          "settings": {
+            "show_nav_title": false,
+            "footer_menu_handle": ""
+          }
+        },
+        "custom_menu_QEQ6if": {
+          "type": "custom_menu",
+          "disabled": true,
+          "settings": {
+            "nav_title": "Visit store",
+            "link_title1": "Mon - Thu : 10:30 to 11:30",
+            "link_url1": "",
+            "link_title2": "Fri : 10:30 to 10:00",
+            "link_url2": "",
+            "link_title3": "Sat - Sun: 10:30-04:00",
+            "link_url3": "",
+            "link_title4": "",
+            "link_url4": "",
+            "link_title5": "",
+            "link_url5": ""
+          }
+        },
+        "custom_menu_Ly8DBc": {
+          "type": "custom_menu",
+          "disabled": true,
+          "settings": {
+            "nav_title": "Address :",
+            "link_title1": "55 East 10th street, new",
+            "link_url1": "",
+            "link_title2": "york, ny 10003, united states",
+            "link_url2": "",
+            "link_title3": "",
+            "link_url3": "",
+            "link_title4": "",
+            "link_url4": "",
+            "link_title5": "",
+            "link_url5": ""
+          }
+        },
+        "606f6a34-0f2c-4cbd-981b-3bad26764419": {
+          "type": "custom_menu",
+          "disabled": true,
+          "settings": {
+            "nav_title": "Call:",
+            "link_title1": "+ (220) 123 456 7890",
+            "link_url1": "tel:+ (220) 123 456 7890",
+            "link_title2": "+ (220) 236 659 2873",
+            "link_url2": "tel:+ (220) 236 659 2873",
+            "link_title3": "",
+            "link_url3": "mailto:demo123546@gmail.com",
+            "link_title4": "",
+            "link_url4": "",
+            "link_title5": "",
+            "link_url5": ""
+          }
+        },
+        "custom_menu_f7pEN4": {
+          "type": "custom_menu",
+          "settings": {
+            "nav_title": "Contact Us",
+            "link_title1": "We’re here to help! Contact OLYIA for any questions about orders, products, or support.",
+            "link_url1": "",
+            "link_title2": "",
+            "link_url2": "",
+            "link_title3": "",
+            "link_url3": "",
+            "link_title4": "",
+            "link_url4": "",
+            "link_title5": "",
+            "link_url5": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_info_kz6DRX",
+        "d1540fe8-8772-4501-9ee7-01a83247a165",
+        "footer_menu_tdbaiQ",
+        "footer_menu_MNccdm",
+        "custom_menu_QEQ6if",
+        "custom_menu_Ly8DBc",
+        "606f6a34-0f2c-4cbd-981b-3bad26764419",
+        "custom_menu_f7pEN4"
+      ],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 80,
+        "section_padding_bottom": 80,
+        "section_padding_top_ipad": 80,
+        "section_padding_bottom_ipad": 80,
+        "section_padding_top_xs": 60,
+        "section_padding_bottom_xs": 60,
+        "section_background_image_enable": false,
+        "section_background_color": "rgba(0,0,0,0)",
+        "menu_title_font_size": 18,
+        "menu_title_font_size_lg": 18,
+        "menu_title_font_weight": 500,
+        "menu_title_text_transform": "none",
+        "menu_title_color": "#000000",
+        "menu_text_font_size": 18,
+        "menu_text_font_size_lg": 16,
+        "menu_text_font_weight": 400,
+        "menu_text_text_transform": "none",
+        "menu_text_color": "#808080",
+        "menu_text_hv_color": "#000000",
+        "newsletter_title": "STAY UPDATED | Sign up for news & offers",
+        "nav_title": "Address",
+        "link_title1": "55 East 10th street, new york, ny 10003, united states",
+        "link_url1": "",
+        "nav_title2": "Follow up",
+        "social_enable": true,
+        "enable_follow_on_shop": false,
+        "show_policy": false,
+        "logo_enable2": true
+      }
+    },
+    "section_border_HABDfe": {
+      "type": "section-border",
+      "settings": {
+        "border_width": "full",
+        "border_bg_color": "rgba(0,0,0,0)",
+        "border": 1,
+        "border_color": "#222222",
+        "border_color_opacity": 0.1
+      }
+    },
+    "copy-right": {
+      "type": "copy-right",
+      "settings": {
+        "container": "normal",
+        "section_background_color": "#ffffff",
+        "social_enable": false,
+        "payment_enable": true,
+        "text_font_size": 16,
+        "text_font_size_lg": 16,
+        "text_font_weight": 400,
+        "text_color": "#808080",
+        "copy_right_text": "Copyright © {{ 'now' | date: '%Y' }} by spacingtech"
+      }
+    }
+  },
+  "order": [
+    "footer",
+    "section_border_HABDfe",
+    "copy-right"
+  ]
+}
