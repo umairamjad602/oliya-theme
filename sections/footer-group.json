@@ -54,6 +54,7 @@
         },
         "footer_menu_MNccdm": {
           "type": "footer_menu",
+          "disabled": true,
           "settings": {
             "show_nav_title": false,
             "footer_menu_handle": ""
