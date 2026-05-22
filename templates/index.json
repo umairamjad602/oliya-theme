@@ -87,7 +87,7 @@
         "slider_cat_HRCHfq": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "men-shoes",
+            "slider_category_handle": "shoes",
             "cat_custom_title": "",
             "cat_description": "Step up your style with premium men's footwear for every occasion."
           }
@@ -95,7 +95,7 @@
         "slider_cat_xn3bKY": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "men-tops",
+            "slider_category_handle": "tops",
             "cat_custom_title": "",
             "cat_description": "Clean cuts and quality fabrics for everyday wear and beyond."
           }
@@ -103,7 +103,7 @@
         "slider_cat_nqtxzq": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "pents",
+            "slider_category_handle": "pants",
             "cat_custom_title": "",
             "cat_description": "Tailored fits that move with you, from morning to evening."
           }
