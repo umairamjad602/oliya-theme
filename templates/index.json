@@ -103,7 +103,7 @@
         "slider_cat_nqtxzq": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "shorts",
+            "slider_category_handle": "pents",
             "cat_custom_title": "",
             "cat_description": "Tailored fits that move with you, from morning to evening."
           }
@@ -169,7 +169,7 @@
           "type": "button",
           "settings": {
             "button": "Learn More",
-            "button_url": "shopify://collections/shorts"
+            "button_url": "shopify://collections/pents"
           }
         }
       },
@@ -195,7 +195,7 @@
         "product_tab_k7yVWy": {
           "type": "product_tab",
           "settings": {
-            "tab_product": "shorts"
+            "tab_product": "pents"
           }
         }
       },
@@ -247,7 +247,7 @@
           "type": "button",
           "settings": {
             "button": "Learn More",
-            "button_url": "shopify://collections/shorts"
+            "button_url": "shopify://collections/pents"
           }
         }
       },
@@ -542,7 +542,7 @@
         "product_tab_7VcN4r": {
           "type": "product_tab",
           "settings": {
-            "tab_product": "shorts"
+            "tab_product": "pents"
           }
         }
       },
