@@ -88,16 +88,14 @@
           "type": "slider_cat",
           "settings": {
             "slider_category_handle": "men-shoes",
-            "cat_img": "shopify://shop_images/b0793af4-d5b6-4d75-a8f3-b9d49fd5d3bf.webp",
-            "cat_custom_title": "Shoes",
-            "cat_description": "From lightweight layers to heavy outerwear — built for every season."
+            "cat_custom_title": "",
+            "cat_description": "Step up your style with premium men's footwear for every occasion."
           }
         },
         "slider_cat_xn3bKY": {
           "type": "slider_cat",
           "settings": {
             "slider_category_handle": "men-tops",
-            "cat_img": "shopify://shop_images/7858277100_1.jpg",
             "cat_custom_title": "",
             "cat_description": "Clean cuts and quality fabrics for everyday wear and beyond."
           }
@@ -106,7 +104,6 @@
           "type": "slider_cat",
           "settings": {
             "slider_category_handle": "shorts",
-            "cat_img": "shopify://shop_images/9485518505.jpg",
             "cat_custom_title": "",
             "cat_description": "Tailored fits that move with you, from morning to evening."
           }
@@ -115,9 +112,16 @@
           "type": "slider_cat",
           "settings": {
             "slider_category_handle": "shorts-1",
-            "cat_img": "shopify://shop_images/61F1LgyxydL._AC_UF1000_1000_QL80.jpg",
             "cat_custom_title": "",
-            "cat_description": "The finishing touches that complete every look."
+            "cat_description": "Relaxed and ready — the perfect summer shorts for any adventure."
+          }
+        },
+        "slider_cat_objects": {
+          "type": "slider_cat",
+          "settings": {
+            "slider_category_handle": "objects",
+            "cat_custom_title": "",
+            "cat_description": "Curated accessories and objects to complete your everyday look."
           }
         }
       },
@@ -125,7 +129,8 @@
         "slider_cat_HRCHfq",
         "slider_cat_xn3bKY",
         "slider_cat_nqtxzq",
-        "slider_cat_njGBkC"
+        "slider_cat_njGBkC",
+        "slider_cat_objects"
       ],
       "name": "Collection list",
       "settings": {

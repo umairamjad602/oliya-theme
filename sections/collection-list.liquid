@@ -37,6 +37,18 @@
                           alt: block.settings.cat_img.alt
                         | escape
                       }}
+                    {%- elsif category_product.image != blank -%}
+                      {{
+                        category_product.image
+                        | image_url: width: 512
+                        | image_tag:
+                          loading: 'lazy',
+                          width: category_product.image.width,
+                          height: category_product.image.height,
+                          class: 'lazyload desk-img',
+                          alt: category_product.image.alt | default: category_product.title
+                        | escape
+                      }}
                     {%- else -%}
                       {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
                       {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}

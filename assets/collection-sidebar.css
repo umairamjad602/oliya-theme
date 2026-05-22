@@ -478,3 +478,53 @@
 .shop-sidebar.color .flt-ele ul.scrollbar li .cust-checkbox-label.black span.cust-check::after {
   color: #ffffff;
 }
+
+/* Collection filter list styles */
+.collection-filter-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.collection-filter-item {
+  padding-top: 15px;
+}
+
+.collection-filter-item:first-child {
+  padding-top: 0;
+}
+
+.collection-filter-link {
+  color: var(--font-color-body);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-decoration: none;
+  -webkit-transition: color 0.2s ease-in-out;
+  -o-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+}
+
+.collection-filter-link:hover,
+.collection-filter-link.active {
+  color: var(--font-color-primary);
+}
+
+.collection-filter-link.active .collection-filter-name {
+  font-weight: 600;
+}
+
+.collection-filter-name {
+  flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.collection-filter-count {
+  color: var(--font-color-body);
+  font-size: 12px;
+  opacity: 0.7;
+  white-space: nowrap;
+  flex-shrink: 0;
+}

@@ -4,7 +4,7 @@
 }
 .collection-list .grid-wrap {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 30px;
 }
 .collection-list .cat-block {
@@ -111,13 +111,20 @@
     display: none;
   }
 }
+@media (max-width: 1199px) and (min-width: 992px) {
+  .collection-list .grid-wrap {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+  }
+}
 @media (max-width: 991px) {
   .collection-list .grid-wrap {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 767px) {
   .collection-list .grid-wrap {
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
 }
