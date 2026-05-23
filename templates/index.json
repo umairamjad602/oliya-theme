@@ -271,15 +271,15 @@
     "featured_collection_zUMdyw": {
       "type": "featured-collection",
       "blocks": {
-        "product_tab_9gA4EW": {
+        "product_tab_3KiNKq": {
           "type": "product_tab",
           "settings": {
-            "tab_product": "best-seller"
+            "tab_product": "shorts"
           }
         }
       },
       "block_order": [
-        "product_tab_9gA4EW"
+        "product_tab_3KiNKq"
       ],
       "settings": {
         "container": "normal",
