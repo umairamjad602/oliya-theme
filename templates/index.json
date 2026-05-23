@@ -18,7 +18,7 @@
             "slider_category_handle": "",
             "slider_category_handle2": "",
             "slider_img": "shopify://shop_images/Bannerr.png",
-            "slider_mobile_img": "shopify://shop_images/Bannerr.png",
+            "slider_mobile_img": "shopify://shop_images/Bannerr_cc0c2684-110d-4fac-8ca8-1c4612723c7c.png",
             "mobile_text_enable": false,
             "slider_desc": "TIMELESS STYLE,NATURALLY INSPIRED.",
             "slider_desc_color": "#ffffff",
@@ -29,46 +29,10 @@
             "slider_content_position": "right",
             "slider_text_position": "right"
           }
-        },
-        "slide_C63wQ8": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "slider_category_handle": "diamond",
-            "slider_category_handle2": "brooch",
-            "mobile_text_enable": false,
-            "slider_desc": "Jewelry that tells your unique story",
-            "slider_desc_color": "#ffffff",
-            "slider_title": "Sparkle every step you take",
-            "slider_title_color": "#ffffff",
-            "slider_button": "Shop now",
-            "slider_button_url": "shopify://collections/brooch",
-            "slider_content_position": "center",
-            "slider_text_position": "center"
-          }
-        },
-        "slide_kGWqJ8": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "slider_category_handle": "bracelets",
-            "slider_category_handle2": "bangles",
-            "mobile_text_enable": false,
-            "slider_desc": "Shine every day in unique style",
-            "slider_desc_color": "#ffffff",
-            "slider_title": "Luxury jewelry for every day",
-            "slider_title_color": "#ffffff",
-            "slider_button": "Shop now",
-            "slider_button_url": "shopify://collections/chain",
-            "slider_content_position": "center",
-            "slider_text_position": "center"
-          }
         }
       },
       "block_order": [
-        "slide_G9qKzC",
-        "slide_C63wQ8",
-        "slide_kGWqJ8"
+        "slide_G9qKzC"
       ],
       "settings": {
         "item_title": "",
