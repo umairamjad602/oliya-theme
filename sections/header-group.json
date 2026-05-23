@@ -40,7 +40,7 @@
         "menu_link_hYMi8W": {
           "type": "menu_link",
           "settings": {
-            "menu_link_title": "HOME",
+            "menu_link_title": "Home",
             "menu_link_url": "/",
             "menu_link_label": "",
             "menu_link_label_color": "#ffffff",
@@ -56,7 +56,7 @@
         "menu_link_6RWYrE": {
           "type": "menu_link",
           "settings": {
-            "menu_link_title": "COLLECTIONS",
+            "menu_link_title": "Collections",
             "menu_link_url": "shopify://collections/all",
             "menu_link_label": "",
             "menu_link_label_color": "#ffffff",
@@ -72,7 +72,7 @@
         "menu_link_ABT001": {
           "type": "menu_link",
           "settings": {
-            "menu_link_title": "ABOUT US",
+            "menu_link_title": "About Us",
             "menu_link_url": "shopify://pages/about-us",
             "menu_link_label": "",
             "menu_link_label_color": "#ffffff",
