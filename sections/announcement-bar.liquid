@@ -1,9 +1,10 @@
 {{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'localization-form.js' | asset_url }}" defer></script>
 <section
   class="top-bar"
   style="--background-color: {{ section.settings.notification_bg_color }}; --color: {{ section.settings.notification_txt_color }};"
 >
-  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %} top-bar-inner">
     <div class="offer-text-wrap" style="--animation-time: 15.35s;">
       <ul class="list-unstyled grid-wrap text1">
         {% if section.settings.topbar_notification_text1 != '' %}
@@ -142,6 +143,55 @@
         {% endif %}
       </ul>
     </div>
+
+    {%- if section.settings.enable_country_selector or section.settings.enable_language_selector -%}
+      <div class="top-bar-localization">
+        {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+          <div class="tb-locali-box">
+            <noscript>
+              {%- form 'localization', id: 'TopBarCountryFormNoScript', class: 'localization-form' -%}
+                <select name="country_code">
+                  {%- for country in localization.available_countries -%}
+                    <option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                      {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                    </option>
+                  {%- endfor -%}
+                </select>
+                <button type="submit">{{ 'localization.update_country' | t }}</button>
+              {%- endform -%}
+            </noscript>
+            <localization-form>
+              {%- form 'localization', id: 'TopBarCountryForm', class: 'localization-form' -%}
+                {%- render 'country-localization', localPosition: 'TopBarCountry' -%}
+              {%- endform -%}
+            </localization-form>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+          <div class="tb-locali-box">
+            <noscript>
+              {%- form 'localization', id: 'TopBarLanguageFormNoScript', class: 'localization-form' -%}
+                <select name="locale_code">
+                  {%- for language in localization.available_languages -%}
+                    <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} selected{% endif %}>
+                      {{ language.endonym_name | capitalize }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+                <button type="submit">{{ 'localization.update_language' | t }}</button>
+              {%- endform -%}
+            </noscript>
+            <localization-form>
+              {%- form 'localization', id: 'TopBarLanguageForm', class: 'localization-form' -%}
+                {%- render 'language-localization', localPosition: 'TopBarLanguage' -%}
+              {%- endform -%}
+            </localization-form>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
   </div>
 </section>
 {% schema %}
