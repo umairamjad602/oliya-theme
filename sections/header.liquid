@@ -177,6 +177,25 @@
 {%- render 'search-popup' -%}
 <script type="text/javascript">
   addEventListener('DOMContentLoaded', (event) => {
+    // Globe icon: toggle localization dropdown
+    document.querySelectorAll('.globe-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.closest('.globe-wrap').classList.toggle('globe-open');
+      });
+    });
+    // Prevent clicks inside globe-dropdown from closing it
+    document.querySelectorAll('.globe-dropdown').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+    document.addEventListener('click', function() {
+      document.querySelectorAll('.globe-wrap.globe-open').forEach(function(el) {
+        el.classList.remove('globe-open');
+      });
+    });
+
     var lastScrollTop = 0;
     $(window).scroll(function() {
       var scroll = $(this).scrollTop();
@@ -299,7 +318,7 @@
       "type": "color",
       "id": "header_bgcolor",
       "label": "Color",
-      "default": "#333333"
+      "default": "#ffffff"
     },
     {
       "type": "header",
@@ -2649,24 +2668,20 @@
   .oliya-logo-text {
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: 30px;
-    font-weight: 300;
+    font-weight: 700;
     letter-spacing: 10px;
     text-transform: uppercase;
     text-decoration: none;
-    color: inherit;
+    color: #111111;
     line-height: 1;
     display: inline-block;
-  }
-  .header1 .header-area.sticky .oliya-logo-text,
-  .header1 .header-area.sticky-up .oliya-logo-text {
-    color: #222222;
   }
   @media (max-width: 1199px) {
     .oliya-logo-text { font-size: 24px; letter-spacing: 7px; }
   }
 
   .header-main-area {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1)
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08)
   }
  .header1 .header-area{
     {% if template == 'index' and section.settings.header_transparent_enable %}
@@ -2728,7 +2743,6 @@
     menu-text color css
   ======================================*/
 
-  {% if template == 'index' %}
   .header1 .megamenu-content .mainwrap ul.main-menu li.menu-link a.link-title {
     color: {{ section.settings.header_menutext_color }};
   }
@@ -2738,7 +2752,6 @@
   .header1 .header-area .megamenu-content .mainwrap ul.main-menu li.menu-link:hover a.link-title {
     color: {{ section.settings.header_menutext_hvr_color }};
   }
-{% endif %}
 
   .header1 .sticky-up .header-icon,
   .header1 .sticky-up .megamenu-content .mainwrap ul.main-menu li.menu-link a.link-title {
@@ -2748,14 +2761,12 @@
     menu-icon color css
   ======================================*/
 
-  {% if template == 'index' %}
   .header1 .header-icon {
     color: {{ section.settings.header_menuicon_color }};
   }
   .header1 .header-icon:hover {
     color: {{ section.settings.header_menuicon_hvr_color }};
   }
-  {% endif %}
 
   @media (max-width: 1199px) {
     .header1 .header-icon {

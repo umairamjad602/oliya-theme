@@ -1,197 +1,35 @@
 {{ 'announcement-bar.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'localization-form.js' | asset_url }}" defer></script>
 <section
   class="top-bar"
   style="--background-color: {{ section.settings.notification_bg_color }}; --color: {{ section.settings.notification_txt_color }};"
 >
   <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %} top-bar-inner">
-    <div class="offer-text-wrap" style="--animation-time: 15.35s;">
-      <ul class="list-unstyled grid-wrap text1">
-        {% if section.settings.topbar_notification_text1 != '' %}
-          <li class="grid-wrapper">
-            <div class="ser-block">
-                <a href="{{ section.settings.icon_url1 }}" class="ser-icon">
-                  {% if section.settings.text_icon1 != '' %}
-                    <span class="icon">
-                      {{ section.settings.text_icon1 }}
-                    </span>
-                  {% endif %}
-                  <div class="ser-content">
-                    {% if section.settings.service_desc1 != '' %}
-                    <span>{{ section.settings.service_desc1 }}</span>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-          </li>
-          <li class="grid-wrapper">
-            <div class="ser-block">
-                <a href="{{ section.settings.icon_url2 }}" class="ser-icon">
-                  {% if section.settings.text_icon2 != '' %}
-                    <span class="icon">
-                      {{ section.settings.text_icon2 }}
-                    </span>
-                  {% endif %}
-                  <div class="ser-content">
-                    {% if section.settings.service_desc2 != '' %}
-                    <span>{{ section.settings.service_desc2 }}</span>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-          </li>
-          <li class="grid-wrapper">
-            <div class="ser-block">
-                <a href="{{ section.settings.icon_url3 }}" class="ser-icon">
-                  {% if section.settings.text_icon3 != '' %}
-                    <span class="icon">
-                      {{ section.settings.text_icon3 }}
-                    </span>
-                  {% endif %}
-                  <div class="ser-content">
-                    {% if section.settings.service_desc3 != '' %}
-                    <span>{{ section.settings.service_desc3 }}</span>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-          </li>
-          <li class="grid-wrapper">
-            <div class="ser-block">
-                <a href="{{ section.settings.icon_url4 }}" class="ser-icon">
-                  {% if section.settings.text_icon4 != '' %}
-                    <span class="icon">
-                      {{ section.settings.text_icon4 }}
-                    </span>
-                  {% endif %}
-                  <div class="ser-content">
-                    {% if section.settings.service_desc4 != '' %}
-                    <span>{{ section.settings.service_desc4 }}</span>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-          </li>
-        {% endif %}
-      </ul>
-      <ul class="list-unstyled grid-wrap text2">
-        {% if section.settings.topbar_notification_text1 != '' %}
-          <li class="grid-wrapper">
-            <div class="ser-block">
-                <a href="{{ section.settings.icon_url1 }}" class="ser-icon">
-                  {% if section.settings.text_icon1 != '' %}
-                    <span class="icon">
-                      {{ section.settings.text_icon1 }}
-                    </span>
-                  {% endif %}
-                  <div class="ser-content">
-                    {% if section.settings.service_desc1 != '' %}
-                    <span>{{ section.settings.service_desc1 }}</span>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-          </li>
-          <li class="grid-wrapper">
-            <div class="ser-block">
-                <a href="{{ section.settings.icon_url2 }}" class="ser-icon">
-                  {% if section.settings.text_icon2 != '' %}
-                    <span class="icon">
-                      {{ section.settings.text_icon2 }}
-                    </span>
-                  {% endif %}
-                  <div class="ser-content">
-                    {% if section.settings.service_desc2 != '' %}
-                    <span>{{ section.settings.service_desc2 }}</span>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-          </li>
-          <li class="grid-wrapper">
-            <div class="ser-block">
-                <a href="{{ section.settings.icon_url3 }}" class="ser-icon">
-                  {% if section.settings.text_icon3 != '' %}
-                    <span class="icon">
-                      {{ section.settings.text_icon3 }}
-                    </span>
-                  {% endif %}
-                  <div class="ser-content">
-                    {% if section.settings.service_desc3 != '' %}
-                    <span>{{ section.settings.service_desc3 }}</span>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-          </li>
-          <li class="grid-wrapper">
-            <div class="ser-block">
-                <a href="{{ section.settings.icon_url4 }}" class="ser-icon">
-                  {% if section.settings.text_icon4 != '' %}
-                    <span class="icon">
-                      {{ section.settings.text_icon4 }}
-                    </span>
-                  {% endif %}
-                  <div class="ser-content">
-                    {% if section.settings.service_desc4 != '' %}
-                    <span>{{ section.settings.service_desc4 }}</span>
-                    {% endif %}
-                  </div>
-                </a>
-              </div>
-          </li>
-        {% endif %}
-      </ul>
+    <div class="top-bar-left">
+      {%- if section.settings.service_desc1 != blank -%}
+        <a href="{{ section.settings.icon_url1 }}" class="top-bar-link">
+          {%- if section.settings.text_icon1 != blank -%}
+            <span class="top-bar-icon">{{ section.settings.text_icon1 }}</span>
+          {%- endif -%}
+          <span>{{ section.settings.service_desc1 }}</span>
+        </a>
+      {%- endif -%}
     </div>
-
-    {%- if section.settings.enable_country_selector or section.settings.enable_language_selector -%}
-      <div class="top-bar-localization">
-        {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
-          <div class="tb-locali-box">
-            <noscript>
-              {%- form 'localization', id: 'TopBarCountryFormNoScript', class: 'localization-form' -%}
-                <select name="country_code">
-                  {%- for country in localization.available_countries -%}
-                    <option value="{{ country.iso_code }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>
-                      {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
-                    </option>
-                  {%- endfor -%}
-                </select>
-                <button type="submit">{{ 'localization.update_country' | t }}</button>
-              {%- endform -%}
-            </noscript>
-            <localization-form>
-              {%- form 'localization', id: 'TopBarCountryForm', class: 'localization-form' -%}
-                {%- render 'country-localization', localPosition: 'TopBarCountry' -%}
-              {%- endform -%}
-            </localization-form>
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-          <div class="tb-locali-box">
-            <noscript>
-              {%- form 'localization', id: 'TopBarLanguageFormNoScript', class: 'localization-form' -%}
-                <select name="locale_code">
-                  {%- for language in localization.available_languages -%}
-                    <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} selected{% endif %}>
-                      {{ language.endonym_name | capitalize }}
-                    </option>
-                  {%- endfor -%}
-                </select>
-                <button type="submit">{{ 'localization.update_language' | t }}</button>
-              {%- endform -%}
-            </noscript>
-            <localization-form>
-              {%- form 'localization', id: 'TopBarLanguageForm', class: 'localization-form' -%}
-                {%- render 'language-localization', localPosition: 'TopBarLanguage' -%}
-              {%- endform -%}
-            </localization-form>
-          </div>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-
+    <div class="top-bar-divider"></div>
+    <div class="top-bar-right">
+      {%- if section.settings.service_desc2 != blank -%}
+        <a href="{{ section.settings.icon_url2 }}" class="top-bar-link">
+          {%- if section.settings.text_icon2 != blank -%}
+            <span class="top-bar-icon">{{ section.settings.text_icon2 }}</span>
+          {%- endif -%}
+          <span>
+            {{- section.settings.service_desc2 -}}
+            {%- if section.settings.shipping_threshold != blank -%}
+              {{ localization.country.currency.symbol }}{{ section.settings.shipping_threshold }}
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+    </div>
   </div>
 </section>
 {% schema %}
@@ -220,127 +58,68 @@
     },
     {
       "type": "header",
-      "content": "Section background color"
+      "content": "Colors"
     },
     {
       "type": "color",
       "id": "notification_bg_color",
       "label": "Background color",
-      "default": "#232323"
-    },
-    {
-      "type": "header",
-      "content": "Text color"
+      "default": "#000000"
     },
     {
       "type": "color",
       "id": "notification_txt_color",
-      "label": "Color",
-      "default": "#fff"
+      "label": "Text color",
+      "default": "#ffffff"
     },
     {
       "type": "header",
-      "content": "Text"
-    },
-    {
-      "type": "header",
-      "content": "Country/region selector",
-      "info": "To add a country\/region, go to your [market settings.](\/admin\/settings\/markets)"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_country_selector",
-      "label": "Show country/region selector",
-      "default": false
-    },
-    {
-      "type": "header",
-      "content": "Language selector",
-      "info": "To add a language, go to your [language settings.](\/admin\/settings\/languages)"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_language_selector",
-      "label": "Show language selector",
-      "default": false
-    },
-    {
-      "type": "paragraph",
-      "content": "For icon "
+      "content": "Left side"
     },
     {
       "type": "textarea",
       "id": "text_icon1",
-      "label": "Icon",
+      "label": "Icon (HTML)",
       "info": "https://feathericons.com"
     },
     {
       "type": "url",
       "id": "icon_url1",
-      "label": "Icon url"
+      "label": "Link URL"
     },
     {
-      "type": "textarea",
+      "type": "text",
       "id": "service_desc1",
-      "label": "Service description",
-      "default": "Lorem Ipsum"
+      "label": "Text",
+      "default": "Summer Escape"
     },
     {
-      "type": "color",
-      "id": "service_bg_color",
-      "label": "Service background color",
-      "default": "#fff"
+      "type": "header",
+      "content": "Right side"
     },
     {
       "type": "textarea",
       "id": "text_icon2",
-      "label": "Icon",
+      "label": "Icon (HTML)",
       "info": "https://feathericons.com"
     },
     {
       "type": "url",
       "id": "icon_url2",
-      "label": "Icon url"
+      "label": "Link URL"
     },
     {
-      "type": "textarea",
+      "type": "text",
       "id": "service_desc2",
-      "label": "Service description",
-      "default": "Lorem Ipsum"
+      "label": "Text (prefix)",
+      "default": "FREE SHIPPING "
     },
     {
-      "type": "textarea",
-      "id": "text_icon3",
-      "label": "Icon",
-      "info": "https://feathericons.com"
-    },
-    {
-      "type": "url",
-      "id": "icon_url3",
-      "label": "Icon url"
-    },
-    {
-      "type": "textarea",
-      "id": "service_desc3",
-      "label": "Service description",
-      "default": "Lorem Ipsum"
-    },
-    {
-      "type": "textarea",
-      "id": "text_icon4",
-      "label": "Icon",
-      "info": "https://feathericons.com"
-    },
-    {
-      "type": "url",
-      "id": "icon_url4",
-      "label": "Icon url"
-    },
-    {
-      "type": "textarea",
-      "id": "service_desc4",
-      "label": "Service description",
-      "default": "Lorem Ipsum"
+      "type": "text",
+      "id": "shipping_threshold",
+      "label": "Shipping threshold amount",
+      "info": "Currency symbol is added automatically. E.g. enter 99.00+ to show $99.00+",
+      "default": "99.00+"
     }
   ],
   "presets": [

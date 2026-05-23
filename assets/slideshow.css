@@ -15,8 +15,19 @@
   display: none;
 }
 @media (max-width: 600px) {
-  .slider-content .home-slider .slide-image .desk-img  { display: none; }
-  .slider-content .home-slider .slide-image .mobile-img { display: block; }
+  /* Use the same sharp desktop image on mobile — no separate blurry mobile image */
+  .slider-content .home-slider .slide-image .mobile-img { display: none !important; }
+  .slider-content .home-slider .slide-image .desk-img   { display: block; }
+  /* Give the landscape image a portrait-friendly height and crop it cleanly */
+  .slider-content .home-slider .slide-image > a {
+    height: 520px;
+    overflow: hidden;
+  }
+  .slider-content .home-slider .slide-image .desk-img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
   .slider-content .home-slider .slide-image video {
     min-height: 500px;
     object-fit: cover;

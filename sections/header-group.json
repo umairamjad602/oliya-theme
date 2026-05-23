@@ -14,24 +14,16 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
-        "container": "normal",
+        "container": "fluid",
         "notification_bg_color": "#000000",
         "notification_txt_color": "#ffffff",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
         "text_icon1": "",
         "icon_url1": "",
-        "service_desc1": "",
-        "service_bg_color": "#ffffff",
-        "text_icon2": "",
+        "service_desc1": "Summer Escape",
+        "text_icon2": "<i class=\"ri-truck-line\"></i>",
         "icon_url2": "",
-        "service_desc2": "FREE SHIPPING TO US, CA & UK ON ALL ORDERS | NEW COLLECTIONS ARRIVING",
-        "text_icon3": "",
-        "icon_url3": "",
-        "service_desc3": "",
-        "text_icon4": "",
-        "icon_url4": "",
-        "service_desc4": ""
+        "service_desc2": "FREE SHIPPING ",
+        "shipping_threshold": "99.00+"
       }
     },
     "header": {
@@ -155,8 +147,8 @@
     }
   },
   "order": [
-    "announcement-bar",
     "header",
+    "announcement-bar",
     "news-popup"
   ]
 }

@@ -147,3 +147,92 @@
         display: block;
     }
 }
+
+/* Globe icon dropdown (currency + language) */
+.header1 .globe-wrap {
+    position: relative;
+}
+.header1 .globe-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    min-width: 180px;
+    z-index: 300;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+}
+.header1 .globe-wrap.globe-open .globe-dropdown {
+    display: block;
+}
+.header1 .globe-locali-item {
+    margin-bottom: 14px;
+}
+.header1 .globe-locali-item:last-child {
+    margin-bottom: 0;
+}
+.header1 .globe-locali-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #999;
+    margin: 0 0 6px;
+}
+.header1 .globe-locali-item .localization-form button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    background: none;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+    color: #222;
+    width: 100%;
+    justify-content: space-between;
+}
+.header1 .globe-locali-item .localization-form button:hover {
+    border-color: #bbb;
+}
+.header1 .globe-locali-item .locali-dd {
+    position: static;
+    margin-top: 6px;
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+/* Force the list to sit inside the panel, not fly out absolutely */
+.header1 .globe-locali-item .locali-dd ul {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    inset-inline-end: auto !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    min-width: 0 !important;
+    max-height: none !important;
+    animation: none !important;
+    padding: 4px 0;
+    margin: 0;
+    z-index: auto !important;
+}
+.header1 .globe-locali-item .locali-dd ul li a {
+    display: block;
+    padding: 7px 12px;
+    font-size: 13px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.header1 .globe-locali-item .locali-dd ul li a:hover,
+.header1 .globe-locali-item .locali-dd ul li a.active {
+    background: #f0f0f0;
+    color: #111;
+}
