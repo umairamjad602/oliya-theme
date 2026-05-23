@@ -43,6 +43,6 @@
   title="{{ value }}"
   class="op-lb color cust-checkbox-label {% if shape == 'square' %} square{% endif %}"
 >
-  {% render 'swatch', swatch: swatch, shape: shape %}
+  {% render 'swatch', swatch: swatch, shape: shape, color_name: value %}
   <span class="visually-hidden">{{ value }}</span>
 </label>
