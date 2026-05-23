@@ -275,7 +275,7 @@
       "type": "newsletter",
       "settings": {
         "container": "normal",
-        "section_padding_top": 0,
+        "section_padding_top": 50,
         "section_padding_bottom": 80,
         "section_padding_top_lg": 0,
         "section_padding_bottom_lg": 80,
