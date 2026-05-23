@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "simple_banner_contact": {
+      "type": "simple-banner",
+      "settings": {
+        "external_image_url": "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&w=1920&q=80",
+        "banner_height": 440,
+        "overlay_opacity": 40,
+        "title": "Contact Us",
+        "description": "We'd love to hear from you. Get in touch with our team.",
+        "text_align": "center"
+      }
+    },
     "about_us_icon_row_iGGTbG": {
       "type": "about-us-icon-row",
       "blocks": {
@@ -195,6 +206,7 @@
     }
   },
   "order": [
+    "simple_banner_contact",
     "about_us_icon_row_iGGTbG",
     "2bd1ad5f-628b-45b6-8664-5d16d6403d70",
     "contact-form",

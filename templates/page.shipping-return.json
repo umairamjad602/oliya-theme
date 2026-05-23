@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "simple_banner_shipping": {
+      "type": "simple-banner",
+      "settings": {
+        "external_image_url": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1920&q=80",
+        "banner_height": 400,
+        "overlay_opacity": 40,
+        "title": "Shipping & Returns",
+        "description": "Fast delivery. Hassle-free returns.",
+        "text_align": "center"
+      }
+    },
     "refund-policy": {
       "type": "refund-policy",
       "blocks": {
@@ -204,6 +215,7 @@
     }
   },
   "order": [
+    "simple_banner_shipping",
     "refund-policy",
     "section_border_78Xzxn"
   ]

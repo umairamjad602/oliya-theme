@@ -1640,71 +1640,93 @@
         "default": true
       },
       {
-        "type": "checkbox",
-        "id": "breadcrumb_bgimg_enable",
-        "label": "Show image",
-        "default": false
+        "type": "range",
+        "id": "breadcrumb_height",
+        "label": "Banner height",
+        "min": 160,
+        "max": 600,
+        "step": 20,
+        "unit": "px",
+        "default": 300
       },
       {
         "type": "header",
         "content": "Background image"
       },
       {
+        "type": "checkbox",
+        "id": "breadcrumb_bgimg_enable",
+        "label": "Show background image",
+        "default": false
+      },
+      {
         "type": "image_picker",
         "id": "breadcrumb_bgimg",
-        "label": "Background image",
-        "info": "Recommended image size: 1920x300px"
+        "label": "Upload background image",
+        "info": "Recommended: 1920×300px. Overrides the URL below."
+      },
+      {
+        "type": "text",
+        "id": "breadcrumb_external_image_url",
+        "label": "Or paste an image URL",
+        "info": "Used when no image is uploaded above. Must start with https://"
       },
       {
         "type": "header",
-        "content": "Background image overlay color"
-      },
-      {
-        "type": "color",
-        "id": "breadcrumb_bgimg_overlay_color",
-        "label": "Background image overlay color",
-        "default": "#333333"
-      },
-      {
-        "type": "range",
-        "id": "breadcrumb_bgimg_overlay_color_opacity",
-        "label": "Image overlay color opacity",
-        "min": 0,
-        "max": 1,
-        "step": 0.1,
-        "default": 0.5
+        "content": "Overlay"
       },
       {
         "type": "checkbox",
         "id": "breadcrumb_bgimg_overlay_color_enable",
-        "label": "Show image overlay color",
+        "label": "Show dark overlay on image",
         "default": true
       },
       {
+        "type": "color",
+        "id": "breadcrumb_bgimg_overlay_color",
+        "label": "Overlay colour",
+        "default": "#000000"
+      },
+      {
+        "type": "range",
+        "id": "breadcrumb_bgimg_overlay_color_opacity",
+        "label": "Overlay opacity",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "default": 0.45
+      },
+      {
         "type": "header",
-        "content": "Background color"
+        "content": "Background colour (no image)"
+      },
+      {
+        "type": "checkbox",
+        "id": "breadcrumb_bgcolor_enable",
+        "label": "Show background colour",
+        "default": true
       },
       {
         "type": "color",
         "id": "breadcrumb_bgcolor",
-        "label": "Background color",
-        "default": "#FFFFFF"
+        "label": "Background colour",
+        "default": "#1a1a1a"
       },
       {
         "type": "header",
-        "content": "Heading color"
+        "content": "Text colours"
       },
       {
         "type": "color",
         "id": "breadcrumb_title_color",
-        "label": "Heading color",
-        "default": "#fff"
+        "label": "Breadcrumb link colour",
+        "default": "#ffffff"
       },
       {
         "type": "color",
         "id": "breadcrumb_main_title_color",
-        "label": "Sub heading color",
-        "default": "#fff"
+        "label": "Page title colour",
+        "default": "#ffffff"
       }
     ]
   },

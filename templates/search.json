@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "simple_banner_search": {
+      "type": "simple-banner",
+      "settings": {
+        "external_image_url": "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=1920&q=80",
+        "banner_height": 400,
+        "overlay_opacity": 40,
+        "title": "Search",
+        "description": "Find exactly what you're looking for.",
+        "text_align": "center"
+      }
+    },
     "search-page": {
       "type": "search-page",
       "settings": {
@@ -34,6 +45,7 @@
     }
   },
   "order": [
+    "simple_banner_search",
     "search-page",
     "section_border_nVhQQC"
   ]

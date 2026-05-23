@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "simple_banner_terms": {
+      "type": "simple-banner",
+      "settings": {
+        "external_image_url": "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?auto=format&fit=crop&w=1920&q=80",
+        "banner_height": 400,
+        "overlay_opacity": 50,
+        "title": "Terms & Conditions",
+        "description": "Please read our terms carefully before using our services.",
+        "text_align": "center"
+      }
+    },
     "refund-policy": {
       "type": "refund-policy",
       "blocks": {
@@ -262,6 +273,7 @@
     }
   },
   "order": [
+    "simple_banner_terms",
     "refund-policy",
     "section_border_MRLx89"
   ]

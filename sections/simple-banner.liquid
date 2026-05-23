@@ -12,6 +12,8 @@
           class: 'sb-img',
           alt: section.settings.banner_image.alt
       }}
+    {%- elsif section.settings.external_image_url != blank -%}
+      <img src="{{ section.settings.external_image_url }}" class="sb-img" loading="lazy" alt="{{ section.settings.title }}" width="1920" height="500">
     {%- else -%}
       {{ 'hero-apparel-1' | placeholder_svg_tag: 'sb-placeholder' }}
     {%- endif -%}
@@ -38,6 +40,12 @@
       "id": "banner_image",
       "label": "Banner image",
       "info": "Recommended: 1920×500px"
+    },
+    {
+      "type": "text",
+      "id": "external_image_url",
+      "label": "External image URL",
+      "info": "Used when no banner image is uploaded above. Paste any https:// image URL."
     },
     {
       "type": "range",

@@ -1,30 +1,53 @@
-<section class="breadcrumb-area">
-  {%- liquid
-    assign ratio = 1
-    assign ratio = settings.breadcrumb_bgimg.aspect_ratio
-    if ratio == 0 or ratio == null
-      assign ratio = 1
-    endif
-  -%}
-  <div class="ratio" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
-    {%- if settings.breadcrumb_bgimg != blank -%}
-      {% assign image_height = settings.breadcrumb_bgimg.width | divided_by: settings.breadcrumb_bgimg.aspect_ratio %}
-      {{
-        settings.breadcrumb_bgimg
-        | image_url: width: 1920
-        | image_tag: width: settings.breadcrumb_bgimg.width, height: image_height, class: 'lazyload', loading: 'lazy'
-      }}
-    {%- else -%}
-      {%- capture placeholder -%}hero-apparel-{% cycle 1, 2, 3 %}{%- endcapture -%}
-      {{ placeholder | placeholder_svg_tag: 'placeholder-svg desk-img' }}
-    {%- endif -%}
-  </div>
+{%- liquid
+  assign bc_height = settings.breadcrumb_height | default: 300
+  assign has_uploaded = settings.breadcrumb_bgimg != blank
+  assign has_external  = settings.breadcrumb_external_image_url != blank
+  assign show_image    = settings.breadcrumb_bgimg_enable and (has_uploaded or has_external)
+-%}
+
+<section
+  class="breadcrumb-area"
+  style="
+    --bc-height: {{ bc_height }}px;
+    --bc-overlay: {{ settings.breadcrumb_bgimg_overlay_color | default: '#000000' }};
+    --bc-overlay-opacity: {{ settings.breadcrumb_bgimg_overlay_color_opacity | default: 0.45 }};
+    --bc-title-color: {{ settings.breadcrumb_main_title_color | default: '#ffffff' }};
+    --bc-link-color: {{ settings.breadcrumb_title_color | default: '#ffffff' }};
+    {% if settings.breadcrumb_bgcolor_enable and show_image == false %}background-color: {{ settings.breadcrumb_bgcolor | default: '#1a1a1a' }};{% endif %}
+  "
+>
+  {%- if show_image -%}
+    <div class="bc-img-wrap">
+      {%- if has_uploaded -%}
+        {{
+          settings.breadcrumb_bgimg
+          | image_url: width: 1920
+          | image_tag:
+            loading: 'lazy',
+            class: 'bc-bg-img',
+            width: 1920,
+            height: bc_height,
+            alt: settings.breadcrumb_bgimg.alt
+        }}
+      {%- else -%}
+        <img
+          src="{{ settings.breadcrumb_external_image_url }}"
+          class="bc-bg-img"
+          loading="lazy"
+          width="1920"
+          height="{{ bc_height }}"
+          alt=""
+        >
+      {%- endif -%}
+      {%- if settings.breadcrumb_bgimg_overlay_color_enable -%}
+        <div class="bc-overlay"></div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
   <div class="container">
     <div class="breadcrumb-index">
-      <!-- breadcrumb-list start -->
       {% render 'breadcrumb-builtin' %}
-      <!-- breadcrumb-list end -->
-      <!-- breadcrumb main-title start -->
       <div class="breadcrumb-title">
         {% if template contains 'product' %}
           <h1 class="mr-0">{{ product.title }}</h1>
@@ -38,83 +61,79 @@
           <h1 class="mr-0">{{ page_title }}</h1>
         {% endif %}
       </div>
-      <!-- breadcrumb main-title end -->
     </div>
   </div>
 </section>
-<style>
-  .breadcrumb-area {
-      padding: 40px 0;
-      {% if settings.breadcrumb_bgimg_enable %}
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      {% endif %}
-      {% if settings.breadcrumb_bgcolor_enable %}
-      background-color: {{ settings.breadcrumb_bgcolor }};
-      {% endif %}
-      position: relative;
-  }
-  .breadcrumb-area .ratio {
-      display: block;
-      max-width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-      z-index: 0;
-  }
-  .breadcrumb-area img {
-      display: block;
-      max-width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-      z-index: 0;
-  }
-  {% if settings.breadcrumb_bgimg_enable %}
-  .breadcrumb-area::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      inset-inline-start: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      {% if settings.breadcrumb_bgimg_overlay_color_enable %}
-      background-color: {{ settings.breadcrumb_bgimg_overlay_color }};
-      opacity: {{ settings.breadcrumb_bgimg_overlay_color_opacity }};
-      {% endif %}
-  }
-  {% endif %}
 
-  /* breadcrumb title css */
-  .breadcrumb-area .breadcrumb-index {
-      position: relative;
-      z-index: 1;
-  }
-  .breadcrumb-area .breadcrumb-index .breadcrumb-title {
-      text-align: center;
-      margin-top: 5px;
-      position: relative;
-  }
-  .breadcrumb-area .breadcrumb-index .breadcrumb-title h1 {
-      color: {{ settings.breadcrumb_main_title_color }};
-      font-size: 40px;
-  }
-  @media (max-width: 1199px) {
-      .breadcrumb-area .breadcrumb-index .breadcrumb-title h1 {
-          font-size: 30px;
-      }
-  }
-  @media (max-width: 479px) {
-      .breadcrumb-area .breadcrumb-index .breadcrumb-title h1 {
-          font-size: 24px;
-      }
-  }
+<style>
+.breadcrumb-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: var(--bc-height);
+  padding: 24px 0;
+  overflow: hidden;
+}
+
+.breadcrumb-area .bc-img-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.breadcrumb-area .bc-bg-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.breadcrumb-area .bc-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--bc-overlay);
+  opacity: var(--bc-overlay-opacity);
+  pointer-events: none;
+}
+
+.breadcrumb-area .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.breadcrumb-area .breadcrumb-index {
+  text-align: center;
+}
+
+.breadcrumb-area .breadcrumb-title {
+  margin-top: 8px;
+}
+
+.breadcrumb-area .breadcrumb-title h1 {
+  color: var(--bc-title-color);
+  font-size: 40px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* breadcrumb nav links inherit link colour */
+.breadcrumb-area .breadcrumb-builtin,
+.breadcrumb-area .breadcrumb-builtin a,
+.breadcrumb-area .breadcrumb-builtin span {
+  color: var(--bc-link-color);
+}
+
+@media (max-width: 1199px) {
+  .breadcrumb-area .breadcrumb-title h1 { font-size: 30px; }
+}
+@media (max-width: 767px) {
+  .breadcrumb-area { min-height: calc(var(--bc-height) * 0.75); }
+  .breadcrumb-area .breadcrumb-title h1 { font-size: 24px; }
+}
+@media (max-width: 479px) {
+  .breadcrumb-area .breadcrumb-title h1 { font-size: 20px; }
+}
 </style>

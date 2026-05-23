@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "simple_banner_blog": {
+      "type": "simple-banner",
+      "settings": {
+        "external_image_url": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1920&q=80",
+        "banner_height": 440,
+        "overlay_opacity": 40,
+        "title": "Our Blog",
+        "description": "Style tips, trends and inspiration for the modern man.",
+        "text_align": "center"
+      }
+    },
     "blog-grid": {
       "type": "blog-grid",
       "settings": {
@@ -68,6 +79,7 @@
     }
   },
   "order": [
+    "simple_banner_blog",
     "blog-grid",
     "section_border_BhTtPh"
   ]

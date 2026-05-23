@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "simple_banner_faq": {
+      "type": "simple-banner",
+      "settings": {
+        "external_image_url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1920&q=80",
+        "banner_height": 400,
+        "overlay_opacity": 45,
+        "title": "FAQ",
+        "description": "Everything you need to know — answered.",
+        "text_align": "center"
+      }
+    },
     "collapsible-content": {
       "type": "collapsible-content",
       "blocks": {
@@ -183,6 +194,7 @@
     }
   },
   "order": [
+    "simple_banner_faq",
     "collapsible-content",
     "section_border_JncUXe"
   ]

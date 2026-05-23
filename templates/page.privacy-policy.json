@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "simple_banner_privacy": {
+      "type": "simple-banner",
+      "settings": {
+        "external_image_url": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80",
+        "banner_height": 400,
+        "overlay_opacity": 50,
+        "title": "Privacy Policy",
+        "description": "Your privacy matters to us.",
+        "text_align": "center"
+      }
+    },
     "f16b5407-97e0-4b52-86f7-53826cdeb5be": {
       "type": "privacy-policy",
       "blocks": {
@@ -407,6 +418,7 @@
     }
   },
   "order": [
+    "simple_banner_privacy",
     "f16b5407-97e0-4b52-86f7-53826cdeb5be",
     "section_border_tYWP4P"
   ]
