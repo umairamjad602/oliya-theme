@@ -1,112 +1,118 @@
 {{ 'collection-list.css' | asset_url | stylesheet_tag }}
 <section
   class="collection-list"
-  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;--background-color: {{ section.settings.section_bg_color }};"
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px; --background-color: {{ section.settings.section_bg_color }};"
 >
-  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
-    {% if section.settings.section_subheading != '' or section.settings.section_heading != '' %}
-      <div class="section-capture">
-        <div class="section-title">
-          {% if section.settings.section_heading != '' %}
-            <h2 class="mr-0" data-fade-in>{{ section.settings.section_heading }}</h2>
-          {% endif %}
-          {% if section.settings.section_subheading != '' %}
-            <span data-fade-in class="sub-title">{{ section.settings.section_subheading }}</span>
-          {% endif %}
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid{% else %}container{% endif %}">
+
+    {%- if section.settings.section_heading != blank or section.settings.section_subheading != blank or section.settings.view_all_url != blank -%}
+      <div class="cl-header">
+        <div class="cl-header-left">
+          {%- if section.settings.section_subheading != blank -%}
+            <p class="cl-subheading">{{ section.settings.section_subheading }}</p>
+          {%- endif -%}
+          {%- if section.settings.section_heading != blank -%}
+            <h2 class="cl-heading" data-fade-in>{{ section.settings.section_heading }}</h2>
+          {%- endif -%}
         </div>
+        {%- if section.settings.view_all_url != blank -%}
+          <a href="{{ section.settings.view_all_url }}" class="cl-view-all">
+            {{ section.settings.view_all_label | default: 'Shop All' }} &rarr;
+          </a>
+        {%- endif -%}
       </div>
-    {% endif %}
-    <div class="grid-wrap">
-      {% if section.settings.show_all_collections %}
-        {% for c in collections %}
-          <div class="grid-wrapper">
-            <div class="cat-block">
-              <a href="{{ c.url }}">
-                <div class="cat-img">
-                  {%- if c.image != blank -%}
-                    {{
-                      c.image
-                      | image_url: width: 512
-                      | image_tag:
-                        loading: 'lazy',
-                        width: c.image.width,
-                        height: c.image.height,
-                        class: 'lazyload desk-img',
-                        alt: c.image.alt | default: c.title
-                      | escape
-                    }}
-                  {%- else -%}
-                    {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
-                    {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+    {%- endif -%}
+
+    <div class="cl-grid">
+
+      {%- if section.settings.show_all_collections -%}
+        {%- for c in collections -%}
+          <div class="cl-item">
+            <a href="{{ c.url }}" class="cl-card">
+              <div class="cl-img">
+                {%- if c.image != blank -%}
+                  {{
+                    c.image
+                    | image_url: width: 600
+                    | image_tag:
+                      loading: 'lazy',
+                      width: c.image.width,
+                      height: c.image.height,
+                      class: 'lazyload',
+                      alt: c.image.alt | default: c.title
+                    | escape
+                  }}
+                {%- else -%}
+                  {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                  {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="cl-overlay">
+                <div class="cl-card-info">
+                  <h6 class="cl-title">{{ c.title }}</h6>
+                  {%- if section.settings.cat_button != blank -%}
+                    <span class="cl-shop-btn">{{ section.settings.cat_button }}</span>
                   {%- endif -%}
                 </div>
-                {%- if section.settings.cat_button != '' -%}
-                <button>
-                  {{ section.settings.cat_button }}
-                </button>
-                {%- endif -%}
-                <div class="text-block">
-                  <h6 class="cat-title mr-0" data-fade-in>{{ c.title }}</h6>
-                </div>
-              </a>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        {% for block in section.blocks %}
-          {% case block.type %}
-            {% when 'slider_cat' %}
-              {% assign category_product = collections[block.settings.slider_category_handle] %}
-              <div class="grid-wrapper" {{ block.shopify_attributes }}>
-                <div class="cat-block">
-                  <a href="{{ category_product.url }}">
-                    <div class="cat-img">
-                      {%- if block.settings.cat_img != blank -%}
-                        {{
-                          block.settings.cat_img
-                          | image_url: width: 512
-                          | image_tag:
-                            loading: 'lazy',
-                            width: block.settings.cat_img.width,
-                            height: block.settings.cat_img.height,
-                            class: 'lazyload desk-img',
-                            alt: block.settings.cat_img.alt
-                          | escape
-                        }}
-                      {%- elsif category_product.image != blank -%}
-                        {{
-                          category_product.image
-                          | image_url: width: 512
-                          | image_tag:
-                            loading: 'lazy',
-                            width: category_product.image.width,
-                            height: category_product.image.height,
-                            class: 'lazyload desk-img',
-                            alt: category_product.image.alt | default: category_product.title
-                          | escape
-                        }}
-                      {%- else -%}
-                        {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
-                        {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
-                      {%- endif -%}
-                    </div>
-                    {%- if section.settings.cat_button != '' -%}
-                    <button>
-                      {{ section.settings.cat_button }}
-                    </button>
-                    {%- endif -%}
-                    <div class="text-block">
-                      <h6 class="cat-title mr-0" data-fade-in>{{ block.settings.cat_custom_title | default: category_product.title | default: 'Collection' }}</h6>
-                      {%- if block.settings.cat_description != blank -%}
-                        <p class="cat-description" data-fade-in>{{ block.settings.cat_description }}</p>
-                      {%- endif -%}
-                    </div>
-                  </a>
-                </div>
               </div>
-          {% endcase %}
-        {% endfor %}
-      {% endif %}
+            </a>
+          </div>
+        {%- endfor -%}
+
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'slider_cat' -%}
+              {%- assign col = collections[block.settings.slider_category_handle] -%}
+              <div class="cl-item" {{ block.shopify_attributes }}>
+                <a href="{{ col.url }}" class="cl-card">
+                  <div class="cl-img">
+                    {%- if block.settings.cat_img != blank -%}
+                      {{
+                        block.settings.cat_img
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.cat_img.width,
+                          height: block.settings.cat_img.height,
+                          class: 'lazyload',
+                          alt: block.settings.cat_img.alt
+                        | escape
+                      }}
+                    {%- elsif col.image != blank -%}
+                      {{
+                        col.image
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: col.image.width,
+                          height: col.image.height,
+                          class: 'lazyload',
+                          alt: col.image.alt | default: col.title
+                        | escape
+                      }}
+                    {%- else -%}
+                      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                      {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </div>
+                  <div class="cl-overlay">
+                    <div class="cl-card-info">
+                      <h6 class="cl-title">{{ block.settings.cat_custom_title | default: col.title | default: 'Collection' }}</h6>
+                      {%- if block.settings.cat_description != blank -%}
+                        <p class="cl-desc">{{ block.settings.cat_description }}</p>
+                      {%- endif -%}
+                      {%- if section.settings.cat_button != blank -%}
+                        <span class="cl-shop-btn">{{ section.settings.cat_button }}</span>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </a>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      {%- endif -%}
+
     </div>
   </div>
 </section>
@@ -123,20 +129,14 @@
       "id": "container",
       "label": "Section width",
       "options": [
-        {
-          "label": "Fluid",
-          "value": "fluid"
-        },
-        {
-          "label": "Normal",
-          "value": "normal"
-        }
+        { "label": "Fluid", "value": "fluid" },
+        { "label": "Normal", "value": "normal" }
       ],
       "default": "fluid"
     },
     {
       "type": "header",
-      "content": "Section space top bottom"
+      "content": "Section spacing"
     },
     {
       "type": "paragraph",
@@ -150,7 +150,7 @@
       "max": 100,
       "step": 5,
       "unit": "px",
-      "default": 100
+      "default": 80
     },
     {
       "type": "range",
@@ -160,11 +160,11 @@
       "max": 100,
       "step": 5,
       "unit": "px",
-      "default": 100
+      "default": 80
     },
     {
       "type": "paragraph",
-      "content": "Ipad"
+      "content": "Tablet"
     },
     {
       "type": "range",
@@ -174,7 +174,7 @@
       "max": 100,
       "step": 5,
       "unit": "px",
-      "default": 80
+      "default": 60
     },
     {
       "type": "range",
@@ -184,7 +184,7 @@
       "max": 100,
       "step": 5,
       "unit": "px",
-      "default": 80
+      "default": 60
     },
     {
       "type": "paragraph",
@@ -198,7 +198,7 @@
       "max": 100,
       "step": 5,
       "unit": "px",
-      "default": 60
+      "default": 40
     },
     {
       "type": "range",
@@ -208,11 +208,11 @@
       "max": 100,
       "step": 5,
       "unit": "px",
-      "default": 60
+      "default": 40
     },
     {
       "type": "header",
-      "content": "Section background color"
+      "content": "Background"
     },
     {
       "type": "color",
@@ -227,44 +227,40 @@
     {
       "type": "text",
       "id": "section_subheading",
-      "label": "Subheading",
-      "default": "subheading"
+      "label": "Subheading"
     },
     {
       "type": "text",
       "id": "section_heading",
       "label": "Heading",
-      "default": "heading"
+      "default": "Shop by Category"
     },
     {
-      "type": "checkbox",
-      "id": "cat_item",
-      "label": "Show items heading",
-      "default": true
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View all link URL"
     },
     {
       "type": "text",
-      "id": "item_title",
-      "label": "Product heading",
-      "default": "Product"
+      "id": "view_all_label",
+      "label": "View all link text",
+      "default": "Shop All"
+    },
+    {
+      "type": "header",
+      "content": "Cards"
     },
     {
       "type": "text",
       "id": "cat_button",
-      "label": "Shop button",
-      "default": "Shop now"
-    },
-    {
-      "type": "color",
-      "id": "hover_bg",
-      "label": "Hover background coloe",
-      "default": "#fff"
+      "label": "Shop button text",
+      "default": "Shop Now"
     },
     {
       "type": "checkbox",
       "id": "show_all_collections",
       "label": "Show all collections automatically",
-      "info": "When enabled, displays all store collections dynamically instead of manually selected blocks.",
+      "info": "Displays all store collections instead of manually selected blocks.",
       "default": false
     }
   ],
@@ -281,8 +277,8 @@
         {
           "type": "image_picker",
           "id": "cat_img",
-          "label": "Image",
-          "info": "Recommended size: 400x480px"
+          "label": "Custom image",
+          "info": "Recommended size: 480x720px (2:3 portrait)"
         },
         {
           "type": "text",
@@ -292,7 +288,7 @@
         {
           "type": "textarea",
           "id": "cat_description",
-          "label": "Description"
+          "label": "Description (optional)"
         }
       ]
     }
@@ -301,31 +297,12 @@
     {
       "name": "Collection list",
       "blocks": [
-        {
-          "type": "slider_cat"
-        },
-        {
-          "type": "slider_cat"
-        },
-        {
-          "type": "slider_cat"
-        },
-        {
-          "type": "slider_cat"
-        }
+        { "type": "slider_cat" },
+        { "type": "slider_cat" },
+        { "type": "slider_cat" },
+        { "type": "slider_cat" }
       ]
     }
   ]
 }
 {% endschema %}
-<style>
-  .collection-list .cat-block .text-block:before {
-    background-image: url('{{ 'cat-pattern.png' | asset_url }}');
-  }
-  .collection-list .cat-block a:before {
-    background-color: {{ section.settings.hover_bg }};
-  }
-  .collection-list .cat-block a button:before {
-    background-image: url('{{ 'cat-btn.png' | asset_url }}');
-  }
-</style>

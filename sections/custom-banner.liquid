@@ -1,51 +1,46 @@
 {{ 'custom-banner.css' | asset_url | stylesheet_tag }}
-<section class="custom-banner" style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;--background-color: {{ section.settings.section_bg_color }};">
-  <div class="{% if section.settings.container == 'fluid' %}container-fluid {% else %}container{% endif %}">
-    <div class="row">
-      <div class="col">
-        <div class="banner-bg">
-          <div class="grid-wrap">
-            <div class="grid-wrapper">
-              <div class="text-block">
-                <div class="section-title">
-                  {% if section.settings.section_title != '' %}
-                  <h2 data-fade-in class="mr-0">{{ section.settings.section_title }}</h2>
-                  {% endif %}
-                  {% if section.settings.section_button != '' %}
-                  <a data-fade-in href="{{ section.settings.button_url }}" class="btn-style">{{ section.settings.section_button }}</a>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-            <div class="grid-wrapper">
-              <a href="{{ section.settings.button_url }}" class="banner-block">
-                {%- if section.settings.banner_img != blank -%}
-                {{ section.settings.banner_img | image_url: width: 1080 | image_tag:
+<section class="custom-banner" style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px; --background-color: {{ section.settings.section_bg_color }};">
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid{% else %}container{% endif %}">
+    <div class="banner-split">
+
+      <div class="banner-image-col">
+        <a href="{{ section.settings.button_url }}" class="banner-img-wrap">
+          {%- if section.settings.banner_img != blank -%}
+            {{
+              section.settings.banner_img
+              | image_url: width: 1200
+              | image_tag:
                 loading: 'lazy',
                 width: section.settings.banner_img.width,
                 height: section.settings.banner_img.height,
-                class: "img-fluid lazyload",
-                alt: section.settings.banner_img.alt | escape }}
-                {%- else -%}
-                {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
-                {%- endif -%}
-              </a>
-            </div>
-            <div class="grid-wrapper text-wrapper">
-              <div class="text-block">
-                <div class="section-title">
-                  {% if section.settings.section_desc != '' %}
-                  <p data-fade-in class="mr-0">{{ section.settings.section_desc }}</p>
-                  {% endif %}
-                  {% if section.settings.section_desc2 != '' %}
-                  <p data-fade-in class="mr-0">{{ section.settings.section_desc2 }}</p>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          </div>
+                class: 'lazyload',
+                alt: section.settings.banner_img.alt | escape
+            }}
+          {%- else -%}
+            {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </a>
+      </div>
+
+      <div class="banner-text-col">
+        <div class="banner-text-inner">
+          {%- if section.settings.section_title != blank -%}
+            <h2 class="banner-heading" data-fade-in>{{ section.settings.section_title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_desc != blank -%}
+            <p class="banner-desc" data-fade-in>{{ section.settings.section_desc }}</p>
+          {%- endif -%}
+          {%- if section.settings.section_desc2 != blank -%}
+            <p class="banner-desc" data-fade-in>{{ section.settings.section_desc2 }}</p>
+          {%- endif -%}
+          {%- if section.settings.section_button != blank -%}
+            <a href="{{ section.settings.button_url }}" class="banner-link" data-fade-in>
+              {{ section.settings.section_button }}&nbsp;&rarr;
+            </a>
+          {%- endif -%}
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -179,31 +174,31 @@
       "type": "image_picker",
       "id": "banner_img",
       "label": "Banner image",
-      "info": "Recommended size: 500x500px"
+      "info": "Recommended size: 800x1000px"
     },
     {
       "type": "text",
       "id": "section_title",
       "label": "Banner title",
-      "default": "Kitchen is where you have a good time."
+      "default": "Relaxed Fit, Modern Style."
     },
     {
       "type": "textarea",
       "id": "section_desc",
       "label": "Banner description",
-      "default": "Made of fresh & premium food."
+      "default": "Crafted for the way you move — effortless silhouettes that carry you from morning to evening with ease."
     },
     {
       "type": "textarea",
       "id": "section_desc2",
-      "label": "Banner description",
-      "default": "Made of fresh & premium food."
+      "label": "Banner description 2",
+      "default": "Discover our latest collection, where comfort meets contemporary design."
     },
     {
       "type": "text",
       "id": "section_button",
-      "label": "Banner button",
-      "default": "Shop now"
+      "label": "Banner link text",
+      "default": "Learn More"
     },
     {
       "type": "url",
@@ -219,7 +214,7 @@
 }
 {% endschema %}
 <style>
-.custom-banner .banner-bg {
+.custom-banner .banner-split {
   {% if section.settings.section_bg_img_enable %}
   background-image: url('{% if section.settings.section_bg_img %}{{ section.settings.section_bg_img | image_url }}{% else %}https://dummyimage.com/1350x350/f7f7f7/999999{% endif %}');
   background-repeat: no-repeat;
