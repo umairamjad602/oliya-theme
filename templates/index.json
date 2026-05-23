@@ -103,7 +103,7 @@
         "slider_cat_nqtxzq": {
           "type": "slider_cat",
           "settings": {
-            "slider_category_handle": "pants",
+            "slider_category_handle": "pents",
             "cat_custom_title": "",
             "cat_description": "Tailored fits that move with you, from morning to evening."
           }
@@ -147,7 +147,8 @@
         "cat_item": false,
         "item_title": "Product",
         "cat_button": "",
-        "hover_bg": "#ffffff"
+        "hover_bg": "#ffffff",
+        "show_all_collections": true
       }
     },
     "image_with_text_QmhPBQ": {

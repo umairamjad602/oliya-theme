@@ -81,7 +81,6 @@
             <div class="flt-ele">
               <ul class="scrollbar list-unstyled collection-filter-list">
                 {% for c in collections %}
-                  {%- if c.products_count >= 1 -%}
                     <li class="collection-filter-item">
                       <a
                         href="{{ c.url }}"
@@ -92,7 +91,6 @@
                         <span class="collection-filter-count">({{ c.products_count }})</span>
                       </a>
                     </li>
-                  {%- endif -%}
                 {% endfor %}
               </ul>
             </div>

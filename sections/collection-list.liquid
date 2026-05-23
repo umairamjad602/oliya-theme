@@ -17,59 +17,96 @@
       </div>
     {% endif %}
     <div class="grid-wrap">
-      {% for block in section.blocks %}
-        {% case block.type %}
-          {% when 'slider_cat' %}
-            {% assign category_product = collections[block.settings.slider_category_handle] %}
-            <div class="grid-wrapper" {{ block.shopify_attributes }}>
-              <div class="cat-block">
-                <a href="{{ category_product.url }}">
-                  <div class="cat-img">
-                    {%- if block.settings.cat_img != blank -%}
-                      {{
-                        block.settings.cat_img
-                        | image_url: width: 512
-                        | image_tag:
-                          loading: 'lazy',
-                          width: block.settings.cat_img.width,
-                          height: block.settings.cat_img.height,
-                          class: 'lazyload desk-img',
-                          alt: block.settings.cat_img.alt
-                        | escape
-                      }}
-                    {%- elsif category_product.image != blank -%}
-                      {{
-                        category_product.image
-                        | image_url: width: 512
-                        | image_tag:
-                          loading: 'lazy',
-                          width: category_product.image.width,
-                          height: category_product.image.height,
-                          class: 'lazyload desk-img',
-                          alt: category_product.image.alt | default: category_product.title
-                        | escape
-                      }}
-                    {%- else -%}
-                      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
-                      {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
-                    {%- endif -%}
-                  </div>
-                  {%- if section.settings.cat_button != '' -%}
-                  <button>
-                    {{ section.settings.cat_button }}
-                  </button>
+      {% if section.settings.show_all_collections %}
+        {% for c in collections %}
+          <div class="grid-wrapper">
+            <div class="cat-block">
+              <a href="{{ c.url }}">
+                <div class="cat-img">
+                  {%- if c.image != blank -%}
+                    {{
+                      c.image
+                      | image_url: width: 512
+                      | image_tag:
+                        loading: 'lazy',
+                        width: c.image.width,
+                        height: c.image.height,
+                        class: 'lazyload desk-img',
+                        alt: c.image.alt | default: c.title
+                      | escape
+                    }}
+                  {%- else -%}
+                    {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                    {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
                   {%- endif -%}
-                  <div class="text-block">
-                    <h6 class="cat-title mr-0" data-fade-in>{{ block.settings.cat_custom_title | default: category_product.title | default: 'Collection' }}</h6>
-                    {%- if block.settings.cat_description != blank -%}
-                      <p class="cat-description" data-fade-in>{{ block.settings.cat_description }}</p>
-                    {%- endif -%}
-                  </div>
-                </a>
-              </div>
+                </div>
+                {%- if section.settings.cat_button != '' -%}
+                <button>
+                  {{ section.settings.cat_button }}
+                </button>
+                {%- endif -%}
+                <div class="text-block">
+                  <h6 class="cat-title mr-0" data-fade-in>{{ c.title }}</h6>
+                </div>
+              </a>
             </div>
-        {% endcase %}
-      {% endfor %}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'slider_cat' %}
+              {% assign category_product = collections[block.settings.slider_category_handle] %}
+              <div class="grid-wrapper" {{ block.shopify_attributes }}>
+                <div class="cat-block">
+                  <a href="{{ category_product.url }}">
+                    <div class="cat-img">
+                      {%- if block.settings.cat_img != blank -%}
+                        {{
+                          block.settings.cat_img
+                          | image_url: width: 512
+                          | image_tag:
+                            loading: 'lazy',
+                            width: block.settings.cat_img.width,
+                            height: block.settings.cat_img.height,
+                            class: 'lazyload desk-img',
+                            alt: block.settings.cat_img.alt
+                          | escape
+                        }}
+                      {%- elsif category_product.image != blank -%}
+                        {{
+                          category_product.image
+                          | image_url: width: 512
+                          | image_tag:
+                            loading: 'lazy',
+                            width: category_product.image.width,
+                            height: category_product.image.height,
+                            class: 'lazyload desk-img',
+                            alt: category_product.image.alt | default: category_product.title
+                          | escape
+                        }}
+                      {%- else -%}
+                        {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                        {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                      {%- endif -%}
+                    </div>
+                    {%- if section.settings.cat_button != '' -%}
+                    <button>
+                      {{ section.settings.cat_button }}
+                    </button>
+                    {%- endif -%}
+                    <div class="text-block">
+                      <h6 class="cat-title mr-0" data-fade-in>{{ block.settings.cat_custom_title | default: category_product.title | default: 'Collection' }}</h6>
+                      {%- if block.settings.cat_description != blank -%}
+                        <p class="cat-description" data-fade-in>{{ block.settings.cat_description }}</p>
+                      {%- endif -%}
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 </section>
@@ -222,6 +259,13 @@
       "id": "hover_bg",
       "label": "Hover background coloe",
       "default": "#fff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_collections",
+      "label": "Show all collections automatically",
+      "info": "When enabled, displays all store collections dynamically instead of manually selected blocks.",
+      "default": false
     }
   ],
   "blocks": [
