@@ -1,8 +1,44 @@
 {%- liquid
   assign bc_height = settings.breadcrumb_height | default: 300
-  assign has_uploaded = settings.breadcrumb_bgimg != blank
-  assign has_external  = settings.breadcrumb_external_image_url != blank
-  assign show_image    = settings.breadcrumb_bgimg_enable and (has_uploaded or has_external)
+
+  # Pick the image URL based on current template/page
+  assign bc_img = settings.breadcrumb_img_default
+
+  if template contains 'collection'
+    assign bc_img = settings.breadcrumb_img_collection
+  elsif template == 'list-collections'
+    assign bc_img = settings.breadcrumb_img_collection
+  elsif template == 'blog'
+    assign bc_img = settings.breadcrumb_img_blog
+  elsif template == 'article'
+    assign bc_img = settings.breadcrumb_img_article
+  elsif template == 'search'
+    assign bc_img = settings.breadcrumb_img_search
+  elsif template == 'cart'
+    assign bc_img = settings.breadcrumb_img_cart
+  elsif template.name == 'page'
+    assign suffix = template.suffix | downcase
+    if suffix contains 'faq'
+      assign bc_img = settings.breadcrumb_img_faq
+    elsif suffix contains 'about'
+      assign bc_img = settings.breadcrumb_img_about
+    elsif suffix contains 'contact'
+      assign bc_img = settings.breadcrumb_img_contact
+    elsif suffix contains 'shipping' or suffix contains 'return' or suffix contains 'refund'
+      assign bc_img = settings.breadcrumb_img_shipping
+    elsif suffix contains 'privacy'
+      assign bc_img = settings.breadcrumb_img_privacy
+    elsif suffix contains 'term'
+      assign bc_img = settings.breadcrumb_img_terms
+    endif
+  endif
+
+  # Fallback to default if page-specific URL is blank
+  if bc_img == blank
+    assign bc_img = settings.breadcrumb_img_default
+  endif
+
+  assign show_image = settings.breadcrumb_bgimg_enable and bc_img != blank
 -%}
 
 <section
@@ -10,35 +46,22 @@
   style="
     --bc-height: {{ bc_height }}px;
     --bc-overlay: {{ settings.breadcrumb_bgimg_overlay_color | default: '#000000' }};
-    --bc-overlay-opacity: {{ settings.breadcrumb_bgimg_overlay_color_opacity | default: 0.45 }};
+    --bc-overlay-opacity: {{ settings.breadcrumb_bgimg_overlay_color_opacity | default: 0.5 }};
     --bc-title-color: {{ settings.breadcrumb_main_title_color | default: '#ffffff' }};
     --bc-link-color: {{ settings.breadcrumb_title_color | default: '#ffffff' }};
-    {% if settings.breadcrumb_bgcolor_enable and show_image == false %}background-color: {{ settings.breadcrumb_bgcolor | default: '#1a1a1a' }};{% endif %}
+    {% unless show_image %}background-color: {{ settings.breadcrumb_bgcolor | default: '#1a1a1a' }};{% endunless %}
   "
 >
   {%- if show_image -%}
     <div class="bc-img-wrap">
-      {%- if has_uploaded -%}
-        {{
-          settings.breadcrumb_bgimg
-          | image_url: width: 1920
-          | image_tag:
-            loading: 'lazy',
-            class: 'bc-bg-img',
-            width: 1920,
-            height: bc_height,
-            alt: settings.breadcrumb_bgimg.alt
-        }}
-      {%- else -%}
-        <img
-          src="{{ settings.breadcrumb_external_image_url }}"
-          class="bc-bg-img"
-          loading="lazy"
-          width="1920"
-          height="{{ bc_height }}"
-          alt=""
-        >
-      {%- endif -%}
+      <img
+        src="{{ bc_img }}"
+        class="bc-bg-img"
+        loading="lazy"
+        width="1920"
+        height="{{ bc_height }}"
+        alt=""
+      >
       {%- if settings.breadcrumb_bgimg_overlay_color_enable -%}
         <div class="bc-overlay"></div>
       {%- endif -%}
@@ -74,14 +97,12 @@
   padding: 24px 0;
   overflow: hidden;
 }
-
 .breadcrumb-area .bc-img-wrap {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
 }
-
 .breadcrumb-area .bc-bg-img {
   display: block;
   width: 100%;
@@ -89,7 +110,6 @@
   object-fit: cover;
   object-position: center;
 }
-
 .breadcrumb-area .bc-overlay {
   position: absolute;
   inset: 0;
@@ -97,35 +117,28 @@
   opacity: var(--bc-overlay-opacity);
   pointer-events: none;
 }
-
 .breadcrumb-area .container {
   position: relative;
   z-index: 1;
   width: 100%;
 }
-
 .breadcrumb-area .breadcrumb-index {
   text-align: center;
 }
-
 .breadcrumb-area .breadcrumb-title {
   margin-top: 8px;
 }
-
 .breadcrumb-area .breadcrumb-title h1 {
   color: var(--bc-title-color);
   font-size: 40px;
   line-height: 1.2;
   margin: 0;
 }
-
-/* breadcrumb nav links inherit link colour */
 .breadcrumb-area .breadcrumb-builtin,
 .breadcrumb-area .breadcrumb-builtin a,
 .breadcrumb-area .breadcrumb-builtin span {
   color: var(--bc-link-color);
 }
-
 @media (max-width: 1199px) {
   .breadcrumb-area .breadcrumb-title h1 { font-size: 30px; }
 }
