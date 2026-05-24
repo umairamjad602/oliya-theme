@@ -80,22 +80,6 @@
             "menu_cat_banner_title12": "one pieces"
           }
         },
-        "menu_link_6RWYrE": {
-          "type": "menu_link",
-          "settings": {
-            "menu_link_title": "Collections",
-            "menu_link_url": "shopify://collections",
-            "menu_link_label": "",
-            "menu_link_label_color": "#ffffff",
-            "menu_link_label_font_size": 10,
-            "menu_link_label_top_position": 10,
-            "menu_link_label_bgcolor": "#05d14b",
-            "menu_link_label_text_transform": "uppercase",
-            "menu_link_label_font-weight": 400,
-            "menu_link_label_border_radius": 3,
-            "menu_link_label_line_height": 1.1
-          }
-        },
         "menu_link_ABT001": {
           "type": "menu_link",
           "settings": {
@@ -132,7 +116,6 @@
       "block_order": [
         "menu_link_hYMi8W",
         "menu_category_z74jKR",
-        "menu_link_6RWYrE",
         "menu_link_ABT001",
         "menu_link_YrjTE8"
       ],
