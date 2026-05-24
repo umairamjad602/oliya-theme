@@ -879,48 +879,46 @@ product detail css
   color: var(--font-color-header);
   border-color: var(--font-color-header);
 }
+.product_details_info .pr-option .option-block .op-lb.color {
+  padding: 4px;
+  margin-right: 6px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+  line-height: 0;
+}
+.product_details_info .pr-option .option-block .op-lb.color.square {
+  border-radius: 8px;
+}
 .product_details_info .pr-option .option-block .op-lb.color .color-swatch {
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  transition: .3s ease-in-out;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: block;
   cursor: pointer;
-  will-change: transform;
-  box-shadow: inset 0 0 5px rgba(0,0,0,10%);
   aspect-ratio: 1 / 1;
   background: var(--swatch--background);
   background-position: var(--swatch-focal-point, initial);
   background-size: cover;
   background-origin: border-box;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s ease;
 }
 .product_details_info .pr-option .option-block .op-lb.color .color-swatch.swatch--square {
-  border-radius: 5px;
+  border-radius: 6px;
 }
 .product_details_info .pr-option .option-block .op-lb.color .color-swatch:after {
-  content: "";
-  width: 28px;
-  height: 28px;
-  border: 1px solid #fff;
-  position: absolute;
-  left: 1px;
-  top: 1px;
-  border-radius: 100%;
-  opacity: 0;
-  transition: .3s ease-in-out;
-}
-.product_details_info .pr-option .option-block .op-lb.color .color-swatch.swatch--square:after {
-  border-radius: 5px;
+  display: none;
 }
 .product_details_info .pr-option .option-block .op-lb.color .visually-hidden {
   display: none;
 }
-.product_details_info .pr-option .option-block .op-lb.color:hover .color-swatch,
-.product_details_info .pr-option .option-block input:checked+.op-lb.color .color-swatch {
-  transform: scale(1.2);
+.product_details_info .pr-option .option-block .op-lb.color:hover,
+.product_details_info .pr-option .option-block input:checked + .op-lb.color {
+  border-color: #111111;
 }
-.product_details_info .pr-option .option-block .op-lb.color:hover .color-swatch:after,
-.product_details_info .pr-option .option-block input:checked+.op-lb.color .color-swatch:after {
-  opacity: 1;
+.product_details_info .pr-option .option-block input:checked + .op-lb.color {
+  border-color: #111111;
 }
 
 /* select box */
