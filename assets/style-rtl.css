@@ -910,7 +910,7 @@ section{
   border-left: none;
 }
 .megamenu-content .mainwrap ul.main-menu li.menu-link ul.menu-dropdown.menu-category .ul li.productlink-li.menu-category {
-  width: 33.33%;
+  width: 100%;
 }
 .megamenu-content .mainwrap ul.main-menu li.menu-link ul.menu-dropdown.menu-category .ul li.productlink-li a.productlink-title {
   display: block;
