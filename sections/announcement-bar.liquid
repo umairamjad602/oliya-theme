@@ -30,6 +30,20 @@
         </a>
       {%- endif -%}
     </div>
+    <div class="top-bar-divider"></div>
+    <div class="top-bar-right">
+      {%- if section.settings.service_desc3 != blank -%}
+        <a href="{{ section.settings.icon_url3 }}" class="top-bar-link">
+          {%- if section.settings.text_icon3 != blank -%}
+            <span class="top-bar-icon">{{ section.settings.text_icon3 }}</span>
+          {%- endif -%}
+
+          <span>
+            {{- section.settings.service_desc3 -}}
+          </span>
+        </a>
+      {%- endif -%}
+    </div>
   </div>
 </section>
 {% schema %}
