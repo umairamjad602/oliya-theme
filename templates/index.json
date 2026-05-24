@@ -20,11 +20,11 @@
             "slider_img": "shopify://shop_images/Bannerr.png",
             "slider_mobile_img": "shopify://shop_images/Bannerr_cc0c2684-110d-4fac-8ca8-1c4612723c7c.png",
             "mobile_text_enable": false,
-            "slider_desc": "TIMELESS STYLE,NATURALLY INSPIRED.",
+            "slider_desc": "STYLE THAT NEVER SHEDS",
             "slider_desc_color": "#ffffff",
-            "slider_title": "Explore OLYIA Men's Apparel.",
+            "slider_title": "Menswear built to outlast the trend cycle.",
             "slider_title_color": "#ffffff",
-            "slider_button": "SHOP NEW ARRIVALS",
+            "slider_button": "SHOP THE COLLECTION",
             "slider_button_url": "shopify://collections/all",
             "slider_content_position": "right",
             "slider_text_position": "right"
@@ -108,10 +108,9 @@
         "section_bg_color": "#ffffff",
         "section_subheading": "",
         "section_heading": "",
-        "cat_item": false,
-        "item_title": "Product",
+        "view_all_url": "",
+        "view_all_label": "Shop All",
         "cat_button": "",
-        "hover_bg": "#ffffff",
         "show_all_collections": true
       }
     },
