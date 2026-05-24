@@ -14,7 +14,7 @@
       "settings": {
         "container": "normal",
         "section_background_color": "#f8f7f3",
-        "product_view": "grid-4",
+        "product_view": "grid-5",
         "product_view_lg": "grid-lg-3",
         "product_view_sm": "grid-sm-2",
         "tab_bar_enable": true,

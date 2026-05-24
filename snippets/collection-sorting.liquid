@@ -48,8 +48,10 @@
             {%- if filter.active_values.size > 0 -%}
               {%- assign group_active = true -%}
             {%- endif -%}
-            {%- if filter.type == 'price_range' and (filter.min_value.value != null or filter.max_value.value != null) -%}
-              {%- assign group_active = true -%}
+            {%- if filter.type == 'price_range' -%}
+              {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+                {%- assign group_active = true -%}
+              {%- endif -%}
             {%- endif -%}
 
             <div class="topbar-filter-group{% if group_active %} is-active{% endif %}">
@@ -324,7 +326,8 @@
               </a>
             </flt-clear>
           {%- endfor -%}
-          {%- if filter.type == 'price_range' and (filter.min_value.value != null or filter.max_value.value != null) -%}
+          {%- if filter.type == 'price_range' -%}
+          {%- if filter.min_value.value != null or filter.max_value.value != null -%}
             <flt-clear>
               <a href="{{ filter.url_to_remove }}" class="active-filter-chip">
                 <span>
@@ -336,6 +339,7 @@
                 <i class="feather-x"></i>
               </a>
             </flt-clear>
+          {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
         <flt-clear>
@@ -444,8 +448,9 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 12px 20px;
-    margin-top: 30px;
-    padding-bottom: 20px;
+    margin-top: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
     border-bottom: 1px solid var(--theme-border-color);
   }
 
