@@ -7,25 +7,55 @@
 {% endcomment %}
 
 {%- liquid
-  assign swatch_value = null
   assign swatch_style = ''
+  assign swatch_value = null
+  assign swatch_focal_point = null
 
+  assign val_lower = color_name | downcase | strip
+
+  comment
+    Step 1 — CSS color name fallback (lowest priority)
+  endcomment
+  if val_lower != blank
+    assign swatch_style = 'background-color:' | append: val_lower
+    assign swatch_value = val_lower
+  endif
+
+  comment
+    Step 2 — theme swatch_config overrides (hex / image filename)
+  endcomment
+  assign swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />'
+  for cfg_item in swatch_config
+    assign cfg_parts = cfg_item | split: ':'
+    assign cfg_name  = cfg_parts.first | downcase | strip
+    assign cfg_val   = cfg_parts.last | strip
+    if val_lower == cfg_name
+      if cfg_val contains '#' or cfg_val contains 'rgb'
+        assign swatch_style = 'background-color:' | append: cfg_val
+        assign swatch_value = cfg_val
+      elsif cfg_val != blank
+        assign cfg_img = images[cfg_val] | image_url: width: 50
+        assign swatch_style = 'background-image:url(' | append: cfg_img | append: ');background-size:cover;background-position:center'
+        assign swatch_value = cfg_img
+      endif
+      break
+    endif
+  endfor
+
+  comment
+    Step 3 — Shopify native swatch (highest priority)
+  endcomment
   if swatch.image
     assign image_url = swatch.image | image_url: width: 50
-    assign swatch_value = 'url(' | append: image_url | append: ')'
     assign swatch_focal_point = swatch.image.presentation.focal_point
-    assign swatch_style = '--swatch--background:' | append: swatch_value | append: ';background-image:' | append: swatch_value | append: ';background-size:cover;background-position:var(--swatch-focal-point,center);'
+    assign swatch_style = 'background-image:url(' | append: image_url | append: ');background-size:cover;background-position:var(--swatch-focal-point,center)'
     if swatch_focal_point
-      assign swatch_style = swatch_style | append: '--swatch-focal-point:' | append: swatch_focal_point | append: ';'
+      assign swatch_style = swatch_style | append: ';--swatch-focal-point:' | append: swatch_focal_point
     endif
-
+    assign swatch_value = image_url
   elsif swatch.color
     assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
-    assign swatch_style = '--swatch--background:' | append: swatch_value | append: ';background-color:' | append: swatch_value | append: ';'
-
-  elsif color_name != blank
-    assign swatch_value = color_name | downcase | strip | remove: ' '
-    assign swatch_style = '--swatch--background:' | append: swatch_value | append: ';background-color:' | append: swatch_value | append: ';'
+    assign swatch_style = 'background-color:' | append: swatch_value
   endif
 
   assign swatch_class = 'color-swatch cust-check swatch'

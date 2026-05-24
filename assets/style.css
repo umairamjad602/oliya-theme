@@ -2776,10 +2776,9 @@ section{
   display: block;
   cursor: pointer;
   aspect-ratio: 1 / 1;
-  background: var(--swatch--background);
-  background-position: var(--swatch-focal-point, initial);
   background-size: cover;
   background-origin: border-box;
+  background-position: center;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.2s ease;
 }

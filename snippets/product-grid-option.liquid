@@ -1,59 +1,77 @@
 {%- unless product.has_only_default_variant -%}
-<div class="pr-gr-option"> 
+{%- liquid
+  assign color_label = 'Color,color,colour,couleur,cor,colore,farbe,색,色,カラー,färg,farve,szín,barva' | split: ','
+  assign swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />'
+-%}
+<div class="pr-gr-option">
   {%- for option in product.options_with_values -%}
-  {%- liquid
-    assign is_color = false
-    assign downcase_option = option.name | downcase
-    if color_label contains downcase_option
-    assign is_color = true
-    assign variant_option = 'option' | append: forloop.index
-    endif
-  -%}
-  {%- if is_color -%}
-  <div class="option-block">
-    {%- capture option_name -%}option{{ option.position }}{%- endcapture -%}
-    {%- for value in option.values -%}
-    {%- liquid 
-      for variant in product.variants
-      if variant[variant_option] == value
-      assign variant_for_value = variant
-      break
-      endif
-      endfor
-       assign swatch_focal_point = null
-      if value.swatch.image
-        assign image_url = value.swatch.image | image_url: width: 50
-        assign swatch_value = 'url(' | append: image_url | append: ')'
-        assign swatch_focal_point = value.swatch.image.presentation.focal_point
-      elsif value.swatch.color
-        assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
-      else
-        assign swatch_value = null
+    {%- liquid
+      assign is_color = false
+      assign downcase_option = option.name | downcase
+      if color_label contains downcase_option
+        assign is_color = true
+        assign variant_option = 'option' | append: forloop.index
       endif
     -%}
-    <form-wrap class="variant-option item-color {% if forloop.first %}active-variant{% endif %}">
-      <div class="variant-item item-data" id="item-color-{{ section.id }}-{{ product.id }}-{{ variant_for_value.id }}" dataprice="{{ variant_for_value.price }}" datacompare="{{ variant_for_value.compare_at_price }}" dataavailable="{{ variant_for_value.available }}" dataimg="{{ variant_for_value.featured_image | image_url: width: 720 }}" dataurl="{{ variant_for_value.url }}">
-        <label class="op-lb color cust-checkbox-label {{ value | downcase | replace: " ", "-" }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ value }}">
+    {%- if is_color -%}
+      <div class="option-block">
+        {%- for value in option.values -%}
           {%- liquid
-            assign swatch_value = null
-            if value.swatch.image
-              assign image_url = swatch.image | image_url: width: 50
-              assign swatch_value = 'url(' | append: image_url | append: ')'
-              assign swatch_focal_point = swatch.image.presentation.focal_point
-            elsif value.swatch.color
-              assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+            for variant in product.variants
+              if variant[variant_option] == value
+                assign variant_for_value = variant
+                break
+              endif
+            endfor
+
+            assign val_lower = value | downcase | strip
+            assign swatch_style = 'background-color:' | append: val_lower
+
+            for cfg_item in swatch_config
+              assign cfg_parts = cfg_item | split: ':'
+              assign cfg_name  = cfg_parts.first | downcase | strip
+              assign cfg_val   = cfg_parts.last | strip
+              if val_lower == cfg_name
+                if cfg_val contains '#' or cfg_val contains 'rgb'
+                  assign swatch_style = 'background-color:' | append: cfg_val
+                elsif cfg_val != blank
+                  assign cfg_img = images[cfg_val] | image_url: width: 40
+                  assign swatch_style = 'background-image:url(' | append: cfg_img | append: ');background-size:cover'
+                endif
+                break
+              endif
+            endfor
+
+            if value.swatch.color
+              assign swatch_style = 'background-color:rgb(' | append: value.swatch.color.rgb | append: ')'
+            elsif value.swatch.image
+              assign sw_img = value.swatch.image | image_url: width: 40
+              assign swatch_style = 'background-image:url(' | append: sw_img | append: ');background-size:cover'
             endif
           -%}
-          <span
-            class="color-swatch cust-check swatch"
-            style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"
-        ></span>
-        </label>
+          <form-wrap class="variant-option item-color{% if forloop.first %} active-variant{% endif %}">
+            <div
+              class="variant-item item-data"
+              id="item-color-{{ section.id }}-{{ product.id }}-{{ variant_for_value.id }}"
+              dataprice="{{ variant_for_value.price }}"
+              datacompare="{{ variant_for_value.compare_at_price }}"
+              dataavailable="{{ variant_for_value.available }}"
+              dataimg="{{ variant_for_value.featured_image | image_url: width: 720 }}"
+              dataurl="{{ variant_for_value.url }}"
+            >
+              <label
+                class="op-lb color cust-checkbox-label"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="{{ value }}"
+              >
+                <span class="color-swatch cust-check swatch" style="{{ swatch_style }};"></span>
+              </label>
+            </div>
+          </form-wrap>
+        {%- endfor -%}
       </div>
-    </form-wrap>
-    {%- endfor -%} 
-  </div>
-  {%- endif -%}
+    {%- endif -%}
   {%- endfor -%}
 </div>
 {%- endunless -%}
