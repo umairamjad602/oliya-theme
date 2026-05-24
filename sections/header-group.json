@@ -34,7 +34,7 @@
           "type": "menu_category",
           "settings": {
             "menu_product_title": "Collection",
-            "menu_product_url": "shopify://collections",
+            "menu_product_url": "",
             "menu_product_label": "",
             "menu_product_label_color": "#ffffff",
             "menu_product_label_font_size": 10,
