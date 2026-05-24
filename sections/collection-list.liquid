@@ -1,163 +1,139 @@
 {{ 'collection-list.css' | asset_url | stylesheet_tag }}
-<link rel="stylesheet" href="{{ 'swiper-bundle.css' | asset_url }}">
-
 <section
   class="collection-list"
-  style="
-    --padding-top: {{ section.settings.section_padding_top }}px;
-    --padding-bottom: {{ section.settings.section_padding_bottom }}px;
-    --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px;
-    --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px;
-    --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;
-    --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;
-    --background-color: {{ section.settings.section_bg_color }};
-  "
+  style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px; --background-color: {{ section.settings.section_bg_color }};"
 >
+  <div class="{% if section.settings.container == 'fluid' %}container-fluid{% else %}container{% endif %}">
 
-  {%- comment -%} Header row (heading + nav arrows) {%- endcomment -%}
-  <div class="cl-header-row">
-    <div class="cl-header-left">
-      {%- if section.settings.section_subheading != blank -%}
-        <p class="cl-subheading">{{ section.settings.section_subheading }}</p>
-      {%- endif -%}
-      {%- if section.settings.section_heading != blank -%}
-        <h2 class="cl-heading">{{ section.settings.section_heading }}</h2>
-      {%- endif -%}
-    </div>
-
-    <div class="cl-header-right">
-      {%- if section.settings.view_all_url != blank -%}
-        <a href="{{ section.settings.view_all_url }}" class="cl-view-all">
-          {{ section.settings.view_all_label | default: 'Shop All' }} &rarr;
-        </a>
-      {%- endif -%}
-      <div class="cl-nav">
-        <button class="cl-nav-btn cl-prev" type="button" aria-label="Previous collection">
-          <i class="feather-arrow-left"></i>
-        </button>
-        <span class="cl-nav-divider"></span>
-        <button class="cl-nav-btn cl-next" type="button" aria-label="Next collection">
-          <i class="feather-arrow-right"></i>
-        </button>
+    {%- if section.settings.section_heading != blank or section.settings.section_subheading != blank or section.settings.view_all_url != blank -%}
+      <div class="cl-header">
+        <div class="cl-header-left">
+          {%- if section.settings.section_subheading != blank -%}
+            <p class="cl-subheading">{{ section.settings.section_subheading }}</p>
+          {%- endif -%}
+          {%- if section.settings.section_heading != blank -%}
+            <h2 class="cl-heading" data-fade-in>{{ section.settings.section_heading }}</h2>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.view_all_url != blank -%}
+          <a href="{{ section.settings.view_all_url }}" class="cl-view-all">
+            {{ section.settings.view_all_label | default: 'Shop All' }} &rarr;
+          </a>
+        {%- endif -%}
       </div>
-    </div>
-  </div>
+    {%- endif -%}
 
-  {%- comment -%} Full-width Swiper {%- endcomment -%}
-  <div class="cl-slider-outer">
-    <div class="swiper cl-swiper" id="cl-swiper-{{ section.id }}">
-      <div class="swiper-wrapper">
+    <div class="cl-grid">
 
-        {%- if section.settings.show_all_collections -%}
-          {%- for c in collections -%}
-            <div class="swiper-slide cl-item">
-              <a href="{{ c.url }}" class="cl-card">
-                <div class="cl-img">
-                  {%- if c.image != blank -%}
-                    {{
-                      c.image
-                      | image_url: width: 600
-                      | image_tag:
-                        loading: 'lazy',
-                        alt: c.image.alt | default: c.title
-                    }}
-                  {%- else -%}
-                    {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
-                    {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- if section.settings.show_all_collections -%}
+        {%- for c in collections -%}
+          <div class="cl-item">
+            <a href="{{ c.url }}" class="cl-card">
+              <div class="cl-img">
+                {%- if c.image != blank -%}
+                  {{
+                    c.image
+                    | image_url: width: 600
+                    | image_tag:
+                      loading: 'lazy',
+                      width: c.image.width,
+                      height: c.image.height,
+                      class: 'lazyload',
+                      alt: c.image.alt | default: c.title
+                    | escape
+                  }}
+                {%- else -%}
+                  {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                  {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="cl-overlay">
+                <div class="cl-card-info">
+                  <h6 class="cl-title">{{ c.title }}</h6>
+                  {%- if section.settings.cat_button != blank -%}
+                    <span class="cl-shop-btn">{{ section.settings.cat_button }}</span>
                   {%- endif -%}
                 </div>
-                <div class="cl-overlay">
-                  <div class="cl-card-info">
-                    <h6 class="cl-title">{{ c.title }}</h6>
-                    {%- if section.settings.cat_button != blank -%}
-                      <span class="cl-shop-btn">{{ section.settings.cat_button }}</span>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'slider_cat' -%}
+              {%- assign col = collections[block.settings.slider_category_handle] -%}
+              <div class="cl-item" {{ block.shopify_attributes }}>
+                <a href="{{ col.url }}" class="cl-card">
+                  <div class="cl-img">
+                    {%- if block.settings.cat_img != blank -%}
+                      {{
+                        block.settings.cat_img
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: block.settings.cat_img.width,
+                          height: block.settings.cat_img.height,
+                          class: 'lazyload',
+                          alt: block.settings.cat_img.alt
+                        | escape
+                      }}
+                    {%- elsif col.image != blank -%}
+                      {{
+                        col.image
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          width: col.image.width,
+                          height: col.image.height,
+                          class: 'lazyload',
+                          alt: col.image.alt | default: col.title
+                        | escape
+                      }}
+                    {%- else -%}
+                      {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                      {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
                     {%- endif -%}
                   </div>
-                </div>
-              </a>
-            </div>
-          {%- endfor -%}
-
-        {%- else -%}
-          {%- for block in section.blocks -%}
-            {%- case block.type -%}
-              {%- when 'slider_cat' -%}
-                {%- assign col = collections[block.settings.slider_category_handle] -%}
-                <div class="swiper-slide cl-item" {{ block.shopify_attributes }}>
-                  <a href="{{ col.url }}" class="cl-card">
-                    <div class="cl-img">
-                      {%- if block.settings.cat_img != blank -%}
-                        {{
-                          block.settings.cat_img
-                          | image_url: width: 600
-                          | image_tag:
-                            loading: 'lazy',
-                            alt: block.settings.cat_img.alt
-                        }}
-                      {%- elsif col.image != blank -%}
-                        {{
-                          col.image
-                          | image_url: width: 600
-                          | image_tag:
-                            loading: 'lazy',
-                            alt: col.image.alt | default: col.title
-                        }}
-                      {%- else -%}
-                        {%- capture placeholder -%}product-apparel-{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
-                        {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+                  <div class="cl-overlay">
+                    <div class="cl-card-info">
+                      <h6 class="cl-title">{{ block.settings.cat_custom_title | default: col.title | default: 'Collection' }}</h6>
+                      {%- if block.settings.cat_description != blank -%}
+                        <p class="cl-desc">{{ block.settings.cat_description }}</p>
+                      {%- endif -%}
+                      {%- if section.settings.cat_button != blank -%}
+                        <span class="cl-shop-btn">{{ section.settings.cat_button }}</span>
                       {%- endif -%}
                     </div>
-                    <div class="cl-overlay">
-                      <div class="cl-card-info">
-                        <h6 class="cl-title">
-                          {{ block.settings.cat_custom_title | default: col.title | default: 'Collection' }}
-                        </h6>
-                        {%- if block.settings.cat_description != blank -%}
-                          <p class="cl-desc">{{ block.settings.cat_description }}</p>
-                        {%- endif -%}
-                        {%- if section.settings.cat_button != blank -%}
-                          <span class="cl-shop-btn">{{ section.settings.cat_button }}</span>
-                        {%- endif -%}
-                      </div>
-                    </div>
-                  </a>
-                </div>
-            {%- endcase -%}
-          {%- endfor -%}
-        {%- endif -%}
+                  </div>
+                </a>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      {%- endif -%}
 
-      </div>
     </div>
   </div>
-
 </section>
-
-<script src="{{ 'swiper-bundle.js' | asset_url }}" defer></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    new Swiper('#cl-swiper-{{ section.id }}', {
-      slidesPerView: 5,
-      spaceBetween: 2,
-      loop: false,
-      navigation: {
-        nextEl: '.cl-next',
-        prevEl: '.cl-prev',
-      },
-      breakpoints: {
-        0:    { slidesPerView: 1.5, spaceBetween: 8 },
-        480:  { slidesPerView: 2.2, spaceBetween: 10 },
-        768:  { slidesPerView: 3,   spaceBetween: 2 },
-        1024: { slidesPerView: 4,   spaceBetween: 2 },
-        1280: { slidesPerView: 5,   spaceBetween: 2 },
-      },
-    });
-  });
-</script>
-
 {% schema %}
 {
   "name": "Collection list",
   "settings": [
+    {
+      "type": "header",
+      "content": "Section width"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Section width",
+      "options": [
+        { "label": "Fluid", "value": "fluid" },
+        { "label": "Normal", "value": "normal" }
+      ],
+      "default": "fluid"
+    },
     {
       "type": "header",
       "content": "Section spacing"
@@ -246,7 +222,7 @@
     },
     {
       "type": "header",
-      "content": "Heading"
+      "content": "Section heading"
     },
     {
       "type": "text",
@@ -321,7 +297,6 @@
     {
       "name": "Collection list",
       "blocks": [
-        { "type": "slider_cat" },
         { "type": "slider_cat" },
         { "type": "slider_cat" },
         { "type": "slider_cat" },
