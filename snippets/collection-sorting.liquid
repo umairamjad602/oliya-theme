@@ -1,451 +1,829 @@
-<!-- shop-top-bar start -->
-<div class="shop-top-bar">
-  <div class="product-filter{% if section.settings.sidebar_handle == 'without_sidebar' %} without-sidebar{% endif %}">
-    <button class="filter-button" type="button" aria-label="filter">
-      <i class="feather-filter"></i>
-      <span>{{ 'collections.facets.filter_button' | t }}</span>
-    </button>
-  </div>
-  {% if section.settings.tab_bar_enable %}
-    <div class="product-view-mode">
-      <!-- shop-item-filter-list start -->
-      <button
-        class="list-change-view grid-three{% if template == 'collection' or template == 'collection.right' or template == 'collection.without' %} active{% endif %}"
-        data-grid-view="3"
-        aria-label="grid"
-      >
-        <i class="feather-grid"></i>
-      </button>
-      <button
-        class="list-change-view list-one{% if template == 'collection.list' or template == 'collection.list-right' or template == 'collection.list-without' %} active{% endif %}"
-        data-grid-view="1"
-        aria-label="list"
-      >
-        <i class="feather-list"></i>
-      </button>
-      <!-- shop-item-filter-list end -->
-    </div>
-  {% endif %}
-  <span id="pro-count" class="product-count-text">
-    {%- if results.results_count -%}
-      {{
-        'collections.facets.results_with_count'
-        | t: terms: results.terms, count: results.results_count
-      }}
-    {%- elsif results.products_count == results.all_products_count -%}
-      {{ 'collections.facets.product_count_simple' | t: count: results.products_count }}
-    {%- else -%}
-      {{
-        'collections.facets.product_count'
-        | t: product_count: results.products_count, count: results.all_products_count
-      }}
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+  assign has_active_filters = false
+  for filter in results.filters
+    if filter.active_values.size > 0
+      assign has_active_filters = true
+      break
+    endif
+    if filter.type == 'price_range'
+      if filter.min_value.value != null or filter.max_value.value != null
+        assign has_active_filters = true
+        break
+      endif
+    endif
+  endfor
+-%}
+
+<stfilter-ele class="facets">
+  <form id="stFacetFiltersForm">
+    {%- if results.terms -%}
+      <input type="hidden" name="q" value="{{ results.terms | escape }}">
+      <input name="options[prefix]" type="hidden" value="last">
     {%- endif -%}
-  </span>
-  
-  {% if section.settings.short_by_enable %}
-    <!-- product-short start -->
-    <div class="product-short">
-      <label for="SortBy">{{ 'collections.sorting.title' | t | append: ':' }}</label>
-      <select class="nice-select" name="sortby" id="SortBy">
-        <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
-        <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
-        <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
-        <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
-        <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
-        <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
-        <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
-        <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
-      </select>
-      {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
-      <button class="short-title" aria-label="sort">
-        <span class="sort-title">
-          {%- liquid
-            case sort_by
-              when 'manual'
-                echo 'collections.sorting.featured' | t
-              when 'best-selling'
-                echo 'collections.sorting.best_selling' | t
-              when 'title-ascending'
-                echo 'collections.sorting.az' | t
-              when 'title-descending'
-                echo 'collections.sorting.za' | t
-              when 'price-ascending'
-                echo 'collections.sorting.price_ascending' | t
-              when 'price-descending'
-                echo 'collections.sorting.price_descending' | t
-              when 'created-descending'
-                echo 'collections.sorting.date_descending' | t
-              when 'created-ascending'
-                echo 'collections.sorting.date_ascending' | t
-            endcase
-          -%}
-        </span>
-        <span class="sort-icon"><i class="feather-chevron-down"></i></span>
-      </button>
-      <button class="short-title short-title-lg" aria-label="sort">
-        <span class="sort-title">
-          {%- liquid
-            case sort_by
-              when 'manual'
-                echo 'collections.sorting.featured' | t
-              when 'best-selling'
-                echo 'collections.sorting.best_selling' | t
-              when 'title-ascending'
-                echo 'collections.sorting.az' | t
-              when 'title-descending'
-                echo 'collections.sorting.za' | t
-              when 'price-ascending'
-                echo 'collections.sorting.price_ascending' | t
-              when 'price-descending'
-                echo 'collections.sorting.price_descending' | t
-              when 'created-descending'
-                echo 'collections.sorting.date_descending' | t
-              when 'created-ascending'
-                echo 'collections.sorting.date_ascending' | t
-            endcase
-          -%}
-        </span>
-        <span class="sort-icon"><i class="feather-chevron-down"></i></span>
-      </button>
-      <ul class="list-unstyled" role="list" id="select-wrap">
-        <li
-          {% if sort_by == 'manual' %}
-            class="selected"
-          {% endif %}
-        >
-          <a href="?sort_by=manual">{{ 'collections.sorting.featured' | t }}</a>
-        </li>
-        <li
-          {% if sort_by == 'best-selling' %}
-            class="selected"
-          {% endif %}
-        >
-          <a href="?sort_by=best-selling">{{ 'collections.sorting.best_selling' | t }}</a>
-        </li>
-        <li
-          {% if sort_by == 'title-ascending' %}
-            class="selected"
-          {% endif %}
-        >
-          <a href="?sort_by=title-ascending">{{ 'collections.sorting.az' | t }}</a>
-        </li>
-        <li
-          {% if sort_by == 'title-descending' %}
-            class="selected"
-          {% endif %}
-        >
-          <a href="?sort_by=title-descending">{{ 'collections.sorting.za' | t }}</a>
-        </li>
-        <li
-          {% if sort_by == 'price-ascending' %}
-            class="selected"
-          {% endif %}
-        >
-          <a href="?sort_by=price-ascending">{{ 'collections.sorting.price_ascending' | t }}</a>
-        </li>
-        <li
-          {% if sort_by == 'price-descending' %}
-            class="selected"
-          {% endif %}
-        >
-          <a href="?sort_by=price-descending">{{ 'collections.sorting.price_descending' | t }}</a>
-        </li>
-        <li
-          {% if sort_by == 'created-descending' %}
-            class="selected"
-          {% endif %}
-        >
-          <a href="?sort_by=created-descending">{{ 'collections.sorting.date_descending' | t }}</a>
-        </li>
-        <li
-          {% if sort_by == 'created-ascending' %}
-            class="selected"
-          {% endif %}
-        >
-          <a href="?sort_by=created-ascending">{{ 'collections.sorting.date_ascending' | t }}</a>
-        </li>
-      </ul>
+
+    <!-- ── Top Bar ── -->
+    <div class="shop-top-bar topbar-inline-filters">
+
+      <!-- Inline filter dropdowns -->
+      {%- unless results.filters == empty -%}
+        <div class="topbar-filters-wrap">
+          <span class="topbar-filters-label">
+            <i class="feather-sliders"></i>
+            {{ 'collections.facets.filter_button' | t }}:
+          </span>
+
+          {%- for filter in results.filters -%}
+            {%- assign filter_label_lower = filter.label | downcase -%}
+            {%- if filter_label_lower == 'category' or filter_label_lower == 'product type' or filter_label_lower == 'product_type' -%}
+              {%- continue -%}
+            {%- endif -%}
+            {%- assign group_active = false -%}
+            {%- if filter.active_values.size > 0 -%}
+              {%- assign group_active = true -%}
+            {%- endif -%}
+            {%- if filter.type == 'price_range' and (filter.min_value.value != null or filter.max_value.value != null) -%}
+              {%- assign group_active = true -%}
+            {%- endif -%}
+
+            <div class="topbar-filter-group{% if group_active %} is-active{% endif %}">
+              <button type="button" class="topbar-filter-btn" aria-expanded="false">
+                <span>{{ filter.label }}</span>
+                {%- if group_active -%}
+                  <span class="topbar-filter-badge">
+                    {%- if filter.type == 'price_range' -%}1{%- else -%}{{ filter.active_values.size }}{%- endif -%}
+                  </span>
+                {%- endif -%}
+                <i class="feather-chevron-down topbar-filter-arrow"></i>
+              </button>
+
+              <div class="topbar-filter-panel" hidden>
+                {%- case filter.type -%}
+                  {%- when 'list' -%}
+                    <div class="topbar-panel-inner">
+                      <ul class="topbar-filter-list list-unstyled">
+                        {%- for value in filter.values -%}
+                          {%- liquid
+                            assign swatch_val = null
+                            if value.swatch.image
+                              assign swatch_img_url = value.swatch.image | image_url: width: 50
+                              assign swatch_val = 'url(' | append: swatch_img_url | append: ')'
+                            elsif value.swatch.color
+                              assign swatch_val = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                            endif
+                          -%}
+                          <li>
+                            <label class="topbar-filter-check{% if value.active %} is-checked{% endif %}{% if value.count == 0 and value.active == false %} is-disabled{% endif %}">
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                              >
+                              {%- if swatch_val != null -%}
+                                <span class="topbar-swatch" style="background: {{ swatch_val }};"></span>
+                              {%- else -%}
+                                <span class="topbar-checkbox-box"></span>
+                              {%- endif -%}
+                              <span class="topbar-check-label">{{ value.label | escape }}</span>
+                              <span class="topbar-check-count">({{ value.count }})</span>
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                      {%- if filter.active_values.size > 0 -%}
+                        <flt-clear>
+                          <a href="{{ filter.url_to_remove }}" class="topbar-panel-reset">
+                            {{ 'collections.facets.filter_reset' | t }}
+                          </a>
+                        </flt-clear>
+                      {%- endif -%}
+                    </div>
+
+                  {%- when 'price_range' -%}
+                    <div class="topbar-panel-inner topbar-price-panel">
+                      {%- liquid
+                        assign min_value       = filter.min_value.value | default: 0.0 | divided_by: 100.0
+                        assign max_value       = filter.max_value.value | default: filter.range_max | divided_by: 100.0
+                        assign range_max       = filter.range_max | divided_by: 100.0 | ceil
+                        assign lower_progress  = min_value | divided_by: range_max | times: 100.0
+                        assign higher_progress = max_value | divided_by: range_max | times: 100.0
+                      -%}
+                      <range-slider class="range-slider">
+                        <div
+                          class="range-slider-group group-range"
+                          style="--range-min: {{ lower_progress }}%; --range-max: {{ higher_progress }}%"
+                        >
+                          <input
+                            type="range"
+                            aria-label="{{ 'collections.facets.price_filter_from' | t }}"
+                            class="range"
+                            min="0"
+                            max="{{ range_max | ceil }}"
+                            value="{{ min_value | ceil }}"
+                          >
+                          <input
+                            type="range"
+                            aria-label="{{ 'collections.facets.price_filter_to' | t }}"
+                            class="range"
+                            min="0"
+                            max="{{ range_max | ceil }}"
+                            value="{{ max_value | ceil }}"
+                          >
+                        </div>
+                        <div class="price-input-group group-input">
+                          <div class="range-slider-input input-prefix">
+                            <label for="topbar-price-from-{{ filter.label | handleize }}" class="input-prefix-label">
+                              {{- 'collections.facets.price_filter_from' | t -}}
+                            </label>
+                            <span class="input-prefix-value">{{ cart.currency.symbol }}</span>
+                            <input
+                              id="topbar-price-from-{{ filter.label | handleize }}"
+                              aria-label="{{ 'collections.facets.price_filter_from' | t }}"
+                              class="input-prefix-field"
+                              type="number"
+                              inputmode="numeric"
+                              name="{{ filter.min_value.param_name }}"
+                              min="0"
+                              max="{{ max_value | ceil }}"
+                              placeholder="0"
+                              {% if filter.min_value.value %}value="{{ min_value | ceil }}"{% endif %}
+                            >
+                          </div>
+                          <span class="range-slider-delimeter">–</span>
+                          <div class="range-slider-input input-prefix">
+                            <label for="topbar-price-to-{{ filter.label | handleize }}" class="input-prefix-label">
+                              {{- 'collections.facets.price_filter_to' | t -}}
+                            </label>
+                            <span class="input-prefix-value">{{ cart.currency.symbol }}</span>
+                            <input
+                              id="topbar-price-to-{{ filter.label | handleize }}"
+                              aria-label="{{ 'collections.facets.price_filter_to' | t }}"
+                              class="input-prefix-field"
+                              type="number"
+                              inputmode="numeric"
+                              name="{{ filter.max_value.param_name }}"
+                              min="{{ min_value | ceil }}"
+                              max="{{ range_max | ceil }}"
+                              placeholder="{{ range_max | ceil }}"
+                              {% if filter.max_value.value %}value="{{ max_value | ceil }}"{% endif %}
+                            >
+                          </div>
+                        </div>
+                      </range-slider>
+                      {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+                        <flt-clear>
+                          <a href="{{ filter.url_to_remove }}" class="topbar-panel-reset">
+                            {{ 'collections.facets.filter_reset' | t }}
+                          </a>
+                        </flt-clear>
+                      {%- endif -%}
+                    </div>
+                {%- endcase -%}
+              </div>
+            </div>
+          {%- endfor -%}
+
+          {%- if has_active_filters -%}
+            <flt-clear>
+              <a href="{{ results_url }}" class="topbar-clear-all">
+                {{ 'collections.facets.clear_all' | t }}
+              </a>
+            </flt-clear>
+          {%- endif -%}
+        </div>
+      {%- endunless -%}
+
+      <!-- Product count -->
+      <span id="pro-count" class="product-count-text">
+        {%- if results.results_count -%}
+          {{ 'collections.facets.results_with_count' | t: terms: results.terms, count: results.results_count }}
+        {%- elsif results.products_count == results.all_products_count -%}
+          {{ 'collections.facets.product_count_simple' | t: count: results.products_count }}
+        {%- else -%}
+          {{ 'collections.facets.product_count' | t: product_count: results.products_count, count: results.all_products_count }}
+        {%- endif -%}
+      </span>
+
+      <!-- Grid / list toggle -->
+      {% if section.settings.tab_bar_enable %}
+        <div class="product-view-mode">
+          <button
+            class="list-change-view grid-three active"
+            data-grid-view="3"
+            type="button"
+            aria-label="grid view"
+          >
+            <i class="feather-grid"></i>
+          </button>
+          <button
+            class="list-change-view list-one"
+            data-grid-view="1"
+            type="button"
+            aria-label="list view"
+          >
+            <i class="feather-list"></i>
+          </button>
+        </div>
+      {% endif %}
+
+      <!-- Sort -->
+      {% if section.settings.short_by_enable %}
+        <div class="product-short">
+          <label for="SortBy">{{ 'collections.sorting.title' | t | append: ':' }}</label>
+          <select class="nice-select" name="sortby" id="SortBy">
+            <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+            <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+            <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
+            <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
+            <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+            <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+            <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
+            <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
+          </select>
+          <button class="short-title" type="button" aria-label="sort">
+            <span class="sort-title">
+              {%- liquid
+                case sort_by
+                  when 'manual'
+                    echo 'collections.sorting.featured' | t
+                  when 'best-selling'
+                    echo 'collections.sorting.best_selling' | t
+                  when 'title-ascending'
+                    echo 'collections.sorting.az' | t
+                  when 'title-descending'
+                    echo 'collections.sorting.za' | t
+                  when 'price-ascending'
+                    echo 'collections.sorting.price_ascending' | t
+                  when 'price-descending'
+                    echo 'collections.sorting.price_descending' | t
+                  when 'created-descending'
+                    echo 'collections.sorting.date_descending' | t
+                  when 'created-ascending'
+                    echo 'collections.sorting.date_ascending' | t
+                endcase
+              -%}
+            </span>
+            <span class="sort-icon"><i class="feather-chevron-down"></i></span>
+          </button>
+          <button class="short-title short-title-lg" type="button" aria-label="sort">
+            <span class="sort-title">
+              {%- liquid
+                case sort_by
+                  when 'manual'
+                    echo 'collections.sorting.featured' | t
+                  when 'best-selling'
+                    echo 'collections.sorting.best_selling' | t
+                  when 'title-ascending'
+                    echo 'collections.sorting.az' | t
+                  when 'title-descending'
+                    echo 'collections.sorting.za' | t
+                  when 'price-ascending'
+                    echo 'collections.sorting.price_ascending' | t
+                  when 'price-descending'
+                    echo 'collections.sorting.price_descending' | t
+                  when 'created-descending'
+                    echo 'collections.sorting.date_descending' | t
+                  when 'created-ascending'
+                    echo 'collections.sorting.date_ascending' | t
+                endcase
+              -%}
+            </span>
+            <span class="sort-icon"><i class="feather-chevron-down"></i></span>
+          </button>
+          <ul class="list-unstyled" role="list" id="select-wrap">
+            {%- assign sort_options = 'manual,best-selling,title-ascending,title-descending,price-ascending,price-descending,created-descending,created-ascending' | split: ',' -%}
+            {%- assign sort_labels = 'collections.sorting.featured,collections.sorting.best_selling,collections.sorting.az,collections.sorting.za,collections.sorting.price_ascending,collections.sorting.price_descending,collections.sorting.date_descending,collections.sorting.date_ascending' | split: ',' -%}
+            {%- for opt in sort_options -%}
+              <li {% if sort_by == opt %}class="selected"{% endif %}>
+                <a href="?sort_by={{ opt }}">{{ sort_labels[forloop.index0] | t }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {% endif %}
     </div>
-  {% endif %}
-  <!-- product-short end -->
-</div>
-<!-- shop-top-bar end -->
+    <!-- ── End Top Bar ── -->
+
+    <!-- Active filter chips -->
+    {%- if has_active_filters -%}
+      <div class="active-filter-chips">
+        {%- for filter in results.filters -%}
+          {%- for value in filter.active_values -%}
+            <flt-clear>
+              <a href="{{ value.url_to_remove }}" class="active-filter-chip">
+                <span>{{ filter.label }}: {{ value.label | escape }}</span>
+                <i class="feather-x"></i>
+              </a>
+            </flt-clear>
+          {%- endfor -%}
+          {%- if filter.type == 'price_range' and (filter.min_value.value != null or filter.max_value.value != null) -%}
+            <flt-clear>
+              <a href="{{ filter.url_to_remove }}" class="active-filter-chip">
+                <span>
+                  {{ filter.label }}:
+                  {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}
+                  –
+                  {%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+                </span>
+                <i class="feather-x"></i>
+              </a>
+            </flt-clear>
+          {%- endif -%}
+        {%- endfor -%}
+        <flt-clear>
+          <a href="{{ results_url }}" class="active-chip-clear">
+            {{ 'collections.facets.clear_all' | t }}
+          </a>
+        </flt-clear>
+      </div>
+    {%- endif -%}
+
+  </form>
+</stfilter-ele>
+
 <script type="text/javascript">
-  addEventListener('DOMContentLoaded', (event) => {
+  addEventListener('DOMContentLoaded', function () {
+    /* ── Sort by ── */
     Shopify.queryParams = {};
     if (location.search.length) {
-      for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
-        aKeyValue = aCouples[i].split('=');
-        if (aKeyValue.length > 1) {
-          Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
-        }
-      }
+      location.search.substr(1).split('&').forEach(function(pair) {
+        var kv = pair.split('=');
+        if (kv.length > 1) Shopify.queryParams[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
+      });
     }
-    var $select = $('#SortBy');
-    $('a[href="#sort"]').click(function () {
-      $select.val( $(this).data('select') );
-      event.preventDefault();
-      Shopify.queryParams.sort_by = jQuery(this).data('select');
-      location.search = jQuery.param(Shopify.queryParams);
-    });
-    $('.list-change-view').on("click",function () {
-      event.preventDefault();
-      var data_grid = $(this).attr('data-grid-view');
-      if($('.shop-product-wrap').hasClass('grid-1') || $('.shop-product-wrap').hasClass('grid-2') || $('.shop-product-wrap').hasClass('grid-3') || $('.shop-product-wrap').hasClass('grid-4')){
-        $('.shop-product-wrap').removeClass('grid-1');
-        $('.shop-product-wrap').removeClass('grid-2');
-        $('.shop-product-wrap').removeClass('grid-3');
-        $('.shop-product-wrap').removeClass('grid-4');
-        $('.shop-product-wrap').addClass('grid-'+data_grid);
-      }else{
-        $('.shop-product-wrap').addClass('grid-'+data_grid);
-      }
-    });
-    $('.list-change-view').on("click",function () {
-      $('.list-change-view').removeClass('active');
-      $(this).addClass('active');
-    });
+    var $select = document.getElementById('SortBy');
+    if ($select) {
+      $select.value = '{{ collection.sort_by | default: collection.default_sort_by }}';
+      $select.addEventListener('change', function () {
+        Shopify.queryParams.sort_by = this.value;
+        location.search = Object.keys(Shopify.queryParams).map(function(k) {
+          return encodeURIComponent(k) + '=' + encodeURIComponent(Shopify.queryParams[k]);
+        }).join('&');
+      });
+    }
 
-    $(function() {
-      $('#SortBy').val('{{ collection.sort_by | default: collection.default_sort_by }}').bind('change', function() {
-        Shopify.queryParams.sort_by = jQuery(this).val();
-        location.search = jQuery.param(Shopify.queryParams);
+    /* ── Sort dropdown (hover) ── */
+    document.querySelectorAll('.product-short .short-title-lg').forEach(function(btn) {
+      btn.addEventListener('click', function () {
+        var wrap = document.getElementById('select-wrap');
+        if (!wrap) return;
+        var open = wrap.classList.contains('active');
+        wrap.classList.toggle('active', !open);
+        btn.classList.toggle('active', !open);
       });
     });
 
-    $('.product-short .short-title-lg').on('click', function () {
-      if ($('#select-wrap').hasClass('active')) {
-        $('#select-wrap').removeClass('active');
-        $(this).removeClass('active');
-      }
-      else {
-        $('#select-wrap').addClass('active');
-        $(this).addClass('active');
-      }
+    /* ── Grid / list toggle ── */
+    document.querySelectorAll('.list-change-view').forEach(function(btn) {
+      btn.addEventListener('click', function () {
+        var grid = this.getAttribute('data-grid-view');
+        var wrap = document.querySelector('.shop-product-wrap');
+        if (wrap) {
+          ['grid-1','grid-2','grid-3','grid-4','grid-5','grid-6'].forEach(function(c){ wrap.classList.remove(c); });
+          wrap.classList.add('grid-' + grid);
+        }
+        document.querySelectorAll('.list-change-view').forEach(function(b){ b.classList.remove('active'); });
+        this.classList.add('active');
+      });
     });
+
+    /* ── Inline filter panel toggle ── */
+    document.querySelectorAll('.topbar-filter-group').forEach(function(group) {
+      var btn   = group.querySelector('.topbar-filter-btn');
+      var panel = group.querySelector('.topbar-filter-panel');
+      if (!btn || !panel) return;
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = !panel.hidden;
+        /* close all others */
+        document.querySelectorAll('.topbar-filter-panel').forEach(function(p) { p.hidden = true; });
+        document.querySelectorAll('.topbar-filter-btn').forEach(function(b) { b.setAttribute('aria-expanded','false'); b.closest('.topbar-filter-group').classList.remove('panel-open'); });
+        if (!isOpen) {
+          panel.hidden = false;
+          btn.setAttribute('aria-expanded', 'true');
+          group.classList.add('panel-open');
+        }
+      });
+    });
+
+    /* Close panels on outside click */
+    document.addEventListener('click', function () {
+      document.querySelectorAll('.topbar-filter-panel').forEach(function(p) { p.hidden = true; });
+      document.querySelectorAll('.topbar-filter-btn').forEach(function(b) { b.setAttribute('aria-expanded','false'); });
+      document.querySelectorAll('.topbar-filter-group').forEach(function(g) { g.classList.remove('panel-open'); });
+    });
+
+    /* Prevent panel clicks from closing */
+    document.querySelectorAll('.topbar-filter-panel').forEach(function(p) {
+      p.addEventListener('click', function(e) { e.stopPropagation(); });
+    });
+
+    /* Auto-submit on checkbox change */
+    var form = document.getElementById('stFacetFiltersForm');
+    if (form) {
+      form.querySelectorAll('input[type="checkbox"]').forEach(function(cb) {
+        cb.addEventListener('change', function () { form.submit(); });
+      });
+    }
   });
 </script>
+
 <style>
-  /*=====================================
-    collection sorting css
-  ======================================*/
-  /* shop top bar css */
+  /* ── Top bar ── */
   .shop-top-bar {
     display: flex;
-    gap: 30px;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    gap: 12px 20px;
     margin-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     border-bottom: 1px solid var(--theme-border-color);
   }
 
-  /* filter button css */
-  .shop-top-bar .product-filter {
-    display: none;
-    padding-inline-end: 15px;
-    border-inline-end: 2px solid var(--theme-border-color);
+  /* ── Filters wrap ── */
+  .topbar-filters-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
   }
-  .shop-top-bar .product-filter.without-sidebar {
-    display: block;
-  }
-  .shop-top-bar .product-filter button {
-    color: var(--font-color-body);
+  .topbar-filters-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--font-color-header, #111);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     display: flex;
     align-items: center;
-    font-size: 16px;
-    line-height: 0;
+    gap: 5px;
+    white-space: nowrap;
+    margin-right: 4px;
   }
-  .shop-top-bar .product-filter button span {
-    display: block;
-    color: var(--font-color-body);
-    font-size: var(--font-size-body);
-    margin-inline-start: 5px;
-    font-weight: 600;
-    line-height: 1;
-  }
-  @media (max-width: 1199px) {
-    .shop-top-bar .product-filter {
-      display: block;
-    }
-  }
-  @media (max-width: 479px) {
-    .shop-top-bar .product-filter {
-      margin: 0px;
-      padding: 0px;
-      border: none;
-    }
-  }
+  .topbar-filters-label i { font-size: 14px; }
 
-  /* grid-list css */
-  .shop-top-bar .product-view-mode {
-    display: flex;
-    margin-inline-end: auto;
+  /* ── Each filter group ── */
+  .topbar-filter-group {
+    position: relative;
   }
-  .shop-top-bar .product-view-mode .list-change-view {
-    display: block;
-    color: var(--font-color-header);
-    font-size: 18px;
-    margin-inline-end: 15px;
+  .topbar-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--font-color-body, #333);
+    background: #fff;
+    border: 1.5px solid var(--theme-border-color, #ddd);
+    border-radius: 20px;
+    padding: 6px 14px;
     cursor: pointer;
-    line-height: 0;
-    -webkit-transition: all 0s ease-in-out 0s;
-    -o-transition: all 0s ease-in-out 0s;
-    transition: all 0s ease-in-out 0s;
+    white-space: nowrap;
+    transition: border-color 0.18s ease, color 0.18s ease;
   }
-  .shop-top-bar .product-view-mode .list-change-view:last-child {
-    margin-inline-end: 0px;
+  .topbar-filter-btn:hover,
+  .topbar-filter-group.panel-open .topbar-filter-btn {
+    border-color: #111;
+    color: #111;
   }
-  .shop-top-bar .product-view-mode .list-change-view.active {
-    color: var(--font-color-primary);
+  .topbar-filter-group.is-active .topbar-filter-btn {
+    background: #111;
+    border-color: #111;
+    color: #fff;
   }
-  .shop-top-bar .product-view-mode .list-change-view i {
-    display: block;
-    line-height: 1;
+  .topbar-filter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    font-size: 11px;
+    font-weight: 700;
+    background: #fff;
+    color: #111;
+    border-radius: 50%;
+    padding: 0 4px;
   }
-  @media (max-width: 479px) {
-    .shop-top-bar .product-view-mode {
-      margin-inline-end: unset;
-    }
+  .topbar-filter-group.is-active .topbar-filter-badge {
+    background: #fff;
+    color: #111;
+  }
+  .topbar-filter-arrow {
+    font-size: 12px;
+    transition: transform 0.2s ease;
+  }
+  .topbar-filter-group.panel-open .topbar-filter-arrow {
+    transform: rotate(180deg);
   }
 
-  /* product sorting css */
+  /* ── Filter panel dropdown ── */
+  .topbar-filter-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    max-width: 300px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.10);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    z-index: 400;
+    animation: topbarPanelIn 0.18s ease;
+  }
+  @keyframes topbarPanelIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .topbar-filter-panel[hidden] { display: none; }
+
+  .topbar-panel-inner {
+    padding: 14px 16px 12px;
+  }
+
+  /* ── Filter list ── */
+  .topbar-filter-list {
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    margin: 0;
+    padding: 0;
+  }
+  .topbar-filter-list li { list-style: none; }
+  .topbar-filter-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 4px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--font-color-body, #333);
+    transition: color 0.15s ease;
+  }
+  .topbar-filter-check:hover { color: #111; }
+  .topbar-filter-check input[type="checkbox"] { display: none; }
+  .topbar-checkbox-box {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .topbar-filter-check.is-checked .topbar-checkbox-box {
+    background: #111;
+    border-color: #111;
+  }
+  .topbar-filter-check.is-checked .topbar-checkbox-box::after {
+    content: '';
+    width: 9px;
+    height: 5px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translateY(-1px);
+    display: block;
+  }
+  .topbar-swatch {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    display: block;
+  }
+  .topbar-check-label {
+    flex: 1;
+    line-height: 1.3;
+  }
+  .topbar-check-count {
+    font-size: 11px;
+    color: #999;
+  }
+  .topbar-filter-check.is-disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* ── Price panel ── */
+  .topbar-price-panel { min-width: 260px; }
+  .topbar-price-panel .range-slider { display: block; }
+  .topbar-price-panel .group-range { margin-bottom: 14px; }
+  .topbar-price-panel .price-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .topbar-price-panel .input-prefix {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    flex: 1;
+  }
+  .topbar-price-panel .input-prefix-label { display: none; }
+  .topbar-price-panel .input-prefix-value {
+    padding: 6px 8px;
+    background: #f5f5f5;
+    font-size: 12px;
+    color: #777;
+    border-right: 1px solid #ddd;
+  }
+  .topbar-price-panel .input-prefix-field {
+    border: none;
+    padding: 6px 8px;
+    font-size: 13px;
+    width: 100%;
+    min-width: 0;
+    background: transparent;
+  }
+  .topbar-price-panel .range-slider-delimeter { color: #999; font-size: 14px; }
+
+  /* ── Panel reset link ── */
+  .topbar-panel-reset {
+    display: block;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .topbar-panel-reset:hover { color: #111; }
+
+  /* ── Clear all pill ── */
+  .topbar-clear-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1.5px solid #ddd;
+    border-radius: 20px;
+    white-space: nowrap;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .topbar-clear-all:hover { color: #111; border-color: #999; }
+
+  /* ── Product count ── */
+  .product-count-text {
+    font-size: 13px;
+    color: #999;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  /* ── Active filter chips row ── */
+  .active-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0 4px;
+  }
+  .active-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    background: #f0f0f0;
+    border-radius: 16px;
+    padding: 5px 12px;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .active-filter-chip:hover { background: #e0e0e0; }
+  .active-filter-chip i { font-size: 11px; opacity: 0.7; }
+  .active-chip-clear {
+    font-size: 12px;
+    color: #888;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .active-chip-clear:hover { color: #111; }
+
+  /* ── Grid/List toggle ── */
+  .product-view-mode {
+    display: flex;
+    gap: 4px;
+  }
+  .product-view-mode .list-change-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    color: var(--font-color-header, #555);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .product-view-mode .list-change-view:hover { background: rgba(0,0,0,0.05); }
+  .product-view-mode .list-change-view.active { color: var(--font-color-primary, #111); }
+
+  /* ── Sort dropdown ── */
   .product-short {
     display: flex;
     align-items: center;
+    gap: 6px;
     position: relative;
   }
   .product-short label {
-    color: var(--font-color-header);
-    font-size: var(--subtitle-font-size-body);
-    font-weight: var(--subtitle-custom-font-weight-body);
-    margin-bottom: 0;
-    line-height: 1;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--font-color-header, #111);
+    margin: 0;
+    white-space: nowrap;
   }
   .product-short select {
     display: none;
-    color: var(--font-color-body);
-    font-size: var(--font-size-body);
-    min-width: 200px;
-    background-color: transparent;
+    font-size: 13px;
+    background: transparent;
     border: none;
+    color: var(--font-color-body, #333);
+    min-width: 160px;
   }
-  @media (max-width: 767px) {
-    .product-short select {
-      display: block;
-      padding: 0px 20px 0px 15px;
-    }
-  }
-  @media (max-width: 479px) {
-    .product-short {
-      order: 1;
-      width: 100%;
-    }
-    .product-short label {
-      width: 85px;
-    }
-    .product-short select {
-      min-width: auto;
-      width: 100%;
-    }
-  }
-
-  /* product sorting ul li css */
   .product-short .short-title {
-    color: var(--font-color-body);
-    min-width: 200px;
+    font-size: 13px;
+    color: var(--font-color-body, #333);
+    min-width: 160px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
     padding: 0;
-    padding-inline-start: 15px;
   }
-  .product-short .short-title:hover {
-    color: var(--font-color-header);
-  }
-  .product-short .short-title span.sort-title {
-    display: block;
-  }
-  .product-short .short-title span.sort-icon {
-    display: block;
-    line-height: 0;
-  }
-  .product-short .short-title span.sort-icon i {
-    display: block;
-    line-height: 0;
-  }
-  .product-short .short-title span.sort-icon i::before {
-    font-weight: 600!important;
-  }
-  .product-short .short-title.short-title-lg {
-    display: none;
-  }
+  .product-short .short-title:hover { color: #111; }
+  .product-short .short-title-lg { display: none; }
   .product-short ul {
     position: absolute;
-    left: 0;
     right: 0;
-    top: calc(100% - -10px);
-    z-index: 2;
+    top: calc(100% + 10px);
+    left: 0;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.10);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+    z-index: 300;
     opacity: 0;
     visibility: hidden;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
     overflow: hidden;
+    padding: 4px 0;
   }
-  .product-short:hover ul {
-    opacity: 1;
-    visibility: visible;
-  }
-  .product-short ul,
-  .product-short:hover ul {
-    -webkit-transition: all 0.3s ease-in-out 0s;
-    -o-transition: all 0.3s ease-in-out 0s;
-    transition: all 0.3s ease-in-out 0s;
-  }
+  .product-short:hover ul { opacity: 1; visibility: visible; }
+  .product-short ul.active { opacity: 1; visibility: visible; }
   .product-short ul li a {
     display: block;
-    color: var(--font-color-body);
-    padding: 10px 20px;
-    background-color: var(--background-color-body);
+    padding: 9px 16px;
+    font-size: 13px;
+    color: var(--font-color-body, #333);
+    text-decoration: none;
+    transition: background 0.12s ease;
   }
-  .product-short ul li:hover a,
-  .product-short ul li.selected a {
-    color: var(--font-color-header);
-  }
+  .product-short ul li a:hover,
+  .product-short ul li.selected a { background: #f5f5f5; color: #111; }
+
+  /* ── Mobile adjustments ── */
   @media (max-width: 1199px) {
-    .product-short .short-title {
-      display: none;
-    }
-    .product-short .short-title.short-title-lg {
-      color: var(--font-color-body);
+    .product-short .short-title { display: none; }
+    .product-short .short-title-lg {
       display: flex;
-    }
-    .product-short .short-title.short-title-lg.active {
-      color: var(--font-color-header);
-    }
-    .product-short ul.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .product-short ul,
-    .product-short:hover ul {
-      -webkit-transition: all 0s ease-in-out 0s;
-      -o-transition: all 0s ease-in-out 0s;
-      transition: all 0s ease-in-out 0s;
+      color: var(--font-color-body, #333);
+      font-size: 13px;
     }
   }
   @media (max-width: 767px) {
-    .product-short .short-title.short-title-lg {
-      display: none;
-    }
-    .product-short ul {
-      display: none;
-    }
+    .product-short .short-title-lg { display: none; }
+    .product-short select { display: block; }
+    .product-short ul { display: none; }
+    .topbar-filter-panel { min-width: 180px; max-width: 90vw; }
+    .topbar-filters-label { display: none; }
   }
   @media (max-width: 479px) {
-    .product-short .short-title {
-      min-width: auto;
-      width: 100%;
-    }
+    .shop-top-bar { gap: 10px 12px; }
+    .product-count-text { margin-left: 0; width: 100%; order: 10; }
   }
 </style>

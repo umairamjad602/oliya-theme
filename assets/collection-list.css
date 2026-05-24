@@ -1,23 +1,26 @@
+/* ============================================================
+   Collection List — Full-width Swiper, 5 slides per view
+   ============================================================ */
+
 .collection-list {
   background-color: var(--background-color, #ffffff);
   padding-top: var(--padding-top, 80px);
   padding-bottom: var(--padding-bottom, 80px);
+  overflow: hidden;
 }
 
-/* ── Section header ── */
-.collection-list .cl-header {
+/* ── Header row ── */
+.collection-list .cl-header-row {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  gap: 16px;
+  gap: 20px;
+  padding: 0 40px 32px;
 }
 .collection-list .cl-header-left {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 .collection-list .cl-subheading {
   font-size: 11px;
@@ -31,16 +34,22 @@
 .collection-list .cl-heading {
   font-family: var(--font-heading-family, 'Cormorant Garamond', Georgia, serif);
   font-weight: 700;
-  font-size: clamp(24px, 3vw, 42px);
+  font-size: clamp(22px, 2.6vw, 38px);
   line-height: 1.05;
   letter-spacing: 0.01em;
   margin: 0;
   color: var(--font-color-body, #111);
 }
+.collection-list .cl-header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
 .collection-list .cl-view-all {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -49,46 +58,72 @@
   border-bottom: 1.5px solid currentColor;
   padding-bottom: 2px;
   white-space: nowrap;
-  flex-shrink: 0;
+  text-decoration: none;
   transition: opacity 0.2s ease;
 }
-.collection-list .cl-view-all:hover {
-  opacity: 0.5;
+.collection-list .cl-view-all:hover { opacity: 0.5; }
+
+/* ── Navigation arrows ── */
+.collection-list .cl-nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.collection-list .cl-nav-divider {
+  display: block;
+  width: 1px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.18);
+}
+.collection-list .cl-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--font-color-body, #111);
+  font-size: 18px;
+  transition: opacity 0.2s ease;
+  line-height: 1;
+}
+.collection-list .cl-nav-btn:hover { opacity: 0.5; }
+.collection-list .cl-nav-btn.swiper-button-disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
 }
 
-/* ── Grid ── */
-.collection-list .cl-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 16px;
+/* ── Swiper outer — no padding so slides go edge to edge ── */
+.collection-list .cl-slider-outer {
+  width: 100%;
+  overflow: hidden;
 }
-/* Each card spans 2 of the 6 virtual columns → 3 per row */
-.collection-list .cl-item {
-  grid-column: span 2;
-}
-/* 5 items: bottom 2 cards fill full width 50/50 */
-.collection-list .cl-item:nth-child(3n+1):nth-last-child(2),
-.collection-list .cl-item:nth-child(3n+2):last-child {
-  grid-column: span 3;
+.collection-list .cl-swiper {
+  width: 100%;
+  overflow: visible;
 }
 
-/* ── Card ── */
+/* ── Each slide / card ── */
 .collection-list .cl-item {
   display: block;
+  height: auto;
 }
 .collection-list .cl-card {
   display: block;
   position: relative;
   overflow: hidden;
-  border-radius: var(--sti-border-radius, 6px);
   isolation: isolate;
   text-decoration: none;
 }
 
-/* Image */
+/* Image — portrait 2:3 */
 .collection-list .cl-img {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 2 / 3;
   overflow: hidden;
+  background: #f0ede8;
 }
 .collection-list .cl-img img,
 .collection-list .cl-img .placeholder-svg {
@@ -97,11 +132,10 @@
   object-fit: cover;
   object-position: center top;
   display: block;
-  transform: scale(1);
   transition: transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .collection-list .cl-card:hover .cl-img img {
-  transform: scale(1.08);
+  transform: scale(1.07);
 }
 
 /* Gradient overlay */
@@ -110,22 +144,22 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.68) 0%,
-    rgba(0, 0, 0, 0.22) 38%,
-    transparent 62%
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.18) 40%,
+    transparent 65%
   );
   display: flex;
   align-items: flex-end;
-  padding: 28px 20px;
+  padding: 24px 18px;
   transition: background 0.4s ease;
   pointer-events: none;
 }
 .collection-list .cl-card:hover .cl-overlay {
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.78) 0%,
-    rgba(0, 0, 0, 0.3) 42%,
-    transparent 66%
+    rgba(0, 0, 0, 0.82) 0%,
+    rgba(0, 0, 0, 0.28) 45%,
+    transparent 68%
   );
 }
 
@@ -134,54 +168,50 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 10px;
   pointer-events: none;
 }
 .collection-list .cl-title {
   font-family: var(--font-heading-family, 'Cormorant Garamond', Georgia, serif);
-  font-size: clamp(16px, 1.4vw, 22px);
+  font-size: clamp(14px, 1.2vw, 20px);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #ffffff;
   margin: 0;
   line-height: 1.2;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 .collection-list .cl-desc {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.8);
-  margin: -6px 0 0;
-  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+  margin: -4px 0 0;
+  line-height: 1.4;
 }
 
 /* Shop pill — revealed on hover */
 .collection-list .cl-shop-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #ffffff;
-  border: 1.5px solid rgba(255, 255, 255, 0.75);
-  padding: 7px 18px;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  padding: 6px 16px;
   border-radius: 100px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.10);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+  transform: translateY(8px);
+  transition: opacity 0.28s ease, transform 0.28s ease;
   pointer-events: auto;
 }
 .collection-list .cl-card:hover .cl-shop-btn {
   opacity: 1;
   transform: translateY(0);
-}
-.collection-list .cl-shop-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
 }
 
 /* ── Responsive ── */
@@ -190,82 +220,35 @@
     padding-top: var(--padding-top-ipad, 60px);
     padding-bottom: var(--padding-bottom-ipad, 60px);
   }
-  .collection-list .cl-grid {
-    gap: 14px;
+  .collection-list .cl-header-row {
+    padding: 0 24px 24px;
   }
 }
-/* Tablet: keep 6-col virtual grid → 3 per row still works */
-@media (max-width: 991px) {
-  .collection-list .cl-grid {
-    gap: 12px;
-  }
-  .collection-list .cl-overlay {
-    padding: 22px 16px;
-  }
-}
-/* Mobile: switch to 2-col grid, reset virtual columns */
 @media (max-width: 767px) {
   .collection-list {
     padding-top: var(--padding-top-xs, 40px);
     padding-bottom: var(--padding-bottom-xs, 40px);
   }
-  .collection-list .cl-header {
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    padding-left: 12px;
-    padding-right: 12px;
+  .collection-list .cl-header-row {
+    padding: 0 16px 20px;
+    align-items: center;
   }
-  .collection-list .cl-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 0 12px;
-  }
-  /* Reset virtual column placement for mobile */
-  .collection-list .cl-item,
-  .collection-list .cl-item:nth-child(3n+1):nth-last-child(2),
-  .collection-list .cl-item:nth-child(3n+2):last-child {
-    grid-column: span 1;
-  }
-  /* Center the lone last card (5th item on 2-col grid) */
-  .collection-list .cl-item:nth-child(2n+1):last-child {
-    grid-column: 1 / -1;
-    max-width: calc(50% - 5px);
-    margin: 0 auto;
-  }
-  /* Always show shop button on touch devices */
   .collection-list .cl-shop-btn {
     opacity: 1;
     transform: translateY(0);
-    font-size: 9px;
-    padding: 6px 12px;
   }
   .collection-list .cl-overlay {
     padding: 16px 14px;
   }
   .collection-list .cl-title {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 @media (max-width: 479px) {
-  .collection-list .cl-grid {
-    gap: 8px;
-    padding: 0 8px;
+  .collection-list .cl-header-row {
+    padding: 0 12px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
   }
-  .collection-list .cl-header {
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-  .collection-list .cl-overlay {
-    padding: 14px 12px;
-  }
-  .collection-list .cl-title {
-    font-size: 12px;
-  }
-  .collection-list .cl-shop-btn {
-    padding: 5px 10px;
-    font-size: 9px;
-  }
-  .collection-list .cl-item:nth-child(2n+1):last-child {
-    max-width: calc(50% - 4px);
-  }
+  .collection-list .cl-view-all { display: none; }
 }
