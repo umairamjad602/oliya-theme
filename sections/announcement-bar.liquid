@@ -35,11 +35,12 @@
       {%- if section.settings.service_desc3 != blank -%}
         <a href="{{ section.settings.icon_url3 }}" class="top-bar-link">
           {%- if section.settings.text_icon3 != blank -%}
-            <span class="top-bar-icon">{{ section.settings.text_icon3 }}</span>
+            <span class="top-bar-icon">
+              {{ section.settings.text_icon3 }}
+            </span>
           {%- endif -%}
-
           <span>
-            {{- section.settings.service_desc3 -}}
+            {{ section.settings.service_desc3 }}
           </span>
         </a>
       {%- endif -%}
@@ -86,6 +87,7 @@
       "label": "Text color",
       "default": "#ffffff"
     },
+
     {
       "type": "header",
       "content": "Left side"
@@ -94,7 +96,7 @@
       "type": "textarea",
       "id": "text_icon1",
       "label": "Icon (HTML)",
-      "info": "https://feathericons.com"
+      "info": "https://remixicon.com"
     },
     {
       "type": "url",
@@ -107,15 +109,16 @@
       "label": "Text",
       "default": "Summer Escape"
     },
+
     {
       "type": "header",
-      "content": "Right side"
+      "content": "Middle section"
     },
     {
       "type": "textarea",
       "id": "text_icon2",
       "label": "Icon (HTML)",
-      "info": "https://feathericons.com"
+      "info": "https://remixicon.com"
     },
     {
       "type": "url",
@@ -125,8 +128,8 @@
     {
       "type": "text",
       "id": "service_desc2",
-      "label": "Text (prefix)",
-      "default": "FREE SHIPPING "
+      "label": "Text",
+      "default": "FREE SHIPPING"
     },
     {
       "type": "text",
@@ -134,8 +137,31 @@
       "label": "Shipping threshold amount",
       "info": "Currency symbol is added automatically. E.g. enter 99.00+ to show $99.00+",
       "default": "99.00+"
+    },
+
+    {
+      "type": "header",
+      "content": "Right side"
+    },
+    {
+      "type": "textarea",
+      "id": "text_icon3",
+      "label": "Icon (HTML)",
+      "info": "https://remixicon.com"
+    },
+    {
+      "type": "url",
+      "id": "icon_url3",
+      "label": "Link URL"
+    },
+    {
+      "type": "text",
+      "id": "service_desc3",
+      "label": "Text",
+      "default": "SPECIAL GIFT WITH EVERY PURCHASE"
     }
   ],
+
   "presets": [
     {
       "name": "Announcement bar"
