@@ -1,30 +1,37 @@
-{%- assign cover_image = section.settings.custom_image | default: collection.image -%}
+{%- comment -%}
+  Priority: 1) collection metafield (custom.cover_image) — set per-collection in Shopify Admin
+             2) collection.image — the main image on the collection in Shopify Admin
+             3) placeholder SVG
+{%- endcomment -%}
+
+{%- assign meta_cover = collection.metafields.custom.cover_image.value -%}
 {%- assign banner_title = section.settings.custom_title | default: collection.title -%}
 {%- assign banner_desc  = section.settings.custom_description | default: collection.description -%}
 
 <section
   class="collection-banner-section"
-  style="--cb-height: {{ section.settings.banner_height }}px; --cb-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --cb-align: {{ section.settings.text_align }};"
+  style="--cb-height: {{ section.settings.banner_height }}px; --cb-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
 >
   <div class="cb-wrap">
-    {%- if cover_image != blank -%}
+
+    {%- if meta_cover != blank -%}
       {{
-        cover_image
+        meta_cover
         | image_url: width: 1920
         | image_tag:
           loading: 'eager',
           class: 'cb-img',
-          alt: cover_image.alt | default: banner_title
+          alt: meta_cover.alt | default: banner_title
       }}
-    {%- elsif section.settings.external_image_url != blank -%}
-      <img
-        src="{{ section.settings.external_image_url }}"
-        class="cb-img"
-        loading="eager"
-        alt="{{ banner_title }}"
-        width="1920"
-        height="{{ section.settings.banner_height }}"
-      >
+    {%- elsif collection.image != blank -%}
+      {{
+        collection.image
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'eager',
+          class: 'cb-img',
+          alt: collection.image.alt | default: banner_title
+      }}
     {%- else -%}
       {{ 'hero-apparel-1' | placeholder_svg_tag: 'cb-placeholder' }}
     {%- endif -%}
@@ -32,7 +39,7 @@
     <div class="cb-overlay"></div>
 
     <div class="container cb-inner">
-      <div class="cb-text">
+      <div class="cb-text cb-align-{{ section.settings.text_align }}">
         {%- if banner_title != blank -%}
           <h1 class="cb-title">{{ banner_title }}</h1>
         {%- endif -%}
@@ -44,6 +51,7 @@
         {%- endif -%}
       </div>
     </div>
+
   </div>
 </section>
 
@@ -53,23 +61,11 @@
   "settings": [
     {
       "type": "header",
-      "content": "Custom image override"
+      "content": "Cover image"
     },
     {
       "type": "paragraph",
-      "content": "Leave blank to use the collection's own image (set in Shopify Admin → Products → Collections). Upload here to override with a custom image for this template."
-    },
-    {
-      "type": "image_picker",
-      "id": "custom_image",
-      "label": "Custom cover image",
-      "info": "Recommended: 1920×600px"
-    },
-    {
-      "type": "text",
-      "id": "external_image_url",
-      "label": "Or paste an external image URL",
-      "info": "Used only when no image is uploaded above and no collection image exists."
+      "content": "Upload a cover image per-collection: go to Shopify Admin → Settings → Custom data → Collections → Add definition. Set Namespace = custom, Key = cover_image, Type = File (image). Then open any collection and upload its cover image in the Metafields section at the bottom of the page."
     },
     {
       "type": "header",
@@ -166,7 +162,6 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 .collection-banner-section .cb-overlay {
   position: absolute;
@@ -180,12 +175,18 @@
   width: 100%;
 }
 .collection-banner-section .cb-text {
-  text-align: var(--cb-align, center);
   max-width: 700px;
 }
-.collection-banner-section .cb-text[style*="center"],
-.collection-banner-section[style*="center"] .cb-text {
+.collection-banner-section .cb-align-center {
+  text-align: center;
   margin: 0 auto;
+}
+.collection-banner-section .cb-align-left {
+  text-align: left;
+}
+.collection-banner-section .cb-align-right {
+  text-align: right;
+  margin-left: auto;
 }
 .collection-banner-section .cb-title {
   font-family: var(--font-heading-family, 'Cormorant Garamond', Georgia, serif);
@@ -202,7 +203,6 @@
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.88);
   margin: 0 0 10px;
-  max-width: 520px;
 }
 .collection-banner-section .cb-count {
   font-size: 11px;
@@ -211,12 +211,6 @@
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.65);
   margin: 10px 0 0;
-}
-
-/* Center align helpers */
-.collection-banner-section .cb-text {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 @media (max-width: 991px) {
