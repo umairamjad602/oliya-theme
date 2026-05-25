@@ -1,10 +1,4 @@
-{%- comment -%}
-  Priority: 1) collection metafield (custom.cover_image) — set per-collection in Shopify Admin
-             2) collection.image — the main image on the collection in Shopify Admin
-             3) placeholder SVG
-{%- endcomment -%}
-
-{%- assign meta_cover = collection.metafields.custom.cover_image.value -%}
+{%- assign meta_mf      = collection.metafields.custom.custom_cover_image -%}
 {%- assign banner_title = section.settings.custom_title | default: collection.title -%}
 {%- assign banner_desc  = section.settings.custom_description | default: collection.description -%}
 
@@ -14,24 +8,10 @@
 >
   <div class="cb-wrap">
 
-    {%- if meta_cover != blank -%}
-      {{
-        meta_cover
-        | image_url: width: 1920
-        | image_tag:
-          loading: 'eager',
-          class: 'cb-img',
-          alt: meta_cover.alt | default: banner_title
-      }}
-    {%- elsif collection.image != blank -%}
-      {{
-        collection.image
-        | image_url: width: 1920
-        | image_tag:
-          loading: 'eager',
-          class: 'cb-img',
-          alt: collection.image.alt | default: banner_title
-      }}
+    {%- if meta_mf.value -%}
+      <div class="cb-img-wrap">
+        {{ meta_mf | metafield_tag }}
+      </div>
     {%- else -%}
       {{ 'hero-apparel-1' | placeholder_svg_tag: 'cb-placeholder' }}
     {%- endif -%}
@@ -147,6 +127,20 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+}
+.collection-banner-section .cb-img-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.collection-banner-section .cb-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 .collection-banner-section .cb-img {
   position: absolute;
