@@ -1,7 +1,13 @@
 {%- liquid
   assign bc_height = settings.breadcrumb_height | default: 300
 
-  # Pick the image URL based on current template/page
+  # Check for per-page custom cover image metafield
+  assign page_meta_mf = nil
+  if template.name == 'page'
+    assign page_meta_mf = page.metafields.custom.cover_image
+  endif
+
+  # Pick the fallback image URL based on current template/page
   assign bc_img = settings.breadcrumb_img_default
 
   if template contains 'collection'
@@ -49,10 +55,17 @@
     --bc-overlay-opacity: {{ settings.breadcrumb_bgimg_overlay_color_opacity | default: 0.5 }};
     --bc-title-color: {{ settings.breadcrumb_main_title_color | default: '#ffffff' }};
     --bc-link-color: {{ settings.breadcrumb_title_color | default: '#ffffff' }};
-    {% unless show_image %}background-color: {{ settings.breadcrumb_bgcolor | default: '#1a1a1a' }};{% endunless %}
+    {% unless page_meta_mf.value or show_image %}background-color: {{ settings.breadcrumb_bgcolor | default: '#1a1a1a' }};{% endunless %}
   "
 >
-  {%- if show_image -%}
+  {%- if page_meta_mf.value -%}
+    <div class="bc-img-wrap">
+      {{ page_meta_mf | metafield_tag }}
+      {%- if settings.breadcrumb_bgimg_overlay_color_enable -%}
+        <div class="bc-overlay"></div>
+      {%- endif -%}
+    </div>
+  {%- elsif show_image -%}
     <div class="bc-img-wrap">
       <img
         src="{{ bc_img }}"
@@ -102,8 +115,10 @@
   inset: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
-.breadcrumb-area .bc-bg-img {
+.breadcrumb-area .bc-bg-img,
+.breadcrumb-area .bc-img-wrap img {
   display: block;
   width: 100%;
   height: 100%;

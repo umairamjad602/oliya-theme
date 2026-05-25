@@ -1,4 +1,7 @@
 {{ 'about-us-banner.css' | asset_url | stylesheet_tag }}
+
+{%- assign page_cover_mf = page.metafields.custom.cover_image -%}
+
 <section
   class="about-section1"
   style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px; --background-color: {{ section.settings.section_background_color }};"
@@ -23,7 +26,9 @@
           style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px;"
         >
           <a href="{{ section.settings.banner_url }}" class="banner-hover">
-            {%- if section.settings.about_company_img != blank -%}
+            {%- if page_cover_mf.value -%}
+              <div class="about-meta-img">{{ page_cover_mf | metafield_tag }}</div>
+            {%- elsif section.settings.about_company_img != blank -%}
               {% assign image_height = section.settings.about_company_img.width
                 | divided_by: section.settings.about_company_img.aspect_ratio
               %}
@@ -45,6 +50,15 @@
     </div>
   </div>
 </section>
+
+<style>
+.about-meta-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--sti-border-radius, 0);
+}
+</style>
 {% schema %}
 {
   "name": "About us banner",

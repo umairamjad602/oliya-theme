@@ -1,4 +1,5 @@
 {{ 'contact-banner-details.css' | asset_url | stylesheet_tag }}
+{%- assign page_cover_mf = page.metafields.custom.cover_image -%}
 <section
   class="contact-details"
   style="--padding-top: {{ section.settings.section_padding_top }}px; --padding-bottom: {{ section.settings.section_padding_bottom }}px; --padding-top-ipad: {{ section.settings.section_padding_top_ipad }}px; --padding-bottom-ipad: {{ section.settings.section_padding_bottom_ipad }}px; --padding-top-xs: {{ section.settings.section_padding_top_xs }}px; --padding-bottom-xs: {{ section.settings.section_padding_bottom_xs }}px;"
@@ -7,7 +8,9 @@
     <div class="contact-content">
       <div class="contact-detail image-warp">
         <a href="{{ section.settings.contact_img_url }}" class="contact-img-wrap banner-hover">
-          {%- if section.settings.contact_img != blank -%}
+          {%- if page_cover_mf.value -%}
+            <div class="contact-meta-img">{{ page_cover_mf | metafield_tag }}</div>
+          {%- elsif section.settings.contact_img != blank -%}
             {{
               section.settings.contact_img
               | image_url: width: 1024
@@ -24,6 +27,9 @@
             {{ placeholder | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
           {%- endif -%}
         </a>
+        <style>
+          .contact-meta-img img { width: 100%; height: auto; display: block; }
+        </style>
       </div>
       <div class="contact-detail get-info">
         <div class="store-info">
