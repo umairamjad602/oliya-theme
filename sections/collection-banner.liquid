@@ -1,0 +1,233 @@
+{%- assign cover_image = section.settings.custom_image | default: collection.image -%}
+{%- assign banner_title = section.settings.custom_title | default: collection.title -%}
+{%- assign banner_desc  = section.settings.custom_description | default: collection.description -%}
+
+<section
+  class="collection-banner-section"
+  style="--cb-height: {{ section.settings.banner_height }}px; --cb-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --cb-align: {{ section.settings.text_align }};"
+>
+  <div class="cb-wrap">
+    {%- if cover_image != blank -%}
+      {{
+        cover_image
+        | image_url: width: 1920
+        | image_tag:
+          loading: 'eager',
+          class: 'cb-img',
+          alt: cover_image.alt | default: banner_title
+      }}
+    {%- elsif section.settings.external_image_url != blank -%}
+      <img
+        src="{{ section.settings.external_image_url }}"
+        class="cb-img"
+        loading="eager"
+        alt="{{ banner_title }}"
+        width="1920"
+        height="{{ section.settings.banner_height }}"
+      >
+    {%- else -%}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'cb-placeholder' }}
+    {%- endif -%}
+
+    <div class="cb-overlay"></div>
+
+    <div class="container cb-inner">
+      <div class="cb-text">
+        {%- if banner_title != blank -%}
+          <h1 class="cb-title">{{ banner_title }}</h1>
+        {%- endif -%}
+        {%- if section.settings.show_description and banner_desc != blank -%}
+          <p class="cb-desc">{{ banner_desc | strip_html }}</p>
+        {%- endif -%}
+        {%- if section.settings.show_product_count -%}
+          <p class="cb-count">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Custom image override"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave blank to use the collection's own image (set in Shopify Admin → Products → Collections). Upload here to override with a custom image for this template."
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image",
+      "label": "Custom cover image",
+      "info": "Recommended: 1920×600px"
+    },
+    {
+      "type": "text",
+      "id": "external_image_url",
+      "label": "Or paste an external image URL",
+      "info": "Used only when no image is uploaded above and no collection image exists."
+    },
+    {
+      "type": "header",
+      "content": "Text overrides"
+    },
+    {
+      "type": "paragraph",
+      "content": "Leave blank to auto-use the collection title and description."
+    },
+    {
+      "type": "text",
+      "id": "custom_title",
+      "label": "Custom title"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_description",
+      "label": "Custom description"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_count",
+      "label": "Show product count",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "banner_height",
+      "label": "Banner height",
+      "min": 200,
+      "max": 700,
+      "step": 20,
+      "unit": "px",
+      "default": 460
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay darkness",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        { "label": "Left",   "value": "left"   },
+        { "label": "Center", "value": "center" },
+        { "label": "Right",  "value": "right"  }
+      ],
+      "default": "center"
+    }
+  ],
+  "presets": [
+    { "name": "Collection Banner" }
+  ]
+}
+{% endschema %}
+
+<style>
+.collection-banner-section .cb-wrap {
+  position: relative;
+  width: 100%;
+  height: var(--cb-height, 460px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.collection-banner-section .cb-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.collection-banner-section .cb-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.collection-banner-section .cb-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--cb-overlay, 0.4));
+  pointer-events: none;
+}
+.collection-banner-section .cb-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.collection-banner-section .cb-text {
+  text-align: var(--cb-align, center);
+  max-width: 700px;
+}
+.collection-banner-section .cb-text[style*="center"],
+.collection-banner-section[style*="center"] .cb-text {
+  margin: 0 auto;
+}
+.collection-banner-section .cb-title {
+  font-family: var(--font-heading-family, 'Cormorant Garamond', Georgia, serif);
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  margin: 0 0 14px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+.collection-banner-section .cb-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 10px;
+  max-width: 520px;
+}
+.collection-banner-section .cb-count {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 10px 0 0;
+}
+
+/* Center align helpers */
+.collection-banner-section .cb-text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 991px) {
+  .collection-banner-section .cb-title { font-size: clamp(26px, 4vw, 44px); }
+}
+@media (max-width: 767px) {
+  .collection-banner-section .cb-title { font-size: 28px; margin-bottom: 10px; }
+  .collection-banner-section .cb-desc  { font-size: 14px; }
+}
+@media (max-width: 479px) {
+  .collection-banner-section .cb-title { font-size: 22px; }
+  .collection-banner-section .cb-desc  { font-size: 13px; }
+}
+</style>
