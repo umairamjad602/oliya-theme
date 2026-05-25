@@ -1,0 +1,40 @@
+{
+  "sections": {
+    "product-template": {
+      "type": "product-template",
+      "blocks": {
+        "product_full_panel": {
+          "type": "product_full_panel",
+          "settings": {
+            "free_shipping_text": "Free Standard Shipping Over $99.00",
+            "shipping_time_text": "Shipping Time: 6 to 11 days",
+            "return_policy_text": "Returns accepted within 30 days of delivery date.",
+            "care_instructions": "Machine wash cold with like colors. Do not bleach. Tumble dry low.",
+            "size_guide_enable": true,
+            "size_guide_text": "SIZE GUIDE",
+            "size_guide_url": "",
+            "more_sizing_text": "More Sizing Options",
+            "size_chart_options": "Standard Size, US Size, UK Size, EU Size"
+          }
+        }
+      },
+      "block_order": ["product_full_panel"],
+      "settings": {
+        "container": "normal",
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "section_padding_top_xs": 0,
+        "section_padding_bottom_xs": 0,
+        "breadcrumb_enable": false,
+        "product_pos": "left",
+        "product_pos_sticky_enable": false,
+        "product_img_pos": "left",
+        "zoom_enable": false,
+        "lightbox_enable": false,
+        "image_ratio": "adapt",
+        "sticky_atc_enable": false
+      }
+    }
+  },
+  "order": ["product-template"]
+}

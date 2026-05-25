@@ -122,6 +122,7 @@
     "pro_hover_enable": true,
     "show_rating": true,
     "pro_gr_option_enable": false,
+    "show_swatch_color_name": false,
     "show_vendor": true,
     "label_font_size": 13,
     "label_top_pos": 15,

@@ -78,7 +78,7 @@
     {%- assign product_form_id = 'quick-add-' | append: section.id | append: product.id -%}
     <div class="card-image-footer">
       {%- if color_count > 1 -%}
-        <div class="card-inline-swatches">
+        <div class="card-inline-swatches{% if settings.show_swatch_color_name %} swatches-with-names{% endif %}">
           {%- for option in product.options_with_values -%}
             {%- liquid
               assign downcase_option = option.name | downcase
@@ -98,29 +98,162 @@
                     endif
                   endfor
 
-                  assign val_lower = value | downcase | strip
-                  assign swatch_style = 'background-color:' | append: val_lower
+                  assign val_parts = value | split: ':'
+                  assign display_name = val_parts.first | strip
+                  assign val_lower = display_name | downcase | strip
+                  assign swatch_bg = ''
+                  assign swatch_is_solid = false
 
+                  if val_parts.size > 1
+                    assign inline_color = val_parts.last | strip
+                    if inline_color contains '#' or inline_color contains 'rgb'
+                      assign swatch_bg = inline_color
+                      assign swatch_is_solid = true
+                    endif
+                  endif
+
+                  if swatch_bg == ''
                   for cfg_item in swatch_config
                     assign cfg_parts = cfg_item | split: ':'
                     assign cfg_name  = cfg_parts.first | downcase | strip
                     assign cfg_val   = cfg_parts.last | strip
                     if val_lower == cfg_name
                       if cfg_val contains '#' or cfg_val contains 'rgb'
-                        assign swatch_style = 'background-color:' | append: cfg_val
+                        assign swatch_bg = cfg_val
+                        assign swatch_is_solid = true
                       elsif cfg_val != blank
                         assign cfg_img = images[cfg_val] | image_url: width: 30
-                        assign swatch_style = 'background-image:url(' | append: cfg_img | append: ')'
+                        assign swatch_bg = 'url(' | append: cfg_img | append: ') center/cover'
                       endif
                       break
                     endif
                   endfor
 
-                  if value.swatch.color
-                    assign swatch_style = 'background-color:rgb(' | append: value.swatch.color.rgb | append: ')'
-                  elsif value.swatch.image
+                  if value.swatch.image
                     assign sw_img = value.swatch.image | image_url: width: 30
-                    assign swatch_style = 'background-image:url(' | append: sw_img | append: ')'
+                    assign swatch_bg = 'url(' | append: sw_img | append: ') center/cover'
+                    assign swatch_is_solid = false
+                  elsif value.swatch.color
+                    assign swatch_bg = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+                    assign swatch_is_solid = true
+                  endif
+
+                  if swatch_bg == ''
+                    assign value_key = val_lower | replace: ' ', '-'
+                    case value_key
+                      when 'black', 'jet-black', 'jet', 'off-black', 'onyx'
+                        assign swatch_bg = '#111111'
+                        assign swatch_is_solid = true
+                      when 'white', 'off-white', 'ivory', 'cream', 'snow'
+                        assign swatch_bg = '#FFFFFF'
+                        assign swatch_is_solid = true
+                      when 'red', 'bright-red', 'cherry-red', 'scarlet', 'cherry', 'tomato'
+                        assign swatch_bg = '#D32F2F'
+                        assign swatch_is_solid = true
+                      when 'dark-red', 'wine', 'maroon', 'burgundy', 'oxblood'
+                        assign swatch_bg = '#7B1A1A'
+                        assign swatch_is_solid = true
+                      when 'pink', 'hot-pink', 'fuchsia', 'magenta'
+                        assign swatch_bg = '#E91E8C'
+                        assign swatch_is_solid = true
+                      when 'light-pink', 'baby-pink', 'powder-pink', 'pastel-pink', 'soft-pink'
+                        assign swatch_bg = '#FFCDD2'
+                        assign swatch_is_solid = true
+                      when 'blush', 'blush-pink', 'blush-rose'
+                        assign swatch_bg = '#F4B8C1'
+                        assign swatch_is_solid = true
+                      when 'rose', 'dusty-rose', 'vintage-rose'
+                        assign swatch_bg = '#C48B9F'
+                        assign swatch_is_solid = true
+                      when 'mauve', 'dusty-mauve', 'dusty-pink'
+                        assign swatch_bg = '#B5737B'
+                        assign swatch_is_solid = true
+                      when 'coral', 'peach-coral'
+                        assign swatch_bg = '#FF6B6B'
+                        assign swatch_is_solid = true
+                      when 'peach', 'apricot'
+                        assign swatch_bg = '#FFCC99'
+                        assign swatch_is_solid = true
+                      when 'salmon'
+                        assign swatch_bg = '#FA8072'
+                        assign swatch_is_solid = true
+                      when 'orange', 'tangerine', 'burnt-orange', 'amber'
+                        assign swatch_bg = '#F57C00'
+                        assign swatch_is_solid = true
+                      when 'yellow', 'lemon', 'bright-yellow', 'sunshine'
+                        assign swatch_bg = '#FDD835'
+                        assign swatch_is_solid = true
+                      when 'gold', 'mustard', 'mustard-yellow', 'golden', 'honey'
+                        assign swatch_bg = '#F9A825'
+                        assign swatch_is_solid = true
+                      when 'green', 'forest-green', 'dark-green', 'bottle-green'
+                        assign swatch_bg = '#2E7D32'
+                        assign swatch_is_solid = true
+                      when 'light-green', 'lime', 'lime-green', 'apple-green'
+                        assign swatch_bg = '#8BC34A'
+                        assign swatch_is_solid = true
+                      when 'mint', 'mint-green', 'spearmint'
+                        assign swatch_bg = '#A5D6A7'
+                        assign swatch_is_solid = true
+                      when 'sage', 'sage-green', 'eucalyptus'
+                        assign swatch_bg = '#87A878'
+                        assign swatch_is_solid = true
+                      when 'olive', 'army-green', 'military-green', 'khaki-green'
+                        assign swatch_bg = '#6D6928'
+                        assign swatch_is_solid = true
+                      when 'teal', 'dark-teal'
+                        assign swatch_bg = '#00796B'
+                        assign swatch_is_solid = true
+                      when 'emerald', 'emerald-green'
+                        assign swatch_bg = '#00695C'
+                        assign swatch_is_solid = true
+                      when 'blue', 'royal-blue', 'cobalt', 'bright-blue'
+                        assign swatch_bg = '#1976D2'
+                        assign swatch_is_solid = true
+                      when 'light-blue', 'sky-blue', 'baby-blue', 'powder-blue', 'pale-blue'
+                        assign swatch_bg = '#90CAF9'
+                        assign swatch_is_solid = true
+                      when 'navy', 'navy-blue', 'dark-navy', 'midnight-blue', 'midnight', 'midnight-navy'
+                        assign swatch_bg = '#0D1B3E'
+                        assign swatch_is_solid = true
+                      when 'denim', 'chambray', 'steel-blue'
+                        assign swatch_bg = '#5C7EA8'
+                        assign swatch_is_solid = true
+                      when 'turquoise', 'aqua', 'cyan', 'aqua-blue'
+                        assign swatch_bg = '#00BCD4'
+                        assign swatch_is_solid = true
+                      when 'purple', 'violet', 'plum', 'grape'
+                        assign swatch_bg = '#7B1FA2'
+                        assign swatch_is_solid = true
+                      when 'dark-purple', 'deep-purple', 'eggplant'
+                        assign swatch_bg = '#4A148C'
+                        assign swatch_is_solid = true
+                      when 'lavender', 'lilac', 'wisteria'
+                        assign swatch_bg = '#CE93D8'
+                        assign swatch_is_solid = true
+                      when 'gray', 'grey', 'charcoal', 'dark-gray', 'dark-grey', 'slate'
+                        assign swatch_bg = '#616161'
+                        assign swatch_is_solid = true
+                      when 'light-gray', 'light-grey', 'silver', 'ash', 'heather', 'stone'
+                        assign swatch_bg = '#BDBDBD'
+                        assign swatch_is_solid = true
+                      when 'brown', 'chocolate', 'coffee', 'mocha', 'espresso', 'cocoa'
+                        assign swatch_bg = '#5D4037'
+                        assign swatch_is_solid = true
+                      when 'tan', 'camel', 'sand', 'desert', 'latte'
+                        assign swatch_bg = '#C8A882'
+                        assign swatch_is_solid = true
+                      when 'beige', 'natural', 'nude', 'khaki', 'wheat'
+                        assign swatch_bg = '#D7CCC8'
+                        assign swatch_is_solid = true
+                      when 'leopard', 'animal', 'animal-print', 'cheetah'
+                        assign swatch_bg = 'repeating-linear-gradient(45deg,#C9A84C,#C9A84C 4px,#3B2A00 4px,#3B2A00 8px)'
+                      when 'stripe', 'stripes', 'striped'
+                        assign swatch_bg = 'repeating-linear-gradient(90deg,#444 0,#444 4px,#fff 4px,#fff 8px)'
+                      else
+                        assign swatch_bg = val_lower | replace: ' ', ''
+                    endcase
+                  endif
                   endif
                 -%}
                 <form-wrap class="variant-option item-color{% if forloop.first %} active-variant{% endif %}">
@@ -130,7 +263,10 @@
                        datacompare="{{ variant_for_value.compare_at_price }}"
                        dataavailable="{{ variant_for_value.available }}"
                        dataurl="{{ variant_for_value.url }}">
-                    <span class="inline-swatch" style="{{ swatch_style }};" title="{{ value }}"></span>
+                    <span class="inline-swatch" style="background: {{ swatch_bg }};"></span>
+                    {%- if settings.show_swatch_color_name -%}
+                      <span class="swatch-name-label"{% if swatch_is_solid %} style="color:{{ swatch_bg }}"{% endif %}>{{ display_name }}</span>
+                    {%- endif -%}
                   </div>
                 </form-wrap>
               {%- endfor -%}
@@ -145,7 +281,7 @@
         <a
           class="card-quickshop-btn quick-add-btn"
           data-product-url="{{ shop.url }}{{ product.url | split: '?' | first }}?view=main-product"
-        >QUICKSHOP</a>
+        >QUICK VIEW<div class="ajax-loader hidden"><span class="spinner-border"></span></div></a>
       </qv-modal>
     </div>
 

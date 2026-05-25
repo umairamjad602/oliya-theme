@@ -296,6 +296,12 @@
           var op_select = $(this).text();
           $(this).parents('.variant-option-block').find('.current-option').html(op_select);
         });
+        $(document).on('change', '.pd-inline-swatches input[type="radio"]', function() {
+          var $swatches = $(this).closest('.pd-inline-swatches');
+          $swatches.find('.pd-swatch-label').removeClass('active-swatch');
+          $(this).closest('.pd-swatch-label').addClass('active-swatch');
+          $(this).closest('.variant-option-block').find('.current-option').text($(this).val());
+        });
         if( $(".product-count-sale").length > 0 ){
           var id_product = $(".product-count-sale").data("id_product");
           var min = $(".product-count-sale").data("min") ? $(".product-count-sale").data("min") : 30;
@@ -663,7 +669,12 @@
         },
         {
           "type": "paragraph",
-          "content": "Choose a page OR paste custom HTML. If both are empty a default size chart table is shown."
+          "content": "Per-product image: go to each product in Admin → scroll to Metafields → add 'size_chart_image' (namespace: custom, type: File). That image shows first. The fallback image below applies to all products that have no product metafield set."
+        },
+        {
+          "type": "image_picker",
+          "id": "size_chart_image",
+          "label": "Fallback size chart image (all products)"
         },
         {
           "type": "page",

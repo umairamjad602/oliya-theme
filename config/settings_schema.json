@@ -1479,6 +1479,28 @@
       },
       {
         "type": "checkbox",
+        "id": "show_swatch_color_name",
+        "label": "Show color name on hover",
+        "default": false,
+        "info": "Hover over a swatch to reveal the color name. Name text is tinted in the swatch color for solid colors."
+      },
+      {
+        "type": "header",
+        "content": "Custom color codes"
+      },
+      {
+        "type": "paragraph",
+        "content": "Assign exact color codes to your product color option values. One entry per line. Format: ColorName:#HexCode — Example: FloralWhite:#FFFAF0"
+      },
+      {
+        "type": "textarea",
+        "id": "color_swatch_config",
+        "label": "Color name → color code mapping",
+        "info": "Each line: ColorName:#HexCode or ColorName:rgb(r,g,b). The name must match your product option value exactly (case-insensitive). Takes priority over automatic color detection.",
+        "default": "Black:#000000\nWhite:#ffffff\nNavy:#001f5b\nCream:#fffdd0\nBeige:#f5f5dc\nOlive:#808000\nGrey:#808080\nGray:#808080\nCharcoal:#36454f\nBurgundy:#800020\nMustard:#ffdb58"
+      },
+      {
+        "type": "checkbox",
         "id": "show_vendor",
         "label": "Show vendor",
         "default": false

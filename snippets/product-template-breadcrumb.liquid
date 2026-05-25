@@ -6,6 +6,15 @@
           <li class="breadcrumb-item">
             <a href="/" title="{{ 'general.breadcrumbs.home_link_title' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
           </li>
+          {%- if collection -%}
+            <li class="breadcrumb-item">
+              <a href="{{ collection.url }}">{{ collection.title }}</a>
+            </li>
+          {%- elsif product.collections.first -%}
+            <li class="breadcrumb-item">
+              <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+            </li>
+          {%- endif -%}
           <li class="breadcrumb-item">
             <span>{{ product.title }}</span>
           </li>
