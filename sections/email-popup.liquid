@@ -1,0 +1,429 @@
+{%- if section.settings.enable_popup -%}
+
+<div id="ep-overlay" class="ep-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ep-heading">
+  <div class="ep-modal{% if section.settings.popup_image == blank %} ep-modal--no-img{% endif %}">
+
+    <button type="button" class="ep-close" id="ep-close" aria-label="Close">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    {%- if section.settings.popup_image != blank -%}
+      <div class="ep-img-col">
+        {{
+          section.settings.popup_image
+          | image_url: width: 700
+          | image_tag:
+            loading: 'eager',
+            class: 'ep-img',
+            alt: section.settings.title,
+            widths: '400, 600, 700'
+        }}
+      </div>
+    {%- endif -%}
+
+    <div class="ep-form-col">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ep-eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      <h2 class="ep-title" id="ep-heading">{{ section.settings.title }}</h2>
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="ep-subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+
+      {%- form 'customer', id: 'EpNewsletterForm', class: 'ep-form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}
+          <div id="ep-form-success"></div>
+          <p class="ep-success">{{ section.settings.success_message }}</p>
+        {%- else -%}
+          <input
+            type="email"
+            name="contact[email]"
+            class="ep-input"
+            placeholder="{{ section.settings.email_placeholder }}"
+            autocomplete="email"
+            required
+          >
+          {%- if form.errors -%}
+            <p class="ep-error">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</p>
+          {%- endif -%}
+          <button type="submit" class="ep-btn">{{ section.settings.button_text }}</button>
+        {%- endif -%}
+      {%- endform -%}
+
+      {%- if section.settings.disclaimer != blank -%}
+        <p class="ep-disclaimer">{{ section.settings.disclaimer }}</p>
+      {%- endif -%}
+      {%- if section.settings.decline_text != blank -%}
+        <button type="button" class="ep-decline" id="ep-decline">{{ section.settings.decline_text }}</button>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+<style>
+.ep-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.58);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.ep-overlay.ep-visible {
+  opacity: 1;
+  visibility: visible;
+}
+.ep-modal {
+  position: relative;
+  display: flex;
+  background: #fff;
+  width: 100%;
+  max-width: 880px;
+  max-height: 92vh;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  transform: translateY(28px) scale(0.98);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ep-overlay.ep-visible .ep-modal {
+  transform: translateY(0) scale(1);
+}
+.ep-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: #555;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.ep-close:hover { color: #000; }
+
+/* Image column */
+.ep-img-col {
+  flex: 0 0 42%;
+  overflow: hidden;
+}
+.ep-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Form column */
+.ep-form-col {
+  flex: 1;
+  padding: 54px 48px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+.ep-modal--no-img .ep-form-col {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 64px 56px;
+}
+
+.ep-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8c7c58;
+  margin: 0 0 18px;
+}
+.ep-title {
+  font-family: var(--font-custom-stack-section-header, var(--font-stack-section-header, 'Cormorant Garamond', Georgia, serif));
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.12;
+  color: #1a1a1a;
+  margin: 0 0 18px;
+  letter-spacing: 0.01em;
+}
+.ep-subtitle {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #666;
+  margin: 0 0 30px;
+  font-style: italic;
+}
+.ep-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ep-input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #d4cbbe;
+  background: #faf8f5;
+  padding: 0 18px;
+  font-size: 14px;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+.ep-input:focus { border-color: #8c7c58; background: #fff; }
+.ep-input::placeholder { color: #bbb; }
+.ep-btn {
+  width: 100%;
+  height: 52px;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-radius: 0;
+}
+.ep-btn:hover { background: #383838; }
+.ep-error {
+  font-size: 12px;
+  color: #c0392b;
+  margin: 2px 0 0;
+}
+.ep-success {
+  font-size: 15px;
+  color: #4a7040;
+  font-weight: 500;
+  line-height: 1.6;
+  padding: 12px 0;
+  text-align: center;
+}
+.ep-disclaimer {
+  font-size: 11px;
+  color: #aaa;
+  margin: 16px 0 0;
+  line-height: 1.65;
+}
+.ep-decline {
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: #bbb;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 12px;
+  padding: 0;
+  transition: color 0.2s;
+}
+.ep-decline:hover { color: #666; }
+
+@media (max-width: 767px) {
+  .ep-img-col { display: none; }
+  .ep-form-col,
+  .ep-modal--no-img .ep-form-col { padding: 52px 28px 40px; max-width: 100%; text-align: left; }
+  .ep-title { font-size: 26px; }
+}
+@media (max-width: 479px) {
+  .ep-form-col,
+  .ep-modal--no-img .ep-form-col { padding: 44px 20px 36px; }
+  .ep-title { font-size: 22px; }
+}
+</style>
+
+<script>
+(function () {
+  var KEY = 'oliya_ep_shown';
+  var DELAY = {{ section.settings.delay_seconds | times: 1000 }};
+  var SCROLL = {{ section.settings.scroll_trigger }};
+  var inEditor = window.Shopify && window.Shopify.designMode;
+
+  var overlay, timer, triggered = false;
+
+  function show() {
+    if (!overlay) return;
+    overlay.classList.add('ep-visible');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hide(save) {
+    if (!overlay) return;
+    overlay.classList.remove('ep-visible');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (save) try { localStorage.setItem(KEY, '1'); } catch (e) {}
+  }
+
+  function trigger() {
+    if (triggered) return;
+    triggered = true;
+    clearTimeout(timer);
+    window.removeEventListener('scroll', onScroll);
+    show();
+  }
+
+  function onScroll() {
+    var doc = document.documentElement;
+    var total = doc.scrollHeight - doc.clientHeight;
+    if (total <= 0) return;
+    var pct = (window.scrollY / total) * 100;
+    if (pct >= SCROLL) trigger();
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    overlay = document.getElementById('ep-overlay');
+    if (!overlay) return;
+
+    var closeBtn = document.getElementById('ep-close');
+    var declineBtn = document.getElementById('ep-decline');
+    if (closeBtn) closeBtn.addEventListener('click', function () { hide(false); });
+    if (declineBtn) declineBtn.addEventListener('click', function () { hide(false); });
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(false); });
+
+    // Show immediately if form was just submitted successfully
+    if (document.getElementById('ep-form-success')) {
+      try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      show();
+      return;
+    }
+
+    // In editor: show quickly so merchant can configure
+    if (inEditor) {
+      timer = setTimeout(trigger, 1200);
+      return;
+    }
+
+    // Normal visitors: skip if already seen/dismissed
+    try { if (localStorage.getItem(KEY)) return; } catch (e) {}
+
+    // Time trigger
+    timer = setTimeout(trigger, DELAY);
+
+    // Scroll trigger
+    if (SCROLL > 0) {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+  });
+})();
+</script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Email Popup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_popup",
+      "label": "Enable popup",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Trigger"
+    },
+    {
+      "type": "range",
+      "id": "delay_seconds",
+      "label": "Show after (seconds)",
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "scroll_trigger",
+      "label": "Or after scroll depth (%)",
+      "info": "Shows when user scrolls this far down the page, whichever comes first. Set to 0 to use time only.",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "popup_image",
+      "label": "Side image",
+      "info": "Portrait ratio recommended, e.g. 600×800px. Leave blank for a centered layout."
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow (small text above title)",
+      "default": "NEW ARRIVALS · OLIVE STORIES"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "JOIN THE OLYIA CIRCLE"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Enjoy 10% off your first order, and join the OLYIA Circle for early access to new arrivals and stories from the olive grove."
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email field placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SUBSCRIBE & RECEIVE 10% OFF"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer (below button)",
+      "default": "No spam. Just thoughtful updates, a few times a season."
+    },
+    {
+      "type": "text",
+      "id": "decline_text",
+      "label": "Decline link text",
+      "default": "No thanks, I'll pay full price"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message (after subscribing)",
+      "default": "Welcome to the OLYIA Circle! Check your inbox for your 10% off code."
+    }
+  ],
+  "presets": [
+    { "name": "Email Popup" }
+  ]
+}
+{% endschema %}

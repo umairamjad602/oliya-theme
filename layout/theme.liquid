@@ -272,5 +272,6 @@
     {%- if settings.ajax_search_enabled -%}
       <script src="{{ 'search-ajax.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    {%- section 'email-popup' -%}
   </body>
 </html>
