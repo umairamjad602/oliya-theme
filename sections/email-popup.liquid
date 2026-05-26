@@ -22,21 +22,30 @@
     {%- endif -%}
 
     <div class="ep-form-col">
+      {%- assign ep_subscribed = false -%}
+
       {%- if section.settings.eyebrow != blank -%}
         <p class="ep-eyebrow">{{ section.settings.eyebrow }}</p>
       {%- endif -%}
-
       <h2 class="ep-title" id="ep-heading">{{ section.settings.title }}</h2>
-
       {%- if section.settings.subtitle != blank -%}
         <p class="ep-subtitle">{{ section.settings.subtitle }}</p>
       {%- endif -%}
 
       {%- form 'customer', id: 'EpNewsletterForm', class: 'ep-form' -%}
         <input type="hidden" name="contact[tags]" value="newsletter">
+
         {%- if form.posted_successfully? -%}
+          {%- assign ep_subscribed = true -%}
           <div id="ep-form-success"></div>
-          <p class="ep-success">{{ section.settings.success_message }}</p>
+          <div class="ep-success-wrap">
+            <span class="ep-success-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+            </span>
+            <p class="ep-success">{{ section.settings.success_message }}</p>
+            <p class="ep-success-note">{{ section.settings.success_note }}</p>
+          </div>
+
         {%- else -%}
           <input
             type="email"
@@ -53,12 +62,14 @@
         {%- endif -%}
       {%- endform -%}
 
-      {%- if section.settings.disclaimer != blank -%}
-        <p class="ep-disclaimer">{{ section.settings.disclaimer }}</p>
-      {%- endif -%}
-      {%- if section.settings.decline_text != blank -%}
-        <button type="button" class="ep-decline" id="ep-decline">{{ section.settings.decline_text }}</button>
-      {%- endif -%}
+      {%- unless ep_subscribed -%}
+        {%- if section.settings.disclaimer != blank -%}
+          <p class="ep-disclaimer">{{ section.settings.disclaimer }}</p>
+        {%- endif -%}
+        {%- if section.settings.decline_text != blank -%}
+          <button type="button" class="ep-decline" id="ep-decline">{{ section.settings.decline_text }}</button>
+        {%- endif -%}
+      {%- endunless -%}
     </div>
 
   </div>
@@ -111,8 +122,6 @@
   transition: color 0.2s;
 }
 .ep-close:hover { color: #000; }
-
-/* Image column */
 .ep-img-col {
   flex: 0 0 42%;
   overflow: hidden;
@@ -124,8 +133,6 @@
   object-position: center;
   display: block;
 }
-
-/* Form column */
 .ep-form-col {
   flex: 1;
   padding: 54px 48px 48px;
@@ -140,7 +147,6 @@
   text-align: center;
   padding: 64px 56px;
 }
-
 .ep-eyebrow {
   font-size: 10px;
   font-weight: 600;
@@ -206,13 +212,29 @@
   color: #c0392b;
   margin: 2px 0 0;
 }
-.ep-success {
-  font-size: 15px;
-  color: #4a7040;
-  font-weight: 500;
-  line-height: 1.6;
-  padding: 12px 0;
+.ep-success-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  padding: 20px 0 12px;
+  gap: 10px;
+}
+.ep-success-icon {
+  color: #4a7040;
+}
+.ep-success {
+  font-size: 17px;
+  color: #1a1a1a;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+}
+.ep-success-note {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.65;
+  margin: 0;
 }
 .ep-disclaimer {
   font-size: 11px;
@@ -232,11 +254,11 @@
   transition: color 0.2s;
 }
 .ep-decline:hover { color: #666; }
-
 @media (max-width: 767px) {
   .ep-img-col { display: none; }
   .ep-form-col,
   .ep-modal--no-img .ep-form-col { padding: 52px 28px 40px; max-width: 100%; text-align: left; }
+  .ep-success-wrap { align-items: flex-start; text-align: left; }
   .ep-title { font-size: 26px; }
 }
 @media (max-width: 479px) {
@@ -248,9 +270,10 @@
 
 <script>
 (function () {
-  var KEY = 'oliya_ep_shown';
-  var DELAY = {{ section.settings.delay_seconds | times: 1000 }};
-  var SCROLL = {{ section.settings.scroll_trigger }};
+  var KEY      = 'oliya_ep_shown';
+  var WEBHOOK  = {{ section.settings.email_webhook_url | json }};
+  var DELAY    = {{ section.settings.delay_seconds | times: 1000 }};
+  var SCROLL   = {{ section.settings.scroll_trigger }};
   var inEditor = window.Shopify && window.Shopify.designMode;
 
   var overlay, timer, triggered = false;
@@ -282,44 +305,67 @@
     var doc = document.documentElement;
     var total = doc.scrollHeight - doc.clientHeight;
     if (total <= 0) return;
-    var pct = (window.scrollY / total) * 100;
-    if (pct >= SCROLL) trigger();
+    if ((window.scrollY / total) * 100 >= SCROLL) trigger();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     overlay = document.getElementById('ep-overlay');
     if (!overlay) return;
 
-    var closeBtn = document.getElementById('ep-close');
+    /* ── close controls ── */
+    var closeBtn   = document.getElementById('ep-close');
     var declineBtn = document.getElementById('ep-decline');
-    if (closeBtn) closeBtn.addEventListener('click', function () { hide(false); });
+    if (closeBtn)   closeBtn.addEventListener('click',   function () { hide(false); });
     if (declineBtn) declineBtn.addEventListener('click', function () { hide(false); });
     overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(false); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(false); });
 
-    // Show immediately if form was just submitted successfully
+    /* ── capture email before form submits (survives page reload via sessionStorage) ── */
+    var epForm = document.getElementById('EpNewsletterForm');
+    if (epForm) {
+      epForm.addEventListener('submit', function () {
+        var emailEl = epForm.querySelector('[name="contact[email]"]');
+        if (emailEl) try { sessionStorage.setItem('ep_pending_email', emailEl.value.trim()); } catch (e) {}
+      });
+    }
+
+    /* ── handle post-subscription page reload ── */
     if (document.getElementById('ep-form-success')) {
+      /* retrieve captured email and fire webhook — promo code stays server-side only */
+      if (WEBHOOK) {
+        var pendingEmail = '';
+        try {
+          pendingEmail = sessionStorage.getItem('ep_pending_email') || '';
+          sessionStorage.removeItem('ep_pending_email');
+        } catch (e) {}
+
+        if (pendingEmail) {
+          /* no-cors + x-www-form-urlencoded = simple request, no preflight needed */
+          fetch(WEBHOOK, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'email=' + encodeURIComponent(pendingEmail)
+          }).catch(function () {});
+        }
+      }
+
       try { localStorage.setItem(KEY, '1'); } catch (e) {}
       show();
       return;
     }
 
-    // In editor: show quickly so merchant can configure
+    /* ── editor preview ── */
     if (inEditor) {
       timer = setTimeout(trigger, 1200);
       return;
     }
 
-    // Normal visitors: skip if already seen/dismissed
+    /* ── normal visitor: skip if already subscribed ── */
     try { if (localStorage.getItem(KEY)) return; } catch (e) {}
 
-    // Time trigger
     timer = setTimeout(trigger, DELAY);
-
-    // Scroll trigger
-    if (SCROLL > 0) {
-      window.addEventListener('scroll', onScroll, { passive: true });
-    }
+    if (SCROLL > 0) window.addEventListener('scroll', onScroll, { passive: true });
   });
 })();
 </script>
@@ -416,10 +462,41 @@
       "default": "No thanks, I'll pay full price"
     },
     {
+      "type": "header",
+      "content": "Success state"
+    },
+    {
       "type": "text",
       "id": "success_message",
-      "label": "Success message (after subscribing)",
-      "default": "Welcome to the OLYIA Circle! Check your inbox for your 10% off code."
+      "label": "Success heading",
+      "default": "Welcome to the OLYIA Circle!"
+    },
+    {
+      "type": "text",
+      "id": "success_note",
+      "label": "Success note",
+      "default": "Your exclusive 10% discount code is on its way to your inbox."
+    },
+    {
+      "type": "header",
+      "content": "Email & discount code"
+    },
+    {
+      "type": "paragraph",
+      "content": "The discount code is sent securely by your email server — it never appears in the page source. Paste your webhook URL below; the theme will POST the subscriber's email to it after a successful subscription. Your server reads that email, renders the template from assets/email-welcome-template.html, and sends it via SMTP."
+    },
+    {
+      "type": "text",
+      "id": "email_webhook_url",
+      "label": "Email webhook URL",
+      "info": "Your server endpoint that receives { email } and sends the welcome email. Leave blank until your server is ready."
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Discount code (server reference)",
+      "info": "Used in your email template / server only. Never rendered on the storefront. Create it in Shopify Admin → Discounts first.",
+      "default": "OLYIA10"
     }
   ],
   "presets": [

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Welcome to the OLYIA Circle</title>
+  <!--
+    OLYIA Welcome Email Template
+    ─────────────────────────────
+    Placeholders your server must replace before sending:
+      {{PROMO_CODE}}   – the discount code, e.g. OLYIA10
+      {{SHOP_URL}}     – your store URL, e.g. https://yourdomain.com
+      {{SHOP_NAME}}    – your store name, e.g. OLYIA
+      {{EMAIL}}        – subscriber's email address (for unsubscribe link)
+
+    Usage (Node.js / nodemailer example):
+      const html = fs.readFileSync('email-welcome-template.html', 'utf8')
+        .replace(/\{\{PROMO_CODE\}\}/g, 'OLYIA10')
+        .replace(/\{\{SHOP_URL\}\}/g,   'https://yourdomain.com')
+        .replace(/\{\{SHOP_NAME\}\}/g,  'OLYIA')
+        .replace(/\{\{EMAIL\}\}/g,       subscriberEmail);
+  -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#f0ece4;font-family:Georgia,serif;">
+
+<!-- ═══ Wrapper ═══ -->
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+       style="background-color:#f0ece4;">
+  <tr>
+    <td align="center" style="padding:40px 16px;">
+
+      <!-- ═══ Card ═══ -->
+      <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600"
+             style="max-width:600px;width:100%;background:#ffffff;">
+
+        <!-- ── Header ── -->
+        <tr>
+          <td align="center"
+              style="background-color:#1a1a1a;padding:36px 40px 32px;">
+            <p style="margin:0;font-family:'Cormorant Garamond',Georgia,serif;
+                      font-size:32px;font-weight:700;letter-spacing:0.18em;
+                      color:#f5f0e8;text-transform:uppercase;line-height:1;">
+              OLYIA
+            </p>
+            <p style="margin:8px 0 0;font-size:10px;font-weight:400;
+                      letter-spacing:0.3em;color:#a89878;text-transform:uppercase;">
+              FROM THE OLIVE GROVE
+            </p>
+          </td>
+        </tr>
+
+        <!-- ── Hero text ── -->
+        <tr>
+          <td align="center" style="padding:52px 48px 32px;border-bottom:1px solid #ece8e0;">
+            <p style="margin:0 0 6px;font-size:11px;font-weight:600;
+                      letter-spacing:0.22em;color:#8c7c58;text-transform:uppercase;">
+              A GIFT FOR YOU
+            </p>
+            <h1 style="margin:0 0 20px;font-family:'Cormorant Garamond',Georgia,serif;
+                       font-size:38px;font-weight:700;line-height:1.15;
+                       color:#1a1a1a;letter-spacing:0.02em;">
+              Welcome to<br>the OLYIA Circle
+            </h1>
+            <p style="margin:0;font-size:15px;line-height:1.8;color:#555555;
+                      font-style:italic;max-width:420px;">
+              Thank you for joining us. As a member of the OLYIA Circle
+              you'll receive early access to new arrivals, stories from the
+              olive grove, and — right now — 10% off your first order.
+            </p>
+          </td>
+        </tr>
+
+        <!-- ── Promo code block ── -->
+        <tr>
+          <td align="center" style="padding:40px 48px;">
+            <p style="margin:0 0 14px;font-size:11px;font-weight:600;
+                      letter-spacing:0.2em;color:#8c7c58;text-transform:uppercase;">
+              YOUR EXCLUSIVE DISCOUNT CODE
+            </p>
+
+            <!-- code box -->
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                   align="center"
+                   style="border:2px dashed #8c7c58;background:#faf8f4;">
+              <tr>
+                <td style="padding:18px 36px;">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;
+                             font-size:30px;font-weight:700;letter-spacing:0.22em;
+                             color:#1a1a1a;text-align:center;">
+                    {{PROMO_CODE}}
+                  </p>
+                </td>
+              </tr>
+            </table>
+
+            <p style="margin:16px 0 0;font-size:13px;color:#888888;line-height:1.6;">
+              Enter this code at checkout to receive <strong>10% off</strong> your first order.
+            </p>
+          </td>
+        </tr>
+
+        <!-- ── Divider ── -->
+        <tr>
+          <td style="padding:0 48px;">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tr><td style="border-top:1px solid #ece8e0;font-size:0;line-height:0;">&nbsp;</td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ── CTA ── -->
+        <tr>
+          <td align="center" style="padding:40px 48px 48px;">
+            <p style="margin:0 0 28px;font-size:14px;line-height:1.7;color:#555555;
+                      max-width:400px;">
+              Explore our new arrivals — each piece crafted with natural materials
+              and timeless design, inspired by the Mediterranean.
+            </p>
+            <a href="{{SHOP_URL}}/collections"
+               style="display:inline-block;background:#1a1a1a;color:#ffffff;
+                      font-size:11px;font-weight:700;letter-spacing:0.18em;
+                      text-transform:uppercase;text-decoration:none;
+                      padding:16px 40px;">
+              SHOP THE COLLECTION
+            </a>
+          </td>
+        </tr>
+
+        <!-- ── Brand bar ── -->
+        <tr>
+          <td align="center"
+              style="background:#f5f0e8;padding:28px 40px;border-top:1px solid #e4ddd2;">
+            <p style="margin:0 0 8px;font-family:'Cormorant Garamond',Georgia,serif;
+                      font-size:18px;font-weight:700;letter-spacing:0.14em;
+                      color:#1a1a1a;text-transform:uppercase;">
+              OLYIA
+            </p>
+            <p style="margin:0;font-size:11px;color:#aaa;letter-spacing:0.08em;">
+              Timeless style, naturally inspired.
+            </p>
+          </td>
+        </tr>
+
+        <!-- ── Footer ── -->
+        <tr>
+          <td align="center" style="padding:24px 40px 32px;background:#f0ece4;">
+            <p style="margin:0 0 8px;font-size:11px;color:#aaaaaa;line-height:1.7;">
+              You're receiving this because you signed up at
+              <a href="{{SHOP_URL}}" style="color:#8c7c58;text-decoration:none;">{{SHOP_NAME}}</a>.
+            </p>
+            <p style="margin:0;font-size:11px;color:#cccccc;">
+              <a href="{{SHOP_URL}}/pages/privacy-policy"
+                 style="color:#bbbbbb;text-decoration:underline;">Privacy Policy</a>
+              &nbsp;&middot;&nbsp;
+              <a href="{{SHOP_URL}}/pages/contact"
+                 style="color:#bbbbbb;text-decoration:underline;">Contact Us</a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+      <!-- /Card -->
+
+    </td>
+  </tr>
+</table>
+<!-- /Wrapper -->
+
+</body>
+</html>
