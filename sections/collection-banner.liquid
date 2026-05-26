@@ -1,10 +1,11 @@
 {%- assign meta_mf      = collection.metafields.custom.custom_cover_image -%}
 {%- assign banner_title = section.settings.custom_title | default: collection.title -%}
 {%- assign banner_desc  = section.settings.custom_description | default: collection.description -%}
+{%- assign img_pos      = collection.metafields.custom.cover_image_position.value | default: section.settings.image_position -%}
 
 <section
   class="collection-banner-section"
-  style="--cb-height: {{ section.settings.banner_height }}px; --cb-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+  style="--cb-height: {{ section.settings.banner_height }}px; --cb-overlay: {{ section.settings.overlay_opacity | divided_by: 100.0 }}; --cb-img-pos: {{ img_pos }};"
 >
   <div class="cb-wrap">
 
@@ -45,7 +46,11 @@
     },
     {
       "type": "paragraph",
-      "content": "Upload a cover image per-collection: go to Shopify Admin → Settings → Custom data → Collections → Add definition. Set Namespace = custom, Key = cover_image, Type = File (image). Then open any collection and upload its cover image in the Metafields section at the bottom of the page."
+      "content": "Upload a cover image per-collection: go to Shopify Admin → Settings → Custom data → Collections → Add definition. Set Namespace = custom, Key = custom_cover_image, Type = File (image). Then open any collection and upload its cover image in the Metafields section at the bottom of the page."
+    },
+    {
+      "type": "paragraph",
+      "content": "Image vertical position per-collection: Add another definition with Namespace = custom, Key = cover_image_position, Type = Single-line text. Then on each collection enter top, center, or bottom. If left blank the default below is used."
     },
     {
       "type": "header",
@@ -90,6 +95,17 @@
       "step": 20,
       "unit": "px",
       "default": 460
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image vertical position",
+      "options": [
+        { "label": "Top",    "value": "top"    },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "bottom" }
+      ],
+      "default": "center"
     },
     {
       "type": "range",
@@ -139,7 +155,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center var(--cb-img-pos, center);
   display: block;
 }
 .collection-banner-section .cb-img {
@@ -148,7 +164,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center var(--cb-img-pos, center);
   display: block;
 }
 .collection-banner-section .cb-placeholder {
