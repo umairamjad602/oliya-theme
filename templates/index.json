@@ -204,13 +204,13 @@
         "text_KFkg38": {
           "type": "text",
           "settings": {
-            "text": "<p>Upgrade your wardrobe with modern-fit denim jeans designed to deliver all-day comfort and a smart stylish look.<br/><br/>From relaxed weekends to everyday street style, our men’s jeans combine perfect fitting with premium quality denim.</p>"
+            "text": "<p>Crafted from breathable European linen, our trousers are designed for the man who values comfort without compromising elegance.<br/><br/>From sun-drenched mornings to relaxed evenings, each pair drapes effortlessly — softening with every wear, built to last seasons beyond trends.</p>"
           }
         },
         "button_N6qEjg": {
           "type": "button",
           "settings": {
-            "button": "Learn More",
+            "button": "Discover More",
             "button_url": "shopify://collections/pents"
           }
         }
@@ -228,7 +228,7 @@
         "section_padding_bottom_xs": 60,
         "container": "fluid",
         "show_row_reverse": true,
-        "home_about_image": "shopify://shop_images/dzhinsi-casual-muzhskie.jpg"
+        "home_about_image": "shopify://shop_images/WhatsApp_Image_2026-05-26_at_3.26.26_PM.jpg"
       }
     },
     "featured_collection_zUMdyw": {
