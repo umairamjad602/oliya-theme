@@ -96,6 +96,22 @@
             "menu_link_label_line_height": 1.1
           }
         },
+        "menu_link_zrmzXk": {
+          "type": "menu_link",
+          "settings": {
+            "menu_link_title": "Track Your Order",
+            "menu_link_url": "https://olyiashop.com/apps/17TRACK",
+            "menu_link_label": "",
+            "menu_link_label_color": "#ffffff",
+            "menu_link_label_font_size": 10,
+            "menu_link_label_top_position": 10,
+            "menu_link_label_bgcolor": "#05d14b",
+            "menu_link_label_text_transform": "uppercase",
+            "menu_link_label_font-weight": 400,
+            "menu_link_label_border_radius": 3,
+            "menu_link_label_line_height": 1.1
+          }
+        },
         "menu_link_YrjTE8": {
           "type": "menu_link",
           "settings": {
@@ -117,6 +133,7 @@
         "menu_link_hYMi8W",
         "menu_category_z74jKR",
         "menu_link_ABT001",
+        "menu_link_zrmzXk",
         "menu_link_YrjTE8"
       ],
       "settings": {
@@ -161,7 +178,10 @@
         "shipping_threshold": "49.00+",
         "text_icon3": "<i class=\"ri-coupon-line\"></i>",
         "icon_url3": "",
-        "service_desc3": "SPECIAL GIFT WITH EVERY PURCHASE"
+        "service_desc3": "SPECIAL GIFT WITH EVERY PURCHASE",
+        "text_icon4": "",
+        "icon_url4": "",
+        "service_desc4": "Easy Return"
       }
     },
     "news-popup": {
