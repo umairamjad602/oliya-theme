@@ -235,7 +235,7 @@
           "8a0d36a2-baed-4dac-83b6-1cb034ca3069"
         ],
         "settings": {
-          "menu_enable": true
+          "menu_enable": false
         }
       },
       "email-popup": {
