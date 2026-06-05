@@ -168,7 +168,9 @@
               "pents",
               "shoes",
               "shorts",
-              "tops"
+              "tops",
+              "bottoms",
+              "objects"
             ],
             "desktop_width_percent": 100,
             "background_color": "#ffffff",
