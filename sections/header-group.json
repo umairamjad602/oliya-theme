@@ -165,8 +165,9 @@
     },
     "announcement-bar": {
       "type": "announcement-bar",
+      "disabled": true,
       "settings": {
-        "container": "fluid",
+        "container": "normal",
         "notification_bg_color": "#000000",
         "notification_txt_color": "#ffffff",
         "text_icon1": "",

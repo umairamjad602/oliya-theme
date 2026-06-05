@@ -9,6 +9,29 @@
  */
 {
   "sections": {
+    "announcement_bar_hzJegq": {
+      "type": "announcement-bar",
+      "disabled": true,
+      "name": "Announcement bar",
+      "settings": {
+        "container": "fluid",
+        "notification_bg_color": "#000000",
+        "notification_txt_color": "#ffffff",
+        "text_icon1": "",
+        "icon_url1": "",
+        "service_desc1": "",
+        "text_icon2": "",
+        "icon_url2": "",
+        "service_desc2": "",
+        "shipping_threshold": "",
+        "text_icon3": "",
+        "icon_url3": "",
+        "service_desc3": "",
+        "text_icon4": "",
+        "icon_url4": "",
+        "service_desc4": ""
+      }
+    },
     "slideshow": {
       "type": "slideshow",
       "blocks": {
@@ -17,9 +40,9 @@
           "settings": {
             "slider_category_handle": "",
             "slider_category_handle2": "",
-            "slider_img": "shopify://shop_images/Bannerr.png",
-            "slider_mobile_img": "shopify://shop_images/Bannerr_cc0c2684-110d-4fac-8ca8-1c4612723c7c.png",
-            "mobile_text_enable": false,
+            "slider_img": "shopify://shop_images/hana_copy.jpg",
+            "slider_mobile_img": "shopify://shop_images/WhatsApp_Image_2026-06-04_at_10.23.36_PM.jpg",
+            "mobile_text_enable": true,
             "slider_desc": "STYLE THAT NEVER SHEDS",
             "slider_desc_color": "#ffffff",
             "slider_title": "Menswear built to outlast the trend cycle.",
@@ -156,15 +179,15 @@
     "featured-collection": {
       "type": "featured-collection",
       "blocks": {
-        "product_tab_k7yVWy": {
+        "product_tab_w3CkC7": {
           "type": "product_tab",
           "settings": {
-            "tab_product": "pents"
+            "tab_product": "tops"
           }
         }
       },
       "block_order": [
-        "product_tab_k7yVWy"
+        "product_tab_w3CkC7"
       ],
       "settings": {
         "container": "normal",
@@ -185,7 +208,7 @@
         "slider_crop": false,
         "category_special_product_view": "grid",
         "product_limit": 4,
-        "category_special_product_col": "1",
+        "category_special_product_col": "2",
         "product_view": "4",
         "product_view_lg": "4",
         "product_view_sm": "2",
@@ -228,7 +251,7 @@
         "section_padding_bottom_xs": 60,
         "container": "fluid",
         "show_row_reverse": true,
-        "home_about_image": "shopify://shop_images/WhatsApp_Image_2026-05-26_at_3.26.26_PM.jpg"
+        "home_about_image": "shopify://shop_images/WhatsApp_Image_2026-06-04_at_10.15.27_PM.jpg"
       }
     },
     "featured_collection_zUMdyw": {
@@ -307,6 +330,7 @@
     }
   },
   "order": [
+    "announcement_bar_hzJegq",
     "slideshow",
     "collection_list_ye7dng",
     "image_with_text_QmhPBQ",
