@@ -37,11 +37,12 @@
       "blocks": {
         "slide_G9qKzC": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "slider_category_handle": "",
             "slider_category_handle2": "",
             "slider_img": "shopify://shop_images/hana_copy.jpg",
-            "slider_mobile_img": "shopify://shop_images/WhatsApp_Image_2026-06-04_at_10.23.36_PM.jpg",
+            "slider_mobile_img": "shopify://shop_images/WhatsApp_Image_2026-06-04_at_10.23.00_PM.jpg",
             "mobile_text_enable": true,
             "slider_desc": "STYLE THAT NEVER SHEDS",
             "slider_desc_color": "#ffffff",
@@ -119,6 +120,7 @@
         "slider_cat_njGBkC",
         "slider_cat_objects"
       ],
+      "disabled": true,
       "name": "Collection list",
       "settings": {
         "container": "fluid",
@@ -140,6 +142,23 @@
     "1780660695e1c57323": {
       "type": "_blocks",
       "blocks": {
+        "ai_gen_block_66485a0_MNG8dJ": {
+          "type": "ai_gen_block_66485a0",
+          "settings": {
+            "enable_banner_1": true,
+            "banner_desktop_image_1": "shopify://shop_images/WhatsApp_Image_2026-06-04_at_10.23.00_PM.jpg",
+            "banner_mobile_image_1": "shopify://shop_images/hana_copy.jpg",
+            "banner_url_1": "",
+            "enable_banner_2": false,
+            "banner_url_2": "",
+            "enable_banner_3": false,
+            "banner_url_3": "",
+            "desktop_width_percent": 100,
+            "mobile_width_percent": 100,
+            "slide_gap": 2
+          },
+          "blocks": {}
+        },
         "ai_gen_block_756f2fb_hE7iCd": {
           "type": "ai_gen_block_756f2fb",
           "settings": {
@@ -216,6 +235,7 @@
         }
       },
       "block_order": [
+        "ai_gen_block_66485a0_MNG8dJ",
         "ai_gen_block_756f2fb_hE7iCd"
       ],
       "settings": {}
