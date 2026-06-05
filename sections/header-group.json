@@ -165,6 +165,27 @@
     },
     "announcement-bar": {
       "type": "announcement-bar",
+      "settings": {
+        "container": "normal",
+        "notification_bg_color": "#000000",
+        "notification_txt_color": "#ffffff",
+        "text_icon1": "",
+        "icon_url1": "",
+        "service_desc1": "",
+        "text_icon2": "<i class=\"ri-truck-line\"></i>",
+        "icon_url2": "",
+        "service_desc2": "FREE SHIPPING",
+        "shipping_threshold": "49.00+",
+        "text_icon3": "",
+        "icon_url3": "",
+        "service_desc3": "",
+        "text_icon4": "",
+        "icon_url4": "",
+        "service_desc4": ""
+      }
+    },
+    "announcement_bar_nLJbAG": {
+      "type": "announcement-bar",
       "disabled": true,
       "settings": {
         "container": "normal",
@@ -207,6 +228,7 @@
   "order": [
     "header",
     "announcement-bar",
+    "announcement_bar_nLJbAG",
     "news-popup"
   ]
 }

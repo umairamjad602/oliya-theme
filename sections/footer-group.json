@@ -16,6 +16,7 @@
       "blocks": {
         "logo_info_kz6DRX": {
           "type": "logo_info",
+          "disabled": true,
           "settings": {
             "logo_enable": true,
             "logo_desc": "",
