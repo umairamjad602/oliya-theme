@@ -242,7 +242,7 @@
       "email-popup": {
         "type": "email-popup",
         "settings": {
-          "enable_popup": true,
+          "enable_popup": false,
           "delay_seconds": 8,
           "scroll_trigger": 30,
           "popup_image": "shopify://shop_images/7afd104f-9a46-4827-bc2e-085cd109bacc.jpg",
