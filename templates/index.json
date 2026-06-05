@@ -224,7 +224,7 @@
             "arrow_icon_size": 15,
             "arrow_bg_color": "#ffffff",
             "arrow_bg_hover_color": "#869192",
-            "arrow_icon_color": "#869091",
+            "arrow_icon_color": "#01071e",
             "arrow_icon_hover_color": "#808080",
             "arrow_border_width": 1,
             "arrow_border_color": "#808080",
@@ -246,19 +246,19 @@
         "heading_8aAQTD": {
           "type": "heading",
           "settings": {
-            "heading": "Relaxed Fit, Modern Style"
+            "heading": "The Considered Trouser"
           }
         },
         "text_3XXUVt": {
           "type": "text",
           "settings": {
-            "text": "<p>Stay comfortable and stylish with lightweight men’s pants designed for relaxed everyday wear and effortless summer fashion.<br/><br/>Experience breathable comfort and modern style with versatile pants perfect for casual outings, vacations, and daily wear.</p>"
+            "text": "<p>Relaxed tailoring in premium cotton and breathable linen — made to move from morning to evening with quiet ease.</p>"
           }
         },
         "button_dkDM6V": {
           "type": "button",
           "settings": {
-            "button": "Learn More",
+            "button": "Shop Trousers",
             "button_url": "shopify://collections/pents"
           }
         }
@@ -276,7 +276,7 @@
         "section_padding_bottom_xs": 60,
         "container": "fluid",
         "show_row_reverse": false,
-        "home_about_image": "shopify://shop_images/ChatGPT_Image_May_20_2026_01_32_44_AM.png"
+        "home_about_image": "shopify://shop_images/WhatsApp_Image_2026-06-04_at_10.06.48_PM.jpg"
       }
     },
     "featured-collection": {
@@ -324,20 +324,20 @@
         "heading_9LjMzh": {
           "type": "heading",
           "settings": {
-            "heading": "TAILORED LINEN TROUSERS"
+            "heading": "Made by Hand"
           }
         },
         "text_KFkg38": {
           "type": "text",
           "settings": {
-            "text": "<p>Crafted from breathable European linen, our trousers are designed for the man who values comfort without compromising elegance.<br/><br/>From sun-drenched mornings to relaxed evenings, each pair drapes effortlessly — softening with every wear, built to last seasons beyond trends.</p>"
+            "text": "<p>Premium suede loafers, hand-crafted for everyday comfort and quiet</p>"
           }
         },
         "button_N6qEjg": {
           "type": "button",
           "settings": {
-            "button": "Discover More",
-            "button_url": "shopify://collections/pents"
+            "button": "Shop Footwear",
+            "button_url": "shopify://collections/shoes"
           }
         }
       },
