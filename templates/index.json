@@ -257,15 +257,15 @@
     "featured_collection_zUMdyw": {
       "type": "featured-collection",
       "blocks": {
-        "product_tab_3KiNKq": {
+        "product_tab_9cX7cQ": {
           "type": "product_tab",
           "settings": {
-            "tab_product": "shorts"
+            "tab_product": "tops"
           }
         }
       },
       "block_order": [
-        "product_tab_3KiNKq"
+        "product_tab_9cX7cQ"
       ],
       "settings": {
         "container": "normal",
@@ -286,7 +286,7 @@
         "slider_crop": false,
         "category_special_product_view": "grid",
         "product_limit": 4,
-        "category_special_product_col": "1",
+        "category_special_product_col": "2",
         "product_view": "4",
         "product_view_lg": "4",
         "product_view_sm": "2",
