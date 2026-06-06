@@ -12,20 +12,23 @@
     "collection-banner": {
       "type": "collection-banner",
       "settings": {
-        "banner_height": 460,
-        "overlay_opacity": 40,
-        "text_align": "center",
+        "custom_title": "",
+        "custom_description": "",
         "show_description": true,
-        "show_product_count": false
+        "show_product_count": false,
+        "banner_height": 460,
+        "image_position": "center",
+        "overlay_opacity": 40,
+        "text_align": "center"
       }
     },
     "collection-template": {
       "type": "collection-template",
       "settings": {
-        "container": "normal",
-        "section_background_color": "#f8f7f3",
+        "container": "fluid",
+        "section_background_color": "#f5f2ec",
         "product_view": "grid-5",
-        "product_view_lg": "grid-lg-3",
+        "product_view_lg": "grid-lg-4",
         "product_view_sm": "grid-sm-2",
         "tab_bar_enable": true,
         "short_by_enable": true
