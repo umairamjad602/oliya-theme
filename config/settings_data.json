@@ -131,7 +131,7 @@
     "label_border_radius": 10,
     "discount_label_color": "#ffffff",
     "discount_label_bgcolor": "#A00000",
-    "sale_percent_enable": true,
+    "sale_percent_enable": false,
     "soldout_title": "Sold out",
     "search_enable": true,
     "wishlist_page_url": "shopify://pages/wishlist",
