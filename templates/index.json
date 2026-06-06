@@ -471,6 +471,10 @@
         "border_color": "#222222",
         "border_color_opacity": 0.1
       }
+    },
+    "1780758678a00d1195": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
@@ -483,6 +487,7 @@
     "image_with_text_hAM8k7",
     "featured_collection_zUMdyw",
     "newsletter_77mjMN",
-    "section_border_jADRhD"
+    "section_border_jADRhD",
+    "1780758678a00d1195"
   ]
 }
