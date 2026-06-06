@@ -17,7 +17,7 @@
         "custom_description": "",
         "show_description": false,
         "show_product_count": false,
-        "banner_height": 200,
+        "banner_height": 360,
         "image_position": "center",
         "overlay_opacity": 0,
         "text_align": "center"
