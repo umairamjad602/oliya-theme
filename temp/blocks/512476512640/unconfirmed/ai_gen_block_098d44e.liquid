@@ -1,6 +1,687 @@
+{% doc %}
+  @prompt
+    3 banner photos with no text or button but when click each one it redirect to soecific category and give me the option to make the desctop and mobile view the size to be small and show a small slider that shows there are more than one banner and make the backgrounf of it transparent, i want each banner to be single and swipe through them not all in one slide
+    
+    , remove teh 3 dots just make it a slides also i want  tp be able to choose a photo in desktop and mobile diffrent , remove the white gp in the corners and make it take the full size in mobile and desktop jsut keep a space like 2 px or something, give the ability to close abnner 1 and 2 and 3 alspo i want teh option to choose to aoutomatically change to the next phtoto or a little arows that shows you can swip also i want to be able to close or open each one seprately in phone or laptop
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-banner-slider-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: transparent;
+    display: block;
+  }
+
+  .ai-banner-slider-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-banner-slider-track-{{ ai_gen_id }} {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+    gap: {{ block.settings.banner_gap }}px;
+  }
+
+  .ai-banner-slide-{{ ai_gen_id }} {
+    flex: 0 0 100%;
+    min-width: 100%;
+    position: relative;
+  }
+
+  .ai-banner-slide-{{ ai_gen_id }} a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-banner-slide-{{ ai_gen_id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ai-banner-desktop-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  .ai-banner-mobile-{{ ai_gen_id }} {
+    display: none;
+  }
+
+  .ai-banner-arrows-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    padding: 0 {{ block.settings.arrow_spacing }}px;
+  }
+
+  .ai-banner-arrow-{{ ai_gen_id }} {
+    background: {{ block.settings.arrow_bg_color }};
+    border: none;
+    width: {{ block.settings.arrow_size }}px;
+    height: {{ block.settings.arrow_size }}px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    opacity: {{ block.settings.arrow_opacity }};
+  }
+
+  .ai-banner-arrow-{{ ai_gen_id }}:hover {
+    opacity: 1;
+    background: {{ block.settings.arrow_hover_bg_color }};
+  }
+
+  .ai-banner-arrow-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    fill: {{ block.settings.arrow_color }};
+  }
+
+  .ai-banner-arrow-{{ ai_gen_id }}:hover svg {
+    fill: {{ block.settings.arrow_hover_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-banner-desktop-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-banner-mobile-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .ai-banner-arrows-{{ ai_gen_id }} {
+      padding: 0 {{ block.settings.arrow_spacing_mobile }}px;
+    }
+
+    .ai-banner-arrow-{{ ai_gen_id }} {
+      width: {{ block.settings.arrow_size_mobile }}px;
+      height: {{ block.settings.arrow_size_mobile }}px;
+    }
+  }
+{% endstyle %}
+
+<banner-slider-{{ ai_gen_id }}
+  class="ai-banner-slider-{{ ai_gen_id }}"
+  data-autoplay="{{ block.settings.autoplay_enabled }}"
+  data-autoplay-speed="{{ block.settings.autoplay_speed }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-banner-slider-wrapper-{{ ai_gen_id }}">
+    <div class="ai-banner-slider-track-{{ ai_gen_id }}">
+      {% if block.settings.banner_1_enabled %}
+        <div class="ai-banner-slide-{{ ai_gen_id }}" data-slide="1">
+          {% if block.settings.banner_1_link != blank %}
+            <a href="{{ block.settings.banner_1_link }}">
+          {% endif %}
+            {% if block.settings.banner_1_desktop %}
+              <div class="ai-banner-desktop-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_1_desktop | image_url: width: 2000 }}"
+                  alt="{{ block.settings.banner_1_desktop.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_1_desktop.width }}"
+                  height="{{ block.settings.banner_1_desktop.height }}"
+                >
+              </div>
+            {% else %}
+              <div class="ai-banner-desktop-{{ ai_gen_id }}">
+                {{ 'hero-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+            {% if block.settings.banner_1_mobile %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_1_mobile | image_url: width: 1000 }}"
+                  alt="{{ block.settings.banner_1_mobile.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_1_mobile.width }}"
+                  height="{{ block.settings.banner_1_mobile.height }}"
+                >
+              </div>
+            {% elsif block.settings.banner_1_desktop %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_1_desktop | image_url: width: 1000 }}"
+                  alt="{{ block.settings.banner_1_desktop.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_1_desktop.width }}"
+                  height="{{ block.settings.banner_1_desktop.height }}"
+                >
+              </div>
+            {% else %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                {{ 'hero-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          {% if block.settings.banner_1_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.banner_2_enabled %}
+        <div class="ai-banner-slide-{{ ai_gen_id }}" data-slide="2">
+          {% if block.settings.banner_2_link != blank %}
+            <a href="{{ block.settings.banner_2_link }}">
+          {% endif %}
+            {% if block.settings.banner_2_desktop %}
+              <div class="ai-banner-desktop-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_2_desktop | image_url: width: 2000 }}"
+                  alt="{{ block.settings.banner_2_desktop.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_2_desktop.width }}"
+                  height="{{ block.settings.banner_2_desktop.height }}"
+                >
+              </div>
+            {% else %}
+              <div class="ai-banner-desktop-{{ ai_gen_id }}">
+                {{ 'hero-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+            {% if block.settings.banner_2_mobile %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_2_mobile | image_url: width: 1000 }}"
+                  alt="{{ block.settings.banner_2_mobile.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_2_mobile.width }}"
+                  height="{{ block.settings.banner_2_mobile.height }}"
+                >
+              </div>
+            {% elsif block.settings.banner_2_desktop %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_2_desktop | image_url: width: 1000 }}"
+                  alt="{{ block.settings.banner_2_desktop.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_2_desktop.width }}"
+                  height="{{ block.settings.banner_2_desktop.height }}"
+                >
+              </div>
+            {% else %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                {{ 'hero-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          {% if block.settings.banner_2_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if block.settings.banner_3_enabled %}
+        <div class="ai-banner-slide-{{ ai_gen_id }}" data-slide="3">
+          {% if block.settings.banner_3_link != blank %}
+            <a href="{{ block.settings.banner_3_link }}">
+          {% endif %}
+            {% if block.settings.banner_3_desktop %}
+              <div class="ai-banner-desktop-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_3_desktop | image_url: width: 2000 }}"
+                  alt="{{ block.settings.banner_3_desktop.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_3_desktop.width }}"
+                  height="{{ block.settings.banner_3_desktop.height }}"
+                >
+              </div>
+            {% else %}
+              <div class="ai-banner-desktop-{{ ai_gen_id }}">
+                {{ 'hero-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+            {% if block.settings.banner_3_mobile %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_3_mobile | image_url: width: 1000 }}"
+                  alt="{{ block.settings.banner_3_mobile.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_3_mobile.width }}"
+                  height="{{ block.settings.banner_3_mobile.height }}"
+                >
+              </div>
+            {% elsif block.settings.banner_3_desktop %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                <img
+                  src="{{ block.settings.banner_3_desktop | image_url: width: 1000 }}"
+                  alt="{{ block.settings.banner_3_desktop.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.banner_3_desktop.width }}"
+                  height="{{ block.settings.banner_3_desktop.height }}"
+                >
+              </div>
+            {% else %}
+              <div class="ai-banner-mobile-{{ ai_gen_id }}">
+                {{ 'hero-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          {% if block.settings.banner_3_link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_arrows %}
+      <div class="ai-banner-arrows-{{ ai_gen_id }}">
+        <button
+          class="ai-banner-arrow-{{ ai_gen_id }} ai-banner-arrow-prev-{{ ai_gen_id }}"
+          aria-label="Previous slide"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          </svg>
+        </button>
+        <button
+          class="ai-banner-arrow-{{ ai_gen_id }} ai-banner-arrow-next-{{ ai_gen_id }}"
+          aria-label="Next slide"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+</banner-slider-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BannerSlider{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentSlide = 0;
+        this.autoplayInterval = null;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-banner-slider-track-{{ ai_gen_id }}');
+        this.slides = this.querySelectorAll('.ai-banner-slide-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-banner-arrow-prev-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('.ai-banner-arrow-next-{{ ai_gen_id }}');
+        this.autoplayEnabled = this.dataset.autoplay === 'true';
+        this.autoplaySpeed = parseInt(this.dataset.autoplaySpeed) || 5000;
+
+        if (this.slides.length === 0) return;
+
+        this.setupEventListeners();
+        this.setupTouchEvents();
+
+        if (this.autoplayEnabled) {
+          this.startAutoplay();
+        }
+      }
+
+      setupEventListeners() {
+        if (this.prevButton) {
+          this.prevButton.addEventListener('click', () => this.prevSlide());
+        }
+        if (this.nextButton) {
+          this.nextButton.addEventListener('click', () => this.nextSlide());
+        }
+      }
+
+      setupTouchEvents() {
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        this.track.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].clientX;
+          isDragging = true;
+          this.stopAutoplay();
+        });
+
+        this.track.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          currentX = e.touches[0].clientX;
+        });
+
+        this.track.addEventListener('touchend', () => {
+          if (!isDragging) return;
+          isDragging = false;
+
+          const diff = startX - currentX;
+          if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+              this.nextSlide();
+            } else {
+              this.prevSlide();
+            }
+          }
+
+          if (this.autoplayEnabled) {
+            this.startAutoplay();
+          }
+        });
+
+        this.track.addEventListener('mousedown', (e) => {
+          startX = e.clientX;
+          isDragging = true;
+          this.stopAutoplay();
+          e.preventDefault();
+        });
+
+        this.track.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          currentX = e.clientX;
+        });
+
+        this.track.addEventListener('mouseup', () => {
+          if (!isDragging) return;
+          isDragging = false;
+
+          const diff = startX - currentX;
+          if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+              this.nextSlide();
+            } else {
+              this.prevSlide();
+            }
+          }
+
+          if (this.autoplayEnabled) {
+            this.startAutoplay();
+          }
+        });
+
+        this.track.addEventListener('mouseleave', () => {
+          if (isDragging) {
+            isDragging = false;
+            if (this.autoplayEnabled) {
+              this.startAutoplay();
+            }
+          }
+        });
+      }
+
+      nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+        this.updateSlidePosition();
+      }
+
+      prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+        this.updateSlidePosition();
+      }
+
+      updateSlidePosition() {
+        const offset = -this.currentSlide * 100;
+        this.track.style.transform = `translateX(${offset}%)`;
+      }
+
+      startAutoplay() {
+        this.stopAutoplay();
+        this.autoplayInterval = setInterval(() => {
+          this.nextSlide();
+        }, this.autoplaySpeed);
+      }
+
+      stopAutoplay() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+          this.autoplayInterval = null;
+        }
+      }
+
+      disconnectedCallback() {
+        this.stopAutoplay();
+      }
+    }
+
+    customElements.define('banner-slider-{{ ai_gen_id }}', BannerSlider{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Banner slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_1_enabled",
+      "label": "Enable banner 1",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_1_show_desktop",
+      "label": "Show on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_1_show_mobile",
+      "label": "Show on mobile",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_1_desktop",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_1_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "url",
+      "id": "banner_1_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Banner 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_2_enabled",
+      "label": "Enable banner 2",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_2_show_desktop",
+      "label": "Show on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_2_show_mobile",
+      "label": "Show on mobile",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_2_desktop",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_2_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "url",
+      "id": "banner_2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Banner 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_3_enabled",
+      "label": "Enable banner 3",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_3_show_desktop",
+      "label": "Show on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_3_show_mobile",
+      "label": "Show on mobile",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_3_desktop",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_3_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "url",
+      "id": "banner_3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Slider settings"
+    },
+    {
+      "type": "range",
+      "id": "banner_gap",
+      "label": "Gap between banners",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_enabled",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed",
+      "min": 2000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    },
+    {
+      "type": "header",
+      "content": "Navigation arrows"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "arrow_size",
+      "label": "Arrow size (desktop)",
+      "min": 30,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "arrow_size_mobile",
+      "label": "Arrow size (mobile)",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "arrow_spacing",
+      "label": "Arrow spacing (desktop)",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "arrow_spacing_mobile",
+      "label": "Arrow spacing (mobile)",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "arrow_opacity",
+      "label": "Arrow opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.8
+    },
+    {
+      "type": "color",
+      "id": "arrow_bg_color",
+      "label": "Arrow background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_bg_color",
+      "label": "Arrow hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "arrow_hover_color",
+      "label": "Arrow hover icon color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner slider"
+    }
+  ]
+}
 {% endschema %}
