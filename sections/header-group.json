@@ -140,7 +140,7 @@
         "container": "fluid",
         "logo_alignment": "center",
         "menu_alignment": "left",
-        "header_transparent_enable": true,
+        "header_transparent_enable": false,
         "header_sticky_enable": true,
         "header_bgcolor": "#f5f2ec",
         "header_main_menu_title": "Menu",
