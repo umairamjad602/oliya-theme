@@ -146,7 +146,7 @@
         "header_menutext_color": "#000000",
         "header_menutext_hvr_color": "#f2845a",
         "menu_font_size": 16,
-        "menu_font_size_lg": 13,
+        "menu_font_size_lg": 12,
         "menu_font_weight": 500,
         "menu_text_transform": "uppercase",
         "header_menuicon_color": "#000000",
