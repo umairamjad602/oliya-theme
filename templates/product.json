@@ -25,15 +25,17 @@
         "product_full_panel_Utmqci": {
           "type": "product_full_panel",
           "settings": {
-            "free_shipping_text": "Free Standard Shipping Over $99.00",
-            "shipping_time_text": "Shipping Time: 10 - 20 days",
+            "free_shipping_text": "",
+            "shipping_time_text": "Shipping Time: 6 - 12 days",
             "return_policy_text": "Returns accepted within 30 days of delivery date.",
             "care_instructions": "Machine wash cold with like colors. Do not bleach. Tumble dry low.",
             "size_guide_enable": true,
             "size_guide_text": "SIZE GUIDE",
             "size_guide_url": "",
             "more_sizing_text": "More Sizing Options",
-            "size_chart_options": "Standard Size, US Size, UK Size, EU Size"
+            "size_chart_options": "Standard Size, US Size, UK Size, EU Size",
+            "size_chart_page": "",
+            "size_chart_html": ""
           }
         }
       },
