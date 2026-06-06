@@ -165,6 +165,7 @@
     },
     "announcement-bar": {
       "type": "announcement-bar",
+      "disabled": true,
       "settings": {
         "container": "normal",
         "notification_bg_color": "#000000",
