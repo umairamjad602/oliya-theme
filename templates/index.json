@@ -144,6 +144,7 @@
       "blocks": {
         "ai_gen_block_66485a0_MNG8dJ": {
           "type": "ai_gen_block_66485a0",
+          "disabled": true,
           "settings": {
             "enable_banner_1": true,
             "banner_desktop_image_1": "shopify://shop_images/WhatsApp_Image_2026-06-06_at_10.22.07_AM.jpg",
@@ -158,6 +159,41 @@
             "desktop_width_percent": 100,
             "mobile_width_percent": 100,
             "slide_gap": 2
+          },
+          "blocks": {}
+        },
+        "ai_gen_block_098d44e_iLPPdV": {
+          "type": "ai_gen_block_098d44e",
+          "settings": {
+            "banner_1_enabled": true,
+            "banner_1_show_desktop": true,
+            "banner_1_show_mobile": true,
+            "banner_1_desktop": "shopify://shop_images/WhatsApp_Image_2026-06-06_at_10.22.07_AM.jpg",
+            "banner_1_mobile": "shopify://shop_images/WhatsApp_Image_2026-06-04_at_10.19.36_PM_1_copy.jpg",
+            "banner_1_link": "shopify://collections",
+            "banner_2_enabled": true,
+            "banner_2_show_desktop": true,
+            "banner_2_show_mobile": true,
+            "banner_2_desktop": "shopify://shop_images/WhatsApp_Image_2026-06-06_at_10.22.46_AM.jpg",
+            "banner_2_mobile": "shopify://shop_images/hana_copy.jpg",
+            "banner_2_link": "shopify://collections/all",
+            "banner_3_enabled": false,
+            "banner_3_show_desktop": false,
+            "banner_3_show_mobile": false,
+            "banner_3_link": "",
+            "banner_gap": 3,
+            "autoplay_enabled": true,
+            "autoplay_speed": 5500,
+            "show_arrows": true,
+            "arrow_size": 30,
+            "arrow_size_mobile": 24,
+            "arrow_spacing": 10,
+            "arrow_spacing_mobile": 7,
+            "arrow_opacity": 0.8,
+            "arrow_bg_color": "#f5f2ec",
+            "arrow_hover_bg_color": "#000000",
+            "arrow_color": "#000000",
+            "arrow_hover_color": "#ffffff"
           },
           "blocks": {}
         },
@@ -240,6 +276,7 @@
       },
       "block_order": [
         "ai_gen_block_66485a0_MNG8dJ",
+        "ai_gen_block_098d44e_iLPPdV",
         "ai_gen_block_756f2fb_hE7iCd"
       ],
       "settings": {}
