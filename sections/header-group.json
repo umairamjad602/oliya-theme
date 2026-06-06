@@ -166,7 +166,7 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
-        "container": "normal",
+        "container": "fluid",
         "notification_bg_color": "#000000",
         "notification_txt_color": "#ffffff",
         "text_icon1": "",
